@@ -11,3 +11,18 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 *.iml
 *.~undo-tree~
+
+# Archivos de Eclipse 
+.project
+.classpath
+.settings/
+
+# Archivos de IntelliJ (por si acaso)
+.idea/
+*.iml
+
+# Archivos de VSCode
+.vscode/
+
+# Archivos de compilación
+target/
