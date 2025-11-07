@@ -16,9 +16,11 @@ jobs:
         run: docker cp $(docker compose -f docker/docker-compose.yaml ps -q app):/usr/src/app/target/jacoco.xml .
       - name: Upload coverage report
         uses: codecov/codecov-action@v2
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
         with:
-          files: ./jacoco.xml
-          fail_ci_if_error: true
+         token: ${{ secrets.CODECOV_TOKEN }}
+
 
 
   package:
