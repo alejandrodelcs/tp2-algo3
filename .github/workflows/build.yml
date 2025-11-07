@@ -15,7 +15,7 @@ jobs:
             APP_ID=$(docker compose -f docker/docker-compose.yaml ps -q app)
             docker cp $APP_ID:/usr/src/app/target/site/jacoco/jacoco.xml jacoco.xml
       - name: Upload coverage report
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
           files: jacoco.xml
           token: ${{ secrets.CODECOV_TOKEN }}
