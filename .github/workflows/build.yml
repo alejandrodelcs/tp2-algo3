@@ -12,8 +12,13 @@ jobs:
         run: docker compose -f docker/docker-compose.yaml exec -T app bash scripts/build.sh
       - name: Run mutation test
         run: docker compose -f docker/docker-compose.yaml exec -T app bash scripts/run_mutation_test.sh
+      - name: Copy JaCoCo coverage to host
+        run: docker cp $(docker compose -f docker/docker-compose.yaml ps -q app):/usr/src/app/target/jacoco.exec .
       - name: Upload coverage report
         uses: codecov/codecov-action@v2
+        with:
+          files: ./jacoco.exec
+          fail_ci_if_error: true
 
 
   package:
