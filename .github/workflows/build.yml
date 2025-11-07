@@ -8,10 +8,18 @@ jobs:
         uses: actions/checkout@v2
       - name: Start services
         run: scripts/start_services.sh
-      - name: Run test suite
+      - name: Run tests
         run: docker compose -f docker/docker-compose.yaml exec -T app bash scripts/build.sh
+      - name: Copy JaCoCo report from container
+        run: |
+            APP_ID=$(docker compose -f docker/docker-compose.yaml ps -q app)
+            docker cp $APP_ID:/usr/src/app/target/site/jacoco/jacoco.xml jacoco.xml
       - name: Upload coverage report
         uses: codecov/codecov-action@v2
+        with:
+          files: jacoco.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
 
 
 
