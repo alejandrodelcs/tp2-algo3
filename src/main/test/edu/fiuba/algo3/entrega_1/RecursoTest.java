@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.Material.*;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
-public class MaterialTest {
+public class RecursoTest {
     /*
     Cada hexágono produce un tipo de Recurso:
      Madera (bosque),
@@ -22,7 +22,7 @@ public class MaterialTest {
 
         //Act
 
-        int valorObtenido = material.recibir();
+        int valorObtenido = material.obtenerRecurso();
 
         //Assertion
 
@@ -32,12 +32,12 @@ public class MaterialTest {
     @Test
     public void test01ElJugadorRecibe1DeLadrillo(){
         //Arrange
-        Ladrillo material = new Ladrillo();
+        Ladrillo recurso = new Ladrillo();
         int valorEsperado = 1;
 
         //Act
 
-        int valorObtenido = material.recibir();
+        int valorObtenido = recurso.obtenerRecurso();
 
         //Assertion
 
@@ -48,12 +48,12 @@ public class MaterialTest {
     @Test
     public void test01ElJugadorRecibe1DeLana(){
         //Arrange
-        Lana material = new Lana();
+        Lana recurso = new Lana();
         int valorEsperado = 1;
 
         //Act
 
-        int valorObtenido = material.recibir();
+        int valorObtenido = recurso.obtenerRecurso();
 
         //Assertion
 
@@ -64,12 +64,12 @@ public class MaterialTest {
     @Test
     public void test01ElJugadorRecibe1DeGrano(){
         //Arrange
-        Grano material = new Grano();
+        Grano recurso = new Grano();
         int valorEsperado = 1;
 
         //Act
 
-        int valorObtenido = material.recibir();
+        int valorObtenido = recurso.obtenerRecurso();
 
         //Assertion
 
@@ -80,12 +80,12 @@ public class MaterialTest {
     @Test
     public void test01ElJugadorRecibe1Mineral(){
         //Arrange
-        Material material = new Mineral();
+        Recurso recurso = new Mineral();
         int valorEsperado = 1;
 
         //Act
 
-        int valorObtenido = material.recibir();
+        int valorObtenido = recurso.obtenerRecurso();
 
         //Assertion
 

@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.modelo.Material;
 
-public class Mineral extends Material {
+public class Mineral extends Recurso {
 
     @Override
-    public int recibir() {
+    public int obtenerRecurso() {
         this.cantidad++;
         return cantidad;
     }
