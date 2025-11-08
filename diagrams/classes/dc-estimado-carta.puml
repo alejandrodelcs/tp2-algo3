@@ -1,0 +1,57 @@
+@startuml
+
+abstract Carta {
+    {abstract} + usar(Jugador jugador)
+    {abstract} + puedeUsar(Jugador jugador): boolean
+}
+
+abstract Recurso {
+    - int cantidad
+    + obtenerRecurso(): int
+}
+
+class Madera extends Recurso{
+    + obtenerRecurso(): int
+}
+
+class Ladrillo extends Recurso{
+    + obtenerRecurso(): int
+}
+
+class Lana extends Recurso {
+    + obtenerRecurso(): int
+}
+
+class Grano extends Recurso {
+    + obtenerRecurso(): int
+}
+
+class Mineral extends Recurso{
+   + obtenerRecurso(): int
+}
+
+class CartaRecurso {
+    - recurso:Recurso
+    + usar(Jugador jugador)
+    + puedeUsar(Jugador jugador): boolean
+    + int obtenerValor()
+  }
+
+class CartaDesarrollo{
+    - desarrollo: Desarrollo
+    + usar(Jugador jugador)
+    + puedeUsar(Jugador jugador): boolean
+}
+
+class CartaBonificacion{
+    - int puntosVictoria
+    + usar(Jugador jugador)
+    + puedeUsar(Jugador jugador): boolean
+}
+
+CartaRecurso "1" *-- "1" Recurso
+Carta "1" <|-- "95" CartaRecurso
+Carta "1" <|-- "2" CartaBonificacion
+Carta "1" <|-- "5" CartaDesarrollo
+
+@enduml

@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo.Material;
 
-public class Grano extends Material{
+public class Grano extends Recurso {
 
-    public int recibir() {
+    public int obtenerRecurso() {
         this.cantidad++;
         return cantidad;
     }

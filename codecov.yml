@@ -1,3 +1,8 @@
+coverage:
+  status:
+    project: off
+
+
 ignore:
   - "src/main/java/edu/fiuba/algo3/controlador"
   - "src/main/java/edu/fiuba/algo3/vista"
