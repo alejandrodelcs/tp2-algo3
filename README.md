@@ -1,6 +1,6 @@
 
 ![tp2](https://github.com/alejandrodelcs/tp2-algo3/actions/workflows/build.yml/badge.svg)
-[![codecov](https://codecov.io/gh/alejandrodelcs/tp2-algo3/graph/badge.svg)](https://codecov.io/gh/alejandrodelcs/tp2-algo3)
+[![codecov](https://codecov.io/gh/alejandrodelcs/tp2-algo3/graph/badge.svg?token=6LKGC7TZ7C)](https://codecov.io/gh/alejandrodelcs/tp2-algo3)
 
 # TP2 Algoritmos 3: Catan 
 
