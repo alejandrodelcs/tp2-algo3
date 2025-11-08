@@ -1,11 +1,11 @@
 package edu.fiuba.algo3.modelo.Material;
 
-public abstract class Material {
+public abstract class Recurso {
     protected int cantidad;
 
-    public Material() {
+    public Recurso() {
         this.cantidad = 0;
     }
 
-    public abstract int recibir();
+    public abstract int obtenerRecurso();
 }

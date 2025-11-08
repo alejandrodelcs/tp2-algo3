@@ -1,0 +1,39 @@
+@startuml
+title Cálculo del Puntaje del Jugador
+
+actor Alejandro as A
+participant ":Juego" as J
+participant "jugador:Jugador" as Jug
+participant ":Construccion" as Cons
+participant ":Carta" as C
+
+A -> J : calcularPuntajeTotal(jugador)
+activate J
+
+J -> Jug: calcularPuntos()
+activate Jug
+
+loop Por cada construcción
+    Jug -> Cons : getValor()
+    activate Cons
+    Cons --> Jug : valorConstruccion
+    deactivate Cons
+end
+
+loop Por cada carta
+    Jug -> C : getValor()
+    activate C
+    C --> Jug : valorCartas
+    deactivate C
+end
+
+Jug -> Jug : valorRuta()
+Jug -> Jug : calcularPuntajeTotal()
+
+Jug --> J : valorTotal
+deactivate Jug
+
+J --> A : valorTotal
+deactivate J
+
+@enduml
