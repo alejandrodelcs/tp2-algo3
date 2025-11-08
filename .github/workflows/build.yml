@@ -2,25 +2,21 @@ name: build
 on: [ push, pull_request ]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Start services
         run: scripts/start_services.sh
-      - name: Run tests
+      - name: Run tests suite
         run: docker compose -f docker/docker-compose.yaml exec -T app bash scripts/build.sh
-      - name: Copy JaCoCo report from container
-        run: |
-            APP_ID=$(docker compose -f docker/docker-compose.yaml ps -q app)
-            docker cp $APP_ID:/usr/src/app/target/site/jacoco/jacoco.xml jacoco.xml
       - name: Upload coverage report
         uses: codecov/codecov-action@v2
 
 
 
   package:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: build
     if: contains(github.ref, 'refs/tags/v')
     steps:
