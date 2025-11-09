@@ -1,6 +1,8 @@
-package edu.fiuba.algo3.modelo.Material;
+package edu.fiuba.algo3.modelo.Recurso;
 
-public abstract class Recurso {
+import edu.fiuba.algo3.modelo.Carta;
+
+public abstract class Recurso extends Carta {
     protected int cantidad;
 
     public Recurso() {
@@ -8,4 +10,6 @@ public abstract class Recurso {
     }
 
     public abstract int obtenerRecurso();
+
+
 }
