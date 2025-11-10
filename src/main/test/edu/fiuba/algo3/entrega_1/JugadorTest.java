@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 
+
 public class JugadorTest {
 
    /* ● Verificar que los jugadores reciban los recursos iniciales correctos según el
@@ -38,6 +39,23 @@ public class JugadorTest {
         recursosObtenidos.forEach(recurso ->
                 Assertions.assertEquals(1, recurso.obtenerRecurso())
         );
+
+    }
+
+    @Test
+    public void test02ElJugadorIniciaUnaPartidaConstruyeElPrimerPobladoNoDeberiaTenerRecursos(){
+        Mapa mapa = new Mapa();
+        Jugador jugador = new Jugador("alejandro", mapa);
+        Poblado poblado1 = new Poblado( new Arista());
+        Carretera carretera1 = new Carretera(new Arista());
+
+        jugador.construir(poblado1);
+
+        ArrayList<Recurso> recursosObtenidos = jugador.construir(carretera1);
+
+        Assertions.assertNull(recursosObtenidos);
+
+
 
     }
 }
