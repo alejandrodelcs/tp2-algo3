@@ -20,7 +20,7 @@ public class ProduccionTest {
         // --- ARRANGE ---
 
         Jugador jugador1 = new Jugador("Azul");
-        Hexagono bosque = new Hexagono(0);
+        Hexagono bosque = new Hexagono();
         Cruce cruce = new Cruce(0);
         Poblado poblado = new Poblado(jugador1);
 

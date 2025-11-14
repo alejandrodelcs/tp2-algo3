@@ -1,8 +1,13 @@
 package edu.fiuba.algo3.entrega_1;
 
+import com.sun.scenario.effect.Crop;
 import edu.fiuba.algo3.modelo.Construccion.Carretera;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Juego.Inventario;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
+import edu.fiuba.algo3.modelo.Juego.Terreno.Cruce;
+import edu.fiuba.algo3.modelo.Juego.Terreno.Hexagono;
+import edu.fiuba.algo3.modelo.Material.TipoRecurso;
 import edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Arista;
@@ -20,42 +25,54 @@ public class JugadorTest {
     ● Verificar que el lanzamiento de dados genere un número válido (2-12).*/
 
     @Test
-    public void test01ElJugadorIniciaUnaPartidaDeberiaRecibirSusRecursosLuegoDeColocarElSegundoPoblado(){
-        Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("alejandro", mapa);
-        Poblado poblado1 = new Poblado( new Arista());
-        Poblado poblado2 = new Poblado(new Arista());
-        Carretera carretera1 = new Carretera(new Arista());
-        Carretera carretera2 = new Carretera(new Arista());
+    public void test01JugadorRecibeRecursosInicialesAlColocarSegundoPoblado() {
 
-        jugador.construir(poblado1);
-        jugador.construir(carretera1);
+        Jugador jugador = new Jugador("Alejandro");
+        Inventario inventario = jugador.getInventario();
 
-        jugador.construir(poblado2);
+        Cruce cruce = new Cruce(0);
+        Poblado segundoPoblado = new Poblado(jugador);
 
+        Hexagono bosque = new Hexagono();
+        bosque.setRecurso(TipoRecurso.MADERA);
 
-        ArrayList<Recurso> recursosObtenidos = jugador.construir(carretera2);
+        Hexagono colina = new Hexagono();
+        colina.setRecurso(TipoRecurso.LADRILLO);
 
-        recursosObtenidos.forEach(recurso ->
-                Assertions.assertEquals(1, recurso.obtenerRecurso())
-        );
+        Hexagono campo = new Hexagono();
+        campo.setRecurso(TipoRecurso.GRANO);
 
+        cruce.agregarHexagono(bosque);
+        cruce.agregarHexagono(colina);
+        cruce.agregarHexagono(campo);
+        cruce.setConstruccion(segundoPoblado);
+
+        cruce.distribuirRecursosIniciales();
+
+        Assertions.assertEquals(1, inventario.contar(TipoRecurso.MADERA));
+        Assertions.assertEquals(1, inventario.contar(TipoRecurso.LADRILLO));
+        Assertions.assertEquals(1, inventario.contar(TipoRecurso.GRANO));
+
+        Assertions.assertEquals(0, inventario.contar(TipoRecurso.LANA));
+        Assertions.assertEquals(0, inventario.contar(TipoRecurso.MINERAL));
     }
 
     @Test
-    public void test02ElJugadorIniciaUnaPartidaConstruyeElPrimerPobladoNoDeberiaTenerRecursos(){
-        Mapa mapa = new Mapa();
-        Jugador jugador = new Jugador("alejandro", mapa);
-        Poblado poblado1 = new Poblado( new Arista());
-        Carretera carretera1 = new Carretera(new Arista());
+    public void test02JugadorNoRecibeRecursosAlColocarPrimerPoblado() {
 
-        jugador.construir(poblado1);
+        Jugador jugador = new Jugador("Alejandro");
+        Inventario inventario = jugador.getInventario();
+        Cruce cruce = new Cruce(0);
+        Poblado primerPoblado = new Poblado(jugador);
 
-        ArrayList<Recurso> recursosObtenidos = jugador.construir(carretera1);
+        Hexagono bosque = new Hexagono();
+        bosque.setRecurso(TipoRecurso.MADERA);
+        cruce.agregarHexagono(bosque);
 
-        Assertions.assertNull(recursosObtenidos);
+        cruce.setConstruccion(primerPoblado);
 
-
-
+        Assertions.assertEquals(0, inventario.contar(TipoRecurso.MADERA));
+        Assertions.assertEquals(0, inventario.contar(TipoRecurso.LADRILLO));
+        Assertions.assertEquals(0, inventario.contar(TipoRecurso.GRANO));
     }
 }

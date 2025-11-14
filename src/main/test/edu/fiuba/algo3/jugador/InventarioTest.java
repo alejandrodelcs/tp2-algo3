@@ -9,8 +9,6 @@ import java.util.Map;
 
 import edu.fiuba.algo3.modelo.Juego.Inventario;
 import edu.fiuba.algo3.modelo.Material.Costo;
-import edu.fiuba.algo3.modelo.Material.Madera;
-import edu.fiuba.algo3.modelo.Material.Recurso;
 import edu.fiuba.algo3.modelo.Material.TipoRecurso;
 
 /**

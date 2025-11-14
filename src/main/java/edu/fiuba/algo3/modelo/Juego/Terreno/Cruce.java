@@ -39,6 +39,17 @@ public class Cruce {
         }
     }
 
+    public void distribuirRecursosIniciales() {
+        if (!this.estaOcupado()) return;
+
+        for (Hexagono hex : this.hexagonos) {
+            TipoRecurso recurso = hex.getTipoRecurso();
+            if (recurso != TipoRecurso.DESIERTO) {
+                this.construccion.reclamarProduccion(recurso);
+            }
+        }
+    }
+
     public boolean estaOcupado() {
         return (this.construccion != null);
     }

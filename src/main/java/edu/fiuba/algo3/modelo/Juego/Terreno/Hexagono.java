@@ -7,18 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hexagono {
-    private int id;
 
     private TipoRecurso recurso;
     private Ficha ficha;
     private List<Cruce> cruces = new ArrayList<Cruce>(6);
 
-    public Hexagono(int id) {
-        this.id = id;
-    }
+
 
     public void setRecurso(TipoRecurso recurso) {
         this.recurso = recurso;
+    }
+
+    public TipoRecurso getTipoRecurso() {
+        return this.recurso;
     }
 
     public void setFicha(Ficha ficha) {

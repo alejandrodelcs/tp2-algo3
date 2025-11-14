@@ -108,7 +108,7 @@ public class TableroBuilder {
 
         this.listaHexagonos = new ArrayList<>();
         for (int i = 0; i < 19; i++) {
-            this.listaHexagonos.add(new Hexagono(i));
+            this.listaHexagonos.add(new Hexagono());
         }
     }
 
