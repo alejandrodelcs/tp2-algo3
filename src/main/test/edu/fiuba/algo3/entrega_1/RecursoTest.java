@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Material.*;
+import edu.fiuba.algo3.modelo.Recurso.*;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
