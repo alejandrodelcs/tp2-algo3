@@ -13,9 +13,11 @@ public class Ficha {
     }
 
     public Ficha(int numero) {
+        if (numero < 2 || numero > 12 || numero == 7) {
+            throw new IllegalArgumentException("El numero de ficha debe estar entre 2-12 y no ser 7.");
+        }
         this.numero = numero;
     }
-
     private int generarNumeroAleatorio() {
 
         Random numeroAleatorio = new Random();
@@ -28,11 +30,11 @@ public class Ficha {
         return numero;
     }
 
-    public int numero() {
+    public int getNumero() {
         return this.numero;
     }
 
-    public boolean tieneNunero(int unNumero) {
+    public boolean tieneNumero(int unNumero) {
         return this.numero == unNumero;
     }
 }

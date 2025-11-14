@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Juego;
+package edu.fiuba.algo3.modelo.Juego.Terreno;
 
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 

@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.Material.TipoRecurso;
 
 public class Ciudad extends Construccion {
 
-    // (Suponiendo que tienes un Costo.CIUDAD estático)
     private static final Costo COSTO_CIUDAD = Costo.CIUDAD();
 
 

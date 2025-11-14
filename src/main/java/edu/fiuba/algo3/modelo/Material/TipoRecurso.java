@@ -6,6 +6,7 @@ package edu.fiuba.algo3.modelo.Material;
         LADRILLO,
         LANA,
         GRANO,
-        MINERAL
+        MINERAL,
+        DESIERTO
     }
 

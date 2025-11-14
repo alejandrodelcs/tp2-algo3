@@ -16,7 +16,7 @@ public class FichaTest {
     public void testo01CreoUnaFichaConNumeroAleatorioDentroDelRango2a12() {
 
         Ficha ficha = new Ficha();
-        int numeroDeFicha = ficha.numero();
+        int numeroDeFicha = ficha.getNumero();
 
         int minimo = 1;
         int maximo = 13;
@@ -28,7 +28,7 @@ public class FichaTest {
     public void unaFichaNoPuedeSer7en50Intentos() {
         for (int i = 0; i < 100; i++) {
             Ficha ficha = new Ficha();
-            assertNotEquals(7, ficha.numero());
+            assertNotEquals(7, ficha.getNumero());
         }
 
     }
