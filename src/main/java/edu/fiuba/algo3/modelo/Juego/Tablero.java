@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Construccion.Carretera;
 import edu.fiuba.algo3.modelo.Construccion.Ciudad;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Juego.Terreno.*;
-import edu.fiuba.algo3.modelo.Material.Costo;
+import edu.fiuba.algo3.modelo.Recurso.Costo;
 
 
 import java.util.List;

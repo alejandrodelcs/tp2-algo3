@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Juego;
 
-import edu.fiuba.algo3.modelo.Material.Costo;
+import edu.fiuba.algo3.modelo.Recurso.Costo;
 import edu.fiuba.algo3.modelo.Material.TipoRecurso;
 import javafx.scene.paint.Material;
 

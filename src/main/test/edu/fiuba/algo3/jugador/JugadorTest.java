@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.Juego.Inventario;
 import edu.fiuba.algo3.modelo.Juego.Jugador;
-import edu.fiuba.algo3.modelo.Material.Costo;
+import edu.fiuba.algo3.modelo.Recurso.Costo;
 import edu.fiuba.algo3.modelo.Material.TipoRecurso;
 
 /**

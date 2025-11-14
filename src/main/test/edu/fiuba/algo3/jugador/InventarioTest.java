@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.jugador;
 
+import edu.fiuba.algo3.modelo.Recurso.Costo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -8,7 +9,6 @@ import static org.mockito.Mockito.*;
 import java.util.Map;
 
 import edu.fiuba.algo3.modelo.Juego.Inventario;
-import edu.fiuba.algo3.modelo.Material.Costo;
 import edu.fiuba.algo3.modelo.Material.TipoRecurso;
 
 /**

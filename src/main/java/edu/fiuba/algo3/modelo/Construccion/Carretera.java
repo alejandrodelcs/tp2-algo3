@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Juego.Jugador;
-import edu.fiuba.algo3.modelo.Material.Costo;
+import edu.fiuba.algo3.modelo.Recurso.Costo;
 import edu.fiuba.algo3.modelo.Material.TipoRecurso;
 
 public class Carretera extends Construccion {
