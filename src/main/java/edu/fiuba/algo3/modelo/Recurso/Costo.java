@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.Recurso;
 import javafx.scene.paint.Material;
 
 import java.util.Collections;
-import edu.fiuba.algo3.modelo.Material.TipoRecurso;
+import edu.fiuba.algo3.modelo.Recurso.TipoRecurso;
 import java.util.Map;
 
 public class Costo {

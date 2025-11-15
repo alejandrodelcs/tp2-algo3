@@ -3,7 +3,7 @@ package edu.fiuba.algo3.entrega_1;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Juego.*;
 import edu.fiuba.algo3.modelo.Juego.Terreno.*;
-import edu.fiuba.algo3.modelo.Material.TipoRecurso;
+import edu.fiuba.algo3.modelo.Recurso.TipoRecurso;
 import edu.fiuba.algo3.modelo.elementos.Ficha;
 import org.junit.jupiter.api.Test;
 

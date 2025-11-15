@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Juego.*;
 import edu.fiuba.algo3.modelo.Recurso.Costo;
-import edu.fiuba.algo3.modelo.Material.TipoRecurso;
+import edu.fiuba.algo3.modelo.Recurso.TipoRecurso;
 
 public class Poblado extends Construccion {
 

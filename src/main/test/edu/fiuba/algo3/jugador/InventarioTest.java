@@ -9,7 +9,7 @@ import static org.mockito.Mockito.*;
 import java.util.Map;
 
 import edu.fiuba.algo3.modelo.Juego.Inventario;
-import edu.fiuba.algo3.modelo.Material.TipoRecurso;
+import edu.fiuba.algo3.modelo.Recurso.TipoRecurso;
 
 /**
  * InventarioTest

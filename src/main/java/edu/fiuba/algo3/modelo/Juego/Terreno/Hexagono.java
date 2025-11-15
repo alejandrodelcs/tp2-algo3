@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Juego.Terreno;
 
-import edu.fiuba.algo3.modelo.Material.TipoRecurso;
+import edu.fiuba.algo3.modelo.Recurso.TipoRecurso;
 import edu.fiuba.algo3.modelo.elementos.*;
 
 import java.util.ArrayList;

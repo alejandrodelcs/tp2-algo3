@@ -1,13 +1,13 @@
 package edu.fiuba.algo3.entrega_1;
 
-import com.sun.scenario.effect.Crop;
+//import com.sun.scenario.effect.Crop;
 import edu.fiuba.algo3.modelo.Construccion.Carretera;
 import edu.fiuba.algo3.modelo.Juego.Inventario;
 import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Juego.Terreno.Cruce;
 import edu.fiuba.algo3.modelo.Juego.Terreno.Hexagono;
-import edu.fiuba.algo3.modelo.Material.TipoRecurso;
+import edu.fiuba.algo3.modelo.Recurso.TipoRecurso;
 import edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Arista;
@@ -16,13 +16,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-
-
 public class JugadorTest {
 
-   /* ● Verificar que los jugadores reciban los recursos iniciales correctos según el
-    segundo poblado colocado.
-    ● Verificar que el lanzamiento de dados genere un número válido (2-12).*/
+    /*
+     * ● Verificar que los jugadores reciban los recursos iniciales correctos según
+     * el
+     * segundo poblado colocado.
+     * ● Verificar que el lanzamiento de dados genere un número válido (2-12).
+     */
 
     @Test
     public void test01JugadorRecibeRecursosInicialesAlColocarSegundoPoblado() {
