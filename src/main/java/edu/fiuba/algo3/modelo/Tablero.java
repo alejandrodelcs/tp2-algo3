@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Tablero {
 
-    private List<Hexagono> hexagonos;
+    private final List<Hexagono> hexagonos;
     private static final List<Integer> DISTRIBUCION = new ArrayList<>(List.of(2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12));
     private static final  List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[]{Terreno.BOSQUE,
             Terreno.CAMPO, Terreno.COLINA, Terreno.DESIERTO, Terreno.MONTANA, Terreno.PASTIZAL}));

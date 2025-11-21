@@ -9,7 +9,4 @@ public abstract class Recurso {
 
     public abstract int obtenerRecurso();
 
-    public int cantidad() {
-        return cantidad;
-    }
 }
