@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Material.*;
+import edu.fiuba.algo3.modelo.Recurso.*;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
@@ -17,12 +17,12 @@ public class RecursoTest {
     @Test
     public void test01ElJugadorRecibe1DeMadera(){
         //Arrange
-        Madera material = new Madera();
+        Madera recurso = new Madera();
         int valorEsperado = 1;
 
         //Act
 
-        int valorObtenido = material.obtenerRecurso();
+        int valorObtenido = recurso.obtenerRecurso();
 
         //Assertion
 
