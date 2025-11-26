@@ -29,4 +29,18 @@ public class HexagonoTest {
 
         assertEquals(1, recGenerad);
     }
+
+    @Test
+    public void test02HexagonoNoCreaUnRecursoSiNoSaleElDado() {
+        int numeroFicha = 2;
+        int numeroDado = 1;
+        Terreno terrenoPastisal = mock();
+
+        Hexagono hexa1 = new Hexagono(terrenoPastisal, numeroFicha);
+        when(terrenoPastisal.obtenerRecurso()).thenReturn(1);
+
+        int recGenerad = hexa1.obtenerRecurso(numeroDado);
+
+        assertEquals(0, recGenerad);
+    }
 }

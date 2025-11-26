@@ -1,20 +1,21 @@
 package edu.fiuba.algo3.entrega_1;
+
 import edu.fiuba.algo3.modelo.NoExisteFichaError;
 import edu.fiuba.algo3.modelo.Tablero;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
 public class TerrenoTest {
 
     /*
-    Verificar la correcta asignación aleatoria de hexágonos de Terreno y Fichas de
-        Número.
+     * Verificar la correcta asignación aleatoria de hexágonos de Terreno y Fichas
+     * de
+     * Número.
      */
     @Test
-    public void test01deberiaAsignarseAleatoriamenteLosHexagonosDeTerrenosConSusFichas(){
+    public void test01deberiaAsignarseAleatoriamenteLosHexagonosDeTerrenosConSusFichas() {
         Tablero t = new Tablero();
         t.construir();
 
@@ -25,22 +26,20 @@ public class TerrenoTest {
     }
 
     @Test
-    public void test02deberiaAsignarseAleatoriamenteLosHexagonosDeTerrenosConSusFichasYSiNoExisteLaFichaRetornarUnaExcepcion(){
+    public void test02deberiaAsignarseAleatoriamenteLosHexagonosDeTerrenosConSusFichasYSiNoExisteLaFichaRetornarUnaExcepcion() {
         Tablero t = new Tablero();
         t.construir();
 
-
-        assertThrows(NoExisteFichaError.class, ()->t.obtenerRecursosDe(7));
+        assertThrows(NoExisteFichaError.class, () -> t.obtenerRecursosDe(7));
 
     }
 
     @Test
-    public void test03DeberiaCrear19Hexagonos(){
+    public void test03DeberiaCrear19Hexagonos() {
         Tablero t = new Tablero();
         t.construir();
 
         assertEquals(19, t.cantidadHexagonos());
     }
-
 
 }
