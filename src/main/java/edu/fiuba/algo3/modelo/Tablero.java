@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.*;
 
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
+
 public class Tablero {
 
     private final List<Hexagono> hexagonos;
@@ -36,7 +38,11 @@ public class Tablero {
 
         while (indice < hexagonos.size()) {
             Hexagono hexagono = hexagonos.get(indice);
-            totalRecursos += hexagono.obtenerRecurso(valorFicha);
+            Recurso recurso = hexagono.obtenerRecurso(valorFicha);
+
+            if (recurso != null) {
+                totalRecursos++;
+            }
 
             // fichaEncontrada = true;
             indice++;
