@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
+
 public class Hexagono {
     private final Terreno terreno;
     private final int ficha;
@@ -13,11 +15,12 @@ public class Hexagono {
         return this.ficha == valorFicha;
     }
 
-    public int obtenerRecurso(int numeroDado) {
+    public Recurso obtenerRecurso(int numeroDado) {
         if (this.tieneFicha(numeroDado)) {
 
-            return terreno.obtenerRecurso();
+            return terreno.devolverRecurso();
         }
-        return 0;
+        return null;
     }
+
 }

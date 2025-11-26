@@ -2,8 +2,10 @@ package edu.fiuba.algo3.modelo.ElementosTablero;
 
 import java.util.ArrayList;
 
+import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
+import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
  * Vertice
@@ -11,10 +13,12 @@ import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
 public class Vertice {
     private Construccion construccion;
     private ArrayList<Arista> aristas;
+    private ArrayList<Hexagono> hexagonos;
 
     public Vertice() {
         this.construccion = new ConstruccionNula();
         this.aristas = new ArrayList<>();
+        this.hexagonos = new ArrayList<>();
     }
 
     public void construir(Construccion construccion) {
@@ -28,6 +32,10 @@ public class Vertice {
         this.construccion = construccion;
     }
 
+    public void asignarHexagonos(Hexagono hexagono) {
+        this.hexagonos.add(hexagono);
+    }
+
     public void conectarArista(Arista arista) {
         this.aristas.add(arista);
     }
@@ -38,6 +46,19 @@ public class Vertice {
 
     public boolean tieneConstruccion() {
         return !this.construccion.esNula();
+    }
+
+    public ArrayList<Recurso> generarRecurso(int numDado) {
+        ArrayList<Recurso> recursosGenerados = new ArrayList<>();
+
+        for (Hexagono hexagono : this.hexagonos) {
+            Recurso recursoAux = construccion.generarSegunHexagono(hexagono, numDado);
+
+            if (recursoAux != null) {
+                recursosGenerados.add(recursoAux);
+            }
+        }
+        return recursosGenerados;
     }
 
 }

@@ -20,14 +20,15 @@ public class HexagonoTest {
 
         int numeroFicha = 1;
         int numeroDado = 1;
-        Terreno terrenoPastisal = mock();
+        Terreno terrenoPastisal = mock(Terreno.class);
 
         Hexagono hexa1 = new Hexagono(terrenoPastisal, numeroFicha);
-        when(terrenoPastisal.obtenerRecurso()).thenReturn(1);
+        when(terrenoPastisal.devolverRecurso()).thenReturn(new Lana());
 
-        int recGenerad = hexa1.obtenerRecurso(numeroDado);
+        Recurso recGenerad = hexa1.obtenerRecurso(numeroDado);
 
-        assertEquals(1, recGenerad);
+        assertTrue(recGenerad instanceof Recurso);
+        // assertEquals(1, recGenerad);
     }
 
     @Test
@@ -37,10 +38,13 @@ public class HexagonoTest {
         Terreno terrenoPastisal = mock();
 
         Hexagono hexa1 = new Hexagono(terrenoPastisal, numeroFicha);
-        when(terrenoPastisal.obtenerRecurso()).thenReturn(1);
+        // when(terrenoPastisal.obtenerRecurso()).thenReturn(1);
+        when(terrenoPastisal.devolverRecurso()).thenReturn(null);
 
-        int recGenerad = hexa1.obtenerRecurso(numeroDado);
+        // int recGenerad = hexa1.obtenerRecurso(numeroDado);
+        Recurso recGenerad = hexa1.obtenerRecurso(numeroDado);
 
-        assertEquals(0, recGenerad);
+        // assertEquals(0, recGenerad);
+        assertEquals(null, recGenerad);
     }
 }

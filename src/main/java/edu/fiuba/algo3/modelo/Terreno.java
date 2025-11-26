@@ -2,8 +2,6 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Recurso.*;
 
-
-
 public enum Terreno {
     BOSQUE(new Madera()),
     COLINA(new Ladrillo()),
@@ -25,7 +23,8 @@ public enum Terreno {
         return 0;
     }
 
-
-
+    public Recurso devolverRecurso() {
+        return recurso;
+    }
 
 }
