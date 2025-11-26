@@ -5,18 +5,18 @@ import java.util.*;
 public class Tablero {
 
     private final List<Hexagono> hexagonos;
-    private static final List<Integer> DISTRIBUCION = new ArrayList<>(List.of(2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12));
-    private static final  List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[]{Terreno.BOSQUE,
-            Terreno.CAMPO, Terreno.COLINA, Terreno.DESIERTO, Terreno.MONTANA, Terreno.PASTIZAL}));
+    private static final List<Integer> DISTRIBUCION = new ArrayList<>(
+            List.of(2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12));
+    private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[] { Terreno.BOSQUE,
+            Terreno.CAMPO, Terreno.COLINA, Terreno.DESIERTO, Terreno.MONTANA, Terreno.PASTIZAL }));
 
-    
     public Tablero() {
         this.hexagonos = new ArrayList<>();
     }
 
     public void construir() {
 
-        for (int i = 0; i < DISTRIBUCION.size();i++) {
+        for (int i = 0; i < DISTRIBUCION.size(); i++) {
             Terreno terreno = TERRENOS.get(i % TERRENOS.size());
             Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(i));
             hexagonos.add(hexagono);
@@ -24,26 +24,25 @@ public class Tablero {
 
         Random random = new Random();
         int posicionAleatoria = random.nextInt(hexagonos.size() + 1);
-        Hexagono desierto = new Hexagono(Terreno.DESIERTO,-1);
+        Hexagono desierto = new Hexagono(Terreno.DESIERTO, -1);
         hexagonos.add(posicionAleatoria, desierto);
 
     }
 
     public int obtenerRecursosDe(int valorFicha) {
         int totalRecursos = 0;
-        boolean fichaEncontrada = false;
+        // boolean fichaEncontrada = false;
         int indice = 0;
 
         while (indice < hexagonos.size()) {
             Hexagono hexagono = hexagonos.get(indice);
-            if (hexagono.tieneFicha(valorFicha)) {
-                totalRecursos += hexagono.obtenerRecurso();
-                fichaEncontrada = true;
-            }
+            totalRecursos += hexagono.obtenerRecurso(valorFicha);
+
+            // fichaEncontrada = true;
             indice++;
         }
 
-        if (!fichaEncontrada) {
+        if (totalRecursos == 0) {
             throw new NoExisteFichaError();
         }
 

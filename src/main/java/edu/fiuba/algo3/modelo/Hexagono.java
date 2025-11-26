@@ -13,7 +13,11 @@ public class Hexagono {
         return this.ficha == valorFicha;
     }
 
-    public int obtenerRecurso() {
-        return terreno.obtenerRecurso();
+    public int obtenerRecurso(int numeroDado) {
+        if (this.tieneFicha(numeroDado)) {
+
+            return terreno.obtenerRecurso();
+        }
+        return 0;
     }
 }
