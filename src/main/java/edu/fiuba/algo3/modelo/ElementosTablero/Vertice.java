@@ -30,6 +30,7 @@ public class Vertice {
         }
 
         this.construccion = construccion;
+        construccion.asignarVertice(this);
     }
 
     public void asignarHexagonos(Hexagono hexagono) {
