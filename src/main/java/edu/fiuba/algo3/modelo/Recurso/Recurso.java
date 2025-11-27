@@ -4,9 +4,14 @@ public abstract class Recurso {
     public int cantidad;
 
     public Recurso() {
-        this.cantidad = 0;
+        this.cantidad = 1;
     }
 
     public abstract int obtenerRecurso();
+
+    // Getter necesario para el assert
+    public int getCantidad() {
+        return this.cantidad;
+    }
 
 }

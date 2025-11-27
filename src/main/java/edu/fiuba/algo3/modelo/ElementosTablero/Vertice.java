@@ -61,4 +61,20 @@ public class Vertice {
         return recursosGenerados;
     }
 
+    public ArrayList<Recurso> entregarRecursosIniciales() {
+        ArrayList<Recurso> recursos = new ArrayList<>();
+
+        if (!this.tieneConstruccion()) {
+            return recursos;
+        }
+
+        for (Hexagono hex : this.hexagonos) {
+            Recurso r = hex.obtenerRecursoBase();
+            if (r != null) {
+                recursos.add(r);
+            }
+        }
+        return recursos;
+    }
+
 }

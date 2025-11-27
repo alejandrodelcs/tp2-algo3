@@ -55,6 +55,16 @@ public class Tablero {
         return totalRecursos;
     }
 
+    public void moverLadron(Hexagono nuevoHexagono) {
+        for (Hexagono h : this.hexagonos) {
+            if (h.tieneLadron()) {
+                h.moverLadron();
+                break;
+            }
+        }
+        nuevoHexagono.colocarLadron();
+    }
+
     public int cantidadHexagonos() {
         return hexagonos.size();
     }

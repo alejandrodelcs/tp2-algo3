@@ -37,4 +37,21 @@ public class ConstruccionesTest {
 
     }
 
+    @Test
+    public void test03SegundoPobladoEntregaRecursosDeTodosLosHexagonosAdyacentes() {
+        Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 6);
+        Hexagono hexPiedra = new Hexagono(Terreno.MONTANA, 8);
+
+        Vertice vertice = new Vertice();
+
+        vertice.asignarHexagonos(hexMadera);
+        vertice.asignarHexagonos(hexPiedra);
+
+        vertice.construir(new Poblado());
+
+        ArrayList<Recurso> inventarioInicial = vertice.entregarRecursosIniciales();
+
+        assertEquals(2, inventarioInicial.size());
+
+    }
 }
