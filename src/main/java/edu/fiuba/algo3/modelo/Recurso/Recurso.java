@@ -14,4 +14,8 @@ public abstract class Recurso {
         return this.cantidad;
     }
 
+    public int acumular(int cantidad) {
+        return cantidad + this.cantidad;
+    }
+
 }

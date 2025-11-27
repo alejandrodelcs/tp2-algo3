@@ -19,14 +19,17 @@ public class Jugador {
 
     public Jugador(String nombre) {
         this.nombre = nombre;
-        this.cartasRecurso = Arrays.asList(new Madera(), new Ladrillo(),
-                new Lana(), new Grano(), new Lana(),
-                new Ladrillo(), new Grano());
+        this.cartasRecurso = new ArrayList<>();
         this.construcciones = new ArrayList<>();
     }
 
     public int cantidadCartas() {
-        return this.cartasRecurso.size();
+        int contador = 0;
+        for (Recurso recurso : cartasRecurso) {
+            contador = recurso.acumular(contador);
+
+        }
+        return contador;
     }
 
     public int cantidadConstrucciones() {
@@ -50,10 +53,14 @@ public class Jugador {
     }
 
     public List<Recurso> validarCartas(int valorDado) {
-        if (valorDado == 7 && cartasRecurso.size() >= 7){
-            return cartasRecurso.subList(0,Math.round((float) cartasRecurso.size() /2));
+        if (valorDado == 7 && cartasRecurso.size() >= 7) {
+            return cartasRecurso.subList(0, Math.round((float) cartasRecurso.size() / 2));
         }
 
         return null;
+    }
+
+    public void cartas() {
+        System.out.println(this.cartasRecurso);
     }
 }

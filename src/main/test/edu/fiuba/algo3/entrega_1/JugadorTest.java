@@ -60,31 +60,22 @@ public class JugadorTest {
 
     }
 
-
-    /*
-        Verificar que si un jugador tiene más de 7 cartas, descarte correctamente la mitad,
-        redondeando hacia abajo, al lanzar un 7.
-        [1,2,3,4,5,6,7,8]
-     */
-
     @Test
-    public void test03(){
+    public void test04UnJugadorRecibeDosRecursosDeUnCuidad() {
+        Jugador jugador = new Jugador("Alberto");
+        int dado = 6;
+        Hexagono hexaPiedra = new Hexagono(Terreno.MONTANA, 6);
+        Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 6);
 
-        //Arrange
-        Jugador jugador = new Jugador("Ale");
-        List<Recurso> p = Arrays.asList(new Madera(), new Ladrillo(),
-                                            new Lana(), new Grano(), new Lana(),
-                                           new Ladrillo(), new Grano());
+        Vertice vertice = new Vertice();
+        vertice.asignarHexagonos(hexaPiedra);
+        vertice.asignarHexagonos(hexaLana);
 
-        //Act
-        List<Recurso> a = jugador.validarCartas(7);
+        jugador.construir(vertice, new Ciudad());
 
-        //Assert
-        Assertions.assertNotEquals(p,a);
+        jugador.generarSegunDado(dado);
 
+        assertEquals(4, jugador.cantidadCartas());
 
     }
-
-
-
 }

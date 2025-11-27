@@ -22,7 +22,6 @@ public class Poblado extends Construccion {
 
     @Override
     public ArrayList<Recurso> generarSegunVertice(int dado) {
-        System.out.println("\n-->" + verticeAsignado);
         return this.verticeAsignado.generarRecurso(dado);
     }
 }
