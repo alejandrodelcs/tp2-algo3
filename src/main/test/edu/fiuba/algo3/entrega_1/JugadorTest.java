@@ -78,4 +78,76 @@ public class JugadorTest {
         assertEquals(4, jugador.cantidadCartas());
 
     }
+
+    @Test
+    public void test05UnJugadorRecibeTresRecursosDistintos() {
+        Jugador jugador = new Jugador("Julia");
+
+        int dado1 = 1;
+        int dado2 = 2;
+        int dado3 = 3;
+
+        Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 1);
+        Hexagono hexaPiedra = new Hexagono(Terreno.MONTANA, 2);
+        Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 3);
+
+        Vertice vertice = new Vertice();
+        vertice.asignarHexagonos(hexMadera);
+        vertice.asignarHexagonos(hexaPiedra);
+        vertice.asignarHexagonos(hexaLana);
+
+        jugador.construir(vertice, new Poblado());
+
+        for (int i = 0; i < 3; i++) {
+            jugador.generarSegunDado(dado1);
+        }
+        for (int i = 0; i < 3; i++) {
+            jugador.generarSegunDado(dado2);
+        }
+        for (int i = 0; i < 3; i++) {
+            jugador.generarSegunDado(dado3);
+        }
+
+        jugador.cartas();
+        assertEquals(9, jugador.cantidadCartas());
+
+    }
+
+    @Test
+    public void test06UnJugadorDescartaLaMitadDeSusCartasSiSale7yTieneMasDe7Cartas() {
+
+        Jugador jugador = new Jugador("Julia");
+
+        int dado1 = 1;
+        int dado2 = 2;
+        int dado3 = 3;
+        int dado7 = 7;
+
+        Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 1);
+        Hexagono hexaPiedra = new Hexagono(Terreno.MONTANA, 2);
+        Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 3);
+
+        Vertice vertice = new Vertice();
+        vertice.asignarHexagonos(hexMadera);
+        vertice.asignarHexagonos(hexaPiedra);
+        vertice.asignarHexagonos(hexaLana);
+
+        jugador.construir(vertice, new Poblado());
+
+        for (int i = 0; i < 3; i++) {
+            jugador.generarSegunDado(dado1);
+        }
+        for (int i = 0; i < 3; i++) {
+            jugador.generarSegunDado(dado2);
+        }
+        for (int i = 0; i < 3; i++) {
+            jugador.generarSegunDado(dado3);
+        }
+
+        jugador.generarSegunDado(dado7);
+        jugador.cartas();
+
+        assertEquals(4, jugador.cantidadCartas());
+    }
+
 }
