@@ -4,7 +4,6 @@ public class Mineral extends Recurso {
 
     @Override
     public int obtenerRecurso() {
-        this.cantidad++;
-        return cantidad;
+        return 1;
     }
 }

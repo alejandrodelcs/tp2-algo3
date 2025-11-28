@@ -69,6 +69,10 @@ public class Jugador {
     }
 
     public void generarSegunDado(int dado) {
+        if (dado == 7) {
+            this.reducirALaMitadLosRecurosos();
+            return;
+        }
 
         for (Construccion construccion : this.construcciones) {
 
@@ -87,6 +91,17 @@ public class Jugador {
     }
 
     public void cartas() {
-        System.out.println(this.cartasRecurso);
+        System.out.println("\ncartas recurso: " + this.cartasRecurso);
+    }
+
+    public void reducirALaMitadLosRecurosos() {
+        if (this.cartasRecurso.size() > 7) {
+
+            this.elegirCartaDescartadas();
+        }
+    }
+
+    private void elegirCartaDescartadas() {
+
     }
 }
