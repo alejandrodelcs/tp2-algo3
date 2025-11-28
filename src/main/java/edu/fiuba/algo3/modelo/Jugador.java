@@ -45,6 +45,7 @@ public class Jugador {
     public void generarSegunDado(int dado) {
         if (dado == 7) {
             this.reducirALaMitadLosRecurosos();
+            return;
         }
 
         for (Construccion construccion : this.construcciones) {

@@ -4,7 +4,6 @@ public class Ladrillo extends Recurso {
 
 
     public int obtenerRecurso() {
-        this.cantidad++;
-        return cantidad;
+        return 1;
     }
 }
