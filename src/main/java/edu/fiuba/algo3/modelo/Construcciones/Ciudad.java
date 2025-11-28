@@ -23,7 +23,7 @@ public class Ciudad extends Construccion {
         Recurso recurso = hexagono.obtenerRecurso(numDado);
 
         if (recurso != null) {
-            recurso.cantidad = 2;
+            recurso.aumentar(1);
             return recurso;
         }
 

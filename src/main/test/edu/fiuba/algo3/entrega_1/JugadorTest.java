@@ -71,7 +71,7 @@ public class JugadorTest {
         vertice.asignarHexagonos(hexaPiedra);
         vertice.asignarHexagonos(hexaLana);
 
-        jugador.construir(vertice, new Ciudad(new Jugador("Test")));
+        jugador.construir(vertice, new Ciudad(jugador));
 
         jugador.generarSegunDado(dado);
 
@@ -96,7 +96,7 @@ public class JugadorTest {
         vertice.asignarHexagonos(hexaPiedra);
         vertice.asignarHexagonos(hexaLana);
 
-        jugador.construir(vertice, new Poblado());
+        jugador.construir(vertice, new Poblado(jugador));
 
         for (int i = 0; i < 3; i++) {
             jugador.generarSegunDado(dado1);
@@ -108,7 +108,6 @@ public class JugadorTest {
             jugador.generarSegunDado(dado3);
         }
 
-        jugador.cartas();
         assertEquals(9, jugador.cantidadCartas());
 
     }
@@ -132,7 +131,7 @@ public class JugadorTest {
         vertice.asignarHexagonos(hexaPiedra);
         vertice.asignarHexagonos(hexaLana);
 
-        jugador.construir(vertice, new Poblado());
+        jugador.construir(vertice, new Poblado(jugador));
 
         for (int i = 0; i < 3; i++) {
             jugador.generarSegunDado(dado1);
@@ -145,7 +144,6 @@ public class JugadorTest {
         }
 
         jugador.generarSegunDado(dado7);
-        jugador.cartas();
 
         assertEquals(4, jugador.cantidadCartas());
     }

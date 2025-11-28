@@ -5,4 +5,14 @@ public class Madera extends Recurso {
     public int obtenerRecurso() {
         return 1;
     }
+
+    @Override
+    public Recurso clonar() {
+        return new Madera();
+    }
+
+    @Override
+    public String tipo() {
+        return "Madera";
+    }
 }

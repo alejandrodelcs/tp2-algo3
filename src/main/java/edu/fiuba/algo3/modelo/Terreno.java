@@ -24,7 +24,7 @@ public enum Terreno {
     }
 
     public Recurso devolverRecurso() {
-        return recurso;
+        return recurso.clonar();
     }
 
 }

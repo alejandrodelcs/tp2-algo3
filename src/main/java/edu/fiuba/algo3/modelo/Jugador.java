@@ -14,23 +14,19 @@ import edu.fiuba.algo3.modelo.Recurso.*;
  */
 public class Jugador {
 
-    private List<Recurso> cartasRecurso;
     private ArrayList<Construccion> construcciones;
     private String nombre;
+    private Inventario inventario;
 
     public Jugador(String nombre) {
         this.nombre = nombre;
-        this.cartasRecurso = new ArrayList<>();
         this.construcciones = new ArrayList<>();
+        this.inventario = new Inventario();
     }
 
     public int cantidadCartas() {
-        int contador = 0;
-        for (Recurso recurso : cartasRecurso) {
-            contador = recurso.acumular(contador);
 
-        }
-        return contador;
+        return this.inventario.total();
     }
 
     public int cantidadConstrucciones() {
@@ -51,21 +47,16 @@ public class Jugador {
 
     public void recibirRecurso(Recurso recurso) {
         if (recurso != null) {
-            this.cartasRecurso.add(recurso);
+            this.inventario.agregar(recurso);
         }
     }
 
     public void entregarRecursoA(Jugador ladron) {
-        if (this.cartasRecurso.isEmpty()) {
-            return;
+        Recurso recurso = this.inventario.robarUno();
+
+        if (recurso != null) {
+            ladron.recibirRecurso(recurso);
         }
-
-        Random random = new Random();
-        int indiceAleatorio = random.nextInt(this.cartasRecurso.size());
-
-        Recurso recursoRobado = this.cartasRecurso.remove(indiceAleatorio);
-
-        ladron.recibirRecurso(recursoRobado);
     }
 
     public void generarSegunDado(int dado) {
@@ -77,31 +68,16 @@ public class Jugador {
         for (Construccion construccion : this.construcciones) {
 
             ArrayList<Recurso> recursos = construccion.generarSegunVertice(dado);
-            this.cartasRecurso.addAll(recursos);
+            this.inventario.agregarTodos(recursos);
 
         }
-    }
-
-    public List<Recurso> validarCartas(int valorDado) {
-        if (valorDado == 7 && cartasRecurso.size() >= 7) {
-            return cartasRecurso.subList(0, Math.round((float) cartasRecurso.size() / 2));
-        }
-
-        return null;
-    }
-
-    public void cartas() {
-        System.out.println("\ncartas recurso: " + this.cartasRecurso);
     }
 
     public void reducirALaMitadLosRecurosos() {
-        if (this.cartasRecurso.size() > 7) {
+        if (this.inventario.total() > 7) {
 
-            this.elegirCartaDescartadas();
+            this.inventario.reducirALaMitad();
         }
     }
 
-    private void elegirCartaDescartadas() {
-
-    }
 }

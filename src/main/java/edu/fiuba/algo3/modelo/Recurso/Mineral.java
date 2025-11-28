@@ -6,4 +6,14 @@ public class Mineral extends Recurso {
     public int obtenerRecurso() {
         return 1;
     }
+
+    @Override
+    public Recurso clonar() {
+        return new Mineral();
+    }
+
+    @Override
+    public String tipo() {
+        return "Mineral";
+    }
 }
