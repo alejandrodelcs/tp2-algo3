@@ -1,9 +1,11 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
@@ -11,10 +13,17 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
  */
 public abstract class Construccion {
 
+    protected Jugador duenio;
+
+    public Construccion(Jugador duenio) {
+        this.duenio = duenio;
+    }
+
     protected Vertice verticeAsignado;
 
     public abstract int getPuntosDeVictoria();
 
+    public abstract void agregarDuenio(List<Jugador> listaVictimas);
     public boolean esNula() {
         return false;
     }

@@ -55,14 +55,20 @@ public class Tablero {
         return totalRecursos;
     }
 
-    public void moverLadron(Hexagono nuevoHexagono) {
-        for (Hexagono h : this.hexagonos) {
-            if (h.tieneLadron()) {
-                h.moverLadron();
-                break;
-            }
+    public void moverLadron(Hexagono hexagonoDestino, Jugador ladron) {
+
+        hexagonoDestino.colocarLadron();
+
+        List<Jugador> posiblesVictimas = hexagonoDestino.obtenerVictimas();
+
+        posiblesVictimas.remove(ladron);
+
+        if (!posiblesVictimas.isEmpty()) {
+            Random random = new Random();
+            Jugador victima = posiblesVictimas.get(random.nextInt(posiblesVictimas.size()));
+
+            ladron.robarA(victima);
         }
-        nuevoHexagono.colocarLadron();
     }
 
     public int cantidadHexagonos() {

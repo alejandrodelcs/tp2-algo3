@@ -1,10 +1,12 @@
 package edu.fiuba.algo3.modelo.ElementosTablero;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -35,6 +37,12 @@ public class Vertice {
 
     public void asignarHexagonos(Hexagono hexagono) {
         this.hexagonos.add(hexagono);
+
+        hexagono.conectarVertice(this);
+    }
+
+    public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
+        this.construccion.agregarDuenio(listaVictimas);
     }
 
     public void conectarArista(Arista arista) {

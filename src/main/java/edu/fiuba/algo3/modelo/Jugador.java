@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.ElementosTablero.*;
@@ -40,6 +41,31 @@ public class Jugador {
         vertice.construir(construccion);
         this.construcciones.add(construccion);
 
+    }
+
+    public void robarA(Jugador victima) {
+        if (victima != null && victima != this) {
+            victima.entregarRecursoA(this);
+        }
+    }
+
+    public void recibirRecurso(Recurso recurso) {
+        if (recurso != null) {
+            this.cartasRecurso.add(recurso);
+        }
+    }
+
+    public void entregarRecursoA(Jugador ladron) {
+        if (this.cartasRecurso.isEmpty()) {
+            return;
+        }
+
+        Random random = new Random();
+        int indiceAleatorio = random.nextInt(this.cartasRecurso.size());
+
+        Recurso recursoRobado = this.cartasRecurso.remove(indiceAleatorio);
+
+        ladron.recibirRecurso(recursoRobado);
     }
 
     public void generarSegunDado(int dado) {

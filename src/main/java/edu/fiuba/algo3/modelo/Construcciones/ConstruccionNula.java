@@ -1,14 +1,21 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
  * ConstruccionNula
  */
 public class ConstruccionNula extends Construccion {
+
+    public ConstruccionNula() {
+        super(null);
+    }
+
     public int getPuntosDeVictoria() {
         return 0;
     }
@@ -26,6 +33,11 @@ public class ConstruccionNula extends Construccion {
     @Override
     public ArrayList<Recurso> generarSegunVertice(int dado) {
         return null;
+    }
+
+    @Override
+    public void agregarDuenio(List<Jugador> listaVictimas) {
+
     }
 
 }

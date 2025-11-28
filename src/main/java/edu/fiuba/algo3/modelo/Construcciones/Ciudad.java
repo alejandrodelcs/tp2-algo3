@@ -1,11 +1,17 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class Ciudad extends Construccion {
+
+    public Ciudad(Jugador duenio) {
+        super(duenio);
+    }
 
     @Override
     public int getPuntosDeVictoria() {
@@ -22,6 +28,13 @@ public class Ciudad extends Construccion {
         }
 
         return null;
+    }
+
+    @Override
+    public void agregarDuenio(List<Jugador> listaVictimas) {
+        if (!listaVictimas.contains(this.duenio)) {
+            listaVictimas.add(this.duenio);
+        }
     }
 
     @Override

@@ -35,7 +35,7 @@ public class JugadorTest {
         Vertice vertice = new Vertice();
         vertice.asignarHexagonos(hexMadera);
 
-        jugador1.construir(vertice, new Poblado());
+        jugador1.construir(vertice, new Poblado(new Jugador("Test")));
 
         assertEquals(1, jugador1.cantidadConstrucciones());
 
@@ -51,7 +51,7 @@ public class JugadorTest {
         Vertice vertice = new Vertice();
         vertice.asignarHexagonos(hexMadera);
 
-        jugador.construir(vertice, new Poblado());
+        jugador.construir(vertice, new Poblado(new Jugador("Test")));
 
         for (int i = 0; i < 10; i++) {
             jugador.generarSegunDado(dado);
@@ -71,7 +71,7 @@ public class JugadorTest {
         vertice.asignarHexagonos(hexaPiedra);
         vertice.asignarHexagonos(hexaLana);
 
-        jugador.construir(vertice, new Ciudad());
+        jugador.construir(vertice, new Ciudad(new Jugador("Test")));
 
         jugador.generarSegunDado(dado);
 

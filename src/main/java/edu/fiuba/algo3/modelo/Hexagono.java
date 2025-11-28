@@ -1,11 +1,16 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Hexagono {
     private final Terreno terreno;
     private final int ficha;
     private boolean tieneLadron;
+    private List<Vertice> vertices = new ArrayList<>();
 
     public Hexagono(Terreno terreno, int ficha) {
         this.terreno = terreno;
@@ -23,6 +28,19 @@ public class Hexagono {
 
     public boolean tieneLadron() {
         return this.tieneLadron;
+    }
+
+    public void conectarVertice(Vertice vertice) {
+        this.vertices.add(vertice);
+    }
+
+    public List<Jugador> obtenerVictimas() {
+        List<Jugador> victimas = new ArrayList<>();
+
+        for (Vertice vertice : this.vertices) {
+            vertice.agregarVictimaPotencial(victimas);
+        }
+        return victimas;
     }
 
     public boolean tieneFicha(int valorFicha) {

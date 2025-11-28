@@ -7,14 +7,11 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
+import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
-import edu.fiuba.algo3.modelo.LanzamientoDados;
-import edu.fiuba.algo3.modelo.Tablero;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.Hexagono;
-import edu.fiuba.algo3.modelo.Terreno;
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.ElementosTablero.*;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -60,7 +57,7 @@ public class TestsEntrega1 {
         vertice.asignarHexagonos(hexMadera);
         vertice.asignarHexagonos(hexPiedra);
 
-        vertice.construir(new Poblado());
+        vertice.construir(new Poblado(new Jugador("Test")));
 
         ArrayList<Recurso> inventarioInicial = vertice.entregarRecursosIniciales();
 
@@ -84,11 +81,11 @@ public class TestsEntrega1 {
 
         Vertice verticePoblado = new Vertice();
         verticePoblado.asignarHexagonos(hexBosque);
-        verticePoblado.construir(new Poblado());
+        verticePoblado.construir(new Poblado(new Jugador("Test")));
 
         Vertice verticeCiudad = new Vertice();
         verticeCiudad.asignarHexagonos(hexBosque);
-        verticeCiudad.construir(new Ciudad());
+        verticeCiudad.construir(new Ciudad(new Jugador("Test2")));
 
         ArrayList<Recurso> produccionPoblado = verticePoblado.generarRecurso(6);
         assertEquals(1, produccionPoblado.size());
@@ -109,7 +106,7 @@ public class TestsEntrega1 {
 
         Vertice vertice = new Vertice();
         vertice.asignarHexagonos(hexTrigo);
-        vertice.construir(new Poblado());
+        vertice.construir(new Poblado(new Jugador("Test")));
 
         ArrayList<Recurso> produccionNormal = vertice.generarRecurso(numeroSuerte);
         assertFalse(produccionNormal.isEmpty());
@@ -122,4 +119,28 @@ public class TestsEntrega1 {
         assertTrue(produccionBloqueada.isEmpty());
     }
 
+    @Test
+    public void test08LadronSeMueveYRobaUnRecursoAJugadorAdyacente() {
+        Jugador ladron = new Jugador("Matias");
+        Jugador victima = new Jugador("Natan");
+
+        victima.recibirRecurso(new Madera());
+
+        assertEquals(1, victima.cantidadCartas());
+        assertEquals(0, ladron.cantidadCartas());
+
+        Tablero tablero = new Tablero();
+        Hexagono hexDestino = new Hexagono(Terreno.BOSQUE, 5);
+        Vertice verticeAdyacente = new Vertice();
+
+        verticeAdyacente.asignarHexagonos(hexDestino);
+
+        verticeAdyacente.construir(new Poblado(victima));
+
+        tablero.moverLadron(hexDestino, ladron);
+
+        assertEquals(1, ladron.cantidadCartas());
+
+        assertEquals(0, victima.cantidadCartas());
+    }
 }
