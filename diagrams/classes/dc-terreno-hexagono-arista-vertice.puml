@@ -1,0 +1,47 @@
+@startuml
+
+class Tablero{
+ -hexagonos: List<Hexagono>
+ -terrenos: List<Terreno>
+ +construir()
+ +obtenerRecursoDe(valorFicha:int)
+ +moverLadron(hexagonoDestino:Hexagono, ladron:Jugador)
+}
+
+class Hexagono{
+  -terreno: Terreno   
+  -ficha:int
+  -boolean: tieneLadron
+  -vertices:List<Vertice>
+  +conectarVertice(vertice:Vertice)
+  +obtenerVictimas():List<Jugador>
+  +obtenerRecurso(numDado: int)
+}
+
+class Arista{
+   -primerVertice : Vertice
+   -segundoVertice: Vertice
+   
+   +conectarVertices()
+   +vecinoConstruido(vertice:Vertice):boolean
+   +obtenerOtroVertice(vertice:Vertice)
+   
+}
+
+
+class Vertice{
+-construccion:Construccion
+   -aristas:List<Arista>
+   -hexagonos: List<Hexagono>
+   +construir(construccion:Construccion)
+   +agregarVictimaPotencial(listaVictimas:List<Jugador>)
+   +entregarRecursosIniciales():Inventario
+
+}
+
+
+
+Tablero "1" o--> "*" Hexagono 
+Hexagono "1" o--> "6" Vertice
+Arista o--> Vertice
+@enduml
