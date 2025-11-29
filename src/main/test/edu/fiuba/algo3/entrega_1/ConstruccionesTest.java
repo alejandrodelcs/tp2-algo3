@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
+import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ public class ConstruccionesTest {
         Terreno terreno = Terreno.COLINA;
 
         Hexagono hexagono = new Hexagono(terreno, 1);
-        Construccion poblado = new Poblado(new Jugador("Test"));
+        Construccion poblado = new Poblado();
 
         Vertice vertice = new Vertice();
 
@@ -48,11 +49,13 @@ public class ConstruccionesTest {
         vertice.asignarHexagonos(hexMadera);
         vertice.asignarHexagonos(hexPiedra);
 
-        vertice.construir(new Poblado(new Jugador("Test")));
+        Inventario i = new Inventario(new Madera());
 
-        ArrayList<Recurso> inventarioInicial = vertice.entregarRecursosIniciales();
+        vertice.construir(new Poblado());
 
-        assertEquals(2, inventarioInicial.size());
+        Inventario p = vertice.entregarRecursosIniciales();
+
+        assertEquals(2, p.total());
 
     }
 }

@@ -1,9 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.ElementosTablero.*;
@@ -18,14 +16,13 @@ public class Jugador {
     private String nombre;
     private Inventario inventario;
 
-    public Jugador(String nombre) {
+    public Jugador(String nombre, Inventario inventario) {
         this.nombre = nombre;
         this.construcciones = new ArrayList<>();
-        this.inventario = new Inventario();
+        this.inventario = inventario;
     }
 
     public int cantidadCartas() {
-
         return this.inventario.total();
     }
 
@@ -37,7 +34,9 @@ public class Jugador {
         vertice.construir(construccion);
         this.construcciones.add(construccion);
 
+
     }
+
 
     public void robarA(Jugador victima) {
         if (victima != null && victima != this) {
@@ -80,4 +79,14 @@ public class Jugador {
         }
     }
 
+    public void contruirCarretera(Vertice inicio, Vertice fin, Carretera carretera) {
+        Arista a = new Arista(inicio, fin);
+        this.construcciones.add(carretera);
+        inventario.consumir(Madera.class);
+        inventario.consumir(Ladrillo.class);
+    }
+
+    public int consultarRecursos() {
+        return this.inventario.total();
+    }
 }

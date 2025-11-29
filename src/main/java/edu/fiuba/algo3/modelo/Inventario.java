@@ -1,11 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.Random;
+import java.util.*;
 
+import edu.fiuba.algo3.modelo.Errores.NoHayRecursoDisponibleError;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
@@ -13,11 +10,19 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
  */
 public class Inventario {
 
-    private Map<Class<? extends Recurso>, Integer> recursos = new HashMap<>();
+    private final ArrayList<Recurso> recursos;
+
+    public Inventario(Recurso...recursos) {
+        this.recursos = new ArrayList<>(Arrays.asList(recursos));
+    }
+
+    public Inventario(){
+        this.recursos = new ArrayList<>();
+    }
+
 
     public void agregar(Recurso recurso) {
-        Class<? extends Recurso> tipo = recurso.getClass();
-        this.recursos.put(tipo, this.recursos.getOrDefault(tipo, 0) + recurso.getCantidad());
+        recursos.add(recurso);
     }
 
     public void agregarTodos(Iterable<Recurso> listaRecursos) {
@@ -27,43 +32,43 @@ public class Inventario {
     }
 
     public int cantidadDeTipo(Class<? extends Recurso> tipo) {
-        return this.recursos.getOrDefault(tipo, 0);
+        int cantidad = 0;
+        for (Recurso recurso : recursos) {
+            if (recurso.getClass().equals(tipo)) {
+                cantidad++;
+            }
+        }
+        return cantidad;
     }
 
     public int total() {
-        return recursos.values().stream().mapToInt(i -> i).sum();
+        int total = 0;
+        int cant = 0;
+        for(Recurso r : recursos){
+            cant += r.acumular(total);
+        }
+        return cant;
     }
 
-    public Recurso quitarUno(Class<? extends Recurso> tipo) {
-        int cant = this.recursos.getOrDefault(tipo, 0);
+    public void consumir(Class<? extends Recurso> tipo) {
+        for (int i = 0; i < recursos.size(); i++) {
+            Recurso recurso = recursos.get(i);
 
-        if (cant <= 0) {
-            return null;
+            if (recurso != null && recurso.getClass().equals(tipo)) {
+                recursos.remove(i);
+                return;
+            }
         }
-
-        this.recursos.put(tipo, cant - 1);
-        if (cant - 1 == 0) {
-            this.recursos.remove(tipo);
-        }
-
-        try {
-            return tipo.getDeclaredConstructor().newInstance();
-
-        } catch (Exception e) {
-            throw new RuntimeException("No se pudo instanciar el recurso");
-        }
+        throw new NoHayRecursoDisponibleError();
     }
 
     public Recurso robarUno() {
-        if (this.estaVacio()) {
+        if (estaVacio()) {
             return null;
         }
-        java.util.List<Class<? extends Recurso>> tipos = new ArrayList<>(this.tiposDisponibles());
-
-        int numRandom = new Random().nextInt(tipos.size());
-        Class<? extends Recurso> tipoElegido = tipos.get(numRandom);
-
-        return quitarUno(tipoElegido);
+        Random random = new Random();
+        int index = random.nextInt(recursos.size());
+        return recursos.remove(index);
     }
 
     public boolean estaVacio() {
@@ -71,17 +76,20 @@ public class Inventario {
     }
 
     public Set<Class<? extends Recurso>> tiposDisponibles() {
-        return this.recursos.keySet();
+        Set<Class<? extends Recurso>> tipos = new HashSet<>();
+        for (Recurso recurso : recursos) {
+            tipos.add(recurso.getClass());
+        }
+        return tipos;
     }
 
     public void reducirALaMitad() {
-        int total = this.total();
-
+        int total = recursos.size();
         int cantidadConservar = total / 2;
         int aEliminar = total - cantidadConservar;
 
         for (int i = 0; i < aEliminar; i++) {
-            this.robarUno();
+            robarUno();
         }
     }
 }

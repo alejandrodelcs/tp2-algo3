@@ -11,19 +11,13 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 /**
  * Construccion
  */
-public abstract class Construccion {
-
-    protected Jugador duenio;
-
-    public Construccion(Jugador duenio) {
-        this.duenio = duenio;
-    }
+public abstract class Construccion implements Consumible{
 
     protected Vertice verticeAsignado;
 
     public abstract int getPuntosDeVictoria();
 
-    public abstract void agregarDuenio(List<Jugador> listaVictimas);
+
     public boolean esNula() {
         return false;
     }

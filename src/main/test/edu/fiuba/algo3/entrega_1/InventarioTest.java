@@ -1,10 +1,11 @@
 package edu.fiuba.algo3.entrega_1;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.ArrayList;
 import java.util.Set;
 
+import edu.fiuba.algo3.modelo.Errores.NoHayRecursoDisponibleError;
 import org.junit.jupiter.api.Test;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -16,19 +17,15 @@ public class InventarioTest {
 
     @Test
     public void test01UnInventarioCon5Elementos() {
-        Inventario inventario = new Inventario();
+        Inventario inventario = new Inventario(new Madera());
 
-        inventario.agregar(new Madera());
         assertEquals(1, inventario.cantidadDeTipo(Madera.class));
     }
 
     @Test
     public void test02AgregarVariosRecursosSumaCorrectamente() {
-        Inventario inventario = new Inventario();
+        Inventario inventario = new Inventario(new Madera(), new Madera(), new Lana());
 
-        inventario.agregar(new Madera());
-        inventario.agregar(new Madera());
-        inventario.agregar(new Lana());
 
         assertEquals(2, inventario.cantidadDeTipo(Madera.class));
         assertEquals(1, inventario.cantidadDeTipo(Lana.class));
@@ -37,11 +34,7 @@ public class InventarioTest {
 
     @Test
     public void test03AgregarRecursosYelTotalEsCorrecto() {
-        Inventario inventario = new Inventario();
-
-        inventario.agregar(new Madera());
-        inventario.agregar(new Madera());
-        inventario.agregar(new Lana());
+        Inventario inventario = new Inventario(new Madera(), new Madera(), new Lana());
 
         assertEquals(3, inventario.total());
 
@@ -50,44 +43,29 @@ public class InventarioTest {
     @Test
     public void test04AgregoUnaListaDeRecursosAlInventario() {
 
-        Inventario inventario = new Inventario();
-        ArrayList<Recurso> recursos = new ArrayList<>();
-        recursos.add(new Madera());
-        recursos.add(new Madera());
-        recursos.add(new Lana());
-        recursos.add(new Lana());
-
-        inventario.agregarTodos(recursos);
+        Inventario inventario = new Inventario(new Madera(), new Madera(), new Lana(),  new Lana());
 
         assertEquals(4, inventario.total());
     }
 
     @Test
-    public void test05QuitarUnoReduceLaCantidadDelTipo() {
-        Inventario inventario = new Inventario();
-        inventario.agregar((new Madera()));
-        inventario.agregar((new Madera()));
-
-        Recurso recurso = inventario.quitarUno(Madera.class);
+    public void test05ConsumirReduceLaCantidadDelTipo() {
+        Inventario inventario = new Inventario(new Madera(), new Madera());
+        inventario.consumir(Madera.class);
 
         assertEquals(1, inventario.cantidadDeTipo(Madera.class));
     }
 
     @Test
-    public void test06QuitarUnoDeUnTipoNoExisteDevuelveNull() {
-        Inventario inventario = new Inventario();
-        Recurso recurso = inventario.quitarUno(Ladrillo.class);
+    public void test06ConsumirDeUnTipoNoExisteDevuelveUnaExcepcion() {
+        Inventario inventario = new Inventario(new Madera());
 
-        assertNull(recurso);
+        assertThrows(NoHayRecursoDisponibleError.class, ()->inventario.consumir(Ladrillo.class));
     }
 
     @Test
     public void test07RoBarUnoDevuelveAlgunaCartaYReduceElTotal() {
-        Inventario inventario = new Inventario();
-
-        inventario.agregar(new Madera());
-        inventario.agregar(new Lana());
-        inventario.agregar(new Mineral());
+        Inventario inventario = new Inventario(new Madera(), new Lana(),  new Mineral());
 
         int antes = inventario.total();
 
@@ -99,10 +77,7 @@ public class InventarioTest {
 
     @Test
     public void test08TiposDisponiblesDevuelveLasClasesCorrectas() {
-        Inventario inventario = new Inventario();
-
-        inventario.agregar(new Madera());
-        inventario.agregar(new Lana());
+        Inventario inventario = new Inventario(new Madera(), new Lana());
 
         Set<Class<? extends Recurso>> tipos = inventario.tiposDisponibles();
 
@@ -113,18 +88,8 @@ public class InventarioTest {
 
     @Test
     public void test09ReduceirALaMitadEliminaLaCantidadCorrecta() {
-        Inventario inventario = new Inventario();
-
-        // Total: 9
-        inventario.agregar(new Madera());
-        inventario.agregar(new Madera());
-        inventario.agregar(new Madera());
-        inventario.agregar(new Lana());
-        inventario.agregar(new Lana());
-        inventario.agregar(new Lana());
-        inventario.agregar(new Mineral());
-        inventario.agregar(new Mineral());
-        inventario.agregar(new Mineral());
+        Inventario inventario = new Inventario(new Madera(),new Madera(), new Madera(), new Lana(),
+                                                new Lana(), new Lana(), new Mineral(), new Mineral());
 
         inventario.reducirALaMitad();
 

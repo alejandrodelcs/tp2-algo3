@@ -2,6 +2,7 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Recurso.*;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.*;
@@ -18,9 +19,18 @@ import static org.junit.Assert.*;
  * JugadorTest
  */
 public class JugadorTest {
+
+    private Jugador jugador;
+    private Inventario inventario;
+
+    @BeforeEach
+    public void setUp() {
+        inventario = new Inventario();
+        jugador = new Jugador("Ale", inventario);
+    }
+
     @Test
     public void test01CreoUnJugadorSinCartasNiConstrucciones() {
-        Jugador jugador = new Jugador("Adrian");
 
         assertEquals(0, jugador.cantidadCartas());
         assertEquals(0, jugador.cantidadConstrucciones());
@@ -29,29 +39,28 @@ public class JugadorTest {
 
     @Test
     public void test02UnaConstruccionGeneraUnCartaRecursoParaJugador() {
-        Jugador jugador1 = new Jugador("Alberto");
 
         Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 6);
         Vertice vertice = new Vertice();
         vertice.asignarHexagonos(hexMadera);
 
-        jugador1.construir(vertice, new Poblado(new Jugador("Test")));
+        jugador.construir(vertice, new Poblado());
 
-        assertEquals(1, jugador1.cantidadConstrucciones());
+        assertEquals(1, jugador.cantidadConstrucciones());
 
     }
 
     @Test
     public void test03UnJugadorRecibeRecursosDeSuConstruccion() {
 
-        Jugador jugador = new Jugador("Julia");
+        Jugador jugador = new Jugador("Julia", inventario);
 
         int dado = 6;
         Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 6);
         Vertice vertice = new Vertice();
         vertice.asignarHexagonos(hexMadera);
 
-        jugador.construir(vertice, new Poblado(new Jugador("Test")));
+        jugador.construir(vertice, new Poblado());
 
         for (int i = 0; i < 10; i++) {
             jugador.generarSegunDado(dado);
@@ -61,8 +70,8 @@ public class JugadorTest {
     }
 
     @Test
-    public void test04UnJugadorRecibeDosRecursosDeUnCuidad() {
-        Jugador jugador = new Jugador("Alberto");
+    public void test04UnJugadorRecibeDosRecursosDeUnaCuidad() {
+
         int dado = 6;
         Hexagono hexaPiedra = new Hexagono(Terreno.MONTANA, 6);
         Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 6);
@@ -71,7 +80,9 @@ public class JugadorTest {
         vertice.asignarHexagonos(hexaPiedra);
         vertice.asignarHexagonos(hexaLana);
 
-        jugador.construir(vertice, new Ciudad(jugador));
+
+        Jugador jugador = new Jugador("Alberto", inventario);
+        jugador.construir(vertice, new Ciudad());
 
         jugador.generarSegunDado(dado);
 
@@ -81,7 +92,7 @@ public class JugadorTest {
 
     @Test
     public void test05UnJugadorRecibeTresRecursosDistintos() {
-        Jugador jugador = new Jugador("Julia");
+        Jugador jugador = new Jugador("Julia", inventario);
 
         int dado1 = 1;
         int dado2 = 2;
@@ -96,7 +107,7 @@ public class JugadorTest {
         vertice.asignarHexagonos(hexaPiedra);
         vertice.asignarHexagonos(hexaLana);
 
-        jugador.construir(vertice, new Poblado(jugador));
+        jugador.construir(vertice, new Poblado());
 
         for (int i = 0; i < 3; i++) {
             jugador.generarSegunDado(dado1);
@@ -115,7 +126,7 @@ public class JugadorTest {
     @Test
     public void test06UnJugadorDescartaLaMitadDeSusCartasSiSale7yTieneMasDe7Cartas() {
 
-        Jugador jugador = new Jugador("Julia");
+        Jugador jugador = new Jugador("Julia", inventario);
 
         int dado1 = 1;
         int dado2 = 2;
@@ -131,7 +142,7 @@ public class JugadorTest {
         vertice.asignarHexagonos(hexaPiedra);
         vertice.asignarHexagonos(hexaLana);
 
-        jugador.construir(vertice, new Poblado(jugador));
+        jugador.construir(vertice, new Poblado());
 
         for (int i = 0; i < 3; i++) {
             jugador.generarSegunDado(dado1);

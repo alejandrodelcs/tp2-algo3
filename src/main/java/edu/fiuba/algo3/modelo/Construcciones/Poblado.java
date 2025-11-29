@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.fiuba.algo3.modelo.Hexagono;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Inventario;
+import edu.fiuba.algo3.modelo.Recurso.Madera;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
@@ -12,9 +12,7 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
  */
 public class Poblado extends Construccion {
 
-    public Poblado(Jugador duenio) {
-        super(duenio);
-    }
+
     public int getPuntosDeVictoria() {
         return 1;
     }
@@ -25,12 +23,6 @@ public class Poblado extends Construccion {
         return recurso;
     }
 
-    @Override
-    public void agregarDuenio(List<Jugador> listaVictimas) {
-        if (!listaVictimas.contains(this.duenio)) {
-            listaVictimas.add(this.duenio);
-        }
-    }
 
     @Override
     public ArrayList<Recurso> generarSegunVertice(int dado) {
@@ -39,4 +31,8 @@ public class Poblado extends Construccion {
     }
 
 
+    @Override
+    public void consumir(Inventario inventario) {
+        inventario.consumir(Madera.class);
+    }
 }

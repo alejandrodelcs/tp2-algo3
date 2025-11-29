@@ -2,7 +2,7 @@
 
 diagramsPath="diagrams"
 
-echo 'AVERTENCIA!!!'
+echo 'ADVERTENCIA!!!'
 echo
 echo "Todos los archivos '*.png' dentro de \"$diagramsPath\" serán borrados."
 echo "Se regeneraran a partir de los archivos '*.plantuml'."

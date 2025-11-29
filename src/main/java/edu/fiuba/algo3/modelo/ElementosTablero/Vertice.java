@@ -6,6 +6,7 @@ import java.util.List;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
+import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
@@ -42,7 +43,7 @@ public class Vertice {
     }
 
     public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
-        this.construccion.agregarDuenio(listaVictimas);
+        //this.construccion.agregarDuenio(listaVictimas);
     }
 
     public void conectarArista(Arista arista) {
@@ -70,11 +71,12 @@ public class Vertice {
         return recursosGenerados;
     }
 
-    public ArrayList<Recurso> entregarRecursosIniciales() {
+    public Inventario entregarRecursosIniciales() {
         ArrayList<Recurso> recursos = new ArrayList<>();
 
+
         if (!this.tieneConstruccion()) {
-            return recursos;
+            return null;  //Crear una excepcion y testear
         }
 
         for (Hexagono hex : this.hexagonos) {
@@ -83,7 +85,7 @@ public class Vertice {
                 recursos.add(r);
             }
         }
-        return recursos;
+        return new Inventario(recursos.toArray(new Recurso[0]));
     }
 
 }
