@@ -148,4 +148,17 @@ public class Inventario {
     public void descontarPara(Construccion construccion) {
         construccion.pagarCon(this);
     }
+
+    public Recurso remover(Class<? extends Recurso> tipoRecurso) {
+
+        for (Recurso recurso : recursos) {
+
+            if (tipoRecurso.isInstance(recurso)) {
+                recursos.remove(recurso);
+                return recurso;
+            }
+        }
+        return null;
+
+    }
 }
