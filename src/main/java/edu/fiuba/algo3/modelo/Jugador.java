@@ -113,4 +113,9 @@ public class Jugador {
         return this.inventario.cantidadDeTipo(tipo);
 
     }
+
+    public Jugador seleccionarVictima(List<Jugador> candidatas) {
+        return candidatas.get(0);// ver como fx selecciona a la victima
+    }
+
 }

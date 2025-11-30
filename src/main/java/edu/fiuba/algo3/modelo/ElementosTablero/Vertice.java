@@ -43,7 +43,7 @@ public class Vertice {
     }
 
     public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
-        //this.construccion.agregarDuenio(listaVictimas);
+        this.construccion.agregarDuenio(listaVictimas);
     }
 
     public void conectarArista(Arista arista) {
@@ -74,9 +74,8 @@ public class Vertice {
     public Inventario entregarRecursosIniciales() {
         ArrayList<Recurso> recursos = new ArrayList<>();
 
-
         if (!this.tieneConstruccion()) {
-            return null;  //Crear una excepcion y testear
+            return null; // Crear una excepcion y testear
         }
 
         for (Hexagono hex : this.hexagonos) {

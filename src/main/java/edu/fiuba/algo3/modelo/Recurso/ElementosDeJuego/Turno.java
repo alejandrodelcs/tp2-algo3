@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.Recurso.ElementosDeJuego;
 
 import java.util.List;
+
+import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.LanzamientoDados;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
@@ -40,6 +42,7 @@ public class Turno {
     public void comerciarCon(Jugador otroJugador,
             List<Class<? extends Recurso>> ofrece,
             List<Class<? extends Recurso>> pide) {
+
         if (!this.jugadorActivo.tieneEnInventario(ofrece)) {
             throw new IllegalArgumentException("El jugador activo no tiene los recursos");
         }
@@ -49,6 +52,14 @@ public class Turno {
 
         this.jugadorActivo.entregarTipos(otroJugador, ofrece);
         otroJugador.entregarTipos(this.jugadorActivo, pide);
+
+    }
+
+    public void robarA(Jugador otroJugador, Hexagono destino) {
+        List<Jugador> victimas = destino.obtenerVictimas();
+        Jugador victima = this.jugadorActivo.seleccionarVictima(victimas);
+
+        this.jugadorActivo.robarA(victima);
 
     }
 

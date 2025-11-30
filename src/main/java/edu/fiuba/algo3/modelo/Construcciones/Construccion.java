@@ -11,12 +11,21 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 /**
  * Construccion
  */
-public abstract class Construccion implements Consumible{
+public abstract class Construccion implements Consumible {
 
+    protected Jugador dueño;
     protected Vertice verticeAsignado;
 
-    public abstract int getPuntosDeVictoria();
+    public Construccion() {
+        this.dueño = null;
 
+    }
+
+    public Construccion(Jugador dueño) {
+        this.dueño = dueño;
+    }
+
+    public abstract int getPuntosDeVictoria();
 
     public boolean esNula() {
         return false;
@@ -29,4 +38,10 @@ public abstract class Construccion implements Consumible{
     public abstract Recurso generarSegunHexagono(Hexagono hexagono, int numDado);
 
     public abstract ArrayList<Recurso> generarSegunVertice(int dado);
+
+    public void agregarDuenio(List<Jugador> listaVictimas) {
+        if (!listaVictimas.contains(this.dueño)) {
+            listaVictimas.add(this.dueño);
+        }
+    }
 }

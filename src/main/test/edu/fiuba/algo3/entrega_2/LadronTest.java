@@ -11,11 +11,13 @@ import edu.fiuba.algo3.modelo.Recurso.Madera;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 public class LadronTest {
     @Test
-    public void test01LadronSeCreaYBLoqueaHexagonoInicial(){
+    public void test01LadronSeCreaYBLoqueaHexagonoInicial() {
         Hexagono desierto = new Hexagono(Terreno.DESIERTO, 0);
 
         Ladron ladron = new Ladron(desierto);
@@ -24,7 +26,7 @@ public class LadronTest {
     }
 
     @Test
-    public void test02LadronSeMueveYLiberaElHexagonoAnterior(){
+    public void test02LadronSeMueveYLiberaElHexagonoAnterior() {
         Hexagono origen = new Hexagono(Terreno.COLINA, 8);
         Hexagono destino = new Hexagono(Terreno.BOSQUE, 5);
         Ladron ladron = new Ladron(origen);
@@ -36,7 +38,7 @@ public class LadronTest {
     }
 
     @Test
-    public void test03LadronRobaAOtroJugadorUnRecurso(){
+    public void test03LadronRobaAOtroJugadorUnRecurso() {
         Inventario inventario1 = new Inventario();
         Inventario inventario2 = new Inventario();
 
@@ -50,8 +52,11 @@ public class LadronTest {
         Vertice verticeAdyacente = new Vertice();
         verticeAdyacente.asignarHexagonos(hexDestino);
 
-        victima.construir(verticeAdyacente, new Poblado());
-        // falta linkear el vertice a victima
+        Poblado pobado = new Poblado(victima);
+
+        pobado.agregarDuenio(List.of(victima));
+        verticeAdyacente.construir(pobado);
+
         Ladron ladron = new Ladron(hexDestino);
 
         ladron.robar(jugador);
