@@ -48,7 +48,6 @@ public abstract class Construccion {
 
     public abstract int getPuntosDeVictoria();
 
-
     public boolean esNula() {
         return false;
     }
@@ -66,5 +65,11 @@ public abstract class Construccion {
 
     public boolean esAdyacenteA(Arista nueva) {
         return false;
+    }
+
+    public void agregarDuenio(List<Jugador> listaVictimas) {
+        if (!listaVictimas.contains(this.dueño)) {
+            listaVictimas.add(this.dueño);
+        }
     }
 }

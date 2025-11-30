@@ -87,16 +87,16 @@ public class Vertice {
     }
 
     public Inventario entregarRecursosIniciales() {
-        Inventario recursos = new Inventario();
+        ArrayList<Recurso> recursos = new ArrayList<>();
 
         if (!this.tieneConstruccion()) {
-            return recursos;
+            return null; // Crear una excepcion y testear
         }
 
         for (Hexagono hex : this.hexagonos) {
             Recurso r = hex.obtenerRecursoBase();
             if (r != null) {
-                recursos.agregar(r);
+                recursos.add(r);
             }
         }
         return recursos;
