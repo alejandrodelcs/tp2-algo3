@@ -31,10 +31,6 @@ public class Arista {
         this.carretera = carretera;
     }
 
-    public boolean estaOcupada() {
-        return this.carretera != null;
-    }
-
     public boolean vecinoConstruido(Vertice vertice) {
 
         Vertice otro = this.getOtroVertice(vertice);
