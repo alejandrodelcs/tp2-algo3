@@ -1,12 +1,12 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Recurso.Madera;
-import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
  * Poblado
@@ -29,6 +29,23 @@ public class Poblado extends Construccion {
     public Recurso generarSegunHexagono(Hexagono hexagono, int numDado) {
         Recurso recurso = hexagono.obtenerRecurso(numDado);
         return recurso;
+    }
+
+    @Override
+    public void agregarDuenio(List<Jugador> listaVictimas) {
+        if (!listaVictimas.contains(this.dueño)) {
+            listaVictimas.add(this.dueño);
+        }
+    }
+
+    @Override
+    public boolean puedeSerMejorada() {
+        return true;
+    }
+
+    @Override
+    public List<Recurso> getCosto() {
+        return List.of(new Madera(), new Ladrillo(), new Grano(), new Lana());
     }
 
     @Override

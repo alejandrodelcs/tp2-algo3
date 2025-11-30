@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo;
 import java.util.*;
 
 import edu.fiuba.algo3.modelo.Errores.NoHayRecursoDisponibleError;
+import edu.fiuba.algo3.modelo.Errores.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
@@ -10,7 +11,7 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
  */
 public class Inventario {
 
-    private final ArrayList<Recurso> recursos;
+    private List<Recurso> recursos;
 
     public Inventario(Recurso... recursos) {
         this.recursos = new ArrayList<>(Arrays.asList(recursos));
@@ -24,10 +25,8 @@ public class Inventario {
         recursos.add(recurso);
     }
 
-    public void agregarTodos(Iterable<Recurso> listaRecursos) {
-        for (Recurso recurso : listaRecursos) {
-            this.agregar(recurso);
-        }
+    public void agregar(List<Recurso> recursos) {
+        this.recursos.addAll(recursos);
     }
 
     public int cantidadDeTipo(Class<? extends Recurso> tipo) {
@@ -47,6 +46,14 @@ public class Inventario {
             cant += r.acumular(total);
         }
         return cant;
+    }
+
+    public int cantidad() {
+        return this.recursos.size();
+    }
+
+    public boolean excedeLimite() {
+        return this.recursos.size() > 7;
     }
 
     public void consumir(Class<? extends Recurso> tipo) {
@@ -82,13 +89,39 @@ public class Inventario {
         return tipos;
     }
 
-    public void reducirALaMitad() {
-        int total = recursos.size();
-        int cantidadConservar = total / 2;
-        int aEliminar = total - cantidadConservar;
+    public boolean posee(List<Recurso> costo) {
+        List<Recurso> copiaInventario = new ArrayList<>(this.recursos);
 
-        for (int i = 0; i < aEliminar; i++) {
-            robarUno();
+        for (Recurso necesaria : costo) {
+            if (!copiaInventario.remove(necesaria)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public List<Recurso> descartarMitad() {
+        int cantidadABorrar = this.recursos.size() / 2;
+        List<Recurso> descartadas = new ArrayList<>();
+
+        Random random = new Random();
+        for (int i = 0; i < cantidadABorrar; i++) {
+            if (!this.recursos.isEmpty()) {
+                Recurso r = this.recursos.remove(random.nextInt(this.recursos.size()));
+                descartadas.add(r);
+            }
+        }
+        return descartadas;
+    }
+
+    public void gastar(List<Recurso> costo) {
+        if (!posee(costo)) {
+            throw new RecursosInsuficientesException("No cubre el costo");
+        }
+
+        for (Recurso necesaria : costo) {
+            this.recursos.remove(necesaria);
         }
     }
 
@@ -103,5 +136,9 @@ public class Inventario {
         }
         return null;
 
+    }
+
+    public Recurso obtenerRecurso(int indice) {
+        return this.recursos.get(indice);
     }
 }

@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.ElementosTablero;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.fiuba.algo3.modelo.Errores.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
@@ -34,6 +35,20 @@ public class Vertice {
 
         this.construccion = construccion;
         construccion.asignarVertice(this);
+    }
+
+    public void mejorar(Construccion nuevaConstruccion) {
+        if (!this.construccion.puedeSerMejorada()) {
+            throw new AccionNoPermitidaException("No hay nada para mejorar o ya está al máximo nivel.");
+        }
+
+        if (this.construccion.getDuenio() != nuevaConstruccion.getDuenio()) {
+            throw new AccionNoPermitidaException("No puedes mejorar un edificio que no es tuyo.");
+        }
+
+        this.construccion = nuevaConstruccion;
+
+        nuevaConstruccion.asignarVertice(this);
     }
 
     public void asignarHexagonos(Hexagono hexagono) {
@@ -72,19 +87,19 @@ public class Vertice {
     }
 
     public Inventario entregarRecursosIniciales() {
-        ArrayList<Recurso> recursos = new ArrayList<>();
+        Inventario recursos = new Inventario();
 
         if (!this.tieneConstruccion()) {
-            return null; // Crear una excepcion y testear
+            return recursos;
         }
 
         for (Hexagono hex : this.hexagonos) {
             Recurso r = hex.obtenerRecursoBase();
             if (r != null) {
-                recursos.add(r);
+                recursos.agregar(r);
             }
         }
-        return new Inventario(recursos.toArray(new Recurso[0]));
+        return recursos;
     }
 
 }

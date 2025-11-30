@@ -21,8 +21,22 @@ public abstract class Construccion implements Consumible {
 
     }
 
+    public abstract List<Recurso> getCosto();
+
     public Construccion(Jugador dueño) {
         this.dueño = dueño;
+    }
+
+    public boolean estaEn(Vertice v) {
+        return this.verticeAsignado == v;
+    }
+
+    public boolean puedeSerMejorada() {
+        return false;
+    }
+
+    public Jugador getDuenio() {
+        return this.dueño;
     }
 
     public abstract int getPuntosDeVictoria();
@@ -39,9 +53,6 @@ public abstract class Construccion implements Consumible {
 
     public abstract ArrayList<Recurso> generarSegunVertice(int dado);
 
-    public void agregarDuenio(List<Jugador> listaVictimas) {
-        if (!listaVictimas.contains(this.dueño)) {
-            listaVictimas.add(this.dueño);
-        }
-    }
+    public abstract void agregarDuenio(List<Jugador> listaVictimas);
+
 }

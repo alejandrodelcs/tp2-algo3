@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.ElementosTablero.*;
+import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -12,14 +13,18 @@ import edu.fiuba.algo3.modelo.Recurso.*;
  */
 public class Jugador {
 
+    private List<CartaDesarrollo> cartasDesarrollo;
     private ArrayList<Construccion> construcciones;
     private String nombre;
     private Inventario inventario;
+    private int puntosVictoria;
+    private boolean puedeMoverLadron;
 
     public Jugador(String nombre, Inventario inventario) {
         this.nombre = nombre;
         this.construcciones = new ArrayList<>();
         this.inventario = inventario;
+        this.cartasDesarrollo = new ArrayList<>();
     }
 
     public int cantidadCartas() {
@@ -30,10 +35,84 @@ public class Jugador {
         return this.construcciones.size();
     }
 
-    public void construir(Vertice vertice, Construccion construccion) {
-        vertice.construir(construccion);
-        this.construcciones.add(construccion);
+    public void mejorarConstruccion(Vertice vertice, Construccion nuevaConstruccion) {
+        List<Recurso> costo = nuevaConstruccion.getCosto();
 
+        this.inventario.gastar(costo);
+
+        try {
+            vertice.mejorar(nuevaConstruccion);
+
+            this.construcciones.add(nuevaConstruccion);
+            this.removerConstruccionVieja(vertice);
+
+        } catch (Exception e) {
+            this.inventario.agregar(costo);
+
+            throw e;
+        }
+    }
+
+    private void removerConstruccionVieja(Vertice vertice) {
+        this.construcciones.removeIf(c -> c.estaEn(vertice));
+    }
+
+    public void comprarCartaDesarrollo(MazoDesarrollo mazo) {
+        List<Recurso> costo = List.of(new Lana(), new Grano(), new Mineral());
+
+        this.inventario.gastar(costo);
+
+        CartaDesarrollo carta = mazo.sacarCarta();
+
+        this.cartasDesarrollo.add(carta);
+    }
+
+    public void usarCartaDesarrollo(int indice) {
+        if (indice < 0 || indice >= this.cartasDesarrollo.size()) {
+            throw new CartaNoDisponibleException("");
+        }
+
+        CartaDesarrollo carta = this.cartasDesarrollo.get(indice);
+
+        carta.activar(this);
+
+        if (carta.esDeUnSoloUso()) {
+            this.cartasDesarrollo.remove(indice);
+        }
+    }
+
+    public void pasarTurno() {
+        for (CartaDesarrollo carta : this.cartasDesarrollo) {
+            carta.pasarTurno();
+        }
+
+        this.puedeMoverLadron = false;
+    }
+
+    public void sumarPuntoVictoria() {
+        this.puntosVictoria++;
+    }
+
+    public void habilitarMovimientoLadron() {
+        this.puedeMoverLadron = true;
+    }
+
+    public int cantidadCartasDesarrollo() {
+        return this.cartasDesarrollo.size();
+    }
+
+    public void construir(Vertice vertice, Construccion construccion) {
+        List<Recurso> costo = construccion.getCosto();
+
+        this.inventario.gastar(costo);
+
+        try {
+            vertice.construir(construccion);
+            this.construcciones.add(construccion);
+        } catch (Exception e) {
+            this.inventario.agregar(costo);
+            throw e;
+        }
     }
 
     public void robarA(Jugador victima) {
@@ -65,15 +144,14 @@ public class Jugador {
         for (Construccion construccion : this.construcciones) {
 
             ArrayList<Recurso> recursos = construccion.generarSegunVertice(dado);
-            this.inventario.agregarTodos(recursos);
+            this.inventario.agregar(recursos);
 
         }
     }
 
     public void reducirALaMitadLosRecurosos() {
-        if (this.inventario.total() > 7) {
-
-            this.inventario.reducirALaMitad();
+        if (this.inventario.excedeLimite()) {
+            this.inventario.descartarMitad();
         }
     }
 

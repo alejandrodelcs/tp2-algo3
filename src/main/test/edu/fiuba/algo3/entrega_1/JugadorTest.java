@@ -82,7 +82,7 @@ public class JugadorTest {
 
 
         Jugador jugador = new Jugador("Alberto", inventario);
-        jugador.construir(vertice, new Ciudad());
+        jugador.construir(vertice, new Ciudad(jugador));
 
         jugador.generarSegunDado(dado);
 

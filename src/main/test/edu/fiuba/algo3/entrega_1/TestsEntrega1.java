@@ -100,7 +100,7 @@ public class TestsEntrega1 {
 
         Vertice verticeCiudad = new Vertice();
         verticeCiudad.asignarHexagonos(hexBosque);
-        verticeCiudad.construir(new Ciudad());
+        verticeCiudad.construir(new Ciudad(new Jugador("Test", new Inventario())));
 
         ArrayList<Recurso> produccionPoblado = verticePoblado.generarRecurso(6);
         assertEquals(1, produccionPoblado.size());
