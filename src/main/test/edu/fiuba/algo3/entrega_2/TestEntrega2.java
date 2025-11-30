@@ -31,7 +31,8 @@ public class TestEntrega2 {
 
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
 
-        jugador.construirCarretera(new Vertice(), new Vertice(), new Carretera());
+        Construible estrategia = new ConstruirAsentamiento();
+        jugador.construir(estrategia, new Carretera(), new Vertice());
 
         Assertions.assertEquals(0, jugador.consultarRecursos());
 
@@ -126,10 +127,12 @@ public class TestEntrega2 {
         Vertice v3 = new Vertice();
         Vertice v4 = new Vertice();
 
-        jugador.construirCarretera(v1, v2, new Carretera());
+
+        Construible estrategia = new ConstruirCarretera();
+        jugador.construir(estrategia, new Carretera(), v1,v2);
 
         assertThrows(CarreteraNoConectadaError.class,
-                () -> jugador.construirCarretera(v3, v4, new Carretera()));
+                () -> jugador.construir(estrategia, new Carretera(), v3,v4));
     }
 
 

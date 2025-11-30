@@ -3,9 +3,11 @@ package edu.fiuba.algo3.entrega_2;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.List;
+
+import edu.fiuba.algo3.modelo.ElementosDeJuego.Juego;
+import edu.fiuba.algo3.modelo.ElementosDeJuego.Turno;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,6 @@ import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 import edu.fiuba.algo3.modelo.Recurso.Mineral;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
-import edu.fiuba.algo3.modelo.Recurso.ElementosDeJuego.*;
 
 /**
  * TurnoTest

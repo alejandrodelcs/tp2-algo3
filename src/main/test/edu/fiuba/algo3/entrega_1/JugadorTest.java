@@ -44,7 +44,8 @@ public class JugadorTest {
         Vertice vertice = new Vertice();
         vertice.asignarHexagonos(hexMadera);
 
-        jugador.construir(vertice, new Poblado());
+        Construible estrategia = new ConstruirAsentamiento();
+        jugador.construir(estrategia, new Poblado(), vertice);
 
         assertEquals(1, jugador.cantidadConstrucciones());
 
@@ -60,7 +61,8 @@ public class JugadorTest {
         Vertice vertice = new Vertice();
         vertice.asignarHexagonos(hexMadera);
 
-        jugador.construir(vertice, new Poblado());
+        Construible estrategia = new ConstruirAsentamiento();
+        jugador.construir(estrategia, new Poblado(), vertice);
 
         for (int i = 0; i < 10; i++) {
             jugador.generarSegunDado(dado);
@@ -82,7 +84,9 @@ public class JugadorTest {
 
 
         Jugador jugador = new Jugador("Alberto", inventario);
-        jugador.construir(vertice, new Ciudad(jugador));
+
+        Construible estrategia = new ConstruirAsentamiento();
+        jugador.construir(estrategia, new Ciudad(), vertice);
 
         jugador.generarSegunDado(dado);
 
@@ -107,7 +111,8 @@ public class JugadorTest {
         vertice.asignarHexagonos(hexaPiedra);
         vertice.asignarHexagonos(hexaLana);
 
-        jugador.construir(vertice, new Poblado());
+        Construible estrategia = new ConstruirAsentamiento();
+        jugador.construir(estrategia, new Poblado(), vertice);
 
         for (int i = 0; i < 3; i++) {
             jugador.generarSegunDado(dado1);
@@ -142,7 +147,8 @@ public class JugadorTest {
         vertice.asignarHexagonos(hexaPiedra);
         vertice.asignarHexagonos(hexaLana);
 
-        jugador.construir(vertice, new Poblado());
+        Construible estrategia = new ConstruirAsentamiento();
+        jugador.construir(estrategia, new Poblado(), vertice);
 
         for (int i = 0; i < 3; i++) {
             jugador.generarSegunDado(dado1);

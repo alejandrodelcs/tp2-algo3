@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Recurso.ElementosDeJuego;
+package edu.fiuba.algo3.modelo.ElementosDeJuego;
 
 import java.util.List;
 

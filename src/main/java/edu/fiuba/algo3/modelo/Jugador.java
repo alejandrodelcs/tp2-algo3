@@ -165,27 +165,6 @@ public class Jugador {
 
 
 
-
-    private boolean esAdyacenteA(Arista nueva) {
-        return construcciones.isEmpty() ||
-                construcciones.stream().anyMatch(c -> c.esAdyacenteA(nueva));
-    }
-
-
-    public void construirCarretera(Vertice inicio, Vertice fin, Carretera carretera) {
-        Arista nueva = new Arista(inicio, fin);
-        carretera.asignarArista(nueva);
-        if (!esAdyacenteA(nueva)) {
-            throw new CarreteraNoConectadaError();
-        }
-        inventario.descontarPara(carretera);
-        nueva.colocarCarretera(carretera);
-        this.construcciones.add(carretera);
-    }
-
-
-
-
     public int consultarRecursos() {
         return this.inventario.total();
     }
@@ -221,12 +200,25 @@ public class Jugador {
     }
 
 
-    public void construirAsentamiento(Vertice vertice, Construccion construccion) {
-        vertice.construir(construccion);
-        this.construcciones.add(construccion);
-        inventario.descontarPara(construccion);
+
+
+    public boolean esAdyacenteA(Arista nueva) {
+        return construcciones.isEmpty() ||
+                construcciones.stream().anyMatch(c -> c.esAdyacenteA(nueva));
     }
 
+
+    public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
+        construible.construir(this, construccion, ubicaciones);
+    }
+
+    public void agregarConstruccion(Construccion construccion) {
+        this.construcciones.add(construccion);
+    }
+
+    public void descontarPara(Construccion construccion) {
+        this.inventario.descontarPara(construccion);
+    }
 
     public int consultarRecursos() {
         return this.inventario.total();
