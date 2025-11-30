@@ -60,6 +60,8 @@ public class Carretera extends Construccion{
         this.arista = arista;
     }
 
+
+    @Override
     public boolean esAdyacenteA(Arista otra) {
         return this.arista.esAdyacenteA(otra);
     }

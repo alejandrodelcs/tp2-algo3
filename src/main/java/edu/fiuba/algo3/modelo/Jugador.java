@@ -118,6 +118,7 @@ public class Jugador {
         }
     }
 
+
     public void robarA(Jugador victima) {
         if (victima != null && victima != this) {
             victima.entregarRecursoA(this);
@@ -159,27 +160,18 @@ public class Jugador {
     }
 
 
-    private boolean esAdyacenteALaRed(Arista nueva) {
 
-        if (construcciones.isEmpty()) return true;
 
-        for (Construccion c : construcciones) {
-            if (c instanceof Carretera) {
-                Carretera carreteraExistente = (Carretera) c;
-                if (carreteraExistente.esAdyacenteA(nueva)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+    private boolean esAdyacenteA(Arista nueva) {
+        return construcciones.isEmpty() ||
+                construcciones.stream().anyMatch(c -> c.esAdyacenteA(nueva));
     }
 
 
     public void construirCarretera(Vertice inicio, Vertice fin, Carretera carretera) {
         Arista nueva = new Arista(inicio, fin);
         carretera.asignarArista(nueva);
-        if (!esAdyacenteALaRed(nueva)) {
+        if (!esAdyacenteA(nueva)) {
             throw new CarreteraNoConectadaError();
         }
         inventario.descontarPara(carretera);
@@ -230,4 +222,10 @@ public class Jugador {
         this.construcciones.add(construccion);
         inventario.descontarPara(construccion);
     }
+
+
+    public int consultarRecursos() {
+        return this.inventario.total();
+    }
+
 }
