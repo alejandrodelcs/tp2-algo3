@@ -1,17 +1,23 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
  * Construccion
  */
-public abstract class Construccion implements Consumible {
+public abstract class Construccion {
+
+    protected Costo costo;
+
+    public void pagarCon(Inventario inventario) {
+        costo.aplicar(inventario);
+    }
 
     protected Jugador dueño;
     protected Vertice verticeAsignado;

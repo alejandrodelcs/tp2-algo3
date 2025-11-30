@@ -13,14 +13,11 @@ public abstract class Recurso {
 
     public abstract int obtenerRecurso();
 
-    // Getter necesario para el assert
-    public int getCantidad() {
-        return this.cantidad;
-    }
 
     public int acumular(int acumulador) {
         return acumulador + this.cantidad;
     }
+
 
     public abstract Recurso clonar();
 
@@ -38,6 +35,10 @@ public abstract class Recurso {
     @Override
     public int hashCode() {
         return Objects.hash(getClass());
+    }
+
+    public boolean esDelMismoTipoQue(Class<? extends Recurso> tipo) {
+        return tipo.isAssignableFrom(this.getClass());
     }
 
 }

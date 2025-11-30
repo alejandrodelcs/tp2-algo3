@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.ElementosTablero.Arista;
 import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
 import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
 import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
+import edu.fiuba.algo3.modelo.Errores.CarreteraNoConectadaError;
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.MazoDesarrollo;
@@ -21,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class TestEntrega2 {
 
     @Test
@@ -28,7 +31,7 @@ public class TestEntrega2 {
 
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
 
-        jugador.contruirCarretera(new Vertice(), new Vertice(), new Carretera());
+        jugador.construirCarretera(new Vertice(), new Vertice(), new Carretera());
 
         Assertions.assertEquals(0, jugador.consultarRecursos());
 
@@ -112,6 +115,23 @@ public class TestEntrega2 {
         jugador.recibirRecurso(new Mineral());
 
         jugador.comprarCartaDesarrollo(mazo);
+
+    @Test
+    public void noSePuedeConstruirCarreteraQueNoSeaAdyacenteALaRed() {
+        Inventario inv = new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo());
+        Jugador jugador = new Jugador("Ale", inv);
+
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
+        Vertice v3 = new Vertice();
+        Vertice v4 = new Vertice();
+
+        jugador.construirCarretera(v1, v2, new Carretera());
+
+        assertThrows(CarreteraNoConectadaError.class,
+                () -> jugador.construirCarretera(v3, v4, new Carretera()));
+    }
+
 
         assertThrows(CartaNoDisponibleException.class, () -> {
             jugador.usarCartaDesarrollo(0);

@@ -3,9 +3,9 @@ package edu.fiuba.algo3.modelo.Construcciones;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -13,9 +13,10 @@ import edu.fiuba.algo3.modelo.Recurso.*;
  */
 public class Poblado extends Construccion {
 
-    public Poblado() {
-        super();
+    public Poblado(){
+        this.costo = new Costo(Madera.class, Ladrillo.class,Lana.class, Grano.class);
     }
+
 
     public Poblado(Jugador dueño) {
         super(dueño);
@@ -27,8 +28,7 @@ public class Poblado extends Construccion {
 
     @Override
     public Recurso generarSegunHexagono(Hexagono hexagono, int numDado) {
-        Recurso recurso = hexagono.obtenerRecurso(numDado);
-        return recurso;
+        return hexagono.obtenerRecurso(numDado);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class Poblado extends Construccion {
 
         return this.verticeAsignado.generarRecurso(dado);
     }
+
 
     @Override
     public void consumir(Inventario inventario) {

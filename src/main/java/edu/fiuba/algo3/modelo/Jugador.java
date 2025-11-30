@@ -6,6 +6,7 @@ import java.util.List;
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.ElementosTablero.*;
 import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
+import edu.fiuba.algo3.modelo.Errores.CarreteraNoConectadaError;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -155,12 +156,37 @@ public class Jugador {
         }
     }
 
-    public void contruirCarretera(Vertice inicio, Vertice fin, Carretera carretera) {
-        Arista a = new Arista(inicio, fin);
-        this.construcciones.add(carretera);
-        inventario.consumir(Madera.class);
-        inventario.consumir(Ladrillo.class);
+
+    private boolean esAdyacenteALaRed(Arista nueva) {
+
+        if (construcciones.isEmpty()) return true;
+
+        for (Construccion c : construcciones) {
+            if (c instanceof Carretera) {
+                Carretera carreteraExistente = (Carretera) c;
+                if (carreteraExistente.esAdyacenteA(nueva)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
+
+
+    public void construirCarretera(Vertice inicio, Vertice fin, Carretera carretera) {
+        Arista nueva = new Arista(inicio, fin);
+        carretera.asignarArista(nueva);
+        if (!esAdyacenteALaRed(nueva)) {
+            throw new CarreteraNoConectadaError();
+        }
+        inventario.descontarPara(carretera);
+        nueva.colocarCarretera(carretera);
+        this.construcciones.add(carretera);
+    }
+
+
+
 
     public int consultarRecursos() {
         return this.inventario.total();
@@ -196,4 +222,10 @@ public class Jugador {
         return candidatas.get(0);// ver como fx selecciona a la victima
     }
 
+
+    public void construirAsentamiento(Vertice vertice, Construccion construccion) {
+        vertice.construir(construccion);
+        this.construcciones.add(construccion);
+        inventario.descontarPara(construccion);
+    }
 }

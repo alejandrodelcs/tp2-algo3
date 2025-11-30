@@ -3,8 +3,10 @@ package edu.fiuba.algo3.modelo.Construcciones;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Inventario;
+import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
 import edu.fiuba.algo3.modelo.Recurso.Mineral;
@@ -19,6 +21,9 @@ public class Ciudad extends Construccion {
     @Override
     public List<Recurso> getCosto() {
         return List.of(new Mineral(), new Mineral(), new Mineral(), new Grano(), new Grano());
+    }
+    public Ciudad() {
+        this.costo = new Costo(Grano.class, Grano.class, Mineral.class, Mineral.class, Mineral.class);
     }
 
     @Override
@@ -51,8 +56,4 @@ public class Ciudad extends Construccion {
         return this.verticeAsignado.generarRecurso(dado);
     }
 
-    @Override
-    public void consumir(Inventario inventario) {
-
-    }
 }

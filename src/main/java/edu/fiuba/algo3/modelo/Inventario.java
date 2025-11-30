@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.*;
 
+import edu.fiuba.algo3.modelo.Construcciones.Construccion;
 import edu.fiuba.algo3.modelo.Errores.NoHayRecursoDisponibleError;
 import edu.fiuba.algo3.modelo.Errores.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
@@ -57,16 +58,18 @@ public class Inventario {
     }
 
     public void consumir(Class<? extends Recurso> tipo) {
-        for (int i = 0; i < recursos.size(); i++) {
-            Recurso recurso = recursos.get(i);
+        Iterator<Recurso> it = recursos.iterator();
 
-            if (recurso != null && recurso.getClass().equals(tipo)) {
-                recursos.remove(i);
+        while (it.hasNext()) {
+            Recurso recurso = it.next();
+            if (recurso != null && recurso.esDelMismoTipoQue(tipo)) {
+                it.remove();
                 return;
             }
         }
         throw new NoHayRecursoDisponibleError();
     }
+
 
     public Recurso robarUno() {
         if (estaVacio()) {
@@ -140,5 +143,9 @@ public class Inventario {
 
     public Recurso obtenerRecurso(int indice) {
         return this.recursos.get(indice);
+    }
+
+    public void descontarPara(Construccion construccion) {
+        construccion.pagarCon(this);
     }
 }

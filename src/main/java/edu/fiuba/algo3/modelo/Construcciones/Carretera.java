@@ -1,14 +1,25 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
+import edu.fiuba.algo3.modelo.Costo.Costo;
+import edu.fiuba.algo3.modelo.ElementosTablero.Arista;
 import edu.fiuba.algo3.modelo.Hexagono;
-import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
+import edu.fiuba.algo3.modelo.Recurso.Madera;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Carretera extends Construccion{
+
+    Arista arista;
+
+
+    public Carretera() {
+        this.costo = new Costo(Madera.class, Ladrillo.class);
+    }
 
 
     @Override
@@ -44,9 +55,11 @@ public class Carretera extends Construccion{
         return null;
     }
 
+    public void asignarArista(Arista arista) {
+        this.arista = arista;
+    }
 
-    @Override
-    public void consumir(Inventario inventario) {
-
+    public boolean esAdyacenteA(Arista otra) {
+        return this.arista.esAdyacenteA(otra);
     }
 }
