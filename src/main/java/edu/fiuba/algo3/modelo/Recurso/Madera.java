@@ -11,8 +11,5 @@ public class Madera extends Recurso {
         return new Madera();
     }
 
-    @Override
-    public String tipo() {
-        return "Madera";
-    }
+
 }

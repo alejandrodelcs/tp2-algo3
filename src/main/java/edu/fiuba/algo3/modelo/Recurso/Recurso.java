@@ -9,7 +9,7 @@ public abstract class Recurso {
         this.cantidad = 1;
     }
 
-    public abstract String tipo();
+
 
     public abstract int obtenerRecurso();
 

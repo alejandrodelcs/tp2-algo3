@@ -12,8 +12,5 @@ public class Mineral extends Recurso {
         return new Mineral();
     }
 
-    @Override
-    public String tipo() {
-        return "Mineral";
-    }
+
 }

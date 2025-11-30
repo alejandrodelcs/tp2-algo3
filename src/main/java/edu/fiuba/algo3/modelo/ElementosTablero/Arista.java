@@ -7,8 +7,8 @@ import edu.fiuba.algo3.modelo.Errores.AristaOcupadaError;
  * Arista
  */
 public class Arista {
-    private Vertice primerVertice;
-    private Vertice segundoVertice;
+    private final Vertice primerVertice;
+    private final Vertice segundoVertice;
     private Carretera carretera;
 
     public Arista(Vertice v1, Vertice v2) {

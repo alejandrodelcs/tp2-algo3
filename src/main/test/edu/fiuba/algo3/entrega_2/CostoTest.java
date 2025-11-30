@@ -49,9 +49,7 @@ public class CostoTest {
     public void test04NoTieneLosRecursosSuficienteParaConstruirDeberiaLanzarUnaExcepcion(){
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
 
-        assertThrows(NoHayRecursoDisponibleError.class, () -> {
-            jugador.construirAsentamiento(new Vertice(), new Poblado());
-        });
+        assertThrows(NoHayRecursoDisponibleError.class, () -> jugador.construirAsentamiento(new Vertice(), new Poblado()));
     }
 
     @Test

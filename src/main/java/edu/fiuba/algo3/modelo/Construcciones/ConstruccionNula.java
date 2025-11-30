@@ -2,11 +2,9 @@ package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
 
-import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
-import edu.fiuba.algo3.modelo.Recurso.Madera;
+
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;

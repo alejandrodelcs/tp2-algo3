@@ -16,10 +16,12 @@ public class Jugador {
 
     private List<CartaDesarrollo> cartasDesarrollo;
     private ArrayList<Construccion> construcciones;
+    private final ArrayList<Construccion> construcciones;
     private String nombre;
     private Inventario inventario;
     private int puntosVictoria;
     private boolean puedeMoverLadron;
+    private final Inventario inventario;
 
     public Jugador(String nombre, Inventario inventario) {
         this.nombre = nombre;

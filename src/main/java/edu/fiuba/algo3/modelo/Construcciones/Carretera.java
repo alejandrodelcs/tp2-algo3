@@ -12,6 +12,7 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Carretera extends Construccion{
 
     Arista arista;
