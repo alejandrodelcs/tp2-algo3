@@ -14,8 +14,7 @@ public class Arista {
     public Arista(Vertice v1, Vertice v2) {
         this.primerVertice = v1;
         this.segundoVertice = v2;
-        conectarVertices();
-
+        this.conectarVertices();
     }
 
     private void conectarVertices() {

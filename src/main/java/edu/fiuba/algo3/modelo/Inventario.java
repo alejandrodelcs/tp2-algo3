@@ -22,6 +22,7 @@ public class Inventario {
         this.recursos = new ArrayList<>();
     }
 
+
     public void agregar(Recurso recurso) {
         recursos.add(recurso);
     }
@@ -160,5 +161,9 @@ public class Inventario {
         }
         return null;
 
+    }
+
+    public void descontarPara(Construccion construccion) {
+        construccion.pagarCon(this);
     }
 }

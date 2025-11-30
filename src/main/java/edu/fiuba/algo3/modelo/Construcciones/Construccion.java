@@ -1,9 +1,11 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.ElementosTablero.Arista;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
 import edu.fiuba.algo3.modelo.Inventario;
@@ -47,6 +49,7 @@ public abstract class Construccion {
     }
 
     public abstract int getPuntosDeVictoria();
+
 
     public boolean esNula() {
         return false;

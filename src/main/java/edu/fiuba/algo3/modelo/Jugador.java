@@ -108,6 +108,7 @@ public class Jugador {
         vertice.construir(construccion);
         this.construcciones.add(construccion);
 
+
         List<Recurso> costo = construccion.getCosto();
 
         this.inventario.gastar(costo);
@@ -120,6 +121,7 @@ public class Jugador {
             throw e;
         }
     }
+
 
     public void robarA(Jugador victima) {
         if (victima != null && victima != this) {
