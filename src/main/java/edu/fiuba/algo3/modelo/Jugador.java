@@ -164,9 +164,7 @@ public class Jugador {
     }
 
 
-    private boolean esAdyacenteALaRed(Arista nueva) {
 
-        if (construcciones.isEmpty()) return true;
 
     private boolean esAdyacenteA(Arista nueva) {
         return construcciones.isEmpty() ||
@@ -262,6 +260,12 @@ public class Jugador {
 
     public Jugador seleccionarVictima(List<Jugador> candidatas) {
         return candidatas.get(0);// ver como fx selecciona a la victima
+    }
+
+
+
+    public int consultarRecursos() {
+        return this.inventario.total();
     }
 
 }
