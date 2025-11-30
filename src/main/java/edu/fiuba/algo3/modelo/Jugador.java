@@ -164,7 +164,9 @@ public class Jugador {
     }
 
 
+    private boolean esAdyacenteALaRed(Arista nueva) {
 
+        if (construcciones.isEmpty()) return true;
 
     private boolean esAdyacenteA(Arista nueva) {
         return construcciones.isEmpty() ||

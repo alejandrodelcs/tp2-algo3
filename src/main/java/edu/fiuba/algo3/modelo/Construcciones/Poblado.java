@@ -30,6 +30,7 @@ public class Poblado extends Construccion {
         return hexagono.obtenerRecurso(numDado);
     }
 
+
     @Override
     public void agregarDuenio(List<Jugador> listaVictimas) {
         if (!listaVictimas.contains(this.dueño)) {
