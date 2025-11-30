@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.ElementosTablero.*;
@@ -34,9 +34,7 @@ public class Jugador {
         vertice.construir(construccion);
         this.construcciones.add(construccion);
 
-
     }
-
 
     public void robarA(Jugador victima) {
         if (victima != null && victima != this) {
@@ -88,5 +86,31 @@ public class Jugador {
 
     public int consultarRecursos() {
         return this.inventario.total();
+    }
+
+    public boolean tieneEnInventario(List<Class<? extends Recurso>> solicitud) {
+
+        for (Class<? extends Recurso> recurso : solicitud) {
+            if (this.inventario.cantidadDeTipo(recurso) == 0) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    public void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
+
+        for (Class<? extends Recurso> tipo : solicitud) {
+
+            Recurso recurso = inventario.remover(tipo);
+            otroJugador.recibirRecurso(recurso);
+        }
+
+    }
+
+    public int cantidadDeRecursoTipo(Class<? extends Recurso> tipo) {
+        return this.inventario.cantidadDeTipo(tipo);
+
     }
 }

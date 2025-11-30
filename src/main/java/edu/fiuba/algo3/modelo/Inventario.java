@@ -12,14 +12,13 @@ public class Inventario {
 
     private final ArrayList<Recurso> recursos;
 
-    public Inventario(Recurso...recursos) {
+    public Inventario(Recurso... recursos) {
         this.recursos = new ArrayList<>(Arrays.asList(recursos));
     }
 
-    public Inventario(){
+    public Inventario() {
         this.recursos = new ArrayList<>();
     }
-
 
     public void agregar(Recurso recurso) {
         recursos.add(recurso);
@@ -44,7 +43,7 @@ public class Inventario {
     public int total() {
         int total = 0;
         int cant = 0;
-        for(Recurso r : recursos){
+        for (Recurso r : recursos) {
             cant += r.acumular(total);
         }
         return cant;
@@ -91,5 +90,18 @@ public class Inventario {
         for (int i = 0; i < aEliminar; i++) {
             robarUno();
         }
+    }
+
+    public Recurso remover(Class<? extends Recurso> tipoRecurso) {
+
+        for (Recurso recurso : recursos) {
+
+            if (tipoRecurso.isInstance(recurso)) {
+                recursos.remove(recurso);
+                return recurso;
+            }
+        }
+        return null;
+
     }
 }
