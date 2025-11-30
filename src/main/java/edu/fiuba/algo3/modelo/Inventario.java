@@ -146,10 +146,6 @@ public class Inventario {
         return this.recursos.get(indice);
     }
 
-    public void descontarPara(Construccion construccion) {
-        construccion.pagarCon(this);
-    }
-
     public Recurso remover(Class<? extends Recurso> tipoRecurso) {
 
         for (Recurso recurso : recursos) {
