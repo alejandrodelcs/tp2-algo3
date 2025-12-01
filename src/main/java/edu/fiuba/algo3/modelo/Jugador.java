@@ -149,10 +149,10 @@ public class Jugador {
             return;
         }
 
-        for (Construccion construccion : this.construcciones) {
+        for (Construccion c: this.construcciones) {
 
-            ArrayList<Recurso> recursos = construccion.generarSegunVertice(dado);
-            this.inventario.agregar(recursos);
+            ArrayList<Recurso> recursos = c.generarSegunVertice(dado);
+            this.inventario.agregarTodos(recursos);
 
         }
     }

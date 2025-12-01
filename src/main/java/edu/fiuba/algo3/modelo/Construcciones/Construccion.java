@@ -9,7 +9,6 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
 import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
@@ -23,18 +22,16 @@ public abstract class Construccion {
         costo.aplicar(inventario);
     }
 
-    protected Jugador dueño;
+    protected Jugador propietario;
     protected Vertice verticeAsignado;
 
     public Construccion() {
-        this.dueño = null;
+        this.propietario = null;
 
     }
 
-    public abstract List<Recurso> getCosto();
-
-    public Construccion(Jugador dueño) {
-        this.dueño = dueño;
+    public Construccion(Jugador propietario) {
+        this.propietario = propietario;
     }
 
     public boolean estaEn(Vertice v) {
@@ -72,8 +69,12 @@ public abstract class Construccion {
     }
 
     public void agregarDuenio(List<Jugador> listaVictimas) {
-        if (!listaVictimas.contains(this.dueño)) {
-            listaVictimas.add(this.dueño);
+        if (!listaVictimas.contains(this.propietario)) {
+            listaVictimas.add(this.propietario);
         }
+    }
+
+    public void asignarJugador(Jugador jugador) {
+        this.propietario = jugador;
     }
 }

@@ -18,6 +18,7 @@ public class Hexagono {
         this.tieneLadron = false;
     }
 
+
     public void colocarLadron() {
         this.tieneLadron = true;
     }
@@ -43,7 +44,7 @@ public class Hexagono {
         return victimas;
     }
 
-    public boolean tieneFicha(int valorFicha) {
+    public boolean coincideCon(int valorFicha) {
         return this.ficha == valorFicha;
     }
 
@@ -53,14 +54,23 @@ public class Hexagono {
             return null;
         }
 
-        if (this.tieneFicha(numeroDado)) {
+        if (this.coincideCon(numeroDado)) {
 
-            return terreno.devolverRecurso();
+            return terreno.retornarRecurso();
         }
         return null;
     }
 
     public Recurso obtenerRecursoBase() {
-        return terreno.devolverRecurso();
+        return terreno.retornarRecurso();
+    }
+
+
+    public Recurso generarRecurso() {
+        return terreno.retornarRecurso();
+    }
+
+    public boolean puedeGenerar() {
+        return !tieneLadron;
     }
 }

@@ -33,7 +33,7 @@ public class ConstruccionesTest {
         vertice.construir(poblado);
         vertice.asignarHexagonos(hexagono);
 
-        ArrayList<Recurso> recurso = vertice.generarRecurso(numDado);
+        ArrayList<Recurso> recurso = vertice.generarRecurso(numDado,1);
 
         assertEquals(recurso.size(), 1);
 

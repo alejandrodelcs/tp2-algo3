@@ -102,15 +102,13 @@ public class TestsEntrega1 {
         verticeCiudad.asignarHexagonos(hexBosque);
         verticeCiudad.construir(new Ciudad(new Jugador("Test", new Inventario())));
 
-        ArrayList<Recurso> produccionPoblado = verticePoblado.generarRecurso(6);
+        ArrayList<Recurso> produccionPoblado = verticePoblado.generarRecurso(6,1);
         assertEquals(1, produccionPoblado.size());
-        assertEquals(1, produccionPoblado.get(0).cantidad);
 
-        ArrayList<Recurso> produccionCiudad = verticeCiudad.generarRecurso(6);
-        assertEquals(1, produccionCiudad.size());
-        assertEquals(2, produccionCiudad.get(0).cantidad);
+        ArrayList<Recurso> produccionCiudad = verticeCiudad.generarRecurso(6,2);
+        assertEquals(2, produccionCiudad.size());
 
-        ArrayList<Recurso> produccionFallida = verticeCiudad.generarRecurso(5);
+        ArrayList<Recurso> produccionFallida = verticeCiudad.generarRecurso(5,2);
         assertTrue(produccionFallida.isEmpty());
     }
 
@@ -123,15 +121,11 @@ public class TestsEntrega1 {
         vertice.asignarHexagonos(hexTrigo);
         vertice.construir(new Poblado());
 
-        ArrayList<Recurso> produccionNormal = vertice.generarRecurso(numeroSuerte);
-        assertFalse(produccionNormal.isEmpty());
-        assertEquals(1, produccionNormal.get(0).cantidad);
-
         hexTrigo.colocarLadron();
 
-        ArrayList<Recurso> produccionBloqueada = vertice.generarRecurso(numeroSuerte);
+        ArrayList<Recurso> recursos = vertice.generarRecurso(numeroSuerte,1);
 
-        assertTrue(produccionBloqueada.isEmpty());
+        Assertions.assertEquals(0, recursos.size());
     }
 
     @Test

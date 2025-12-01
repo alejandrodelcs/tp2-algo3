@@ -7,6 +7,7 @@ public class ConstruirAsentamiento implements Construible{
     @Override
     public void construir(Jugador jugador, Construccion construccion, Object... ubicaciones) {
         Vertice vertice = (Vertice) ubicaciones[0];
+        construccion.asignarJugador(jugador);
         vertice.construir(construccion);
         jugador.descontarPara(construccion);
         jugador.agregarConstruccion(construccion);

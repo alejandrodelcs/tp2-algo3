@@ -73,17 +73,17 @@ public class Vertice {
         return !this.construccion.esNula();
     }
 
-    public ArrayList<Recurso> generarRecurso(int numDado) {
-        ArrayList<Recurso> recursosGenerados = new ArrayList<>();
+    public ArrayList<Recurso> generarRecurso(int dado, int cantidad) {
+        ArrayList<Recurso> recursos = new ArrayList<>();
 
-        for (Hexagono hexagono : this.hexagonos) {
-            Recurso recursoAux = construccion.generarSegunHexagono(hexagono, numDado);
-
-            if (recursoAux != null) {
-                recursosGenerados.add(recursoAux);
+        for (Hexagono h : hexagonos) {
+            if (h.coincideCon(dado) && h.puedeGenerar()) {
+                for (int i = 0; i < cantidad; i++) {
+                    recursos.add(h.generarRecurso());
+                }
             }
         }
-        return recursosGenerados;
+        return recursos;
     }
 
     public Inventario entregarRecursosIniciales() {

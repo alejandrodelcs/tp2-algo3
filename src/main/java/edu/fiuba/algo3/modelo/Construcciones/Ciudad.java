@@ -52,7 +52,7 @@ public class Ciudad extends Construccion {
     @Override
     public ArrayList<Recurso> generarSegunVertice(int dado) {
 
-        return this.verticeAsignado.generarRecurso(dado);
+        return this.verticeAsignado.generarRecurso(dado,2);
     }
 
 }
