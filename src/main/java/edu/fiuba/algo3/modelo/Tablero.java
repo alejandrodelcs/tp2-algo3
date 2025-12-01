@@ -61,13 +61,15 @@ public class Tablero {
 
         List<Jugador> posiblesVictimas = hexagonoDestino.obtenerVictimas();
 
-        posiblesVictimas.remove(ladron);
-
         if (!posiblesVictimas.isEmpty()) {
-            Random random = new Random();
-            Jugador victima = posiblesVictimas.get(random.nextInt(posiblesVictimas.size()));
+            posiblesVictimas.remove(ladron);
 
-            ladron.robarA(victima);
+            if (!posiblesVictimas.isEmpty()) {
+                Random random = new Random();
+                Jugador victima = posiblesVictimas.get(random.nextInt(posiblesVictimas.size()));
+
+                ladron.robarA(victima);
+            }
         }
     }
 

@@ -102,7 +102,7 @@ public class Inventario {
 
 
     public List<Recurso> descartarMitad() {
-        int cantidadABorrar = this.recursos.size() / 2;
+        int cantidadABorrar = (int) Math.floor(this.recursos.size() / 2);
         List<Recurso> descartadas = new ArrayList<>();
 
         Random random = new Random();
