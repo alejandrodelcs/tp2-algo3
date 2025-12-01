@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
@@ -135,24 +136,73 @@ public class TestsEntrega1 {
     }
 
     @Test
+    public void test07UnJugadorDescartaLaMitadDeSusCartasSiSale7yTieneMasDe7Cartas() {
+
+        Jugador jugador = new Jugador("Julia", new Inventario());
+
+        int dado1 = 1;
+        int dado2 = 2;
+        int dado3 = 3;
+        int dado7 = 7;
+
+        Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 1);
+        Hexagono hexaPiedra = new Hexagono(Terreno.MONTANA, 2);
+        Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 3);
+
+        Vertice vertice = new Vertice();
+        vertice.asignarHexagonos(hexMadera);
+        vertice.asignarHexagonos(hexaPiedra);
+        vertice.asignarHexagonos(hexaLana);
+
+        jugador.recibirRecurso(new Madera());
+        jugador.recibirRecurso(new Lana());
+        jugador.recibirRecurso(new Ladrillo());
+        jugador.recibirRecurso(new Grano());
+
+        jugador.construir(vertice, new Poblado());
+
+        for (int i = 0; i < 3; i++) {
+            jugador.generarSegunDado(dado1);
+        }
+        for (int i = 0; i < 3; i++) {
+            jugador.generarSegunDado(dado2);
+        }
+        for (int i = 0; i < 3; i++) {
+            jugador.generarSegunDado(dado3);
+        }
+
+
+
+        jugador.generarSegunDado(dado7);
+
+        assertEquals(5, jugador.cantidadCartas());
+    }
+
+    @Test
     public void test08LadronSeMueveYRobaUnRecursoAJugadorAdyacente() {
-        Jugador ladron = new Jugador("Matias",new Inventario());
-        Jugador victima = new Jugador("Natan",new Inventario());
+        Inventario inventario1 = new Inventario();
+        Inventario inventario2 = new Inventario();
+
+        Jugador jugador = new Jugador("Jeronimo", inventario1);
+        Jugador victima = new Jugador("Natanael", inventario2);
 
         victima.recibirRecurso(new Madera());
 
-        Tablero tablero = new Tablero();
         Hexagono hexDestino = new Hexagono(Terreno.BOSQUE, 5);
-        Vertice verticeAdyacente = new Vertice();
 
+        Vertice verticeAdyacente = new Vertice();
         verticeAdyacente.asignarHexagonos(hexDestino);
 
-        verticeAdyacente.construir(new Poblado());
+        Poblado pobado = new Poblado(victima);
 
-        tablero.moverLadron(hexDestino, ladron);
+        pobado.agregarDuenio(List.of(victima));
+        verticeAdyacente.construir(pobado);
 
-        assertEquals(1, ladron.cantidadCartas());
+        Ladron ladron = new Ladron(hexDestino);
 
+        ladron.robar(jugador);
+
+        assertEquals(1, jugador.cantidadCartas());
         assertEquals(0, victima.cantidadCartas());
     }
 
