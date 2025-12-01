@@ -14,16 +14,12 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 public class Poblado extends Construccion {
 
 
-    public Poblado(Jugador duenio) {
-        super(duenio);
-    }
     public Poblado(){
         this.costo = new Costo(Madera.class, Ladrillo.class,Lana.class, Grano.class);
     }
 
-
-    public Poblado(Jugador dueño) {
-        super(dueño);
+    public Poblado(Jugador propietario) {
+        super(propietario);
     }
 
     public int getPuntosDeVictoria() {
@@ -37,31 +33,14 @@ public class Poblado extends Construccion {
 
 
     @Override
-    public void agregarDuenio(List<Jugador> listaVictimas) {
-        if (!listaVictimas.contains(this.dueño)) {
-            listaVictimas.add(this.dueño);
-        }
-    }
-
-    @Override
     public boolean puedeSerMejorada() {
         return true;
     }
 
-    @Override
-    public List<Recurso> getCosto() {
-        return List.of(new Madera(), new Ladrillo(), new Grano(), new Lana());
-    }
 
     @Override
     public ArrayList<Recurso> generarSegunVertice(int dado) {
-
         return this.verticeAsignado.generarRecurso(dado,1);
     }
 
-
-    @Override
-    public void consumir(Inventario inventario) {
-        inventario.consumir(Madera.class);
-    }
 }

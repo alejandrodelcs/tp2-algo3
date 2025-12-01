@@ -1,11 +1,9 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Dado;
 import edu.fiuba.algo3.modelo.LanzamientoDados;
 
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.*;
 
 public class LanzamientoDadosTest {
     @Test

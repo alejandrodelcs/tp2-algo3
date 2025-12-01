@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
+import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,7 +56,7 @@ public class TestsEntrega1 {
 
         primerVertice.construir(pueblo);
 
-        assertThrows(ReglaDistanciaExeption.class, () -> {
+        assertThrows(ReglaDistanciaException.class, () -> {
             segundoVertice.construir(pueblo);
         });
 

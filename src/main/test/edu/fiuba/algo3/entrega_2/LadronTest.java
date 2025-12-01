@@ -54,7 +54,7 @@ public class LadronTest {
 
         Poblado pobado = new Poblado(victima);
 
-        pobado.agregarDuenio(List.of(victima));
+        pobado.agregarPropietario(List.of(victima));
         verticeAdyacente.construir(pobado);
 
         Ladron ladron = new Ladron(hexDestino);

@@ -42,8 +42,8 @@ public abstract class Construccion {
         return false;
     }
 
-    public Jugador getDuenio() {
-        return this.dueño;
+    public Jugador getPropietario() {
+        return this.propietario;
     }
 
     public abstract int getPuntosDeVictoria();
@@ -61,14 +61,12 @@ public abstract class Construccion {
 
     public abstract ArrayList<Recurso> generarSegunVertice(int dado);
 
-    public abstract void agregarDuenio(List<Jugador> listaVictimas);
-
 
     public boolean esAdyacenteA(Arista nueva) {
         return false;
     }
 
-    public void agregarDuenio(List<Jugador> listaVictimas) {
+    public void agregarPropietario(List<Jugador> listaVictimas) {
         if (!listaVictimas.contains(this.propietario)) {
             listaVictimas.add(this.propietario);
         }

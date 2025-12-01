@@ -37,18 +37,6 @@ public class Carretera extends Construccion{
         return false;
     }
 
-    @Override
-    public List<Recurso> getCosto() {
-        return List.of(new Madera(), new Ladrillo());
-    }
-
-
-    @Override
-    public void agregarDuenio(List<Jugador> listaVictimas) {
-        if (!listaVictimas.contains(this.dueño)) {
-            listaVictimas.add(this.dueño);
-        }
-    }
 
     @Override
     public Recurso generarSegunHexagono(Hexagono hexagono, int numDado) {

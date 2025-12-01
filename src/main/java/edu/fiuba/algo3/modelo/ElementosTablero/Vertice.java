@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.Errores.AccionNoPermitidaException;
+import edu.fiuba.algo3.modelo.Errores.NoHayConstruccionParaMejorar;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Construcciones.*;
-import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -26,13 +26,6 @@ public class Vertice {
     }
 
     public void construir(Construccion construccion) {
-        for (Arista arista : aristas) {
-            if (arista.vecinoConstruido(this)) {
-                throw new ReglaDistanciaExeption();
-            }
-
-        }
-
         this.construccion = construccion;
         construccion.asignarVertice(this);
     }
@@ -42,7 +35,7 @@ public class Vertice {
             throw new AccionNoPermitidaException("No hay nada para mejorar o ya está al máximo nivel.");
         }
 
-        if (this.construccion.getDuenio() != nuevaConstruccion.getDuenio()) {
+        if (this.construccion.getPropietario() != nuevaConstruccion.getPropietario()) {
             throw new AccionNoPermitidaException("No puedes mejorar un edificio que no es tuyo.");
         }
 
@@ -58,7 +51,7 @@ public class Vertice {
     }
 
     public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
-        this.construccion.agregarDuenio(listaVictimas);
+        this.construccion.agregarPropietario(listaVictimas);
     }
 
     public void conectarArista(Arista arista) {
@@ -87,10 +80,10 @@ public class Vertice {
     }
 
     public Inventario entregarRecursosIniciales() {
-        ArrayList<Recurso> recursos = new ArrayList<>();
+        List<Recurso> recursos = new ArrayList<>();
 
         if (!this.tieneConstruccion()) {
-            return null; // Crear una excepcion y testear
+            return null;  //Crear una excepcion y testear
         }
 
         for (Hexagono hex : this.hexagonos) {
@@ -99,7 +92,23 @@ public class Vertice {
                 recursos.add(r);
             }
         }
-        return recursos;
+
+        return new Inventario(recursos.toArray(new Recurso[0]));
     }
 
+    public void mejorarA(Construccion nueva){
+        if(!this.tieneConstruccion()){
+            throw new NoHayConstruccionParaMejorar();
+        }
+        this.construccion = nueva;
+    }
+
+    public boolean tieneVecinoConstruido() {   //luego lo arreglo
+        for (Arista a : aristas) {
+            if (a.vecinoConstruido(this)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

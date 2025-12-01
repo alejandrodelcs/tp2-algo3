@@ -41,7 +41,7 @@ public class ReglaDistanciaTest {
 
         primerVertice.construir(pueblo);
 
-        assertThrows(ReglaDistanciaExeption.class, () -> {
+        assertThrows(ReglaDistanciaException.class, () -> {
             segundoVertice.construir(pueblo);
         });
 

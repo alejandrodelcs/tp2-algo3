@@ -1,12 +1,10 @@
 package edu.fiuba.algo3.modelo;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import edu.fiuba.algo3.modelo.Construcciones.*;
+import edu.fiuba.algo3.modelo.Dado.AccionDado;
 import edu.fiuba.algo3.modelo.ElementosTablero.*;
 import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
-import edu.fiuba.algo3.modelo.Errores.CarreteraNoConectadaError;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -15,10 +13,8 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 public class Jugador {
 
     private List<CartaDesarrollo> cartasDesarrollo;
-    private ArrayList<Construccion> construcciones;
     private final ArrayList<Construccion> construcciones;
     private String nombre;
-    private Inventario inventario;
     private int puntosVictoria;
     private boolean puedeMoverLadron;
     private final Inventario inventario;
@@ -38,23 +34,13 @@ public class Jugador {
         return this.construcciones.size();
     }
 
-    public void mejorarConstruccion(Vertice vertice, Construccion nuevaConstruccion) {
-        List<Recurso> costo = nuevaConstruccion.getCosto();
-
-        this.inventario.gastar(costo);
-
-        try {
-            vertice.mejorar(nuevaConstruccion);
-
-            this.construcciones.add(nuevaConstruccion);
-            this.removerConstruccionVieja(vertice);
-
-        } catch (Exception e) {
-            this.inventario.agregar(costo);
-
-            throw e;
-        }
+    public void mejorarConstruccion(Vertice vertice, Construccion nueva) {
+        inventario.descontarPara(nueva);
+        vertice.mejorarA(nueva);
     }
+
+
+
 
     private void removerConstruccionVieja(Vertice vertice) {
         this.construcciones.removeIf(c -> c.estaEn(vertice));
@@ -104,7 +90,7 @@ public class Jugador {
         return this.cartasDesarrollo.size();
     }
 
-    public void construir(Vertice vertice, Construccion construccion) {
+   /* public void construir(Vertice vertice, Construccion construccion) {
         vertice.construir(construccion);
         this.construcciones.add(construccion);
 
@@ -120,7 +106,7 @@ public class Jugador {
             this.inventario.agregar(costo);
             throw e;
         }
-    }
+    }*/
 
 
     public void robarA(Jugador victima) {
@@ -145,8 +131,7 @@ public class Jugador {
 
     public void generarSegunDado(int dado) {
         if (dado == 7) {
-            this.reducirALaMitadLosRecurosos();
-            return;
+            this.descartarMitadSiCorresponde();
         }
 
         for (Construccion c: this.construcciones) {
@@ -157,49 +142,23 @@ public class Jugador {
         }
     }
 
-    public void reducirALaMitadLosRecurosos() {
+
+    public void generarRecursosPorConstrucciones(int dado){
+        for (Construccion c: this.construcciones) {
+            this.inventario.agregarTodos(c.generarSegunVertice(dado));
+
+        }
+    }
+
+    public void aplicarAccionDeDado(AccionDado accion) {
+        accion.aplicar(this);
+    }
+
+    public void descartarMitadSiCorresponde() {
         if (this.inventario.excedeLimite()) {
             this.inventario.descartarMitad();
         }
     }
-
-
-
-    public int consultarRecursos() {
-        return this.inventario.total();
-    }
-
-    public boolean tieneEnInventario(List<Class<? extends Recurso>> solicitud) {
-
-        for (Class<? extends Recurso> recurso : solicitud) {
-            if (this.inventario.cantidadDeTipo(recurso) == 0) {
-                return false;
-            }
-
-        }
-        return true;
-    }
-
-    public void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
-
-        for (Class<? extends Recurso> tipo : solicitud) {
-
-            Recurso recurso = inventario.remover(tipo);
-            otroJugador.recibirRecurso(recurso);
-        }
-
-    }
-
-    public int cantidadDeRecursoTipo(Class<? extends Recurso> tipo) {
-        return this.inventario.cantidadDeTipo(tipo);
-
-    }
-
-    public Jugador seleccionarVictima(List<Jugador> candidatas) {
-        return candidatas.get(0);// ver como fx selecciona a la victima
-    }
-
-
 
 
     public boolean esAdyacenteA(Arista nueva) {
@@ -254,10 +213,5 @@ public class Jugador {
         return candidatas.get(0);// ver como fx selecciona a la victima
     }
 
-
-
-    public int consultarRecursos() {
-        return this.inventario.total();
-    }
 
 }

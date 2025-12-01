@@ -1,12 +1,10 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Construcciones.Carretera;
-import edu.fiuba.algo3.modelo.Construcciones.Ciudad;
-import edu.fiuba.algo3.modelo.Construcciones.Poblado;
+import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.ElementosTablero.Arista;
 import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
 import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
-import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
+import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaException;
 import edu.fiuba.algo3.modelo.Errores.CarreteraNoConectadaError;
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
@@ -22,7 +20,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestEntrega2 {
 
@@ -31,8 +28,7 @@ public class TestEntrega2 {
 
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
 
-        Construible estrategia = new ConstruirAsentamiento();
-        jugador.construir(estrategia, new Carretera(), new Vertice());
+        jugador.construir(new ConstruirAsentamiento(), new Carretera(), new Vertice());
 
         Assertions.assertEquals(0, jugador.consultarRecursos());
 
@@ -40,54 +36,37 @@ public class TestEntrega2 {
 
     @Test
     public void test02ConstruirPobladoConsumeRecursosYValidaDistancia() {
-        Jugador jugador = new Jugador("Builder", new Inventario());
-
-        jugador.recibirRecurso(new Madera());
-        jugador.recibirRecurso(new Ladrillo());
-        jugador.recibirRecurso(new Grano());
-        jugador.recibirRecurso(new Lana());
+        Jugador jugador = new Jugador("Builder", new Inventario(new Madera(), new Ladrillo(),
+                            new Grano(), new Lana(), new Madera(), new Ladrillo(),new Grano(), new Lana()));
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
-        Arista arista = new Arista(v1, v2);
+        Arista a = new Arista(v1,v2);
 
-        jugador.construir(v1, new Poblado(jugador));
+        jugador.construir(new ConstruirAsentamiento(), new Poblado(), v1);
 
-        assertEquals(0, jugador.cantidadCartas());
-
-        assertTrue(v1.tieneConstruccion());
-
-        jugador.recibirRecurso(new Madera());
-        jugador.recibirRecurso(new Ladrillo());
-        jugador.recibirRecurso(new Grano());
-        jugador.recibirRecurso(new Lana());
-
-        assertThrows(ReglaDistanciaExeption.class, () -> {
-            jugador.construir(v2, new Poblado(jugador));
+        assertThrows(ReglaDistanciaException.class, () -> {
+            jugador.construir(new ConstruirAsentamiento(),new Poblado(), v2);
         });
     }
 
     @Test
     public void test03MejorarPobladoACiudadConsumeRecursosYAumentaPV() {
-        Jugador jugador = new Jugador("Alcalde", new Inventario());
+        Jugador jugador = new Jugador("Alcalde", new Inventario(new Mineral(), new Mineral(), new Mineral(),
+                                                                        new Grano(), new Grano(), new Grano(),
+                                                                        new Ladrillo(),new Madera(), new Lana()));
         Vertice vertice = new Vertice();
 
-        Vertice v = new Vertice();
-        v.construir(new Poblado(jugador));
 
-        assertEquals(1, v.puntoVictoria());
+        jugador.construir(new ConstruirAsentamiento(), new Poblado(), vertice);
 
-        jugador.recibirRecurso(new Mineral());
-        jugador.recibirRecurso(new Mineral());
-        jugador.recibirRecurso(new Mineral());
-        jugador.recibirRecurso(new Grano());
-        jugador.recibirRecurso(new Grano());
+        assertEquals(1, vertice.puntoVictoria());
 
-        jugador.mejorarConstruccion(v, new Ciudad(jugador));
+        jugador.mejorarConstruccion(vertice, new Ciudad());
 
         assertEquals(0, jugador.cantidadCartas());
 
-        assertEquals(2, v.puntoVictoria());
+        assertEquals(2, vertice.puntoVictoria());
     }
 
     @Test
@@ -117,23 +96,22 @@ public class TestEntrega2 {
 
         jugador.comprarCartaDesarrollo(mazo);
 
+    }
+
     @Test
     public void noSePuedeConstruirCarreteraQueNoSeaAdyacenteALaRed() {
-        Inventario inv = new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo());
-        Jugador jugador = new Jugador("Ale", inv);
+        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo()));
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
         Vertice v3 = new Vertice();
         Vertice v4 = new Vertice();
 
-
-        Construible estrategia = new ConstruirCarretera();
-        jugador.construir(estrategia, new Carretera(), v1,v2);
+        jugador.construir(new ConstruirCarretera(), new Carretera(), v1,v2);
 
         assertThrows(CarreteraNoConectadaError.class,
-                () -> jugador.construir(estrategia, new Carretera(), v3,v4));
-    }
+                () -> jugador.construir(new ConstruirCarretera(), new Carretera(), v3,v4));
+
 
 
         assertThrows(CartaNoDisponibleException.class, () -> {

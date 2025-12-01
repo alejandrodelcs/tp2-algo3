@@ -50,10 +50,6 @@ public class Inventario {
         return cant;
     }
 
-    public int cantidad() {
-        return this.recursos.size();
-    }
-
     public boolean excedeLimite() {
         return this.recursos.size() > 7;
     }
@@ -106,16 +102,15 @@ public class Inventario {
 
 
     public List<Recurso> descartarMitad() {
-        int cantidadABorrar = this.recursos.size() / 2;
+        int cantidadABorrar = recursos.size() / 2;
         List<Recurso> descartadas = new ArrayList<>();
 
-        Random random = new Random();
+        Collections.shuffle(recursos);
+
         for (int i = 0; i < cantidadABorrar; i++) {
-            if (!this.recursos.isEmpty()) {
-                Recurso r = this.recursos.remove(random.nextInt(this.recursos.size()));
-                descartadas.add(r);
-            }
+            descartadas.add(recursos.remove(0));
         }
+
         return descartadas;
     }
 
@@ -129,18 +124,6 @@ public class Inventario {
         }
     }
 
-    public Recurso remover(Class<? extends Recurso> tipoRecurso) {
-
-        for (Recurso recurso : recursos) {
-
-            if (tipoRecurso.isInstance(recurso)) {
-                recursos.remove(recurso);
-                return recurso;
-            }
-        }
-        return null;
-
-    }
 
     public Recurso obtenerRecurso(int indice) {
         return this.recursos.get(indice);
@@ -161,5 +144,11 @@ public class Inventario {
 
     public void descontarPara(Construccion construccion) {
         construccion.pagarCon(this);
+    }
+
+    public void agregarTodos(Iterable<Recurso> listaRecursos) {
+        for (Recurso recurso : listaRecursos) {
+            this.agregar(recurso);
+        }
     }
 }

@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -17,10 +15,6 @@ public class Ciudad extends Construccion {
         super(duenio);
     }
 
-    @Override
-    public List<Recurso> getCosto() {
-        return List.of(new Mineral(), new Mineral(), new Mineral(), new Grano(), new Grano());
-    }
     public Ciudad() {
         this.costo = new Costo(Grano.class, Grano.class, Mineral.class, Mineral.class, Mineral.class);
     }
@@ -40,13 +34,6 @@ public class Ciudad extends Construccion {
         }
 
         return null;
-    }
-
-    @Override
-    public void agregarDuenio(List<Jugador> listaVictimas) {
-        if (!listaVictimas.contains(this.dueño)) {
-            listaVictimas.add(this.dueño);
-        }
     }
 
     @Override
