@@ -1,11 +1,10 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
 import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Jugador;
+
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
@@ -13,15 +12,20 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
  */
 public class ConstruccionNula extends Construccion {
 
+    public ConstruccionNula() {
+        this.costo = null;
+    }
 
     public int getPuntosDeVictoria() {
         return 0;
     }
 
+
     @Override
     public boolean esNula() {
         return true;
     }
+
 
     @Override
     public Recurso generarSegunHexagono(Hexagono hexagono, int numDado) {
@@ -35,6 +39,7 @@ public class ConstruccionNula extends Construccion {
 
 
     @Override
-    public void consumir(Inventario inventario) {
+    public void pagarCon(Inventario inventario) {
+
     }
 }

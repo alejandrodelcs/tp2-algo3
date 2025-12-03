@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.NoExisteFichaError;
+import edu.fiuba.algo3.modelo.Errores.NoExisteFichaError;
 import edu.fiuba.algo3.modelo.Tablero;
 import org.junit.jupiter.api.Test;
 

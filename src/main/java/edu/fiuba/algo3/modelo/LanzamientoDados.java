@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Dado.Dado;
+
 public class LanzamientoDados {
     private Dado dado1;
     private Dado dado2;

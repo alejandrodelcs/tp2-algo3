@@ -1,10 +1,13 @@
 package edu.fiuba.algo3.modelo;
-
 import java.util.ArrayList;
-
+import java.util.List;
+import java.util.function.Consumer;
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
+import edu.fiuba.algo3.modelo.Dado.AccionDado;
+import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.ElementosTablero.*;
+import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -12,14 +15,18 @@ import edu.fiuba.algo3.modelo.Recurso.*;
  */
 public class Jugador {
 
-    private ArrayList<Construccion> construcciones;
+    private List<CartaDesarrollo> cartasDesarrollo;
+    private final ArrayList<Construccion> construcciones;
     private String nombre;
-    private Inventario inventario;
+    private int puntosVictoria;
+    private boolean puedeMoverLadron;
+    private final Inventario inventario;
 
     public Jugador(String nombre, Inventario inventario) {
         this.nombre = nombre;
         this.construcciones = new ArrayList<>();
         this.inventario = inventario;
+        this.cartasDesarrollo = new ArrayList<>();
     }
 
     public int cantidadCartas() {
@@ -30,11 +37,53 @@ public class Jugador {
         return this.construcciones.size();
     }
 
-    public void construir(Vertice vertice, Construccion construccion) {
-        vertice.construir(construccion);
-        this.construcciones.add(construccion);
+    public void mejorarConstruccion(Vertice vertice, Construccion nueva) {
+        inventario.descontarPara(nueva);
+        vertice.mejorarA(nueva);
+    }
 
+    public void comprarCartaDesarrollo(MazoDesarrollo mazo) {
+        List<Recurso> costo = List.of(new Lana(), new Grano(), new Mineral());
 
+        this.inventario.gastar(costo);
+
+        CartaDesarrollo carta = mazo.sacarCarta();
+
+        this.cartasDesarrollo.add(carta);
+    }
+
+    public void usarCartaDesarrollo(int indice) {
+        if (indice < 0 || indice >= this.cartasDesarrollo.size()) {
+            throw new CartaNoDisponibleException("");
+        }
+
+        CartaDesarrollo carta = this.cartasDesarrollo.get(indice);
+
+        carta.activar(this);
+
+        if (carta.esDeUnSoloUso()) {
+            this.cartasDesarrollo.remove(indice);
+        }
+    }
+
+    public void pasarTurno() {
+        for (CartaDesarrollo carta : this.cartasDesarrollo) {
+            carta.pasarTurno();
+        }
+
+        this.puedeMoverLadron = false;
+    }
+
+    public void sumarPuntoVictoria() {
+        this.puntosVictoria++;
+    }
+
+    public void habilitarMovimientoLadron() {
+        this.puedeMoverLadron = true;
+    }
+
+    public int cantidadCartasDesarrollo() {
+        return this.cartasDesarrollo.size();
     }
 
 
@@ -60,33 +109,96 @@ public class Jugador {
 
     public void generarSegunDado(int dado) {
         if (dado == 7) {
-            this.reducirALaMitadLosRecurosos();
-            return;
+            this.descartarMitadSiCorresponde();
         }
 
-        for (Construccion construccion : this.construcciones) {
+        for (Construccion c: this.construcciones) {
 
-            ArrayList<Recurso> recursos = construccion.generarSegunVertice(dado);
+            ArrayList<Recurso> recursos = c.generarSegunVertice(dado);
             this.inventario.agregarTodos(recursos);
 
         }
     }
 
-    public void reducirALaMitadLosRecurosos() {
-        if (this.inventario.total() > 7) {
+    public void accionSegunDado(Dado dado) {
+        AccionDado accion = dado.lanzar();
+        accion.aplicar(this);
 
-            this.inventario.reducirALaMitad();
+    }
+
+
+    public void generarRecursosPorConstrucciones(int dado){
+        for (Construccion c: this.construcciones) {
+            this.inventario.agregarTodos(c.generarSegunVertice(dado));
+
         }
     }
 
-    public void contruirCarretera(Vertice inicio, Vertice fin, Carretera carretera) {
-        Arista a = new Arista(inicio, fin);
-        this.construcciones.add(carretera);
-        inventario.consumir(Madera.class);
-        inventario.consumir(Ladrillo.class);
+
+    public void descartarMitadSiCorresponde() {
+        if (this.inventario.excedeLimite()) {
+            this.inventario.descartarMitad();
+        }
+    }
+
+
+    public boolean esAdyacenteA(Arista nueva) {
+        return construcciones.isEmpty() ||
+                construcciones.stream().anyMatch(c -> c.esAdyacenteA(nueva));
+    }
+
+
+    public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
+        construible.construir(this, construccion, ubicaciones);
+    }
+
+    public void agregarConstruccion(Construccion construccion) {
+        this.construcciones.add(construccion);
+    }
+
+    public void descontarPara(Construccion construccion) {
+        this.inventario.descontarPara(construccion);
     }
 
     public int consultarRecursos() {
         return this.inventario.total();
+    }
+
+    public boolean tieneEnInventario(List<Class<? extends Recurso>> solicitud) {
+
+        for (Class<? extends Recurso> recurso : solicitud) {
+            if (this.inventario.cantidadDeTipo(recurso) == 0) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    public void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
+
+        for (Class<? extends Recurso> tipo : solicitud) {
+
+            Recurso recurso = inventario.remover(tipo);
+            otroJugador.recibirRecurso(recurso);
+        }
+
+    }
+
+    public int cantidadDeRecursoTipo(Class<? extends Recurso> tipo) {
+        return this.inventario.cantidadDeTipo(tipo);
+
+    }
+
+    public Jugador seleccionarVictima(List<Jugador> candidatas) {
+        return candidatas.get(0);// ver como fx selecciona a la victima
+    }
+
+
+    public void recorrerConstrucciones(Consumer<Construccion> c) {
+        construcciones.forEach(c);
+    }
+
+    public void agregarRecursos(ArrayList<Recurso> recursos) {
     }
 }

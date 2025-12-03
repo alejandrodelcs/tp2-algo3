@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.*;
 
+import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
+import edu.fiuba.algo3.modelo.Errores.NoExisteFichaError;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class Tablero {

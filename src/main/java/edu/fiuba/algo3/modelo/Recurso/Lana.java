@@ -11,8 +11,5 @@ public class Lana extends Recurso {
         return new Lana();
     }
 
-    @Override
-    public String tipo() {
-        return "Lana";
-    }
+
 }

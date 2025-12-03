@@ -91,7 +91,7 @@ public class InventarioTest {
         Inventario inventario = new Inventario(new Madera(),new Madera(), new Madera(), new Lana(),
                                                 new Lana(), new Lana(), new Mineral(), new Mineral());
 
-        inventario.reducirALaMitad();
+        inventario.descartarMitad();
 
         // Se queda con floor(9/2)=4
         assertEquals(4, inventario.total());

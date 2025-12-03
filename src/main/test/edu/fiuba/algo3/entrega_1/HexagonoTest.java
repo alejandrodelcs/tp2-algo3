@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import static org.mockito.Mockito.*;
 
-import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
 import edu.fiuba.algo3.modelo.Terreno;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
@@ -23,7 +23,7 @@ public class HexagonoTest {
         Terreno terrenoPastisal = mock(Terreno.class);
 
         Hexagono hexa1 = new Hexagono(terrenoPastisal, numeroFicha);
-        when(terrenoPastisal.devolverRecurso()).thenReturn(new Lana());
+        when(terrenoPastisal.retornarRecurso()).thenReturn(new Lana());
 
         Recurso recGenerad = hexa1.obtenerRecurso(numeroDado);
 
@@ -39,7 +39,7 @@ public class HexagonoTest {
 
         Hexagono hexa1 = new Hexagono(terrenoPastisal, numeroFicha);
         // when(terrenoPastisal.obtenerRecurso()).thenReturn(1);
-        when(terrenoPastisal.devolverRecurso()).thenReturn(null);
+        when(terrenoPastisal.retornarRecurso()).thenReturn(null);
 
         // int recGenerad = hexa1.obtenerRecurso(numeroDado);
         Recurso recGenerad = hexa1.obtenerRecurso(numeroDado);

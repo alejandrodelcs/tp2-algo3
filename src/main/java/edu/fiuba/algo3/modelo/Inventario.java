@@ -2,7 +2,9 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.*;
 
+import edu.fiuba.algo3.modelo.Construcciones.Construccion;
 import edu.fiuba.algo3.modelo.Errores.NoHayRecursoDisponibleError;
+import edu.fiuba.algo3.modelo.Errores.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
@@ -10,13 +12,13 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
  */
 public class Inventario {
 
-    private final ArrayList<Recurso> recursos;
+    private List<Recurso> recursos;
 
-    public Inventario(Recurso...recursos) {
+    public Inventario(Recurso... recursos) {
         this.recursos = new ArrayList<>(Arrays.asList(recursos));
     }
 
-    public Inventario(){
+    public Inventario() {
         this.recursos = new ArrayList<>();
     }
 
@@ -25,10 +27,8 @@ public class Inventario {
         recursos.add(recurso);
     }
 
-    public void agregarTodos(Iterable<Recurso> listaRecursos) {
-        for (Recurso recurso : listaRecursos) {
-            this.agregar(recurso);
-        }
+    public void agregar(List<Recurso> recursos) {
+        this.recursos.addAll(recursos);
     }
 
     public int cantidadDeTipo(Class<? extends Recurso> tipo) {
@@ -44,23 +44,29 @@ public class Inventario {
     public int total() {
         int total = 0;
         int cant = 0;
-        for(Recurso r : recursos){
+        for (Recurso r : recursos) {
             cant += r.acumular(total);
         }
         return cant;
     }
 
-    public void consumir(Class<? extends Recurso> tipo) {
-        for (int i = 0; i < recursos.size(); i++) {
-            Recurso recurso = recursos.get(i);
+    public boolean excedeLimite() {
+        return this.recursos.size() > 7;
+    }
 
-            if (recurso != null && recurso.getClass().equals(tipo)) {
-                recursos.remove(i);
+    public void consumir(Class<? extends Recurso> tipo) {
+        Iterator<Recurso> it = recursos.iterator();
+
+        while (it.hasNext()) {
+            Recurso recurso = it.next();
+            if (recurso != null && recurso.esDelMismoTipoQue(tipo)) {
+                it.remove();
                 return;
             }
         }
         throw new NoHayRecursoDisponibleError();
     }
+
 
     public Recurso robarUno() {
         if (estaVacio()) {
@@ -83,13 +89,71 @@ public class Inventario {
         return tipos;
     }
 
-    public void reducirALaMitad() {
-        int total = recursos.size();
-        int cantidadConservar = total / 2;
-        int aEliminar = total - cantidadConservar;
+    public boolean posee(List<Recurso> costo) {
+        List<Recurso> copiaInventario = new ArrayList<>(this.recursos);
 
-        for (int i = 0; i < aEliminar; i++) {
-            robarUno();
+        for (Recurso necesaria : costo) {
+            if (!copiaInventario.remove(necesaria)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*
+          Pre: -
+          Pro: retorna la mitad de una lista de recursos, el redondeo es para abajo.
+          e.g.: size = 8 , descarta 4 , mantiene 4, size=9, descarta 4, mantiene 5,
+                size=10,  descarta 5, mantiene 5, size=11, descarte 5, mantiene 6.
+     */
+    public List<Recurso> descartarMitad() {
+        int cantidadABorrar = recursos.size() / 2;
+        List<Recurso> descartadas = new ArrayList<>();
+
+        Collections.shuffle(recursos);
+
+        for (int i = 0; i < cantidadABorrar; i++) {
+            descartadas.add(recursos.remove(0));
+        }
+
+        return descartadas;
+    }
+
+    public void gastar(List<Recurso> costo) {
+        if (!posee(costo)) {
+            throw new RecursosInsuficientesException("No cubre el costo");
+        }
+
+        for (Recurso necesaria : costo) {
+            this.recursos.remove(necesaria);
+        }
+    }
+
+
+    public Recurso obtenerRecurso(int indice) {
+        return this.recursos.get(indice);
+    }
+
+    public Recurso remover(Class<? extends Recurso> tipoRecurso) {
+
+        for (Recurso recurso : recursos) {
+
+            if (tipoRecurso.isInstance(recurso)) {
+                recursos.remove(recurso);
+                return recurso;
+            }
+        }
+        return null;
+
+    }
+
+    public void descontarPara(Construccion construccion) {
+        construccion.pagarCon(this);
+    }
+
+    public void agregarTodos(Iterable<Recurso> listaRecursos) {
+        for (Recurso recurso : listaRecursos) {
+            this.agregar(recurso);
         }
     }
 }

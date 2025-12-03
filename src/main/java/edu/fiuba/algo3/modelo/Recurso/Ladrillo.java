@@ -11,8 +11,4 @@ public class Ladrillo extends Recurso {
         return new Ladrillo();
     }
 
-    @Override
-    public String tipo() {
-        return "Ladrillo";
-    }
 }

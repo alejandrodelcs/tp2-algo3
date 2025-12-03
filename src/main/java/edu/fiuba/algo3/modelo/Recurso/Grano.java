@@ -11,9 +11,5 @@ public class Grano extends Recurso {
         return new Grano();
     }
 
-    @Override
-    public String tipo() {
-        return "Grano";
-    }
 
 }

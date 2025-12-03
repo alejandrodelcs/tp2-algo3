@@ -3,9 +3,9 @@ package edu.fiuba.algo3.modelo.ElementosTablero;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.Errores.AccionNoPermitidaException;
+import edu.fiuba.algo3.modelo.Errores.NoHayConstruccionParaMejorar;
 import edu.fiuba.algo3.modelo.Construcciones.*;
-import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaExeption;
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -25,25 +25,33 @@ public class Vertice {
     }
 
     public void construir(Construccion construccion) {
-        for (Arista arista : aristas) {
-            if (arista.vecinoConstruido(this)) {
-                throw new ReglaDistanciaExeption();
-            }
-
-        }
-
         this.construccion = construccion;
         construccion.asignarVertice(this);
     }
 
-    public void asignarHexagonos(Hexagono hexagono) {
-        this.hexagonos.add(hexagono);
+    public void mejorar(Construccion nuevaConstruccion) {
+        if (!this.construccion.puedeSerMejorada()) {
+            throw new AccionNoPermitidaException("No hay nada para mejorar o ya está al máximo nivel.");
+        }
 
-        hexagono.conectarVertice(this);
+        if (this.construccion.getPropietario() != nuevaConstruccion.getPropietario()) {
+            throw new AccionNoPermitidaException("No puedes mejorar un edificio que no es tuyo.");
+        }
+
+        this.construccion = nuevaConstruccion;
+
+        nuevaConstruccion.asignarVertice(this);
+    }
+
+    public void agregarHexagono(Hexagono hexagono) {
+        if (!hexagonos.contains(hexagono)) {
+            hexagonos.add(hexagono);
+            hexagono.agregarVertice(this);
+        }
     }
 
     public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
-        //this.construccion.agregarDuenio(listaVictimas);
+        this.construccion.agregarPropietario(listaVictimas);
     }
 
     public void conectarArista(Arista arista) {
@@ -58,22 +66,20 @@ public class Vertice {
         return !this.construccion.esNula();
     }
 
-    public ArrayList<Recurso> generarRecurso(int numDado) {
-        ArrayList<Recurso> recursosGenerados = new ArrayList<>();
 
-        for (Hexagono hexagono : this.hexagonos) {
-            Recurso recursoAux = construccion.generarSegunHexagono(hexagono, numDado);
 
-            if (recursoAux != null) {
-                recursosGenerados.add(recursoAux);
-            }
+    public ArrayList<Recurso> generarRecurso(int dado, int cantidad) {
+        ArrayList<Recurso> resultado = new ArrayList<>();
+
+        for (Hexagono h : hexagonos) {
+            resultado.addAll(h.generarRecursos(dado, cantidad));
         }
-        return recursosGenerados;
+
+        return resultado;
     }
 
     public Inventario entregarRecursosIniciales() {
-        ArrayList<Recurso> recursos = new ArrayList<>();
-
+        List<Recurso> recursos = new ArrayList<>();
 
         if (!this.tieneConstruccion()) {
             return null;  //Crear una excepcion y testear
@@ -85,7 +91,26 @@ public class Vertice {
                 recursos.add(r);
             }
         }
+
         return new Inventario(recursos.toArray(new Recurso[0]));
     }
+
+    public void mejorarA(Construccion nueva){
+        if(!this.tieneConstruccion()){
+            throw new NoHayConstruccionParaMejorar();
+        }
+        this.construccion = nueva;
+    }
+
+    public boolean tieneVecinoConstruido() {   //luego lo arreglo
+        for (Arista a : aristas) {
+            if (a.vecinoConstruido(this)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 }
