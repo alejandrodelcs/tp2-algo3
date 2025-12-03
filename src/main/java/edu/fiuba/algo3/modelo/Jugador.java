@@ -1,8 +1,11 @@
 package edu.fiuba.algo3.modelo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.Dado.AccionDado;
+import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.ElementosTablero.*;
 import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -37,13 +40,6 @@ public class Jugador {
     public void mejorarConstruccion(Vertice vertice, Construccion nueva) {
         inventario.descontarPara(nueva);
         vertice.mejorarA(nueva);
-    }
-
-
-
-
-    private void removerConstruccionVieja(Vertice vertice) {
-        this.construcciones.removeIf(c -> c.estaEn(vertice));
     }
 
     public void comprarCartaDesarrollo(MazoDesarrollo mazo) {
@@ -90,24 +86,6 @@ public class Jugador {
         return this.cartasDesarrollo.size();
     }
 
-   /* public void construir(Vertice vertice, Construccion construccion) {
-        vertice.construir(construccion);
-        this.construcciones.add(construccion);
-
-
-        List<Recurso> costo = construccion.getCosto();
-
-        this.inventario.gastar(costo);
-
-        try {
-            vertice.construir(construccion);
-            this.construcciones.add(construccion);
-        } catch (Exception e) {
-            this.inventario.agregar(costo);
-            throw e;
-        }
-    }*/
-
 
     public void robarA(Jugador victima) {
         if (victima != null && victima != this) {
@@ -142,6 +120,12 @@ public class Jugador {
         }
     }
 
+    public void accionSegunDado(Dado dado) {
+        AccionDado accion = dado.lanzar();
+        accion.aplicar(this);
+
+    }
+
 
     public void generarRecursosPorConstrucciones(int dado){
         for (Construccion c: this.construcciones) {
@@ -150,9 +134,6 @@ public class Jugador {
         }
     }
 
-    public void aplicarAccionDeDado(AccionDado accion) {
-        accion.aplicar(this);
-    }
 
     public void descartarMitadSiCorresponde() {
         if (this.inventario.excedeLimite()) {
@@ -214,4 +195,10 @@ public class Jugador {
     }
 
 
+    public void recorrerConstrucciones(Consumer<Construccion> c) {
+        construcciones.forEach(c);
+    }
+
+    public void agregarRecursos(ArrayList<Recurso> recursos) {
+    }
 }

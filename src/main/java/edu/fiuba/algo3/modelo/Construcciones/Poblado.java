@@ -1,10 +1,9 @@
 package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
-import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
@@ -42,5 +41,7 @@ public class Poblado extends Construccion {
     public ArrayList<Recurso> generarSegunVertice(int dado) {
         return this.verticeAsignado.generarRecurso(dado,1);
     }
+
+
 
 }

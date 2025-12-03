@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.modelo.Dado.AccionReducirRecursos;
+import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +47,7 @@ public class JugadorTest {
 
         Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 6);
         Vertice vertice = new Vertice();
-        vertice.asignarHexagonos(hexMadera);
+        vertice.agregarHexagono(hexMadera);
 
         Construible estrategia = new ConstruirAsentamiento();
         jugador.construir(estrategia, new Poblado(), vertice);
@@ -62,12 +64,12 @@ public class JugadorTest {
         int dado = 6;
         Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 6);
         Vertice vertice = new Vertice();
-        vertice.asignarHexagonos(hexMadera);
+        vertice.agregarHexagono(hexMadera);
 
         jugador.construir(new ConstruirAsentamiento(), new Poblado(), vertice);
 
         for (int i = 0; i < 10; i++) {
-            jugador.generarSegunDado(dado);
+            jugador.accionSegunDado(new Dado(dado));
         }
         assertEquals(10, jugador.cantidadCartas());
 
@@ -81,8 +83,8 @@ public class JugadorTest {
         Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 6);
 
         Vertice vertice = new Vertice();
-        vertice.asignarHexagonos(hexaPiedra);
-        vertice.asignarHexagonos(hexaLana);
+        vertice.agregarHexagono(hexaPiedra);
+        vertice.agregarHexagono(hexaLana);
 
 
         Jugador jugador = new Jugador("Alberto", minimoCiudad);
@@ -109,9 +111,9 @@ public class JugadorTest {
         Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 3);
 
         Vertice vertice = new Vertice();
-        vertice.asignarHexagonos(hexMadera);
-        vertice.asignarHexagonos(hexaPiedra);
-        vertice.asignarHexagonos(hexaLana);
+        vertice.agregarHexagono(hexMadera);
+        vertice.agregarHexagono(hexaPiedra);
+        vertice.agregarHexagono(hexaLana);
 
         jugador.construir(new ConstruirAsentamiento(), new Poblado(), vertice);
 
@@ -146,9 +148,9 @@ public class JugadorTest {
         Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 3);
 
         Vertice vertice = new Vertice();
-        vertice.asignarHexagonos(hexMadera);
-        vertice.asignarHexagonos(hexaPiedra);
-        vertice.asignarHexagonos(hexaLana);
+        vertice.agregarHexagono(hexMadera);
+        vertice.agregarHexagono(hexaPiedra);
+        vertice.agregarHexagono(hexaLana);
 
         Construible estrategia = new ConstruirAsentamiento();
         jugador.construir(estrategia, new Poblado(), vertice);
@@ -165,7 +167,7 @@ public class JugadorTest {
 
         jugador.generarSegunDado(dado7);
 
-        assertEquals(4, jugador.cantidadCartas());
+        assertEquals(5, jugador.cantidadCartas());
     }
 
 }

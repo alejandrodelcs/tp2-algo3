@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import static org.mockito.Mockito.*;
 
-import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
 import edu.fiuba.algo3.modelo.Terreno;
 import edu.fiuba.algo3.modelo.Recurso.*;
 

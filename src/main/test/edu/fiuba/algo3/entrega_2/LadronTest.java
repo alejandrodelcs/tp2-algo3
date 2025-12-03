@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Ladron;
@@ -50,7 +50,7 @@ public class LadronTest {
         Hexagono hexDestino = new Hexagono(Terreno.BOSQUE, 5);
 
         Vertice verticeAdyacente = new Vertice();
-        verticeAdyacente.asignarHexagonos(hexDestino);
+        verticeAdyacente.agregarHexagono(hexDestino);
 
         Poblado pobado = new Poblado(victima);
 

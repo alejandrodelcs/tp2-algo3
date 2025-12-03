@@ -100,7 +100,12 @@ public class Inventario {
         return true;
     }
 
-
+    /*
+          Pre: -
+          Pro: retorna la mitad de una lista de recursos, el redondeo es para abajo.
+          e.g.: size = 8 , descarta 4 , mantiene 4, size=9, descarta 4, mantiene 5,
+                size=10,  descarta 5, mantiene 5, size=11, descarte 5, mantiene 6.
+     */
     public List<Recurso> descartarMitad() {
         int cantidadABorrar = recursos.size() / 2;
         List<Recurso> descartadas = new ArrayList<>();

@@ -2,20 +2,12 @@ package edu.fiuba.algo3.modelo.Construcciones;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.ElementosTablero.Arista;
-import edu.fiuba.algo3.modelo.Hexagono;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Recurso.*;
-import edu.fiuba.algo3.modelo.Inventario;
+import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class Carretera extends Construccion{
 
@@ -57,4 +49,6 @@ public class Carretera extends Construccion{
     public boolean esAdyacenteA(Arista otra) {
         return this.arista.esAdyacenteA(otra);
     }
+
+
 }

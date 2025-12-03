@@ -23,11 +23,16 @@ public class TestsEntrega1 {
     private Jugador jugador2;
     private Inventario inventario1;
     private Inventario inventario2;
+    private Inventario inventario3;
 
     @BeforeEach
     public void setUp() {
         inventario1 = new Inventario((Recurso) null);
         inventario2 = new Inventario((Recurso) null);
+        inventario3 = new Inventario(new Madera(),
+                    new Ladrillo(), new Lana(), new Grano(),new Madera(),
+                    new Ladrillo(), new Lana(), new Grano());
+
         jugador1 = new Jugador("Jugador 1", inventario1);
         jugador2 = new Jugador("Jugador 2", inventario2);
     }
@@ -45,21 +50,19 @@ public class TestsEntrega1 {
 
     @Test
     public void test02NoSePuedeConstruirEnUnVerticeConVecinosConstruidos() {
-
         Vertice primerVertice = new Vertice();
         Vertice segundoVertice = new Vertice();
-
-        Construccion pueblo = mock(Poblado.class);
-        when(pueblo.getPuntosDeVictoria()).thenReturn(1);
-
+        ConstruirAsentamiento c = new ConstruirAsentamiento();
+        Construccion pueblo = new Poblado();
+        Construccion pueblo2 = new Poblado();
         Arista arista = new Arista(primerVertice, segundoVertice);
 
-        primerVertice.construir(pueblo);
+        Jugador j = new Jugador("Ale", inventario3);
+        c.construir(j,pueblo, primerVertice);
 
         assertThrows(ReglaDistanciaException.class, () -> {
-            segundoVertice.construir(pueblo);
+            c.construir(j,pueblo2, segundoVertice);;
         });
-
     }
 
     @Test
@@ -69,8 +72,8 @@ public class TestsEntrega1 {
 
         Vertice vertice = new Vertice();
 
-        vertice.asignarHexagonos(hexMadera);
-        vertice.asignarHexagonos(hexPiedra);
+        vertice.agregarHexagono(hexMadera);
+        vertice.agregarHexagono(hexPiedra);
 
         vertice.construir(new Poblado());
 
@@ -95,11 +98,11 @@ public class TestsEntrega1 {
         Hexagono hexBosque = new Hexagono(Terreno.BOSQUE, 6);
 
         Vertice verticePoblado = new Vertice();
-        verticePoblado.asignarHexagonos(hexBosque);
+        verticePoblado.agregarHexagono(hexBosque);
         verticePoblado.construir(new Poblado());
 
         Vertice verticeCiudad = new Vertice();
-        verticeCiudad.asignarHexagonos(hexBosque);
+        verticeCiudad.agregarHexagono(hexBosque);
         verticeCiudad.construir(new Ciudad(new Jugador("Test", new Inventario())));
 
         ArrayList<Recurso> produccionPoblado = verticePoblado.generarRecurso(6,1);
@@ -118,7 +121,7 @@ public class TestsEntrega1 {
         Hexagono hexTrigo = new Hexagono(Terreno.CAMPO, numeroSuerte);
 
         Vertice vertice = new Vertice();
-        vertice.asignarHexagonos(hexTrigo);
+        vertice.agregarHexagono(hexTrigo);
         vertice.construir(new Poblado());
 
         hexTrigo.colocarLadron();
@@ -128,26 +131,5 @@ public class TestsEntrega1 {
         Assertions.assertEquals(0, recursos.size());
     }
 
-    @Test
-    public void test08LadronSeMueveYRobaUnRecursoAJugadorAdyacente() {
-        Jugador ladron = new Jugador("Matias",new Inventario());
-        Jugador victima = new Jugador("Natan",new Inventario());
-
-        victima.recibirRecurso(new Madera());
-
-        Tablero tablero = new Tablero();
-        Hexagono hexDestino = new Hexagono(Terreno.BOSQUE, 5);
-        Vertice verticeAdyacente = new Vertice();
-
-        verticeAdyacente.asignarHexagonos(hexDestino);
-
-        verticeAdyacente.construir(new Poblado());
-
-        tablero.moverLadron(hexDestino, ladron);
-
-        assertEquals(1, ladron.cantidadCartas());
-
-        assertEquals(0, victima.cantidadCartas());
-    }
 
 }

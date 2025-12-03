@@ -1,7 +1,8 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.ElementosTablero;
 
-import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Terreno;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,6 @@ public class Hexagono {
         this.tieneLadron = false;
     }
 
-
     public void colocarLadron() {
         this.tieneLadron = true;
     }
@@ -31,8 +31,10 @@ public class Hexagono {
         return this.tieneLadron;
     }
 
-    public void conectarVertice(Vertice vertice) {
-        this.vertices.add(vertice);
+    public void agregarVertice(Vertice vertice) {
+        if (!vertices.contains(vertice)) {
+            vertices.add(vertice);
+        }
     }
 
     public List<Jugador> obtenerVictimas() {
@@ -66,11 +68,26 @@ public class Hexagono {
     }
 
 
-    public Recurso generarRecurso() {
-        return terreno.retornarRecurso();
-    }
-
     public boolean puedeGenerar() {
         return !tieneLadron;
     }
+
+    public List<Recurso> generarRecursos(int dado, int cantidad) {
+        List<Recurso> recursos = new ArrayList<>();
+
+        if (tieneLadron) return recursos;
+        if (!coincideCon(dado)) return recursos;
+
+        for (int i = 0; i < cantidad; i++) {
+            recursos.add(crearRecursoDeHexagono());
+        }
+
+        return recursos;
+    }
+
+    private Recurso crearRecursoDeHexagono() {
+        return terreno.retornarRecurso();
+    }
+
+
 }

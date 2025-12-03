@@ -5,7 +5,6 @@ import java.util.List;
 
 import edu.fiuba.algo3.modelo.Errores.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Errores.NoHayConstruccionParaMejorar;
-import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
@@ -44,10 +43,11 @@ public class Vertice {
         nuevaConstruccion.asignarVertice(this);
     }
 
-    public void asignarHexagonos(Hexagono hexagono) {
-        this.hexagonos.add(hexagono);
-
-        hexagono.conectarVertice(this);
+    public void agregarHexagono(Hexagono hexagono) {
+        if (!hexagonos.contains(hexagono)) {
+            hexagonos.add(hexagono);
+            hexagono.agregarVertice(this);
+        }
     }
 
     public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
@@ -66,17 +66,16 @@ public class Vertice {
         return !this.construccion.esNula();
     }
 
+
+
     public ArrayList<Recurso> generarRecurso(int dado, int cantidad) {
-        ArrayList<Recurso> recursos = new ArrayList<>();
+        ArrayList<Recurso> resultado = new ArrayList<>();
 
         for (Hexagono h : hexagonos) {
-            if (h.coincideCon(dado) && h.puedeGenerar()) {
-                for (int i = 0; i < cantidad; i++) {
-                    recursos.add(h.generarRecurso());
-                }
-            }
+            resultado.addAll(h.generarRecursos(dado, cantidad));
         }
-        return recursos;
+
+        return resultado;
     }
 
     public Inventario entregarRecursosIniciales() {
@@ -111,4 +110,7 @@ public class Vertice {
         }
         return false;
     }
+
+
+
 }
