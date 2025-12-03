@@ -1,0 +1,88 @@
+@startuml
+skinparam groupInheritance 2
+abstract class Construccion implements Consumible {
+    # dueño:Jugador 
+    # verticeAsignado:Vertice
+    + {static}Construccion()
+    + {static}Construccion(Jugador dueño)
+    + {abstract} getCosto():List<Recurso>
+    + {abstract} getPuntoVictoria():int
+    + {abstract} generarSegunHexagono(Hexagono h, int d):Recurso
+    + {abstract} generarSegunVertice(int dado):List<Recurso>
+    + {abstract} agregarDueño(List<Jugador> v)
+    + estaEn(Vertice):bool 
+    + puedeSerMejorada():bool
+    + getDueño():Jugador
+    + esNula():bool 
+    + asignarVertice(Vertice v)
+}
+
+class Poblado extends Construccion {
+    + {static}Poblado()
+    + {static}Poblado(Jugador dueño)
+    + getCosto():List<Recurso>
+    + getPuntoVictoria():int
+    + generarSegunHexagono(Hexagono h, int d):Recurso
+    + generarSegunVertice(int dado):List<Recurso>
+    + agregarDueño(List<Jugador> v)
+}
+
+class Ciudad extends Construccion {
+    + {static}Ciudad(Jugador dueño)
+    + getCosto():List<Recurso>
+    + getPuntoVictoria():int
+    + generarSegunHexagono(Hexagono h, int d):Recurso
+    + generarSegunVertice(int dado):List<Recurso>
+    + agregarDueño(List<Jugador> v)
+}
+
+
+class Carretera extends Construccion {
+    + {static}Carretera(Jugador dueño)
+    + getCosto():List<Recurso>
+    + getPuntoVictoria():int
+    + generarSegunHexagono(Hexagono h, int d):Recurso
+    + generarSegunVertice(int dado):List<Recurso>
+    + agregarDueño(List<Jugador> v)
+}
+
+
+class ConstruccionNula extends Construccion {
+    + {static}Carretera(Jugador dueño)
+    + getCosto():List<Recurso>
+    + getPuntoVictoria():int
+    + generarSegunHexagono(Hexagono h, int d):Recurso
+    + generarSegunVertice(int dado):List<Recurso>
+    + agregarDueño(List<Jugador> v)
+}
+
+class Vertice {
+    +{static} Vertice()
+    +construir(Construccion c)
+    +mejorar(Construccion nueva)
+    +asignarHexagono(Hexagono h)
+    +agregarVictimaPotencial(List<Jugador> v)
+    +conectarArista(Arista a)
+    +puntoVictoria():int 
+    +tieneConstruccion():bool 
+    +generarRecurso(int dado):List<Recurso>
+    +entregarRecursoIniciales():Inventario
+
+}
+
+class Arista{
+    +{static}Arista(Vertice v1,Vertice v2)
+    -ConectarVertice()
+    +vecinoConstruico(Vertice v):bool
+    +getOtroVertice(Vertice v):Vertice
+}
+
+Vertice o-- "3" Arista
+Vertice "6"o--"1" Hexagono
+
+Vertice ..> Inventario:use
+Vertice -> Construccion
+
+Arista *--"2" Vertice
+
+@enduml

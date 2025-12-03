@@ -1,0 +1,77 @@
+@startuml
+skinparam groupInheritance 2
+
+
+class Hexagono {
+    -ficha:int
+    -tieneLadron:bool 
+    +Hexagono(Terreno t, int ficha)
+    +colorcarLadron()
+    +moverLadron()
+    +tieneLadron():bool 
+    +conectarVertice(Vertice v)
+    +obtenerVictima():List<Jugador>
+    +tieneFicha():bool 
+    +obtenerRecurso(int dado):Recurso
+    +obtenerRecursoBase():Recurso
+}
+
+class Terreno {
+    +Terreno(Recurso r)
+    +obtenerRecurso():int
+    +devolverRecurso():Recurso
+
+}
+
+abstract class Recurso{
+    -cantidad:int
+    +Recurso()
+    +{abstract} tipo():string
+    +{abstract} obtenerRecurso():int 
+    +{abstract} clonar():Recurso
+    + getCantidad:int 
+    + acumular(int a):int
+    + aumentar(int v)
+    + equals(Objetc o):bool
+    + hashCode():int
+    
+}
+
+class Madera extends Recurso{
+    +obtenerRecurso():int 
+    +clonar():Recurso 
+    +tipo():string
+}
+
+class Mineral extends Recurso{
+    +obtenerRecurso():int 
+    +clonar():Recurso 
+    +tipo():string
+}
+
+class Grano extends Recurso{
+    +obtenerRecurso():int 
+    +clonar():Recurso 
+    +tipo():string
+}
+class Lana extends Recurso{
+    +obtenerRecurso():int 
+    +clonar():Recurso 
+    +tipo():string
+}
+class Ladrillo extends Recurso{
+    +obtenerRecurso():int 
+    +clonar():Recurso 
+    +tipo():string
+}
+
+Hexagono -> Terreno
+Hexagono o- Vertice
+Hexagono ..> Jugador
+Terreno -> Recurso
+
+
+
+
+@enduml
+

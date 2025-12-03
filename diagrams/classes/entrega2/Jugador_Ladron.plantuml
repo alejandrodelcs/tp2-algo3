@@ -1,0 +1,56 @@
+@startuml
+
+class Jugador{
+    -cataDesarrollo:List<CartasDesarrollo>
+    -construcciones:List<Construccion>
+    -nombre:string 
+    -puntoVictoria:int 
+    -puedeMoverLadron:bool 
+    +Jugador(string n, Inventario i)
+    +cantidadCartas():int 
+    +cantidadConstrucciones():int 
+    +mejorarConstruccion(Vertice v,Constrccion n)
+    +removerConstruccionVieja(Vertice v)
+    +comprarCartaDesarrollo(Mazo d)
+    +usarCartaDesarrollo(int i)
+    +pasarTurno()
+    +sumarPuntoVictoria()
+    +habilitarMovimientoLadron()
+    +cantidadCartasDesarrollo():int 
+    +construir(Vertice v, Construccion c)
+    +robarA(Jugador j)
+    +recibirRecurso(Recurso)
+    +entregarRecursoA(Jugador)
+    +generarSegunDado(int d)
+    +reducirMitad()
+    +construirCarretera(Vertice i, Vertice F, Carretera c)
+    +consultarRecurso():int 
+    +tieneEnInventario(List<Recursos> r):bool 
+    +entregarTipos(Jugador j, List<Recurso> l)
+    +cantidadRecursoTipo(Recurso r):int 
+    +seleccionarVictima(List<Jugador> j):Jugador 
+
+
+}
+
+class Inventario{
+    +Inventario(List<Recurso)
+    +agregar(Recurso r)
+    +agregar(List<Recurso> l)
+    +cantidadTipo(Recurso r):int 
+    +total():int 
+    +cantidad():int 
+    +exceceLimite():bool 
+    +consumir(Recurso r)
+    +robarUno():Recurso 
+    +estaVacio():bool 
+    +tiposDisponibles():Set<Recurso>
+    +posee(List<Recurso> l):bool 
+    +descartarMitad(List<Recurso> l)
+    +gatar(List<Recurso> l)
+    
+}
+
+Inventario o- Recurso
+Jugador -> Inventario
+@enduml
