@@ -7,7 +7,6 @@ import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
 import edu.fiuba.algo3.modelo.Recurso.Mineral;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
-import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 public class Ciudad extends Construccion {
 
@@ -24,17 +23,6 @@ public class Ciudad extends Construccion {
         return 2;
     }
 
-    @Override
-    public Recurso generarSegunHexagono(Hexagono hexagono, int numDado) {
-        Recurso recurso = hexagono.obtenerRecurso(numDado);
-
-        if (recurso != null) {
-            recurso.aumentar(1);
-            return recurso;
-        }
-
-        return null;
-    }
 
     @Override
     public ArrayList<Recurso> generarSegunVertice(int dado) {

@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
-import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 import java.util.ArrayList;
 
@@ -25,16 +24,8 @@ public class Carretera extends Construccion{
         return 0;
     }
 
-    @Override
-    public boolean puedeSerMejorada() {
-        return false;
-    }
 
 
-    @Override
-    public Recurso generarSegunHexagono(Hexagono hexagono, int numDado) {
-        return hexagono.obtenerRecurso(numDado);
-    }
 
     @Override
     public ArrayList<Recurso> generarSegunVertice(int dado) {

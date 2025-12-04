@@ -28,11 +28,6 @@ public class ConstruccionNula extends Construccion {
 
 
     @Override
-    public Recurso generarSegunHexagono(Hexagono hexagono, int numDado) {
-        return null;
-    }
-
-    @Override
     public ArrayList<Recurso> generarSegunVertice(int dado) {
         return null;
     }

@@ -26,11 +26,6 @@ public class Poblado extends Construccion {
         return 1;
     }
 
-    @Override
-    public Recurso generarSegunHexagono(Hexagono hexagono, int numDado) {
-        return hexagono.obtenerRecurso(numDado);
-    }
-
 
     @Override
     public boolean puedeSerMejorada() {

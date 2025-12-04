@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
@@ -34,7 +35,7 @@ public class ConstruccionesTest {
 
         ArrayList<Recurso> recurso = vertice.generarRecurso(numDado,1);
 
-        assertEquals(recurso.size(), 1);
+        Assertions.assertEquals(1, recurso.size());
 
     }
 
@@ -48,13 +49,11 @@ public class ConstruccionesTest {
         vertice.agregarHexagono(hexMadera);
         vertice.agregarHexagono(hexPiedra);
 
-        Inventario i = new Inventario(new Madera());
-
         vertice.construir(new Poblado());
 
         Inventario p = vertice.entregarRecursosIniciales();
 
-        assertEquals(2, p.total());
+        Assertions.assertEquals(2, p.total());
 
     }
 }

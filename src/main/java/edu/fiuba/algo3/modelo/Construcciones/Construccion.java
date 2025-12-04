@@ -57,7 +57,7 @@ public abstract class Construccion {
         this.verticeAsignado = vertice;
     }
 
-    public abstract Recurso generarSegunHexagono(Hexagono hexagono, int numDado);
+
 
     public abstract ArrayList<Recurso> generarSegunVertice(int dado);
 
