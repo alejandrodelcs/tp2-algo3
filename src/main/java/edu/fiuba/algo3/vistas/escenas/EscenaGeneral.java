@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas.escenas;
 
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -10,11 +10,14 @@ import javafx.stage.Stage;
  * EscenaGeneral
  */
 public abstract class EscenaGeneral {
+
     protected Pane layout;
     Scene scene;
 
     public EscenaGeneral(Stage stage) {
-        layout = this.crearLayout();
+        this.layout = this.crearLayout();
+        this.generarEstilos();
+        this.cargarFuenteDeTexto(this.layout);
 
         Scene escenePreliminar = stage.getScene();
 
@@ -28,8 +31,15 @@ public abstract class EscenaGeneral {
 
     protected abstract Pane crearLayout();
 
+    protected abstract void generarEstilos();
+
     public Scene getScene() {
         return this.scene;
+    }
+
+    private void cargarFuenteDeTexto(Pane layout) {
+        Font.loadFont(getClass().getResourceAsStream("/fuentes/boldpixels/BoldPixels.ttf"), 20);
+        layout.setStyle("-fx-font-family: 'BoldPixels';");
     }
 
 }
