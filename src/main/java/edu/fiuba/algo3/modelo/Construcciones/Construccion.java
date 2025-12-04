@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
-import edu.fiuba.algo3.modelo.ElementosTablero.Arista;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
-import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Tablero.Arista;
 
 /**
  * Construccion
@@ -75,6 +75,7 @@ public abstract class Construccion {
     public void asignarJugador(Jugador jugador) {
         this.propietario = jugador;
     }
+
 
 
 

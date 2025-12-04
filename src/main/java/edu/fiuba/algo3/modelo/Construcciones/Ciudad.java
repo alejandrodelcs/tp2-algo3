@@ -2,11 +2,12 @@ package edu.fiuba.algo3.modelo.Construcciones;
 
 import java.util.ArrayList;
 import edu.fiuba.algo3.modelo.Costo.Costo;
-import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
 import edu.fiuba.algo3.modelo.Recurso.Mineral;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 public class Ciudad extends Construccion {
 
@@ -40,6 +41,8 @@ public class Ciudad extends Construccion {
 
         return this.verticeAsignado.generarRecurso(dado,2);
     }
+
+
 
 
 }
