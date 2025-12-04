@@ -35,7 +35,7 @@ public class TituloVista extends HBox {
 
         }
 
-        setAlignment(Pos.CENTER_LEFT);
+        setAlignment(Pos.CENTER);
         DropShadow dropShadow = new DropShadow();
         dropShadow.setColor(Color.BROWN);
         dropShadow.setRadius(10);

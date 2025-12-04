@@ -31,6 +31,8 @@ public abstract class EscenaGeneral {
 
     protected abstract Pane crearLayout();
 
+    protected abstract void crearControladores(Stage stage);
+
     protected abstract void generarEstilos();
 
     public Scene getScene() {

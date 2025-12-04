@@ -17,6 +17,8 @@ public class MenuInicio extends EscenaGeneral {
     HBox titulo;
     HBox barra;
     HBox hboxMadre;
+    HBox layoutPrincipal;
+
     VBox columnaLateral;
     VBox contenedorBotones;
     VBox vboxPrincipal;
@@ -35,7 +37,6 @@ public class MenuInicio extends EscenaGeneral {
 
         StackPane root = new StackPane();
 
-        // Título y botones en columna lateral
         this.titulo = new TituloVista("CATAN");
         this.botonJugar = new BotonesVista("Juego nuevo");
         Button botonConfig = new BotonesVista("Configuración");
@@ -44,32 +45,39 @@ public class MenuInicio extends EscenaGeneral {
 
         this.contenedorBotones = new VBox(15, botonJugar, botonConfig, botonVolumen, botonSalir);
 
-        this.columnaLateral = new VBox(30, titulo, contenedorBotones);
+        this.columnaLateral = new VBox(30, contenedorBotones);
 
-        Region regionCentral = new Region();
+        // Region regionCentral = new Region();
+        VBox regionCentral = new VBox(titulo);
+        regionCentral.setPadding(new Insets(150, 0, 0, 0));// buscar la forma de centrar bien esto
         HBox.setHgrow(regionCentral, Priority.ALWAYS);
 
-        HBox layoutPrincipal = new HBox(columnaLateral, regionCentral);
+        this.layoutPrincipal = new HBox(columnaLateral, regionCentral);
 
         root.getChildren().add(layoutPrincipal);
         return root;
     }
 
+    protected void crearControladores(Stage stage) {
+        // agregar comportamientos
+    }
+
     protected void generarEstilos() {
-        // Estilos de la columna lateral (barra marrón)
+
         this.columnaLateral.setStyle(
-                "-fx-background-color: #8B7265; " + // Color marrón rosado
+                "-fx-background-color: #8B7265; " +
                         "-fx-padding: 40 30 40 30; " +
                         "-fx-background-radius: 20;");
         this.columnaLateral.setPrefWidth(300);
-        this.columnaLateral.setAlignment(Pos.TOP_CENTER);
+        this.columnaLateral.setAlignment(Pos.CENTER);
 
-        // Estilos de los botones
-        this.contenedorBotones.setAlignment(Pos.CENTER_LEFT);
+        this.contenedorBotones.setAlignment(Pos.CENTER);
         this.contenedorBotones.setPadding(new Insets(20, 0, 0, 0));
 
-        // Fondo general gris claro
+        StackPane.setMargin(this.layoutPrincipal, new Insets(20));
+
         this.layout.setStyle("-fx-background-color: #E8E8E8;");
+        this.titulo.setStyle("-fx-font-size: 120;");
     }
 
 }

@@ -18,6 +18,7 @@ public class App extends Application {
         this.stage = stage;
 
         stage.setScene(new MenuInicio(stage).getScene());
+        stage.setFullScreen(true);
         stage.show();
 
     }
