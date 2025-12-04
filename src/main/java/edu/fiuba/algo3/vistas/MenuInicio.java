@@ -20,6 +20,7 @@ public class MenuInicio extends EscenaGeneral {
     HBox layoutPrincipal;
 
     VBox columnaLateral;
+    VBox columnaLateral2;
     VBox contenedorBotones;
     VBox vboxPrincipal;
     VBox boxVerticalPrincipal;
@@ -46,13 +47,14 @@ public class MenuInicio extends EscenaGeneral {
         this.contenedorBotones = new VBox(15, botonJugar, botonConfig, botonVolumen, botonSalir);
 
         this.columnaLateral = new VBox(30, contenedorBotones);
+        this.columnaLateral2 = new VBox(30);
 
         // Region regionCentral = new Region();
         VBox regionCentral = new VBox(titulo);
         regionCentral.setPadding(new Insets(150, 0, 0, 0));// buscar la forma de centrar bien esto
         HBox.setHgrow(regionCentral, Priority.ALWAYS);
 
-        this.layoutPrincipal = new HBox(columnaLateral, regionCentral);
+        this.layoutPrincipal = new HBox(columnaLateral, regionCentral, columnaLateral2);
 
         root.getChildren().add(layoutPrincipal);
         return root;
@@ -65,11 +67,13 @@ public class MenuInicio extends EscenaGeneral {
     protected void generarEstilos() {
 
         this.columnaLateral.setStyle(
-                "-fx-background-color: #8B7265; " +
+                "-fx-background-color: #4d3a35; " +
                         "-fx-padding: 40 30 40 30; " +
                         "-fx-background-radius: 20;");
         this.columnaLateral.setPrefWidth(300);
         this.columnaLateral.setAlignment(Pos.CENTER);
+
+        this.columnaLateral2.setPrefWidth(300);
 
         this.contenedorBotones.setAlignment(Pos.CENTER);
         this.contenedorBotones.setPadding(new Insets(20, 0, 0, 0));

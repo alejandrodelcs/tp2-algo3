@@ -3,6 +3,8 @@ package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 /**
@@ -43,15 +45,20 @@ public class BotonesVista extends Button {
             transicion.play();
         });
         // setear que hacen los botones
+        Image image = new Image(getClass().getResource("/images/menu1.png").toExternalForm());
 
-        setStyle("-fx-background-color: #D4C4B0; " +
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, new BackgroundSize(100, 100, true, true, true, true));
+
+        this.setBackground(new Background(backgroundImage));
+
+        setStyle(
                 "-fx-text-fill: #4A4A4A; " +
-                "-fx-font-size: 18; " +
-                "-fx-padding: 12 30 12 30; " +
-                "-fx-background-radius: 8; " +
-                "-fx-border-color: #8B7265; " +
-                "-fx-border-width: 2; " +
-                "-fx-border-radius: 8;");
+                        "-fx-font-size: 30; " +
+                        "-fx-padding: 12 30 12 30; " +
+                        "-fx-border-color: #8B7265; " +
+                        "-fx-border-width: 6; ");
 
     }
 

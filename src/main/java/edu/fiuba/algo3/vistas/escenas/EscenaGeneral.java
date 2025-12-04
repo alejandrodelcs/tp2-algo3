@@ -18,6 +18,7 @@ public abstract class EscenaGeneral {
         this.layout = this.crearLayout();
         this.generarEstilos();
         this.cargarFuenteDeTexto(this.layout);
+        // cargarImagenDeFondo(layout);
 
         Scene escenePreliminar = stage.getScene();
 
@@ -26,7 +27,6 @@ public abstract class EscenaGeneral {
         } else {
             scene = new Scene(layout);
         }
-
     }
 
     protected abstract Pane crearLayout();
@@ -42,6 +42,14 @@ public abstract class EscenaGeneral {
     private void cargarFuenteDeTexto(Pane layout) {
         Font.loadFont(getClass().getResourceAsStream("/fuentes/boldpixels/BoldPixels.ttf"), 20);
         layout.setStyle("-fx-font-family: 'BoldPixels';");
+    }
+
+    private void cargarImagenDeFondo(Pane layout) {
+        Image image = new Image(getClass().getResource("/images/madera.jpg").toExternalForm());
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+                BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        layout.setBackground(new Background(backgroundImage));
+
     }
 
 }
