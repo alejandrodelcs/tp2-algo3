@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Construcciones;
+package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Juego.Jugador;

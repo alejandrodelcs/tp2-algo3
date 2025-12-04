@@ -1,8 +1,7 @@
-package edu.fiuba.algo3.modelo.Construcciones;
+package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
-import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;

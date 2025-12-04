@@ -16,7 +16,7 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.Construcciones.*;
+import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Excepciones.*;
 
 /**

@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.ReglaConstruccion;
 
-import edu.fiuba.algo3.modelo.Construcciones.Construccion;
+import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Excepciones.CarreteraNoConectadaError;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 
