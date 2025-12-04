@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Errores.NoExisteFichaError;
-import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.Excepciones.NoExisteFichaError;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,12 +1,12 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Ladron;
-import edu.fiuba.algo3.modelo.Terreno;
+import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Construcciones.Poblado;
-import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 
 import static org.junit.Assert.*;

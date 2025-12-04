@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import static org.mockito.Mockito.*;
 
-import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
-import edu.fiuba.algo3.modelo.Terreno;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 import org.junit.jupiter.api.Test;

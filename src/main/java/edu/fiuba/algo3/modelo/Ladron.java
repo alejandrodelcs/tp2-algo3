@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 
 import java.util.List;
 

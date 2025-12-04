@@ -4,10 +4,11 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import edu.fiuba.algo3.modelo.Tablero.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
-import edu.fiuba.algo3.modelo.ElementosTablero.*;
 
 /**
  * ElementosTableroTest

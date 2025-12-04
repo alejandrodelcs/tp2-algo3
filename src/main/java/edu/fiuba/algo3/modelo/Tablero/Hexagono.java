@@ -1,8 +1,7 @@
-package edu.fiuba.algo3.modelo.ElementosTablero;
+package edu.fiuba.algo3.modelo.Tablero;
 
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
-import edu.fiuba.algo3.modelo.Terreno;
 
 import java.util.ArrayList;
 import java.util.List;

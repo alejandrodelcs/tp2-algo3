@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Set;
 
-import edu.fiuba.algo3.modelo.Errores.NoHayRecursoDisponibleError;
+import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
 import org.junit.jupiter.api.Test;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Recurso.*;

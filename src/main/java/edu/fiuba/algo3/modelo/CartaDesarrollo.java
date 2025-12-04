@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
+import edu.fiuba.algo3.modelo.Excepciones.CartaNoDisponibleException;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 
 public abstract class CartaDesarrollo {
 

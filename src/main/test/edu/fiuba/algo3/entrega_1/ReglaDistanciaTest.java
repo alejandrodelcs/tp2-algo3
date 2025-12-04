@@ -6,17 +6,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
 import edu.fiuba.algo3.modelo.Recurso.Lana;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
+import edu.fiuba.algo3.modelo.Tablero.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
-import edu.fiuba.algo3.modelo.ElementosTablero.*;
-import edu.fiuba.algo3.modelo.Errores.*;
+import edu.fiuba.algo3.modelo.Excepciones.*;
 
 /**
  * ReglaDistanciaTest

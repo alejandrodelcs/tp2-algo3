@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
-import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
-import edu.fiuba.algo3.modelo.Errores.NoHayRecursoDisponibleError;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
 import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

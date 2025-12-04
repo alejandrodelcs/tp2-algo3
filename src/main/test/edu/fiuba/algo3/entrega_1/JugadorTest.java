@@ -1,14 +1,16 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Dado.AccionReducirRecursos;
 import edu.fiuba.algo3.modelo.Dado.Dado;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Tablero.Terreno;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Construcciones.*;
-import edu.fiuba.algo3.modelo.ElementosTablero.*;
 
 
 import static org.junit.Assert.*;

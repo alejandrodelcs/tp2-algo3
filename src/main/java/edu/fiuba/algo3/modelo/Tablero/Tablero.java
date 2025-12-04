@@ -1,14 +1,15 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.*;
 
-import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
-import edu.fiuba.algo3.modelo.Errores.NoExisteFichaError;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Excepciones.NoExisteFichaError;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class Tablero {
 
-    private final List<Hexagono> hexagonos;
+    private final List<edu.fiuba.algo3.modelo.Tablero.Hexagono> hexagonos;
     private static final List<Integer> DISTRIBUCION = new ArrayList<>(
             List.of(2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12));
     private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[] { Terreno.BOSQUE,
@@ -22,13 +23,13 @@ public class Tablero {
 
         for (int i = 0; i < DISTRIBUCION.size(); i++) {
             Terreno terreno = TERRENOS.get(i % TERRENOS.size());
-            Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(i));
+            edu.fiuba.algo3.modelo.Tablero.Hexagono hexagono = new edu.fiuba.algo3.modelo.Tablero.Hexagono(terreno, DISTRIBUCION.get(i));
             hexagonos.add(hexagono);
         }
 
         Random random = new Random();
         int posicionAleatoria = random.nextInt(hexagonos.size() + 1);
-        Hexagono desierto = new Hexagono(Terreno.DESIERTO, -1);
+        edu.fiuba.algo3.modelo.Tablero.Hexagono desierto = new edu.fiuba.algo3.modelo.Tablero.Hexagono(Terreno.DESIERTO, -1);
         hexagonos.add(posicionAleatoria, desierto);
 
     }
@@ -39,7 +40,7 @@ public class Tablero {
         int indice = 0;
 
         while (indice < hexagonos.size()) {
-            Hexagono hexagono = hexagonos.get(indice);
+            edu.fiuba.algo3.modelo.Tablero.Hexagono hexagono = hexagonos.get(indice);
             Recurso recurso = hexagono.obtenerRecurso(valorFicha);
 
             if (recurso != null) {
@@ -57,7 +58,7 @@ public class Tablero {
         return totalRecursos;
     }
 
-    public void moverLadron(Hexagono hexagonoDestino, Jugador ladron) {
+    public void moverLadron(edu.fiuba.algo3.modelo.Tablero.Hexagono hexagonoDestino, Jugador ladron) {
 
         hexagonoDestino.colocarLadron();
 

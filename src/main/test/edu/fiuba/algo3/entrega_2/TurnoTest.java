@@ -6,8 +6,9 @@ import static org.mockito.Mockito.mock;
 
 import java.util.List;
 
-import edu.fiuba.algo3.modelo.ElementosDeJuego.Juego;
-import edu.fiuba.algo3.modelo.ElementosDeJuego.Turno;
+import edu.fiuba.algo3.modelo.Juego.Juego;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Juego.Turno;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

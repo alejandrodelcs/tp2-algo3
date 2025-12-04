@@ -1,13 +1,12 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
-import edu.fiuba.algo3.modelo.ElementosTablero.Arista;
-import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
-import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
-import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaException;
-import edu.fiuba.algo3.modelo.Errores.CarreteraNoConectadaError;
+import edu.fiuba.algo3.modelo.Tablero.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
+import edu.fiuba.algo3.modelo.Excepciones.CarreteraNoConectadaError;
 import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
@@ -16,8 +15,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 

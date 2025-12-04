@@ -3,8 +3,8 @@ package edu.fiuba.algo3.modelo;
 import java.util.*;
 
 import edu.fiuba.algo3.modelo.Construcciones.Construccion;
-import edu.fiuba.algo3.modelo.Errores.NoHayRecursoDisponibleError;
-import edu.fiuba.algo3.modelo.Errores.RecursosInsuficientesException;
+import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**

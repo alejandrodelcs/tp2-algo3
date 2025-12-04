@@ -1,13 +1,13 @@
-package edu.fiuba.algo3.modelo.ElementosTablero;
+package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.fiuba.algo3.modelo.Errores.AccionNoPermitidaException;
-import edu.fiuba.algo3.modelo.Errores.NoHayConstruccionParaMejorar;
+import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
+import edu.fiuba.algo3.modelo.Excepciones.NoHayConstruccionParaMejorar;
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -112,5 +112,11 @@ public class Vertice {
     }
 
 
-
+    public List<Vertice> verticesVecinos() {
+        List<Vertice> vecinos = new ArrayList<>();
+        for (Arista a : aristas) {
+            vecinos.add(a.getOtroVertice(this));
+        }
+        return vecinos;
+    }
 }

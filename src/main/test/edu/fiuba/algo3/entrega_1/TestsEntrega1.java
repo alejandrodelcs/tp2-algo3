@@ -2,19 +2,17 @@ package edu.fiuba.algo3.entrega_1;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.Errores.ReglaDistanciaException;
+import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
+import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.Construcciones.*;
-import edu.fiuba.algo3.modelo.ElementosTablero.*;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 public class TestsEntrega1 {

@@ -1,7 +1,7 @@
-package edu.fiuba.algo3.modelo.ElementosTablero;
+package edu.fiuba.algo3.modelo.Tablero;
 
 import edu.fiuba.algo3.modelo.Construcciones.Carretera;
-import edu.fiuba.algo3.modelo.Errores.AristaOcupadaError;
+import edu.fiuba.algo3.modelo.Excepciones.AristaOcupadaError;
 
 /**
  * Arista

@@ -1,14 +1,20 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Juego;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
+import edu.fiuba.algo3.modelo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construcciones.*;
 import edu.fiuba.algo3.modelo.Dado.AccionDado;
 import edu.fiuba.algo3.modelo.Dado.Dado;
-import edu.fiuba.algo3.modelo.ElementosTablero.*;
-import edu.fiuba.algo3.modelo.Errores.CartaNoDisponibleException;
+import edu.fiuba.algo3.modelo.Excepciones.CartaNoDisponibleException;
+import edu.fiuba.algo3.modelo.Inventario;
+import edu.fiuba.algo3.modelo.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaAdyacencia;
+import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaConstruccion;
+import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaDistancia;
+import edu.fiuba.algo3.modelo.Tablero.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 /**
  * Jugador
@@ -195,10 +201,11 @@ public class Jugador {
     }
 
 
-    public void recorrerConstrucciones(Consumer<Construccion> c) {
-        construcciones.forEach(c);
+    public ReglaConstruccion reglaDistancia() {
+        return new ReglaDistancia(construcciones);
     }
 
-    public void agregarRecursos(ArrayList<Recurso> recursos) {
+    public ReglaConstruccion reglaAdyacencia() {
+        return new ReglaAdyacencia(construcciones);
     }
 }
