@@ -8,7 +8,7 @@ import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.Construcciones.*;
+import edu.fiuba.algo3.modelo.Construccion.*;
 
 /**
  * ElementosTableroTest

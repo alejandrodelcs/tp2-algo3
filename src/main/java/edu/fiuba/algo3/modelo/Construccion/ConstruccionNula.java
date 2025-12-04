@@ -1,8 +1,7 @@
-package edu.fiuba.algo3.modelo.Construcciones;
+package edu.fiuba.algo3.modelo.Construccion;
 
 import java.util.ArrayList;
 
-import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Inventario;
 
 import edu.fiuba.algo3.modelo.Recurso.Recurso;

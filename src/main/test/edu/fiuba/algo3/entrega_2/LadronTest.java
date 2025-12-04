@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Juego.Jugador;
 import edu.fiuba.algo3.modelo.Ladron;
 import edu.fiuba.algo3.modelo.Tablero.Terreno;
-import edu.fiuba.algo3.modelo.Construcciones.Poblado;
+import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 
