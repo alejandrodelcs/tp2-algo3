@@ -23,7 +23,7 @@ public class HexagonoView extends StackPane {
         double anchoHex = ANCHO_RADIO * radio;
         double altoHex = 2 * radio;
 
-        Double[] puntos = new Double[]{
+        Double[] puntos = new Double[] {
                 anchoHex / 2, 0.0,
                 anchoHex, altoHex / 4,
                 anchoHex, altoHex * 0.75,
@@ -39,7 +39,6 @@ public class HexagonoView extends StackPane {
         bordeHexagono.setStrokeType(StrokeType.INSIDE);
         bordeHexagono.setFill(Color.TRANSPARENT);
 
-
         StackPane containerImagen = new StackPane();
         containerImagen.setMaxSize(anchoHex, altoHex);
         containerImagen.setMinSize(anchoHex, altoHex);
@@ -50,8 +49,6 @@ public class HexagonoView extends StackPane {
                 Image img = new Image(imgUrl.toExternalForm());
                 ImageView imagenView = new ImageView(img);
                 imagenView.setPreserveRatio(true);
-
-                imagenView.setRotate(90);
 
                 double scaleWidth = anchoHex / img.getWidth();
                 double scaleHeight = altoHex / img.getHeight();
@@ -78,7 +75,6 @@ public class HexagonoView extends StackPane {
             System.err.println("Error cargando imagen hexagono: " + rutaImagen);
         }
 
-
         StackPane token = new StackPane();
         if (numeroToken != null && !numeroToken.isEmpty()) {
             javafx.scene.shape.Circle circulo = new javafx.scene.shape.Circle(radio * 0.3, Color.BEIGE);
@@ -87,7 +83,8 @@ public class HexagonoView extends StackPane {
 
             Text texto = new Text(numeroToken);
             texto.setFont(Font.font("Arial", FontWeight.BOLD, radio * 0.3));
-            if(numeroToken.equals("6") || numeroToken.equals("8")) texto.setFill(Color.RED);
+            if (numeroToken.equals("6") || numeroToken.equals("8"))
+                texto.setFill(Color.RED);
 
             token.getChildren().addAll(circulo, texto);
         }
