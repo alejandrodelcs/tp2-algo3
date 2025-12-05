@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
 import edu.fiuba.algo3.modelo.Inventario;
@@ -17,7 +18,12 @@ public class CostoTest {
     public void test01DeberiaDescontarmeElCostoDeUnaCarretera(){
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
         Construible estrategia = new ConstruirCarretera();
-        jugador.construir(estrategia, new Carretera(),new Vertice(), new Vertice());
+
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
+        Arista a = new Arista(v1, v2);
+
+        jugador.construir(estrategia, new Carretera(), a);
 
         Assertions.assertEquals(0, jugador.consultarRecursos());
     }

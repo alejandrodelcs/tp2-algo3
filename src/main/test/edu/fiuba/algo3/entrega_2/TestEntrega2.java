@@ -104,10 +104,13 @@ public class TestEntrega2 {
         Vertice v3 = new Vertice();
         Vertice v4 = new Vertice();
 
-        jugador.construir(new ConstruirCarretera(), new Carretera(), v1,v2);
+        Arista aristaDondeSePuede = new Arista(v1, v2);
+        Arista aristaLejana = new Arista(v3, v4);
+
+        jugador.construir(new ConstruirCarretera(), new Carretera(), aristaDondeSePuede);
 
         assertThrows(CarreteraNoConectadaError.class,
-                () -> jugador.construir(new ConstruirCarretera(), new Carretera(), v3,v4));
+                () -> jugador.construir(new ConstruirCarretera(), new Carretera(), aristaLejana));
 
 
 
