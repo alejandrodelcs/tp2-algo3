@@ -15,7 +15,7 @@ public abstract class EscenaGeneral {
     Scene scene;
 
     public EscenaGeneral(Stage stage) {
-        this.layout = this.crearLayout();
+        this.layout = this.crearLayout(stage);
         this.generarEstilos();
         this.cargarFuenteDeTexto(this.layout);
         // cargarImagenDeFondo(layout);
@@ -27,9 +27,11 @@ public abstract class EscenaGeneral {
         } else {
             scene = new Scene(layout);
         }
+
+        this.crearControladores(stage);
     }
 
-    protected abstract Pane crearLayout();
+    protected abstract Pane crearLayout(Stage stage);
 
     protected abstract void crearControladores(Stage stage);
 

@@ -32,9 +32,10 @@ public class MenuInicio extends EscenaGeneral {
 
     public MenuInicio(Stage stage) {
         super(stage);
+        this.crearControladores(stage);
     }
 
-    protected Pane crearLayout() {
+    protected Pane crearLayout(Stage stage) {
 
         StackPane root = new StackPane();
 
@@ -57,11 +58,25 @@ public class MenuInicio extends EscenaGeneral {
         this.layoutPrincipal = new HBox(columnaLateral, regionCentral, columnaLateral2);
 
         root.getChildren().add(layoutPrincipal);
+
         return root;
     }
 
     protected void crearControladores(Stage stage) {
-        // agregar comportamientos
+        this.botonJugar.setOnAction(e -> {
+            try {
+                EscenaJuego escenaJuego = new EscenaJuego(stage);
+                stage.setScene(escenaJuego.getScene());
+                stage.setFullScreenExitHint("");
+                stage.setFullScreen(true);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        this.botonSalir.setOnAction(e -> {
+            stage.close();
+        });
     }
 
     protected void generarEstilos() {
