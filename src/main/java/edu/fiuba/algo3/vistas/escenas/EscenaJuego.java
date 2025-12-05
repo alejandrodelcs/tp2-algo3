@@ -18,10 +18,11 @@ public class EscenaJuego extends EscenaGeneral {
     protected Pane crearLayout(Stage stage) {
         StackPane root = new StackPane();
 
-        ImageView fondoView = new ImageView(new Image(getClass().getResourceAsStream("/images/marProfundo.png")));
+        // ImageView fondoView = new ImageView(new
+        // Image(getClass().getResourceAsStream("/images/marProfundo.png")));
 
-        fondoView.fitWidthProperty().bind(stage.widthProperty());
-        fondoView.fitHeightProperty().bind(stage.heightProperty());
+        // fondoView.fitWidthProperty().bind(stage.widthProperty());
+        // fondoView.fitHeightProperty().bind(stage.heightProperty());
 
         TableroView tableroView = new TableroView();
         tableroView.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
@@ -33,7 +34,7 @@ public class EscenaJuego extends EscenaGeneral {
 
         tableroView.setEffect(sombra);
 
-        root.getChildren().addAll(fondoView, tableroView);
+        root.getChildren().addAll(tableroView);
 
         return root;
     }

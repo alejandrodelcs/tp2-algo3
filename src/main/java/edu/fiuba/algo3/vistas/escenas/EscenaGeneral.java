@@ -18,7 +18,7 @@ public abstract class EscenaGeneral {
         this.layout = this.crearLayout(stage);
         this.generarEstilos();
         this.cargarFuenteDeTexto(this.layout);
-        // cargarImagenDeFondo(layout);
+        cargarImagenDeFondo(layout);
 
         Scene escenePreliminar = stage.getScene();
 
@@ -47,7 +47,7 @@ public abstract class EscenaGeneral {
     }
 
     private void cargarImagenDeFondo(Pane layout) {
-        Image image = new Image(getClass().getResource("/images/madera.jpg").toExternalForm());
+        Image image = new Image(getClass().getResource("/images/fondo.png").toExternalForm());
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         layout.setBackground(new Background(backgroundImage));
