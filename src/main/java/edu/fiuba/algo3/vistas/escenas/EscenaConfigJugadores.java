@@ -72,12 +72,14 @@ public class EscenaConfigJugadores extends EscenaGeneral {
 
             for (var nodo : nombresContainer.getChildren()) {
                 TextField campo = (TextField) nodo;
+                if (!campo.getText().trim().isEmpty()) {
+                    System.out.println(campo.getText());
+                    Jugador jugadorAgregado = new Jugador(campo.getText(), new Inventario());
+                    jugadorAgregado.setAvatar(avataresDisponibles[i]);
 
-                Jugador jugadorAgregado = new Jugador(campo.getText(), new Inventario());
-                jugadorAgregado.setAvatar(avataresDisponibles[i]);
-
-                jugadores.add(jugadorAgregado);
-                i++;
+                    jugadores.add(jugadorAgregado);
+                    i++;
+                }
             }
 
             Juego juego = new Juego(jugadores);
