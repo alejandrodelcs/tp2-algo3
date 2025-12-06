@@ -15,6 +15,11 @@ public class Juego {
         this.jugadores = new ArrayList<>();// armar bien el inicializador;
     }
 
+    public Juego(Jugador jugador) {
+        this.jugadores = new ArrayList<>();// armar bien el inicializador;
+        this.jugadores.add(jugador);
+    }
+
     public void producirSegunDado(int valorDado) {// testear
         for (Jugador jugador : jugadores) {
             jugador.generarSegunDado(valorDado);

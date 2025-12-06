@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.vistas.escenas;
 
-import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.ElementosDeJuego.Juego;
+import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import edu.fiuba.algo3.vistas.TableroView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import edu.fiuba.algo3.vistas.escenas.estilosVistas.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -17,12 +18,16 @@ public class EscenaJuego extends EscenaGeneral {
 
     @Override
     protected Pane crearLayout(Stage stage) {
-        StackPane root = new StackPane();
-
+        HBox root = new HBox();
+        Juego juego = new Juego(new Jugador("hola", new Inventario()));// ver como setear jugadores
         Tablero tablero = new Tablero();
         tablero.construir();
+
         TableroView tableroView = new TableroView(tablero);
         tableroView.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
+
+        JugadoresBar jugadroesBar = new JugadoresBar(juego);
+        CartasBar cartasBar = new CartasBar(juego);
 
         DropShadow sombra = new DropShadow();
         sombra.setRadius(40);
@@ -31,7 +36,13 @@ public class EscenaJuego extends EscenaGeneral {
 
         tableroView.setEffect(sombra);
 
-        root.getChildren().addAll(tableroView);
+        StackPane tableroContainer = new StackPane(tableroView);
+        tableroContainer.setAlignment(Pos.CENTER);
+
+        HBox contendorTablero = new HBox(tableroContainer);
+        HBox.setHgrow(contendorTablero, Priority.ALWAYS);
+
+        root.getChildren().addAll(jugadroesBar, contendorTablero, cartasBar);
 
         return root;
     }
