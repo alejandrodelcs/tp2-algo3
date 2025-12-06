@@ -21,7 +21,7 @@ public class TituloVista extends HBox {
             label.setStroke(Color.BLACK);
             label.setFill(Color.DARKKHAKI);
             label.setStrokeWidth(2);
-            label.setStyle("-fx-font-size: 90;");
+            label.setStyle("-fx-font-size: 150;");
 
             label.setFill(Color.web("#F4E4C1"));
             label.setStroke(Color.web("#6B4423"));

@@ -28,13 +28,12 @@ public class HexagonoView extends StackPane {
         double altoHex = 2 * radio;
 
         this.setMinSize(anchoHex, altoHex);
-        this.setMaxSize(anchoHex, altoHex);
         this.setPrefSize(anchoHex, altoHex);
 
         String tipoTerreno = hexagonoModelo.getTerreno().toString();
         int numeroToken = (hexagonoModelo.getFicha() != 0) ? hexagonoModelo.getFicha() : 0;
 
-        Double[] puntos = new Double[]{
+        Double[] puntos = new Double[] {
                 anchoHex / 2, 0.0,
                 anchoHex, altoHex / 4,
                 anchoHex, altoHex * 0.75,
@@ -43,8 +42,16 @@ public class HexagonoView extends StackPane {
                 0.0, altoHex / 4
         };
 
+        Polygon bordeHexagono = new Polygon();
+        bordeHexagono.getPoints().addAll(puntos);
+        bordeHexagono.setStroke(Color.BLACK);
+        bordeHexagono.setStrokeWidth(3);
+        bordeHexagono.setStrokeType(StrokeType.INSIDE);
+        bordeHexagono.setFill(Color.TRANSPARENT);
+
         StackPane containerImagen = new StackPane();
         containerImagen.setMaxSize(anchoHex, altoHex);
+        containerImagen.setMinSize(anchoHex, altoHex);
 
         String rutaImagen = obtenerRutaImagen(tipoTerreno);
 
@@ -53,24 +60,20 @@ public class HexagonoView extends StackPane {
             if (imgUrl != null) {
                 Image imgOriginal = new Image(imgUrl.toExternalForm());
 
-                Image imgEnderezada = preRotarImagen(imgOriginal, 90);
-
-                ImageView imagenView = new ImageView(imgEnderezada);
+                ImageView imagenView = new ImageView(imgOriginal);
                 imagenView.setPreserveRatio(true);
 
-                double scaleWidth = anchoHex / imgEnderezada.getWidth();
-                double scaleHeight = altoHex / imgEnderezada.getHeight();
+                double scaleWidth = anchoHex / imgOriginal.getWidth();
+                double scaleHeight = altoHex / imgOriginal.getHeight();
                 double scale = Math.max(scaleWidth, scaleHeight);
 
-                double factorZoom = 0.9;
+                double factorZoom = 1.0;
 
-                imagenView.setFitWidth(imgEnderezada.getWidth() * scale * factorZoom);
-                imagenView.setFitHeight(imgEnderezada.getHeight() * scale * factorZoom);
+                imagenView.setFitWidth(imgOriginal.getWidth() * scale * factorZoom);
+                imagenView.setFitHeight(imgOriginal.getHeight() * scale * factorZoom);
 
                 imagenView.setTranslateX(0);
                 imagenView.setTranslateY(0);
-
-
 
                 StackPane.setAlignment(imagenView, Pos.CENTER);
                 containerImagen.getChildren().add(imagenView);
@@ -83,52 +86,45 @@ public class HexagonoView extends StackPane {
             System.err.println("Error imagen: " + tipoTerreno);
         }
 
-        Polygon borde = new Polygon();
-        borde.getPoints().addAll(puntos);
-        borde.setStroke(Color.BLACK);
-        borde.setStrokeWidth(3);
-        borde.setStrokeType(StrokeType.INSIDE);
-        borde.setFill(Color.TRANSPARENT);
-        borde.setMouseTransparent(true);
-
         StackPane tokenView = new StackPane();
         if (numeroToken > 0) {
             Circle circulo = new Circle(radio * 0.35);
             circulo.setFill(Color.BEIGE);
             circulo.setStroke(Color.BLACK);
             Text texto = new Text(String.valueOf(numeroToken));
-            texto.setFont(Font.font("Arial", FontWeight.BOLD, radio * 0.3));
+            texto.setStyle("-fx-font-size: " + (radio * 0.5) + "px;");
             texto.setFill((numeroToken == 6 || numeroToken == 8) ? Color.RED : Color.BLACK);
             tokenView.getChildren().addAll(circulo, texto);
         }
         tokenView.setMouseTransparent(true);
 
-        this.getChildren().addAll(containerImagen, borde, tokenView);
+        this.getChildren().addAll(containerImagen, bordeHexagono, tokenView);
 
+        this.setMaxSize(anchoHex, altoHex);
         this.setOnMouseEntered(e -> this.setEffect(new DropShadow(10, Color.GOLD)));
         this.setOnMouseExited(e -> this.setEffect(null));
         this.setPickOnBounds(false);
     }
 
-    private Image preRotarImagen(Image imagenOriginal, double grados) {
-        ImageView tempView = new ImageView(imagenOriginal);
-        tempView.setRotate(grados);
-
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-
-        return tempView.snapshot(params, null);
-    }
-
     private String obtenerRutaImagen(String terreno) {
         switch (terreno.toUpperCase()) {
-            case "BOSQUE": return "/images/bosque.png";
-            case "COLINA": return "/images/colina.png";
-            case "PASTIZAL": return "/images/pastizal.png";
-            case "CAMPO": case "TRIGO": return "/images/campo.png";
-            case "MONTANA": return "/images/montaña.png";
-            case "DESIERTO": return "/images/desierto.png";
-            default: return "/images/mar.png";
+            case "AGUA":
+                return "/images/mar.png";
+            case "BOSQUE":
+                return "/images/bosque.png";
+            case "COLINA":
+                return "/images/colina.png";
+            case "PASTIZAL":
+                return "/images/pastizal.png";
+            case "CAMPO":
+            case "TRIGO":
+                return "/images/campo.png";
+            case "MONTANA":
+                return "/images/montaña.png";
+            case "DESIERTO":
+                return "/images/desierto.png";
+            default:
+                return "/images/mar.png";
         }
     }
 }

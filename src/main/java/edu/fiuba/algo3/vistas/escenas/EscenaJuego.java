@@ -19,12 +19,6 @@ public class EscenaJuego extends EscenaGeneral {
     protected Pane crearLayout(Stage stage) {
         StackPane root = new StackPane();
 
-        // ImageView fondoView = new ImageView(new
-        // Image(getClass().getResourceAsStream("/images/marProfundo.png")));
-
-        // fondoView.fitWidthProperty().bind(stage.widthProperty());
-        // fondoView.fitHeightProperty().bind(stage.heightProperty());
-
         Tablero tablero = new Tablero();
         tablero.construir();
         TableroView tableroView = new TableroView(tablero);

@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 
 public enum Terreno {
     BOSQUE(new Madera()),
+    MAR(new Mar()),
     COLINA(new Ladrillo()),
     PASTIZAL(new Lana()),
     CAMPO(new Grano()),
