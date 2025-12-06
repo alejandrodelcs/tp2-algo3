@@ -19,6 +19,12 @@ public class EscenaConfigJugadores extends EscenaGeneral {
     private Spinner<Integer> spinnerCantidad;
     private VBox nombresContainer;
     private Button botonComenzar;
+    private String[] avataresDisponibles = {
+            "/images/pj1.jpg",
+            "/images/pj2.jpg",
+            "/images/pj3.jpg",
+            "/images/pj4.jpg"
+    };
 
     public EscenaConfigJugadores(Stage stage) {
         super(stage);
@@ -62,10 +68,16 @@ public class EscenaConfigJugadores extends EscenaGeneral {
         botonComenzar.setOnAction(e -> {
 
             ArrayList<Jugador> jugadores = new ArrayList<>();
+            int i = 0;
 
             for (var nodo : nombresContainer.getChildren()) {
                 TextField campo = (TextField) nodo;
-                jugadores.add(new Jugador(campo.getText(), new Inventario()));
+
+                Jugador jugadorAgregado = new Jugador(campo.getText(), new Inventario());
+                jugadorAgregado.setAvatar(avataresDisponibles[i]);
+
+                jugadores.add(jugadorAgregado);
+                i++;
             }
 
             Juego juego = new Juego(jugadores);

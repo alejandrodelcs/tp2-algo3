@@ -22,6 +22,7 @@ public class Jugador {
     private int puntosVictoria;
     private boolean puedeMoverLadron;
     private final Inventario inventario;
+    private String avatar;
 
     public Jugador(String nombre, Inventario inventario) {
         this.nombre = nombre;
@@ -199,5 +200,13 @@ public class Jugador {
 
     public String getNombre() {
         return this.nombre;
+    }
+
+    public void setAvatar(String url) {
+        this.avatar = url;
+    }
+
+    public String getAvatar() {
+        return this.avatar;
     }
 }
