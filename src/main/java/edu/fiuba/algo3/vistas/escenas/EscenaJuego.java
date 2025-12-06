@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.escenas;
 
+import edu.fiuba.algo3.modelo.Tablero;
 import javafx.scene.effect.DropShadow;
 import edu.fiuba.algo3.vistas.TableroView;
 import javafx.scene.image.Image;
@@ -24,7 +25,9 @@ public class EscenaJuego extends EscenaGeneral {
         // fondoView.fitWidthProperty().bind(stage.widthProperty());
         // fondoView.fitHeightProperty().bind(stage.heightProperty());
 
-        TableroView tableroView = new TableroView();
+        Tablero tablero = new Tablero();
+        tablero.construir();
+        TableroView tableroView = new TableroView(tablero);
         tableroView.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 
         DropShadow sombra = new DropShadow();

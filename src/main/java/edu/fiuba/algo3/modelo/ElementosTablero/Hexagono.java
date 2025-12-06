@@ -89,5 +89,11 @@ public class Hexagono {
         return terreno.retornarRecurso();
     }
 
+    public Terreno getTerreno() {
+        return terreno;
+    }
 
+    public int getFicha() {
+        return ficha;
+    }
 }

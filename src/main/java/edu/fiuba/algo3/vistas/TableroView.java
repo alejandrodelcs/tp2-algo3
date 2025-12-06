@@ -1,13 +1,20 @@
 package edu.fiuba.algo3.vistas;
 
+import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
+import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.vistas.HexagonoView;
 import javafx.scene.layout.Pane;
+import edu.fiuba.algo3.vistas.escenas.*;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class TableroView extends Pane {
-    private final double RADIO = 70;
+    private final double RADIO = 50;
     private final double ANCHO_HEX = Math.sqrt(3) * RADIO;
     private final double ALTO_HEX = 2 * RADIO;
 
-    private final int[] cantidadPorFila = { 4, 5, 6, 7, 6, 5, 4 };
+    private final int[] FICHAS_POR_FILA = {3, 4, 5, 4, 3};
 
     private final String[] terrenos = {
             "/images/mar.png", "/images/mar.png", "/images/mar.png", "/images/mar.png",
@@ -37,47 +44,47 @@ public class TableroView extends Pane {
             "", "", "", "",
     };
 
-    public TableroView() {
-        inicializarTablero();
+    public TableroView(Tablero tableroModelo) {
+        inicializarTablero(tableroModelo);
     }
 
-    private void inicializarTablero() {
-        double centroX = 400;
+    private void inicializarTablero(Tablero tableroModelo) {
+        List<Hexagono> nodos = tableroModelo.getHexagonos();
+
+        if (nodos.size() < 19) {
+            System.err.println("Advertencia: El modelo trajo menos de 19 hexágonos");
+        }
+
+        Iterator<Hexagono> iterador = nodos.iterator();
+
+        // Ajustar para centrar en tu pantalla
+        double centroX = 350;
         double centroY = 100;
 
-        int contadorFichas = 0;
-        int contadorTokens = 0;
+        for (int fila = 0; fila < FICHAS_POR_FILA.length; fila++) {
 
-        for (int fila = 0; fila < cantidadPorFila.length; fila++) {
+            int cantidadEnFila = FICHAS_POR_FILA[fila];
 
-            int cantidadEnFila = cantidadPorFila[fila];
-
-            double desfaseX = (5 - cantidadEnFila) * (ANCHO_HEX / 2);
+            double offsetFila = Math.abs(2 - fila) * (ANCHO_HEX / 2);
 
             for (int col = 0; col < cantidadEnFila; col++) {
 
-                if (contadorFichas >= terrenos.length)
-                    break;
-                String recurso = terrenos[contadorFichas];
+                if (!iterador.hasNext()) break;
 
-                String numero = "";
-                if (!recurso.contains("desierto") && contadorTokens < tokens.length) {
-                    numero = tokens[contadorTokens++];
-                }
+                Hexagono hexagonoReal = iterador.next();
 
-                HexagonoView hexagono = new HexagonoView(RADIO, recurso, numero);
+                HexagonoView hexView = new HexagonoView(RADIO, hexagonoReal);
 
-                double posX = centroX + desfaseX + (col * ANCHO_HEX * 1.1); // Era 1.0
-                double posY = centroY + (fila * (ALTO_HEX * 0.82));
+                double x = centroX + offsetFila + (col * ANCHO_HEX);
+                double y = centroY + (fila * (ALTO_HEX * 0.75));
 
-                hexagono.setLayoutX(posX);
-                hexagono.setLayoutY(posY);
+                hexView.setLayoutX(x);
+                hexView.setLayoutY(y);
 
-                this.getChildren().add(hexagono);
-                contadorFichas++;
+                this.getChildren().add(hexView);
             }
         }
 
-        this.setPrefSize(1400, 900);
+        this.setPrefSize(800, 600);
     }
 }
