@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.modelo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -86,7 +87,6 @@ public class Jugador {
         return this.cartasDesarrollo.size();
     }
 
-
     public void robarA(Jugador victima) {
         if (victima != null && victima != this) {
             victima.entregarRecursoA(this);
@@ -112,7 +112,7 @@ public class Jugador {
             this.descartarMitadSiCorresponde();
         }
 
-        for (Construccion c: this.construcciones) {
+        for (Construccion c : this.construcciones) {
 
             ArrayList<Recurso> recursos = c.generarSegunVertice(dado);
             this.inventario.agregarTodos(recursos);
@@ -126,14 +126,12 @@ public class Jugador {
 
     }
 
-
-    public void generarRecursosPorConstrucciones(int dado){
-        for (Construccion c: this.construcciones) {
+    public void generarRecursosPorConstrucciones(int dado) {
+        for (Construccion c : this.construcciones) {
             this.inventario.agregarTodos(c.generarSegunVertice(dado));
 
         }
     }
-
 
     public void descartarMitadSiCorresponde() {
         if (this.inventario.excedeLimite()) {
@@ -141,12 +139,10 @@ public class Jugador {
         }
     }
 
-
     public boolean esAdyacenteA(Arista nueva) {
         return construcciones.isEmpty() ||
                 construcciones.stream().anyMatch(c -> c.esAdyacenteA(nueva));
     }
-
 
     public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
         construible.construir(this, construccion, ubicaciones);
@@ -194,11 +190,14 @@ public class Jugador {
         return candidatas.get(0);// ver como fx selecciona a la victima
     }
 
-
     public void recorrerConstrucciones(Consumer<Construccion> c) {
         construcciones.forEach(c);
     }
 
     public void agregarRecursos(ArrayList<Recurso> recursos) {
+    }
+
+    public String getNombre() {
+        return this.nombre;
     }
 }

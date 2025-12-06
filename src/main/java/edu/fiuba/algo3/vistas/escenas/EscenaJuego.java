@@ -12,37 +12,57 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class EscenaJuego extends EscenaGeneral {
-    public EscenaJuego(Stage stage) {
-        super(stage);
+
+    public EscenaJuego(Stage stage, Juego juego) {
+        super(stage, juego);
+
     }
 
     @Override
     protected Pane crearLayout(Stage stage) {
-        HBox root = new HBox();
-        Juego juego = new Juego(new Jugador("hola", new Inventario()));// ver como setear jugadores
+        GridPane root = new GridPane();
+
+        // Juego juego = new Juego(new Jugador("hola", new Inventario()));// ver como
+        // setear jugadores
         Tablero tablero = new Tablero();
         tablero.construir();
 
         TableroView tableroView = new TableroView(tablero);
         tableroView.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 
-        JugadoresBar jugadroesBar = new JugadoresBar(juego);
-        CartasBar cartasBar = new CartasBar(juego);
-
         DropShadow sombra = new DropShadow();
         sombra.setRadius(40);
         sombra.setOffsetY(20);
         sombra.setColor(Color.rgb(0, 0, 0, 0.6));
-
         tableroView.setEffect(sombra);
 
         StackPane tableroContainer = new StackPane(tableroView);
         tableroContainer.setAlignment(Pos.CENTER);
 
-        HBox contendorTablero = new HBox(tableroContainer);
-        HBox.setHgrow(contendorTablero, Priority.ALWAYS);
+        JugadoresBar jugadroesBar = new JugadoresBar(juego);
+        HBox.setHgrow(jugadroesBar, Priority.ALWAYS);
 
-        root.getChildren().addAll(jugadroesBar, contendorTablero, cartasBar);
+        CartasBar cartasBar = new CartasBar(juego);
+
+        root.add(jugadroesBar, 0, 0);
+        root.add(tableroContainer, 1, 0);
+        root.add(cartasBar, 0, 1, 2, 1);
+
+        ColumnConstraints colIzq = new ColumnConstraints();
+        colIzq.setMinWidth(200);
+
+        ColumnConstraints colCentro = new ColumnConstraints();
+        colCentro.setHgrow(Priority.ALWAYS);
+
+        root.getColumnConstraints().addAll(colIzq, colCentro);
+
+        RowConstraints filaSuperior = new RowConstraints();
+        filaSuperior.setVgrow(Priority.ALWAYS);
+
+        RowConstraints filaInferior = new RowConstraints();
+        filaInferior.setVgrow(Priority.ALWAYS);
+
+        root.getRowConstraints().addAll(filaSuperior, filaInferior);
 
         return root;
     }
@@ -54,4 +74,5 @@ public class EscenaJuego extends EscenaGeneral {
     @Override
     protected void generarEstilos() {
     }
+
 }

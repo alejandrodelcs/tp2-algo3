@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.ElementosDeJuego;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import edu.fiuba.algo3.modelo.Jugador;
 
@@ -15,6 +16,10 @@ public class Juego {
         this.jugadores = new ArrayList<>();// armar bien el inicializador;
     }
 
+    public Juego(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
     public Juego(Jugador jugador) {
         this.jugadores = new ArrayList<>();// armar bien el inicializador;
         this.jugadores.add(jugador);
@@ -26,5 +31,9 @@ public class Juego {
 
         }
 
+    }
+
+    public ArrayList<Jugador> getJugadores() {
+        return this.jugadores;
     }
 }

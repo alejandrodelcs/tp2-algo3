@@ -32,7 +32,6 @@ public class MenuInicio extends EscenaGeneral {
 
     public MenuInicio(Stage stage) {
         super(stage);
-        this.crearControladores(stage);
     }
 
     protected Pane crearLayout(Stage stage) {
@@ -63,11 +62,23 @@ public class MenuInicio extends EscenaGeneral {
     }
 
     protected void crearControladores(Stage stage) {
+        /*
+         * this.botonJugar.setOnAction(e -> {
+         * try {
+         * EscenaJuego escenaJuego = new EscenaJuego(stage);
+         * stage.setScene(escenaJuego.getScene());
+         * stage.setFullScreenExitHint("");
+         * stage.setFullScreen(true);
+         * } catch (Exception ex) {
+         * ex.printStackTrace();
+         * }
+         * });
+         */
+
         this.botonJugar.setOnAction(e -> {
             try {
-                EscenaJuego escenaJuego = new EscenaJuego(stage);
-                stage.setScene(escenaJuego.getScene());
-                stage.setFullScreenExitHint("");
+                EscenaConfigJugadores configJug = new EscenaConfigJugadores(stage);
+                stage.setScene(configJug.getScene());
                 stage.setFullScreen(true);
             } catch (Exception ex) {
                 ex.printStackTrace();

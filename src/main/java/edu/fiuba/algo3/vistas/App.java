@@ -18,6 +18,8 @@ public class App extends Application {
         this.stage = stage;
 
         stage.setScene(new MenuInicio(stage).getScene());
+        stage.setWidth(1280);
+        stage.setHeight(720);
         stage.setFullScreen(true);
         stage.show();
 

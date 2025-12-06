@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.escenas;
 
+import edu.fiuba.algo3.modelo.ElementosDeJuego.Juego;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -11,22 +12,28 @@ import javafx.stage.Stage;
  */
 public abstract class EscenaGeneral {
 
+    protected Juego juego;
     protected Pane layout;
     Scene scene;
 
+    public EscenaGeneral(Stage stage, Juego juego) {
+        this.juego = juego;
+        this.init(stage);
+    }
+
     public EscenaGeneral(Stage stage) {
+        this.init(stage);
+
+    }
+
+    public void init(Stage stage) {
+
         this.layout = this.crearLayout(stage);
         this.generarEstilos();
         this.cargarFuenteDeTexto(this.layout);
         cargarImagenDeFondo(layout);
 
-        Scene escenePreliminar = stage.getScene();
-
-        if (escenePreliminar != null) {
-            scene = new Scene(layout, stage.getScene().getWidth(), stage.getScene().getHeight());
-        } else {
-            scene = new Scene(layout);
-        }
+        scene = new Scene(layout);
 
         this.crearControladores(stage);
     }
