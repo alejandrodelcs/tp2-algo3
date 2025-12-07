@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Carta;
 
 import edu.fiuba.algo3.modelo.Excepciones.MazoVacioException;
 
@@ -22,15 +22,10 @@ public class MazoDesarrollo {
         Collections.shuffle(this.cartas);
     }
 
-    public CartaDesarrollo sacarCarta() {
-        if (this.cartas.isEmpty()) {
-            throw new MazoVacioException("El mazo esta vacio");
-        }
+    public CartaDesarrollo entregarCarta() {
+        if (this.cartas.isEmpty()) throw new MazoVacioException("El mazo esta vacio");
         return this.cartas.pop();
     }
 
-    public int cantidadRestante() {
-        return this.cartas.size();
-    }
 }
 

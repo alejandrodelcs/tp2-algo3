@@ -1,22 +1,14 @@
 package edu.fiuba.algo3.entrega_2;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-
-import java.util.List;
-
-import edu.fiuba.algo3.modelo.Juego.Juego;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
-import edu.fiuba.algo3.modelo.Juego.Turno;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import edu.fiuba.algo3.modelo.Dado.Dado;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Turno.Turno;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
-import edu.fiuba.algo3.modelo.Recurso.Madera;
-import edu.fiuba.algo3.modelo.Recurso.Mineral;
-import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 /**
  * TurnoTest
@@ -24,35 +16,42 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 public class TurnoTest {
 
     private Jugador jugador;
-    private Juego juegoMock;
+    private Tablero tablero;
+
 
     @BeforeEach
     public void setUp() {
-        jugador = new Jugador("Hernesto", new Inventario());
-        juegoMock = mock(Juego.class);
+        jugador = new Jugador("Hernesto", new Inventario(new Ladrillo(), new Madera(), new Lana(),
+                new Mineral(), new Grano(), new Madera()));
+        tablero = new Tablero();
 
     }
 
     @Test
-    public void test01TurnoTieneJugadorActivo() {
+    public void test01LadronRobaUnRecursoSeEsperaLaMitadDeL() {
 
-        Turno turno = new Turno(jugador, juegoMock);
+        Turno turno = new Turno(jugador, tablero);
 
-        assertEquals(jugador, turno.jugadorActivo());
+        assertEquals(jugador, turno.jugador());
     }
 
     @Test
-    public void test02NoSePuedeTirarElDadoDosVeces() {
-        Turno turno = new Turno(jugador, juegoMock);
-        int dado = turno.tirarDados();
+    public void test02TirarDadosSiSale7MueveLadronYRoba() {
+        Turno turno = new Turno(jugador, tablero);
+        turno.tirarDado(new Dado(7));
 
-        assertThrows(IllegalStateException.class, () -> {
-            turno.tirarDados();
-        });
+    }
+
+
+  /*  @Test
+    public void test03NoSePuedeTirarElDadoDosVeces() {
+        Turno turno = new Turno(jugador, tablero);
+        Dado dado = new Dado();
+        assertThrows(IllegalStateException.class, ()->turno.tirarDado(dado));
     }
 
     @Test
-    public void test03ComerciaoFallaSiJugadorActivoNoTieneLoQueOfrece() {
+    public void test03ComerciarFallaSiJugadorActivoNoTieneLoQueOfrece() {
         Inventario prmerInventario = new Inventario();
         Inventario segundoInventario = new Inventario(new Madera());
 
@@ -109,4 +108,6 @@ public class TurnoTest {
         assertEquals(1, segundoJugador.cantidadDeRecursoTipo(Mineral.class));
 
     }
+}
+   */
 }

@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo.Construccion;
 
 import java.util.ArrayList;
 
-import edu.fiuba.algo3.modelo.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
 
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 

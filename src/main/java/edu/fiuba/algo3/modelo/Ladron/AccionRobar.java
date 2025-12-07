@@ -1,6 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Ladron;
 
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ public class AccionRobar {
     private Jugador ladron;
     private List<Jugador> victimasPotenciales;
 
-    public AccionRobar(Jugador ladron) {
+    public AccionRobar(Jugador ladron, List<Jugador> victimasPotenciales) {
         this.ladron = ladron;
-        this.victimasPotenciales = new ArrayList<>();
+        this.victimasPotenciales = victimasPotenciales;
     }
 
     public void agregarPosibleVictima(Jugador victima) {
@@ -27,6 +27,6 @@ public class AccionRobar {
         Random random = new Random();
         Jugador victimaElegida = victimasPotenciales.get(random.nextInt(victimasPotenciales.size()));
 
-        victimaElegida.entregarRecursoA(ladron);
+        victimaElegida.serRobadoPor(ladron);
     }
 }

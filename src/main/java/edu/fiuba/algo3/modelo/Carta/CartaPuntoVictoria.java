@@ -1,6 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Carta;
 
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 public class CartaPuntoVictoria extends CartaDesarrollo {
     @Override

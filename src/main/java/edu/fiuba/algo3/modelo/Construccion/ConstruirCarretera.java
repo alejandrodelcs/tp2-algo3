@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Tablero.Arista;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 public class ConstruirCarretera implements Construible {
     @Override

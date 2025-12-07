@@ -6,8 +6,8 @@ import java.util.List;
 import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayConstruccionParaMejorar;
 import edu.fiuba.algo3.modelo.Construccion.*;
-import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -100,15 +100,6 @@ public class Vertice {
             throw new NoHayConstruccionParaMejorar();
         }
         this.construccion = nueva;
-    }
-
-    public boolean tieneVecinoConstruido() {   //luego lo arreglo
-        for (Arista a : aristas) {
-            if (a.vecinoConstruido(this)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 

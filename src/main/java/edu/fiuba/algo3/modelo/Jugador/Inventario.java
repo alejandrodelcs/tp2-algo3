@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.*;
 
@@ -59,7 +59,7 @@ public class Inventario {
 
         while (it.hasNext()) {
             Recurso recurso = it.next();
-            if (recurso != null && recurso.esDelMismoTipoQue(tipo)) {
+            if (recurso.esDelMismoTipoQue(tipo)) {
                 it.remove();
                 return;
             }
@@ -155,5 +155,10 @@ public class Inventario {
         for (Recurso recurso : listaRecursos) {
             this.agregar(recurso);
         }
+    }
+
+
+    public void descartarMitadSiCorresponde(){
+        if(excedeLimite()) descartarMitad();
     }
 }

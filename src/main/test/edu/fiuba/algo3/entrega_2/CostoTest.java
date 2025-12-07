@@ -4,10 +4,10 @@ import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
-import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,7 +25,7 @@ public class CostoTest {
 
         jugador.construir(estrategia, new Carretera(), a);
 
-        Assertions.assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.consultarRecursos());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class CostoTest {
         Construible estrategia = new ConstruirAsentamiento();
         jugador.construir(estrategia, new Ciudad(), new Vertice());
 
-        Assertions.assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.consultarRecursos());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class CostoTest {
         Construible estrategia = new ConstruirAsentamiento();
         jugador.construir(estrategia, new Poblado(), new Vertice());
 
-        Assertions.assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.consultarRecursos());
     }
 
 
@@ -68,6 +68,6 @@ public class CostoTest {
         Construible estrategia = new ConstruirAsentamiento();
         jugador.construir(estrategia, new Poblado(), new Vertice());
 
-        Assertions.assertEquals(3, jugador.consultarRecursos());
+        assertEquals(3, jugador.consultarRecursos());
     }
 }

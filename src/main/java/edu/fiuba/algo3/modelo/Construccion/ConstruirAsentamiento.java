@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 public class ConstruirAsentamiento implements Construible{
 

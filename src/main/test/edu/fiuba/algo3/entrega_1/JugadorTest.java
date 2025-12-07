@@ -1,7 +1,8 @@
 package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Dado.Dado;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
@@ -9,12 +10,8 @@ import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Construccion.*;
-
-
-import static org.junit.Assert.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * JugadorTest
  */
@@ -94,7 +91,7 @@ public class JugadorTest {
         Construible estrategia = new ConstruirAsentamiento();
         jugador.construir(estrategia, new Ciudad(), vertice);
 
-        jugador.generarSegunDado(dado);
+        jugador.accionSegunDado(new Dado(dado));
 
         assertEquals(4, jugador.cantidadCartas());
 
@@ -120,13 +117,13 @@ public class JugadorTest {
         jugador.construir(new ConstruirAsentamiento(), new Poblado(), vertice);
 
         for (int i = 0; i < 3; i++) {
-            jugador.generarSegunDado(dado1);
+            jugador.accionSegunDado(new Dado(dado1));
         }
         for (int i = 0; i < 3; i++) {
-            jugador.generarSegunDado(dado2);
+            jugador.accionSegunDado(new Dado(dado2));
         }
         for (int i = 0; i < 3; i++) {
-            jugador.generarSegunDado(dado3);
+            jugador.accionSegunDado(new Dado(dado3));
         }
 
         assertEquals(9, jugador.cantidadCartas());
@@ -158,16 +155,16 @@ public class JugadorTest {
         jugador.construir(estrategia, new Poblado(), vertice);
 
         for (int i = 0; i < 3; i++) {
-            jugador.generarSegunDado(dado1);
+            jugador.accionSegunDado(new Dado(dado1));
         }
         for (int i = 0; i < 3; i++) {
-            jugador.generarSegunDado(dado2);
+            jugador.accionSegunDado(new Dado(dado2));
         }
         for (int i = 0; i < 3; i++) {
-            jugador.generarSegunDado(dado3);
+            jugador.accionSegunDado(new Dado(dado3));
         }
 
-        jugador.generarSegunDado(dado7);
+        jugador.accionSegunDado(new Dado(dado7));
 
         assertEquals(5, jugador.cantidadCartas());
     }

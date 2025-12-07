@@ -30,12 +30,6 @@ public class Arista {
         this.carretera = carretera;
     }
 
-    public boolean vecinoConstruido(Vertice vertice) {
-
-        Vertice otro = this.getOtroVertice(vertice);
-        return otro.tieneConstruccion();
-    }
-
     public Vertice getOtroVertice(Vertice vertice) {
         if (this.primerVertice == vertice) {
             return this.segundoVertice;

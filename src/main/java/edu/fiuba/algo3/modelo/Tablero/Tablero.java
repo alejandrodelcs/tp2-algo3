@@ -2,35 +2,38 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.*;
 
-import edu.fiuba.algo3.modelo.Juego.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Excepciones.NoExisteFichaError;
+import edu.fiuba.algo3.modelo.Ladron.Ladron;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class Tablero {
 
-    private final List<edu.fiuba.algo3.modelo.Tablero.Hexagono> hexagonos;
+    private final List<Hexagono> hexagonos;
     private static final List<Integer> DISTRIBUCION = new ArrayList<>(
             List.of(2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12));
     private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[] { Terreno.BOSQUE,
             Terreno.CAMPO, Terreno.COLINA, Terreno.DESIERTO, Terreno.MONTANA, Terreno.PASTIZAL }));
+    private Ladron ladron;
 
     public Tablero() {
         this.hexagonos = new ArrayList<>();
+        this.construir();
     }
 
     public void construir() {
 
         for (int i = 0; i < DISTRIBUCION.size(); i++) {
             Terreno terreno = TERRENOS.get(i % TERRENOS.size());
-            edu.fiuba.algo3.modelo.Tablero.Hexagono hexagono = new edu.fiuba.algo3.modelo.Tablero.Hexagono(terreno, DISTRIBUCION.get(i));
+            Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(i));
             hexagonos.add(hexagono);
         }
 
         Random random = new Random();
         int posicionAleatoria = random.nextInt(hexagonos.size() + 1);
-        edu.fiuba.algo3.modelo.Tablero.Hexagono desierto = new edu.fiuba.algo3.modelo.Tablero.Hexagono(Terreno.DESIERTO, -1);
+        Hexagono desierto = new Hexagono(Terreno.DESIERTO, -1);
         hexagonos.add(posicionAleatoria, desierto);
+        this.ladron = new Ladron(desierto); //esto lo va necesitar javafx
 
     }
 
@@ -40,7 +43,7 @@ public class Tablero {
         int indice = 0;
 
         while (indice < hexagonos.size()) {
-            edu.fiuba.algo3.modelo.Tablero.Hexagono hexagono = hexagonos.get(indice);
+            Hexagono hexagono = hexagonos.get(indice);
             Recurso recurso = hexagono.obtenerRecurso(valorFicha);
 
             if (recurso != null) {
@@ -58,7 +61,7 @@ public class Tablero {
         return totalRecursos;
     }
 
-    public void moverLadron(edu.fiuba.algo3.modelo.Tablero.Hexagono hexagonoDestino, Jugador ladron) {
+    public void robar(Hexagono hexagonoDestino, Jugador ladron) {
 
         hexagonoDestino.colocarLadron();
 
@@ -72,6 +75,22 @@ public class Tablero {
 
             ladron.robarA(victima);
         }
+    }
+
+    public List<Jugador> victimasDelLadron(){
+
+        return ladron.victimasPosiblesPara();
+    }
+
+    public void ubicacionLadron(){
+        for(Hexagono h: hexagonos){
+            h.tieneLadron();
+        }
+    }
+
+
+    public void moverLadronA(Hexagono destino){
+        this.ladron.moverA(destino);
     }
 
     public int cantidadHexagonos() {

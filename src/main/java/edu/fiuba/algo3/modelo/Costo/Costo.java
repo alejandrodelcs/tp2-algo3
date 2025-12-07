@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Costo;
 
-import edu.fiuba.algo3.modelo.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 import java.util.Arrays;

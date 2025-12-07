@@ -1,12 +1,12 @@
 package edu.fiuba.algo3.entrega_1;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
 import edu.fiuba.algo3.modelo.Recurso.Lana;

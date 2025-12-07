@@ -1,8 +1,7 @@
-package edu.fiuba.algo3.modelo;
-
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+package edu.fiuba.algo3.modelo.Ladron;
+import edu.fiuba.algo3.modelo.Excepciones.MovimientoLadronError;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
-
 import java.util.List;
 
 public class Ladron {
@@ -14,16 +13,16 @@ public class Ladron {
     }
 
     public void moverA(Hexagono nuevaUbicacion) {
-        /*if (nuevaUbicacion.equals(this.ubicacionActual)) {
+        if (nuevaUbicacion.equals(this.ubicacionActual)) {
            throw new MovimientoLadronError();
-        }*/
+        }
         this.ubicacionActual.moverLadron(); // tieneLadron = false
 
         this.ubicacionActual = nuevaUbicacion;
         this.ubicacionActual.colocarLadron(); // tieneLadron = true
     }
 
-    public void robar(Jugador ladron) {
+    /*public void robar(Jugador ladron) {
         List<Jugador> candidatos = this.ubicacionActual.obtenerVictimas();
 
         AccionRobar accionRobo = new AccionRobar(ladron);
@@ -35,5 +34,9 @@ public class Ladron {
          }
 
         accionRobo.ejecutar();
+    }*/
+
+    public List<Jugador> victimasPosiblesPara() {
+        return ubicacionActual.obtenerVictimas();
     }
 }

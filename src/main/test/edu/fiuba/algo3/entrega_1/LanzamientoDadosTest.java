@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Dado.Dado;
-import edu.fiuba.algo3.modelo.LanzamientoDados;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.Test;

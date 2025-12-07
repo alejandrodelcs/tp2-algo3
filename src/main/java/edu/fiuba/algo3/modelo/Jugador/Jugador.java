@@ -1,19 +1,17 @@
-package edu.fiuba.algo3.modelo.Juego;
+package edu.fiuba.algo3.modelo.Jugador;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.fiuba.algo3.modelo.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Dado.AccionDado;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.CartaNoDisponibleException;
-import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaAdyacencia;
 import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaConstruccion;
 import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaDistancia;
-import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 /**
@@ -49,16 +47,19 @@ public class Jugador {
     }
 
     public void comprarCartaDesarrollo(MazoDesarrollo mazo) {
-        List<Recurso> costo = List.of(new Lana(), new Grano(), new Mineral());
-
-        this.inventario.gastar(costo);
-
-        CartaDesarrollo carta = mazo.sacarCarta();
-
-        this.cartasDesarrollo.add(carta);
+        CartaDesarrollo carta = mazo.entregarCarta();
+        carta.pagarCon(inventario);
+        cartasDesarrollo.add(carta);
     }
 
-    public void usarCartaDesarrollo(int indice) {
+    public void serRobadoPor(Jugador ladron){
+        Recurso recurso = this.inventario.robarUno();
+        if(recurso != null){
+            ladron.recibirRecurso(recurso);
+        }
+    }
+
+/*    public void usarCartaDesarrollo(int indice) {
         if (indice < 0 || indice >= this.cartasDesarrollo.size()) {
             throw new CartaNoDisponibleException("");
         }
@@ -70,21 +71,21 @@ public class Jugador {
         if (carta.esDeUnSoloUso()) {
             this.cartasDesarrollo.remove(indice);
         }
-    }
-
+    }*/
+/*
     public void pasarTurno() {
         for (CartaDesarrollo carta : this.cartasDesarrollo) {
             carta.pasarTurno();
         }
 
         this.puedeMoverLadron = false;
-    }
+    }*/
 
     public void sumarPuntoVictoria() {
         this.puntosVictoria++;
     }
 
-    public void habilitarMovimientoLadron() {
+   public void habilitarMovimientoLadron() {
         this.puedeMoverLadron = true;
     }
 
@@ -93,13 +94,13 @@ public class Jugador {
     }
 
 
-    public void robarA(Jugador victima) {
+      public void robarA(Jugador victima) {
         if (victima != null && victima != this) {
             victima.entregarRecursoA(this);
         }
     }
 
-    public void recibirRecurso(Recurso recurso) {
+   public void recibirRecurso(Recurso recurso) {
         if (recurso != null) {
             this.inventario.agregar(recurso);
         }
@@ -113,44 +114,17 @@ public class Jugador {
         }
     }
 
-    public void generarSegunDado(int dado) {
-        if (dado == 7) {
-            this.descartarMitadSiCorresponde();
-        }
 
-        for (Construccion c: this.construcciones) {
-
-            ArrayList<Recurso> recursos = c.generarSegunVertice(dado);
-            this.inventario.agregarTodos(recursos);
-
-        }
-    }
-
-    public void accionSegunDado(Dado dado) {
-        AccionDado accion = dado.lanzar();
-        accion.aplicar(this);
-
-    }
-
-
+    // no debería hacerlo jugador sino el hexagono tal vez
     public void generarRecursosPorConstrucciones(int dado){
-        for (Construccion c: this.construcciones) {
-            this.inventario.agregarTodos(c.generarSegunVertice(dado));
-
+        for (Construccion c: construcciones) {
+            inventario.agregarTodos(c.producirSegun(dado));
         }
     }
 
 
     public void descartarMitadSiCorresponde() {
-        if (this.inventario.excedeLimite()) {
-            this.inventario.descartarMitad();
-        }
-    }
-
-
-    public boolean esAdyacenteA(Arista nueva) {
-        return construcciones.isEmpty() ||
-                construcciones.stream().anyMatch(c -> c.esAdyacenteA(nueva));
+        this.inventario.descartarMitadSiCorresponde();
     }
 
 
@@ -170,7 +144,7 @@ public class Jugador {
         return this.inventario.total();
     }
 
-    public boolean tieneEnInventario(List<Class<? extends Recurso>> solicitud) {
+ /*   public boolean tieneEnInventario(List<Class<? extends Recurso>> solicitud) {
 
         for (Class<? extends Recurso> recurso : solicitud) {
             if (this.inventario.cantidadDeTipo(recurso) == 0) {
@@ -179,9 +153,9 @@ public class Jugador {
 
         }
         return true;
-    }
+    }*/
 
-    public void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
+    void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
 
         for (Class<? extends Recurso> tipo : solicitud) {
 
@@ -191,13 +165,14 @@ public class Jugador {
 
     }
 
-    public int cantidadDeRecursoTipo(Class<? extends Recurso> tipo) {
-        return this.inventario.cantidadDeTipo(tipo);
-
+    public void aceptarComercio(InteraccionJugador interaccion) {
+        interaccion.aplicarSobre(this);
     }
 
-    public Jugador seleccionarVictima(List<Jugador> candidatas) {
-        return candidatas.get(0);// ver como fx selecciona a la victima
+    public void comerciarCon(Jugador otro,  List<Class<? extends Recurso>> entrega,
+                             List<Class<? extends Recurso>> recibe){
+        InteraccionComercio i = new InteraccionComercio(entrega, recibe, this);
+        otro.aceptarComercio(i);
     }
 
 
@@ -207,5 +182,11 @@ public class Jugador {
 
     public ReglaConstruccion reglaAdyacencia() {
         return new ReglaAdyacencia(construcciones);
+    }
+
+    public void usarCarta(CartaDesarrollo cartaDesarrollo) {
+    }
+
+    public void pasarTurno() {
     }
 }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
-import edu.fiuba.algo3.modelo.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
@@ -74,6 +74,12 @@ public abstract class Construccion {
     public void asignarJugador(Jugador jugador) {
         this.propietario = jugador;
     }
+
+    public List<Recurso> producirSegun(int dado) {
+        return generarSegunVertice(dado);
+    }
+
+
 
 
 
