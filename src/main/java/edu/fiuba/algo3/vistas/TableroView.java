@@ -1,14 +1,18 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
+import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.Terreno;
 import edu.fiuba.algo3.vistas.HexagonoView;
+import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import edu.fiuba.algo3.vistas.escenas.*;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class TableroView extends Pane {
     private final double RADIO = 70;
@@ -16,9 +20,16 @@ public class TableroView extends Pane {
     private final double ANCHO_HEX = Math.sqrt(3) * RADIO;
     private final double ALTO_HEX = 2 * RADIO;
 
+    private Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
+
+    private Group grupoHexagonos = new Group();
+    private Group grupoVertices = new Group();
+
     private final int[] FICHAS_POR_FILA = { 0, 3, 4, 5, 4, 3, 0 };
 
     public TableroView(Tablero tableroModelo) {
+        this.getChildren().addAll(grupoHexagonos, grupoVertices);
+
         inicializarTablero(tableroModelo);
     }
 
@@ -52,6 +63,7 @@ public class TableroView extends Pane {
             }
             return;
         }
+
         agregarHexagonoMar(centroX + offsetFila, y);
 
         for (int col = 1; col <= cantidad; col++) {
@@ -61,6 +73,8 @@ public class TableroView extends Pane {
             hex = iterador.next();
 
             agregarHexagono(hex, x, y);
+
+            agregarVerticesDelHexagono(hex, x, y);
         }
 
         double xDerecha = centroX + offsetFila + ((cantidad + 1) * ANCHO_HEX);
@@ -71,7 +85,50 @@ public class TableroView extends Pane {
         HexagonoView hexView = new HexagonoView(RADIO, hex);
         hexView.setLayoutX(x);
         hexView.setLayoutY(y);
-        this.getChildren().add(hexView);
+        grupoHexagonos.getChildren().add(hexView);
+    }
+
+    private void agregarVerticesDelHexagono(Hexagono hex, double hexX, double hexY) {
+        List<Vertice> verticesModelo = hex.getVertices();
+
+        if (verticesModelo == null || verticesModelo.isEmpty()) return;
+
+        double w = ANCHO_HEX;
+        double h = ALTO_HEX;
+
+        double[][] offsets = {
+                {w, h * 0.75},       // 0: Abajo Derecha (30°)
+                {w / 2, h},          // 1: Abajo (90°)
+                {0.0, h * 0.75},     // 2: Abajo Izquierda (150°)
+                {0.0, h / 4},        // 3: Arriba Izquierda (210°)
+                {w / 2, 0.0},        // 4: Arriba (270°)
+                {w, h / 4}           // 5: Arriba Derecha (330°)
+        };
+
+        for (int i = 0; i < 6; i++) {
+            if (i >= verticesModelo.size()) break;
+
+            Vertice verticeReal = verticesModelo.get(i);
+
+            if (verticesVisuales.containsKey(verticeReal)) {
+                continue;
+            }
+
+            VerticeView vView = new VerticeView(verticeReal, RADIO);
+
+            double correccionCentro = RADIO * 0.2;
+
+            double vx = hexX + offsets[i][0] - correccionCentro;
+            double vy = hexY + offsets[i][1] - correccionCentro;
+
+            vView.setLayoutX(vx);
+            vView.setLayoutY(vy);
+
+//            vView.setViewOrder(-1.0);
+
+            verticesVisuales.put(verticeReal, vView);
+            grupoVertices.getChildren().add(vView);
+        }
     }
 
     private void agregarHexagonoMar(double x, double y) {

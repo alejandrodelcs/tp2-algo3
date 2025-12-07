@@ -96,4 +96,9 @@ public class Hexagono {
     public int getFicha() {
         return ficha;
     }
+
+    //Para el visual
+    public List<Vertice> getVertices() {
+        return vertices;
+    }
 }

@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo;
 import java.util.*;
 
 import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
+import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
 import edu.fiuba.algo3.modelo.Errores.NoExisteFichaError;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
@@ -20,9 +21,11 @@ public class Tablero {
 
     public void construir() {
 
+        Random randomTerreno = new Random();
+        Random randomDistribucion = new Random();
         for (int i = 0; i < DISTRIBUCION.size(); i++) {
-            Terreno terreno = TERRENOS.get(i % TERRENOS.size());
-            Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(i));
+            Terreno terreno = TERRENOS.get(randomDistribucion.nextInt(TERRENOS.size()));
+            Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(randomTerreno.nextInt(DISTRIBUCION.size())));
             hexagonos.add(hexagono);
         }
 
@@ -30,6 +33,8 @@ public class Tablero {
         int posicionAleatoria = random.nextInt(hexagonos.size() + 1);
         Hexagono desierto = new Hexagono(Terreno.DESIERTO, -1);
         hexagonos.add(posicionAleatoria, desierto);
+
+        this.generarVertices();
 
     }
 
@@ -70,6 +75,54 @@ public class Tablero {
             Jugador victima = posiblesVictimas.get(random.nextInt(posiblesVictimas.size()));
 
             ladron.robarA(victima);
+        }
+    }
+
+    private void generarVertices() {
+        Map<String, Vertice> mapaVertices = new HashMap<>();
+
+        Iterator<Hexagono> iterador = hexagonos.iterator();
+
+        int[] fichasPorFila = {3, 4, 5, 4, 3};
+
+        double radio = 10.0;
+        double ancho = Math.sqrt(3) * radio;
+        double alto = 2 * radio;
+
+        double centroY = 0;
+
+        for (int fila = 0; fila < fichasPorFila.length; fila++) {
+            int cantidad = fichasPorFila[fila];
+
+            double offsetX = Math.abs(2 - fila) * (ancho / 2.0);
+
+            for (int col = 0; col < cantidad; col++) {
+                if (!iterador.hasNext()) break;
+
+                Hexagono hex = iterador.next();
+                double centroX = offsetX + (col * ancho);
+
+                asignarVerticesAHexagono(hex, centroX, centroY, radio, mapaVertices);
+            }
+
+            centroY += alto * 0.75;
+        }
+    }
+
+    private void asignarVerticesAHexagono(Hexagono hex, double cx, double cy, double radio, Map<String, Vertice> mapa) {
+        for (int i = 0; i < 6; i++) {
+            double angulo = Math.toRadians(30 + (60 * i));
+
+            double vx = cx + radio * Math.cos(angulo);
+            double vy = cy + radio * Math.sin(angulo);
+
+            String clave = String.format("%.2f_%.2f", vx, vy);
+
+            mapa.putIfAbsent(clave, new Vertice());
+
+            Vertice vertice = mapa.get(clave);
+
+            vertice.agregarHexagono(hex);
         }
     }
 
