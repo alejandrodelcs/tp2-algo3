@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -74,15 +75,15 @@ public class TestsEntrega1 {
 
     }
 
-   /* @Test
+   @Test
     public void test04VerificarQueElLanzamientoDeDadosGenereNumeroValido2_12() {
-        LanzamientoDados lanzamiento = new LanzamientoDados();
+       Dado dado = new Dado();
 
-        for (int i=0; i < 100; i++){
-            int resultado = lanzamiento.lanzar();
-            assertTrue(resultado >= 2 && resultado <= 12);
-        }
-    }*/
+       for (int i=0; i < 100; i++){
+           int resultado = dado.lanzar();
+           assertTrue(resultado >= 2 && resultado <= 12);
+       }
+    }
 
     @Test
     public void test05VerificarLaProduccionCorrectaDeUnRecursoPorPobladoYDosRecursosPorCiudad() {

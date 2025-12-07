@@ -2,8 +2,6 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import static org.junit.Assert.*;
 import org.junit.jupiter.api.Test;
 
 public class LanzamientoDadosTest {
@@ -12,7 +10,7 @@ public class LanzamientoDadosTest {
         Dado dado = new Dado();
 
         for (int i=0; i < 100; i++){
-            int resultado = dado.tirarDado() + dado.tirarDado();
+            int resultado = dado.lanzar();
             assertTrue(resultado >= 2 && resultado <= 12);
         }
     }

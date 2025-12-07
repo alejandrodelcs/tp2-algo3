@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Juego {
 
     private ArrayList<Jugador> jugadores;
-
+/*
     public Juego() {
         this.jugadores = new ArrayList<>();// armar bien el inicializador;
     }
@@ -22,5 +22,5 @@ public class Juego {
 
         }
 
-    }
+    }*/
 }

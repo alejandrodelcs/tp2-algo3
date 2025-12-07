@@ -18,7 +18,6 @@ public class Tablero {
 
     public Tablero() {
         this.hexagonos = new ArrayList<>();
-        this.construir();
     }
 
     public void construir() {

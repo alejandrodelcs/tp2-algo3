@@ -8,6 +8,10 @@ public class Dado {
     public Dado(int dado) {
         this.dado = dado;
     }
+    public Dado()
+    {
+        this.dado = 0;
+    }
 
     public int tirarDado() {
         return new Random().nextInt(6) + 1;
