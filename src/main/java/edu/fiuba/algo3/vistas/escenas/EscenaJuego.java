@@ -24,8 +24,7 @@ public class EscenaJuego extends EscenaGeneral {
 
         // Juego juego = new Juego(new Jugador("hola", new Inventario()));// ver como
         // setear jugadores
-        Tablero tablero = new Tablero();
-        tablero.construir();
+        Tablero tablero = juego.getTablero();
 
         TableroView tableroView = new TableroView(tablero);
         tableroView.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);

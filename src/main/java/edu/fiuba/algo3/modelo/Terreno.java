@@ -9,7 +9,7 @@ public enum Terreno {
     PASTIZAL(new Lana()),
     CAMPO(new Grano()),
     MONTANA(new Mineral()),
-    DESIERTO(null);
+    DESIERTO(new Desierto());
 
     private final Recurso recurso;
 

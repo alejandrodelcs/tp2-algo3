@@ -10,7 +10,12 @@ public class Mar extends Recurso {
 
     @Override
     public Recurso clonar() {
-        return new Mar();
+        return null;
     }
 
+    @Override
+    public String getImagen() {
+        return null;
+
+    }
 }

@@ -13,7 +13,7 @@ public class Tablero {
     private static final List<Integer> DISTRIBUCION = new ArrayList<>(
             List.of(2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12));
     private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[] { Terreno.BOSQUE,
-            Terreno.CAMPO, Terreno.COLINA,Terreno.MONTANA, Terreno.PASTIZAL }));
+            Terreno.CAMPO, Terreno.COLINA, Terreno.MONTANA, Terreno.PASTIZAL }));
 
     public Tablero() {
         this.hexagonos = new ArrayList<>();
@@ -83,7 +83,7 @@ public class Tablero {
 
         Iterator<Hexagono> iterador = hexagonos.iterator();
 
-        int[] fichasPorFila = {3, 4, 5, 4, 3};
+        int[] fichasPorFila = { 3, 4, 5, 4, 3 };
 
         double radio = 10.0;
         double ancho = Math.sqrt(3) * radio;
@@ -97,7 +97,8 @@ public class Tablero {
             double offsetX = Math.abs(2 - fila) * (ancho / 2.0);
 
             for (int col = 0; col < cantidad; col++) {
-                if (!iterador.hasNext()) break;
+                if (!iterador.hasNext())
+                    break;
 
                 Hexagono hex = iterador.next();
                 double centroX = offsetX + (col * ancho);
@@ -132,5 +133,9 @@ public class Tablero {
 
     public List<Hexagono> getHexagonos() {
         return hexagonos;
+    }
+
+    public List<Terreno> getTerrenos() {
+        return TERRENOS;
     }
 }
