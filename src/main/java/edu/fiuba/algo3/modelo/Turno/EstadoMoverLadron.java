@@ -22,9 +22,8 @@ public class EstadoMoverLadron implements EstadoTurno{
     }
 
     @Override
-    public void robar(Jugador jugador, Tablero tablero) {
-        List<Jugador> victimas = tablero.victimasDelLadron();
-        new AccionRobar(jugador, victimas).ejecutar();
+    public void robar(Turno turno, Tablero tablero, Jugador jugador) {
+
 
     }
 

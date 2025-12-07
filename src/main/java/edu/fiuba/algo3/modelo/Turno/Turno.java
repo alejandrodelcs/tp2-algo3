@@ -49,7 +49,7 @@ public class Turno {
 
 
     public void robar(){
-        this.estadoActual.robar(jugadorActivo, tablero);
+        this.estadoActual.robar(this, tablero, jugadorActivo);
     }
 
 

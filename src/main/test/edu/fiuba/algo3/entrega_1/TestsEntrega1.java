@@ -10,6 +10,7 @@ import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Ladron.Ladron;
 import edu.fiuba.algo3.modelo.Tablero.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -116,7 +117,7 @@ public class TestsEntrega1 {
         vertice.agregarHexagono(hexTrigo);
         vertice.construir(new Poblado());
 
-        hexTrigo.colocarLadron();
+        hexTrigo.colocarLadron(new Ladron(new Hexagono(Terreno.DESIERTO,-1)));
 
         ArrayList<Recurso> recursos = vertice.generarRecurso(numeroSuerte,1);
 

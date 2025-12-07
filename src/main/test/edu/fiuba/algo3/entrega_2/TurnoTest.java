@@ -1,11 +1,16 @@
 package edu.fiuba.algo3.entrega_2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Tablero.*;
 import edu.fiuba.algo3.modelo.Turno.Turno;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +21,7 @@ import org.junit.jupiter.api.Test;
 public class TurnoTest {
 
     private Jugador jugador;
+    private Jugador victima;
     private Tablero tablero;
 
 
@@ -23,6 +29,9 @@ public class TurnoTest {
     public void setUp() {
         jugador = new Jugador("Hernesto", new Inventario(new Ladrillo(), new Madera(), new Lana(),
                 new Mineral(), new Grano(), new Madera()));
+        victima =  new Jugador("Pedro", new Inventario(new Ladrillo(), new Madera(), new Lana(),
+                new Mineral(), new Grano(), new Madera(), new Ladrillo()));
+
         tablero = new Tablero();
 
     }
@@ -36,78 +45,56 @@ public class TurnoTest {
     }
 
     @Test
-    public void test02TirarDadosSiSale7MueveLadronYRoba() {
+    public void test02JugadorConstruyePobladoSiTieneRecursos() {
+        Turno turno = new Turno(jugador, new Tablero());
+        Vertice v = new Vertice();
+        turno.tirarDado(new Dado());
+        turno.contruir(new ConstruirAsentamiento(), new Poblado(),v);
+        assertTrue(v.tieneConstruccion());
+    }
+
+    @Test
+    public void test03JugadorContruyeCarreteaSiTieneRecursos() {
+        Turno turno = new Turno(jugador, new Tablero());
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
+        Arista a = new Arista(v1, v2);
+        turno.tirarDado(new Dado());
+        turno.contruir(new ConstruirCarretera(), new Carretera(),a);
+        assertEquals(4, jugador.consultarRecursos());
+    }
+
+    @Test
+    public void test04MoverLadronLuegoDeTirarSiete(){
+
+        Dado dadoMock = mock(Dado.class);
+        when(dadoMock.lanzar()).thenReturn(7);
+
+        Tablero tablero = new Tablero();
+
+        Hexagono origen = new Hexagono(Terreno.DESIERTO, -1);
+        tablero.agregarHexagono(origen);
+        tablero.colocarLadronEn(origen);
+
+        Hexagono destino = new Hexagono(Terreno.BOSQUE, 6);
+        tablero.agregarHexagono(destino);
+
+        Vertice v = new Vertice();
+        v.construir(new Poblado(victima));
+
+        destino.agregarVertice(v);
+
         Turno turno = new Turno(jugador, tablero);
-        turno.tirarDado(new Dado(7));
+
+        turno.tirarDado(dadoMock);
+
+        turno.moverLadronA(destino);
+
+        turno.robar();
+
+        assertEquals(7, jugador.cantidadCartas());
+        assertEquals(6, victima.cantidadCartas());
 
     }
 
-
-  /*  @Test
-    public void test03NoSePuedeTirarElDadoDosVeces() {
-        Turno turno = new Turno(jugador, tablero);
-        Dado dado = new Dado();
-        assertThrows(IllegalStateException.class, ()->turno.tirarDado(dado));
-    }
-
-    @Test
-    public void test03ComerciarFallaSiJugadorActivoNoTieneLoQueOfrece() {
-        Inventario prmerInventario = new Inventario();
-        Inventario segundoInventario = new Inventario(new Madera());
-
-        Jugador primerJugador = new Jugador("Alan", prmerInventario);
-        Jugador segundoJugador = new Jugador("Alan", segundoInventario);
-
-        Turno turno = new Turno(primerJugador, juegoMock);
-
-        List<Class<? extends Recurso>> ofrece = List.of(Madera.class);
-        List<Class<? extends Recurso>> pide = List.of(Madera.class);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            turno.comerciarCon(segundoJugador, ofrece, pide);
-        });
-
-    }
-
-    @Test
-    public void testo04ComercioFallaSiOtroJugadorNoTieneLoQuePide() {
-        Inventario prmerInventario = new Inventario(new Mineral());
-        Inventario segundoInventario = new Inventario(new Madera());
-
-        Jugador primerJugador = new Jugador("Alan", prmerInventario);
-        Jugador segundoJugador = new Jugador("Alan", segundoInventario);
-
-        Turno turno = new Turno(primerJugador, juegoMock);
-
-        List<Class<? extends Recurso>> ofrece = List.of(Madera.class);
-        List<Class<? extends Recurso>> pide = List.of(Ladrillo.class);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            turno.comerciarCon(segundoJugador, ofrece, pide);
-        });
-
-    }
-
-    @Test
-    public void test05ComercioFuncionaCorrectamenteSiAmbosTieneLosRecursos() {
-
-        Inventario prmerInventario = new Inventario(new Mineral());
-        Inventario segundoInventario = new Inventario(new Madera());
-
-        Jugador primerJugador = new Jugador("Alan", prmerInventario);
-        Jugador segundoJugador = new Jugador("Alan", segundoInventario);
-
-        Turno turno = new Turno(primerJugador, juegoMock);
-
-        List<Class<? extends Recurso>> ofrece = List.of(Mineral.class);
-        List<Class<? extends Recurso>> pide = List.of(Madera.class);
-
-        turno.comerciarCon(segundoJugador, ofrece, pide);
-
-        assertEquals(1, primerJugador.cantidadDeRecursoTipo(Madera.class));
-        assertEquals(1, segundoJugador.cantidadDeRecursoTipo(Mineral.class));
-
-    }
-}
-   */
 }

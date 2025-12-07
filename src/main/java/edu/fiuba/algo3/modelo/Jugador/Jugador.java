@@ -4,9 +4,6 @@ import java.util.List;
 
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.*;
-import edu.fiuba.algo3.modelo.Dado.AccionDado;
-import edu.fiuba.algo3.modelo.Dado.Dado;
-import edu.fiuba.algo3.modelo.Excepciones.CartaNoDisponibleException;
 import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaAdyacencia;
@@ -94,12 +91,6 @@ public class Jugador {
     }
 
 
-      public void robarA(Jugador victima) {
-        if (victima != null && victima != this) {
-            victima.entregarRecursoA(this);
-        }
-    }
-
    public void recibirRecurso(Recurso recurso) {
         if (recurso != null) {
             this.inventario.agregar(recurso);
@@ -143,17 +134,6 @@ public class Jugador {
     public int consultarRecursos() {
         return this.inventario.total();
     }
-
- /*   public boolean tieneEnInventario(List<Class<? extends Recurso>> solicitud) {
-
-        for (Class<? extends Recurso> recurso : solicitud) {
-            if (this.inventario.cantidadDeTipo(recurso) == 0) {
-                return false;
-            }
-
-        }
-        return true;
-    }*/
 
     void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
 

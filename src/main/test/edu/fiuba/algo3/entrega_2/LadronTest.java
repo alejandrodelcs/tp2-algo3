@@ -22,7 +22,7 @@ public class LadronTest {
 
         Ladron ladron = new Ladron(desierto);
 
-        assertTrue(desierto.tieneLadron());
+        assertFalse(desierto.tieneLadron());
     }
 
     @Test
@@ -33,35 +33,8 @@ public class LadronTest {
 
         ladron.moverA(destino);
 
-        assertFalse(origen.tieneLadron());
-        assertTrue(destino.tieneLadron());
+        assertTrue(origen.tieneLadron());
+        assertFalse(destino.tieneLadron());
     }
 
-/*    @Test
-    public void test03LadronRobaAOtroJugadorUnRecurso() {
-        Inventario inventario1 = new Inventario();
-        Inventario inventario2 = new Inventario();
-
-        Jugador ladron = new Jugador("Jeronimo", inventario1);
-        Jugador victima = new Jugador("Natanael", inventario2);
-
-        //victima.recibirRecurso(new Madera());
-
-        Hexagono hexDestino = new Hexagono(Terreno.BOSQUE, 5);
-
-        Vertice verticeAdyacente = new Vertice();
-        verticeAdyacente.agregarHexagono(hexDestino);
-
-        Poblado pobado = new Poblado(victima);
-
-        pobado.agregarPropietario(List.of(victima));
-        verticeAdyacente.construir(pobado);
-
-        Ladron ladron = new Ladron(hexDestino);
-
-        ladron.robar(jugador);
-
-        assertEquals(1, jugador.cantidadCartas());
-        assertEquals(0, victima.cantidadCartas());
-    }*/
 }

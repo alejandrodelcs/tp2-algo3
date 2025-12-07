@@ -12,8 +12,8 @@ public class Tablero {
     private final List<Hexagono> hexagonos;
     private static final List<Integer> DISTRIBUCION = new ArrayList<>(
             List.of(2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12));
-    private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[] { Terreno.BOSQUE,
-            Terreno.CAMPO, Terreno.COLINA, Terreno.DESIERTO, Terreno.MONTANA, Terreno.PASTIZAL }));
+    private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[]{Terreno.BOSQUE,
+            Terreno.CAMPO, Terreno.COLINA, Terreno.DESIERTO, Terreno.MONTANA, Terreno.PASTIZAL}));
     private Ladron ladron;
 
     public Tablero() {
@@ -32,7 +32,7 @@ public class Tablero {
         int posicionAleatoria = random.nextInt(hexagonos.size() + 1);
         Hexagono desierto = new Hexagono(Terreno.DESIERTO, -1);
         hexagonos.add(posicionAleatoria, desierto);
-        this.ladron = new Ladron(desierto); //esto lo va necesitar javafx
+        this.ladron = new Ladron(desierto);
 
     }
 
@@ -60,39 +60,35 @@ public class Tablero {
         return totalRecursos;
     }
 
-    public void robar(Hexagono hexagonoDestino, Jugador ladron) {
 
-        hexagonoDestino.colocarLadron();
-
-        List<Jugador> posiblesVictimas = hexagonoDestino.obtenerVictimas();
-
-        posiblesVictimas.remove(ladron);
-
-        if (!posiblesVictimas.isEmpty()) {
-            Random random = new Random();
-            Jugador victima = posiblesVictimas.get(random.nextInt(posiblesVictimas.size()));
-
-            ladron.robarA(victima);
-        }
-    }
-
-    public List<Jugador> victimasDelLadron(){
+    public List<Jugador> victimasDelLadron() {
 
         return ladron.victimasPosiblesPara();
     }
 
-    public void ubicacionLadron(){
-        for(Hexagono h: hexagonos){
-            h.tieneLadron();
-        }
+    public Hexagono ubicacionLadron() {
+        return this.ladron.ubicacion();
     }
 
 
-    public void moverLadronA(Hexagono destino){
+    public void moverLadronA(Hexagono destino) {
         this.ladron.moverA(destino);
     }
 
     public int cantidadHexagonos() {
         return hexagonos.size();
+    }
+
+
+    public void robarConLadronA(Jugador victima) {
+        ladron.robar(victima);
+    }
+
+    public void agregarHexagono(Hexagono origen) {
+        hexagonos.add(origen);
+    }
+
+    public void colocarLadronEn(Hexagono origen) {
+        this.ladron = new Ladron(origen);
     }
 }

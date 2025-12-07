@@ -17,6 +17,7 @@ public class EstadoInicial implements EstadoTurno{
     @Override
     public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
         int numero = dado.lanzar();
+
         AccionDado accion = (numero == 7)
                         ? new AccionReducirRecursos(numero)
                         : new AccionGenerarRecursos(numero);
@@ -24,7 +25,10 @@ public class EstadoInicial implements EstadoTurno{
 
         if (numero == 7) {
             turno.cambiarEstado(new EstadoMoverLadron());
+        }else{
+            turno.cambiarEstado(new EstadoAcciones());
         }
+
     }
 
     @Override
@@ -34,7 +38,7 @@ public class EstadoInicial implements EstadoTurno{
 
 
     @Override
-    public void robar(Jugador jugador, Tablero tablero) {
+    public void robar(Turno turno, Tablero tablero, Jugador jugador) {
 
     }
 

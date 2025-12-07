@@ -5,38 +5,37 @@ import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import java.util.List;
 
 public class Ladron {
-    private Hexagono ubicacionActual;
+    public Hexagono ubicacionActual;
 
     public Ladron(Hexagono ubicacionInicial) {
         this.ubicacionActual = ubicacionInicial; //desierto
-        this.ubicacionActual.colocarLadron(); // tieneLadron = true
+        this.ubicacionActual.colocarLadron(this); // tieneLadron = true
     }
+
+
+
 
     public void moverA(Hexagono nuevaUbicacion) {
         if (nuevaUbicacion.equals(this.ubicacionActual)) {
            throw new MovimientoLadronError();
         }
-        this.ubicacionActual.moverLadron(); // tieneLadron = false
-
+        this.ubicacionActual.colocarLadron(null);
         this.ubicacionActual = nuevaUbicacion;
-        this.ubicacionActual.colocarLadron(); // tieneLadron = true
+        this.ubicacionActual.colocarLadron(this);
     }
 
-    /*public void robar(Jugador ladron) {
+    public void robar(Jugador ladron) {
         List<Jugador> candidatos = this.ubicacionActual.obtenerVictimas();
-
-        AccionRobar accionRobo = new AccionRobar(ladron);
-
-        for (Jugador victima : candidatos) {
-            if (!victima.equals(ladron)) {
-            accionRobo.agregarPosibleVictima(victima);
-            }
-         }
-
+        candidatos.removeIf(j-> j == ladron);
+        AccionRobar accionRobo = new AccionRobar(ladron, candidatos);
         accionRobo.ejecutar();
-    }*/
+    }
 
     public List<Jugador> victimasPosiblesPara() {
         return ubicacionActual.obtenerVictimas();
+    }
+
+    public Hexagono ubicacion() {
+        return ubicacionActual;
     }
 }

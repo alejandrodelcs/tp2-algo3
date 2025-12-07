@@ -18,7 +18,7 @@ public interface  EstadoTurno {
     void moverLadron(Turno turno, Tablero tablero, Hexagono destino);
 
 
-    void robar(Jugador jugador, Tablero tablero);
+    void robar(Turno turno, Tablero tablero, Jugador jugador);
 
 
     void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion, Object... ubicaciones);

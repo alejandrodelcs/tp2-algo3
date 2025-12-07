@@ -21,7 +21,7 @@ public class EstadoAcciones implements EstadoTurno{
     }
 
     @Override
-    public void robar(Jugador jugador, Tablero tablero) {
+    public void robar(Turno turno, Tablero tablero, Jugador jugador) {
 
     }
 
