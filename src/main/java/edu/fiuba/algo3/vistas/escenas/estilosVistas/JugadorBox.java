@@ -16,10 +16,10 @@ public class JugadorBox extends VBox {
     public JugadorBox(Jugador jugador) {
         this.setPrefSize(260, 120);
         this.setStyle(
-                "-fx-background-color: #f9f9f9;" +
+                "-fx-background-color: transparent;" +
                         "-fx-background-radius: 12;" +
                         "-fx-border-radius: 12;" +
-                        "-fx-border-color: #cccccc;" +
+                        "-fx-border-color: transparent;" +
                         "-fx-border-width: 1;" +
                         "-fx-padding: 10;");
         this.setAlignment(Pos.TOP_LEFT);
@@ -60,7 +60,7 @@ public class JugadorBox extends VBox {
 
         filaValores.getChildren().addAll(valorCartas, valorConstrucciones, valorPv);
 
-        // --- Cajita con borde para derecha ---
+        // Cajita con borde para derecha ---
         VBox cajaDerecha = new VBox(5, filaIcons, filaValores);
         cajaDerecha.setStyle(
                 "-fx-background-color: #ffffff;" +
