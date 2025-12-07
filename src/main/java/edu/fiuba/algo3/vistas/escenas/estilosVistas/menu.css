@@ -1,0 +1,20 @@
+.columna-lateral {
+    -fx-background-image: url('/imagenes/madera.jpg');
+    -fx-background-size: cover;
+    -fx-background-repeat: repeat;
+    -fx-padding: 40 30 40 30;
+    -fx-background-radius: 20;
+}
+
+.contenedor-botones {
+    -fx-alignment: center;
+    -fx-padding: 20 0 0 0;
+}
+
+.layout-principal {
+    -fx-background-color: #E8E8E8;
+}
+
+.titulo-central {
+    -fx-font-size: 120;
+}

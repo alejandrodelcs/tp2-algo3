@@ -81,5 +81,16 @@ public class Hexagono {
         return this.ladron == null;
     }
 
+    public Terreno getTerreno() {
+        return terreno;
+    }
 
+    public int getFicha() {
+        return ficha;
+    }
+
+    //Para el visual
+    public List<Vertice> getVertices() {
+        return vertices;
+    }
 }
