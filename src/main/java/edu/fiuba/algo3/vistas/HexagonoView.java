@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.effect.DropShadow;

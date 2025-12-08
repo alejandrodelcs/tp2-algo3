@@ -30,20 +30,6 @@ public class Vertice {
         construccion.asignarVertice(this);
     }
 
-    public void mejorar(Construccion nuevaConstruccion) {
-        if (!this.construccion.puedeSerMejorada()) {
-            throw new AccionNoPermitidaException("No hay nada para mejorar o ya está al máximo nivel.");
-        }
-
-        if (this.construccion.getPropietario() != nuevaConstruccion.getPropietario()) {
-            throw new AccionNoPermitidaException("No puedes mejorar un edificio que no es tuyo.");
-        }
-
-        this.construccion = nuevaConstruccion;
-
-        nuevaConstruccion.asignarVertice(this);
-    }
-
     public void agregarHexagono(Hexagono hexagono) {
         if (!hexagonos.contains(hexagono)) {
             hexagonos.add(hexagono);

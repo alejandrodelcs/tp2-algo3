@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;

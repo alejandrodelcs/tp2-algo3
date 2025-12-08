@@ -26,14 +26,10 @@ public class Ladron {
 
     public void robar(Jugador ladron) {
         List<Jugador> candidatos = this.ubicacionActual.obtenerVictimas();
-        candidatos.removeIf(j-> j == ladron);
         AccionRobar accionRobo = new AccionRobar(ladron, candidatos);
         accionRobo.ejecutar();
     }
 
-    public List<Jugador> victimasPosiblesPara() {
-        return ubicacionActual.obtenerVictimas();
-    }
 
     public Hexagono ubicacion() {
         return ubicacionActual;

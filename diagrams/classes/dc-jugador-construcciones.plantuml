@@ -2,39 +2,43 @@
 
 
 class Construccion{
-    - jugador: Jugador
+    - propietario : Jugador
+    - costo : Costo
+    - vertice: Vertice
+    + pagarCon(inventario:Inventario)
+    + agregarPropietario(listaVictimas : List<Jugador>)
+    + esAdyacenteA(Arista nueva): boolean
+    + {abstract} producirSegun(dado:int):List<Recurso>
 
-    + generarSegunHexagono(hexagono:Hexagono, numDado:int)
-    + {abstract} agregarJugador(listaVictimas : List<Jugador>)
-    + {abstract} generarSegunVertice(dato: int) : Recurso
 }
 
 
 class Ciudad extends Construccion {
-    +agregarJugador(listaVictimas : List<Jugador>)
-    +generarSegunVertice(dato: int) : Recurso
+    +producirSegun(dado:int):List<Recurso>
 }
 
 
 class ConstruccionNula extends Construccion{
-    +agregarJugador(listaVictimas : List<Jugador>)
-    +generarSegunVertice(dato: int) : Recurso
+    +producirSegun(dado:int):List<Recurso>
 }
 
 class Poblado extends Construccion{
-    +agregarJugador(listaVictimas : List<Jugador>)
-    +generarSegunVertice(dato: int) : Recurso
+      +producirSegun(dado:int):List<Recurso>
 }
 
 
 class Carretera extends Construccion{
-    +agregarJugador(listaVictimas : List<Jugador>)
-    +generarSegunVertice(dato: int) : Recurso
+    -arista:Arista
+    +producirSegun(dado:int):List<Recurso>
+    +esAdyacenteA(otra:Arista):boolean
 
 }
 
 
 class Jugador{
+ -nombre:String
+ -cartasDesarrollo: List<CartaDesarrollo>
+ -puntosVictoria: int
  +construir(vertice:Vertice, construccion:Construccion)
  +robarAR(victima:Jugador)
  +recibirRecurso(recurso:Recurso)

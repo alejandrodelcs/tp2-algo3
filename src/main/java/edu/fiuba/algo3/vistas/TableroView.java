@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.modelo.ElementosTablero.Hexagono;
-import edu.fiuba.algo3.modelo.ElementosTablero.Vertice;
-import edu.fiuba.algo3.modelo.Tablero;
-import edu.fiuba.algo3.modelo.Terreno;
-import edu.fiuba.algo3.vistas.HexagonoView;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Tablero.Terreno;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
+
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import edu.fiuba.algo3.vistas.escenas.*;

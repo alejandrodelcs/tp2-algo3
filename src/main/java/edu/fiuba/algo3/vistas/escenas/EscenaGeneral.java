@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas.escenas;
 
-import edu.fiuba.algo3.modelo.ElementosDeJuego.Juego;
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;

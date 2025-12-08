@@ -2,16 +2,19 @@ package edu.fiuba.algo3.entrega_2;
 
 import java.util.List;
 
+import edu.fiuba.algo3.modelo.Comercio.ComercioBanca;
+import edu.fiuba.algo3.modelo.Comercio.ComercioInterior;
+import edu.fiuba.algo3.modelo.Comercio.ReglaComercio4a1;
+import edu.fiuba.algo3.modelo.Excepciones.ComercioInvalido4a1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.Banca.Banca;
+import edu.fiuba.algo3.modelo.Comercio.Banca;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
 import edu.fiuba.algo3.modelo.Jugador.*;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.Turno.EstadoAcciones;
 import edu.fiuba.algo3.modelo.Turno.Turno;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -23,7 +26,6 @@ public class AccionComercioTest {
     private Banca banca;
     private Turno turno;
     private Dado mockDado;
-    private Tablero tablero;
     private List<Class<? extends Recurso>> entrega, recibe, entregaParaBanca, recibeDeBanca, entregaParaBanca2;
 
     @BeforeEach
@@ -35,7 +37,7 @@ public class AccionComercioTest {
         this.entregaParaBanca2 = List.of(Grano.class, Grano.class, Grano.class, Grano.class);
         this.recibeDeBanca = List.of(Lana.class);
 
-        this.tablero = new Tablero();
+        Tablero tablero = new Tablero();
         this.jugadorActivo = new Jugador("Romina",
                 new Inventario(new Ladrillo(), new Ladrillo(), new Ladrillo(), new Ladrillo(), new Grano()));
         this.otroJugadorRecibe = new Jugador("Ana", new Inventario(new Lana(), new Mineral()));
@@ -52,9 +54,9 @@ public class AccionComercioTest {
     @Test
     public void test01UnJugadorComerciaConOtroJugador() {
 
-        InteraccionComercio comercio = new InteraccionComercio(entrega, recibe, otroJugadorRecibe);
+        ComercioInterior comercioInterior = new ComercioInterior(entrega, recibe, otroJugadorRecibe);
 
-        this.turno.comerciar(comercio);
+        this.turno.comerciar(comercioInterior);
 
         assertEquals(5, jugadorActivo.cantidadCartas());
         assertEquals(2, otroJugadorRecibe.cantidadCartas());
@@ -63,7 +65,8 @@ public class AccionComercioTest {
 
     @Test
     public void test02UnJugadorComerciaConBanca() {
-        InteraccionComercioBanca comercioBanca = new InteraccionComercioBanca(entregaParaBanca, recibeDeBanca, banca);
+        ComercioBanca comercioBanca = new ComercioBanca(entregaParaBanca, recibeDeBanca,
+                                                                                new ReglaComercio4a1(), banca);
 
         turno.comerciar(comercioBanca);
 
@@ -72,7 +75,8 @@ public class AccionComercioTest {
 
     @Test
     public void test03UnJugadorNoTieneLosRecursosParaBanca() {
-        InteraccionComercioBanca comercioBanca = new InteraccionComercioBanca(entregaParaBanca2, recibeDeBanca, banca);
+        ComercioBanca comercioBanca = new ComercioBanca(entregaParaBanca2, recibeDeBanca,
+                                                                                    new ReglaComercio4a1(), banca);
 
         assertThrows(NoHayRecursoDisponibleError.class, () -> turno.comerciar(comercioBanca));
 
@@ -83,8 +87,8 @@ public class AccionComercioTest {
 
         List<Class<? extends Recurso>> pedido = List.of(Ladrillo.class, Ladrillo.class, Ladrillo.class);
 
-        assertThrows(NoHayRecursoDisponibleError.class,
-                () -> new InteraccionComercioBanca(pedido, recibeDeBanca, banca));
+        assertThrows(ComercioInvalido4a1.class,
+                () -> new ComercioBanca(pedido, recibeDeBanca, new ReglaComercio4a1(), banca));
     }
 
     @Test
@@ -103,7 +107,8 @@ public class AccionComercioTest {
 
         List<Class<? extends Recurso>> recibe2 = List.of(Lana.class, Lana.class);
 
-        InteraccionComercioBanca comercioBanca = new InteraccionComercioBanca(entrega8, recibe2, banca);
+        ComercioBanca comercioBanca = new ComercioBanca(entrega8, recibe2,
+                                                    new ReglaComercio4a1(), banca);
 
         turn.comerciar(comercioBanca);
 

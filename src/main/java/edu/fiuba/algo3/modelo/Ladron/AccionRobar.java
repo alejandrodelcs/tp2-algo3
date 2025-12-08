@@ -20,11 +20,15 @@ public class AccionRobar {
         }
     }
 
+    private Jugador seleccionarVictimaAleatoria(List<Jugador> victimas) {
+        Random random = new Random();
+        return victimas.get(random.nextInt(victimas.size()));
+    }
+
     public void ejecutar() {
         if (victimas.isEmpty()) return;
 
-        Random random = new Random();
-        Jugador victimaElegida = victimas.get(random.nextInt(victimas.size()));
+        Jugador victimaElegida = seleccionarVictimaAleatoria(victimas);
 
         victimaElegida.entregarRecursoA(ladron);
     }

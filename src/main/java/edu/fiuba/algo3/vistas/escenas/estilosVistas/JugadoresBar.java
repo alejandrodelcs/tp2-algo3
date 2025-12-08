@@ -3,7 +3,7 @@ package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.ElementosDeJuego.*;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;

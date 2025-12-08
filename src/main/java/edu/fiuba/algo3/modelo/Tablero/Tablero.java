@@ -61,14 +61,7 @@ public class Tablero {
     }
 
 
-    public List<Jugador> victimasDelLadron() {
 
-        return ladron.victimasPosiblesPara();
-    }
-
-    public Hexagono ubicacionLadron() {
-        return this.ladron.ubicacion();
-    }
 
 
     public void moverLadronA(Hexagono destino) {
@@ -80,9 +73,9 @@ public class Tablero {
     }
 
 
-    public void robarConLadronA(Jugador victima) {
-        ladron.robar(victima);
-    }
+   public void robarConLadronA(Jugador victima) {
+       this.ladron.robar(victima);
+   }
 
     public void agregarHexagono(Hexagono origen) {
         hexagonos.add(origen);
@@ -91,4 +84,10 @@ public class Tablero {
     public void colocarLadronEn(Hexagono origen) {
         this.ladron = new Ladron(origen);
     }
+
+
+    public List<Hexagono> getHexagonos() {
+        return hexagonos;
+    }
 }
+

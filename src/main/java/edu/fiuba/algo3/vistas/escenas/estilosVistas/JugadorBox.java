@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;

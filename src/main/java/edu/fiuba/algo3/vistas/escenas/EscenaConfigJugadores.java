@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.vistas.escenas;
 
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.ElementosDeJuego.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Juego;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -115,7 +115,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
                 if (!campo.getText().trim().isEmpty()) {
                     System.out.println(campo.getText());
                     Jugador jugadorAgregado = new Jugador(campo.getText(), new Inventario());
-                    jugadorAgregado.setAvatar(avataresDisponibles[i]);
+                    //jugadorAgregado.setAvatar(avataresDisponibles[i]);
 
                     jugadores.add(jugadorAgregado);
                     i++;

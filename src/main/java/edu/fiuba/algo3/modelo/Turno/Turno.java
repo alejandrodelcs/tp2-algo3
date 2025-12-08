@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.modelo.Turno;
 
-import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
-import edu.fiuba.algo3.modelo.Jugador.InteraccionJugador;
+import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -45,22 +45,22 @@ public class Turno {
         this.estadoActual.moverLadron(this, this.tablero, destino);
     }
 
-    public void robar() {
-        this.estadoActual.robar(this, tablero, jugadorActivo);
+    public void robar(Jugador victima) {
+        this.estadoActual.robar(this, tablero, victima);
     }
 
-    public void contruir(Construible construible, Construccion construccion, Object... ubicaciones) {
+    public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
         this.estadoActual.construir(this, jugadorActivo, construible, construccion, ubicaciones);
 
     }
 
-    public void comerciar(InteraccionJugador interaccionJugador) {
-        this.estadoActual.comerciar(this, jugadorActivo, interaccionJugador);
+    public void comerciar(Comercio comercio) {
+        this.estadoActual.comerciar(this, jugadorActivo, comercio);
         System.out.println(estadoActual.toString() + "comercio\n");
     }
 
-    public void jugarCarta(CartaDesarrollo carta) {
-        this.estadoActual.jugarCarta(this, jugadorActivo, carta);
+    public void jugarCarta(MazoDesarrollo mazoDesarrollo) {
+        this.estadoActual.jugarCarta(this, jugadorActivo, mazoDesarrollo);
     }
 
     public void pasarTurno() {
@@ -71,31 +71,5 @@ public class Turno {
         return this.jugadorActivo;
     }
 
-    /*
-     * public void comerciarCon(Jugador otroJugador,
-     * List<Class<? extends Recurso>> ofrece,
-     * List<Class<? extends Recurso>> pide) {
-     * 
-     * if (!this.jugadorActivo.tieneEnInventario(ofrece)) {
-     * throw new
-     * IllegalArgumentException("El jugador activo no tiene los recursos");
-     * }
-     * if (!otroJugador.tieneEnInventario(pide)) {
-     * throw new
-     * IllegalArgumentException("El jugador destino no tiene los recursos");
-     * }
-     * 
-     * this.jugadorActivo.entregarTipos(otroJugador, ofrece);
-     * otroJugador.entregarTipos(this.jugadorActivo, pide);
-     * 
-     * }
-     * 
-     * public void robarA(Jugador otroJugador, Hexagono destino) {
-     * List<Jugador> victimas = destino.obtenerVictimas();
-     * Jugador victima = this.jugadorActivo.seleccionarVictima(victimas);
-     * 
-     * this.jugadorActivo.robarA(victima);
-     * }
-     */
 
 }

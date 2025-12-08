@@ -14,24 +14,16 @@ import edu.fiuba.algo3.modelo.Tablero.Arista;
  * Construccion
  */
 public abstract class Construccion {
-    protected Vertice vertice;
     protected Costo costo;
+    protected Jugador propietario;
+    protected Vertice verticeAsignado;
+
 
     public void pagarCon(Inventario inventario) {
         costo.aplicar(inventario);
     }
 
-    protected Jugador propietario;
-    protected Vertice verticeAsignado;
 
-    public Construccion() {
-        this.propietario = null;
-
-    }
-
-    public Construccion(Jugador propietario) {
-        this.propietario = propietario;
-    }
 
     public boolean estaEn(Vertice v) {
         return this.verticeAsignado == v;
@@ -57,8 +49,7 @@ public abstract class Construccion {
     }
 
 
-
-    public abstract ArrayList<Recurso> generarSegunVertice(int dado);
+    public abstract ArrayList<Recurso> producirSegun(int dado);
 
 
     public boolean esAdyacenteA(Arista nueva) {
@@ -66,7 +57,7 @@ public abstract class Construccion {
     }
 
     public void agregarPropietario(List<Jugador> listaVictimas) {
-        if (!listaVictimas.contains(this.propietario)) {
+        if (this.propietario != null){
             listaVictimas.add(this.propietario);
         }
     }
@@ -74,17 +65,6 @@ public abstract class Construccion {
     public void asignarJugador(Jugador jugador) {
         this.propietario = jugador;
     }
-
-    public List<Recurso> producirSegun(int dado) {
-        return generarSegunVertice(dado);
-    }
-
-
-
-
-
-
-
 
 
 }

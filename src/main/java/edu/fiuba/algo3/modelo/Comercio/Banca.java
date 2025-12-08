@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Banca;
+package edu.fiuba.algo3.modelo.Comercio;
 
 import java.util.List;
 

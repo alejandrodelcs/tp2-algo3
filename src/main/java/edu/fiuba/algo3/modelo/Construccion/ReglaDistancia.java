@@ -1,6 +1,5 @@
-package edu.fiuba.algo3.modelo.ReglaConstruccion;
+package edu.fiuba.algo3.modelo.Construccion;
 
-import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
 

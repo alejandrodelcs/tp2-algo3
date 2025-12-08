@@ -27,7 +27,7 @@ public class Carretera extends Construccion{
 
 
     @Override
-    public ArrayList<Recurso> generarSegunVertice(int dado) {
+    public ArrayList<Recurso> producirSegun(int dado) {
         return null;
     }
 

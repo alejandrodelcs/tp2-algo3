@@ -8,12 +8,12 @@ public class ConstruirCarretera implements Construible {
     public void construir(Jugador jugador, Construccion construccion, Object... ubicaciones) {
         Arista arista = (Arista) ubicaciones[0];
         Carretera carretera = (Carretera) construccion;
-
+        jugador.agregarConstruccion(construccion);
         jugador.reglaAdyacencia().validar(arista);
         carretera.asignarArista(arista);
 
         jugador.descontarPara(construccion);
         arista.colocarCarretera(carretera);
-        jugador.agregarConstruccion(construccion);
+
     }
 }

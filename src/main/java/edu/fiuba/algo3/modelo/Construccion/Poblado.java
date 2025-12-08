@@ -16,10 +16,6 @@ public class Poblado extends Construccion {
         this.costo = new Costo(Madera.class, Ladrillo.class,Lana.class, Grano.class);
     }
 
-    public Poblado(Jugador propietario) {
-        super(propietario);
-    }
-
     public int getPuntosDeVictoria() {
         return 1;
     }
@@ -32,7 +28,7 @@ public class Poblado extends Construccion {
 
 
     @Override
-    public ArrayList<Recurso> generarSegunVertice(int dado) {
+    public ArrayList<Recurso> producirSegun(int dado) {
         return this.verticeAsignado.generarRecurso(dado,1);
     }
 

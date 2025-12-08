@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.ReglaConstruccion;
+package edu.fiuba.algo3.modelo.Construccion;
 
 public interface ReglaConstruccion {
     void validar(Object...ubicaciones);

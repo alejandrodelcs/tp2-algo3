@@ -1,16 +1,13 @@
 package edu.fiuba.algo3.modelo.Turno;
 
-import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
-import edu.fiuba.algo3.modelo.Jugador.InteraccionJugador;
+import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Ladron.AccionRobar;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-
-import java.util.List;
 
 public class EstadoMoverLadron implements EstadoTurno{
 
@@ -22,7 +19,7 @@ public class EstadoMoverLadron implements EstadoTurno{
     }
 
     @Override
-    public void robar(Turno turno, Tablero tablero, Jugador jugador) {
+    public void robar(Turno turno, Tablero tablero, Jugador victima) {
 
 
     }
@@ -33,12 +30,12 @@ public class EstadoMoverLadron implements EstadoTurno{
     }
 
     @Override
-    public void comerciar(Turno turno, Jugador receptor, InteraccionJugador interaccionJugador) {
+    public void comerciar(Turno turno, Jugador receptor, Comercio comercio) {
 
     }
 
     @Override
-    public void jugarCarta(Turno turno, Jugador jugador, CartaDesarrollo cartaDesarrollo) {
+    public void jugarCarta(Turno turno, Jugador jugador, MazoDesarrollo mazoDesarrollo) {
 
     }
 

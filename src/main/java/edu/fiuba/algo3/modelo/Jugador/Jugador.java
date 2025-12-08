@@ -2,14 +2,17 @@ package edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.Comercio.Comercio;
+import edu.fiuba.algo3.modelo.Comercio.ComercioInterior;
 import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Recurso.*;
-import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaAdyacencia;
-import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaConstruccion;
-import edu.fiuba.algo3.modelo.ReglaConstruccion.ReglaDistancia;
+import edu.fiuba.algo3.modelo.Construccion.ReglaAdyacencia;
+import edu.fiuba.algo3.modelo.Construccion.ReglaConstruccion;
+import edu.fiuba.algo3.modelo.Construccion.ReglaDistancia;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 /**
@@ -48,13 +51,6 @@ public class Jugador {
         CartaDesarrollo carta = mazo.entregarCarta();
         carta.pagarCon(inventario);
         cartasDesarrollo.add(carta);
-    }
-
-    public void serRobadoPor(Jugador ladron) {
-        Recurso recurso = this.inventario.robarUno();
-        if (recurso != null) {
-            ladron.recibirRecurso(recurso);
-        }
     }
 
     /*
@@ -96,13 +92,12 @@ public class Jugador {
 
     public void recibirRecurso(Recurso recurso) {
         if (recurso != null) {
-            this.inventario.agregar(recurso);
+            inventario.agregar(recurso);
         }
     }
 
     public void entregarRecursoA(Jugador ladron) {
         Recurso recurso = this.inventario.robarUno();
-
         if (recurso != null) {
             ladron.recibirRecurso(recurso);
         }
@@ -135,7 +130,7 @@ public class Jugador {
         return this.inventario.total();
     }
 
-    void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
+    public void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
 
         for (Class<? extends Recurso> tipo : solicitud) {
 
@@ -145,13 +140,13 @@ public class Jugador {
 
     }
 
-    public void aceptarComercio(InteraccionJugador interaccion) {
+    public void aceptarComercio(Comercio interaccion) {
         interaccion.aplicarSobre(this);
     }
 
     public void comerciarCon(Jugador otro, List<Class<? extends Recurso>> entrega,
             List<Class<? extends Recurso>> recibe) {
-        InteraccionComercio i = new InteraccionComercio(entrega, recibe, this);
+        ComercioInterior i = new ComercioInterior(entrega, recibe, this);
         otro.aceptarComercio(i);
     }
 
@@ -177,4 +172,8 @@ public class Jugador {
         }
 
     }
+    public String getAvatar() {
+        return "";
+    }
+
 }

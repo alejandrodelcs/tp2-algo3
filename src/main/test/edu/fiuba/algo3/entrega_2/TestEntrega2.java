@@ -63,7 +63,7 @@ public class TestEntrega2 {
         assertEquals(2, vertice.puntoVictoria());
     }
 
-   /* @Test
+   @Test
     public void test04ComprarCartaDesarrolloConsumeRecursosYVaAManoOculta() {
         Jugador jugador = new Jugador("Estratega", new Inventario(new Lana(), new Grano(), new Mineral()));
         MazoDesarrollo mazo = new MazoDesarrollo();
@@ -73,7 +73,7 @@ public class TestEntrega2 {
         assertEquals(0, jugador.cantidadCartas());
 
         assertEquals(1, jugador.cantidadCartasDesarrollo());
-    }*/
+    }
 
     @Test
     public void test05CartaCompradaNoSePuedeJugarEnElMismoTurno() {
