@@ -21,6 +21,7 @@ public class TableroView extends Pane {
     private final double ALTO_HEX = 2 * RADIO;
 
     private Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
+    private VerticeView verticeSeleccionadoVisual = null;
 
     private Group grupoHexagonos = new Group();
     private Group grupoVertices = new Group();
@@ -114,7 +115,7 @@ public class TableroView extends Pane {
                 continue;
             }
 
-            VerticeView vView = new VerticeView(verticeReal, RADIO);
+            VerticeView vView = new VerticeView(verticeReal, RADIO, this::manejarClickVertice);
 
             double correccionCentro = RADIO * 0.2;
 
@@ -129,6 +130,29 @@ public class TableroView extends Pane {
             verticesVisuales.put(verticeReal, vView);
             grupoVertices.getChildren().add(vView);
         }
+    }
+
+    private void manejarClickVertice(VerticeView nuevoVerticeClickeado) {
+        if (verticeSeleccionadoVisual != null) {
+            verticeSeleccionadoVisual.deseleccionar();
+        }
+
+        if (verticeSeleccionadoVisual == nuevoVerticeClickeado) {
+            verticeSeleccionadoVisual = null;
+            return;
+        }
+
+        verticeSeleccionadoVisual = nuevoVerticeClickeado;
+        verticeSeleccionadoVisual.seleccionar();
+
+        System.out.println("Tablero: Vertice seleccionado guardado.");
+    }
+
+    public Vertice obtenerVerticeSeleccionado() {
+        if (verticeSeleccionadoVisual == null) {
+            return null;
+        }
+        return verticeSeleccionadoVisual.getVerticeModelo();
     }
 
     private void agregarHexagonoMar(double x, double y) {

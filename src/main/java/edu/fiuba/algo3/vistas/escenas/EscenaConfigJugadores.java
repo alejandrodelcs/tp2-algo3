@@ -20,6 +20,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
     private VBox nombresContainer;
     private Button botonComenzar;
     private String[] avataresDisponibles = {
+            "/images/larry.jpeg",
             "/images/pj1.jpg",
             "/images/pj2.jpg",
             "/images/pj3.jpg",
