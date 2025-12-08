@@ -22,7 +22,6 @@ public class Inventario {
         this.recursos = new ArrayList<>();
     }
 
-
     public void agregar(Recurso recurso) {
         recursos.add(recurso);
     }
@@ -67,7 +66,6 @@ public class Inventario {
         throw new NoHayRecursoDisponibleError();
     }
 
-
     public Recurso robarUno() {
         if (estaVacio()) {
             return null;
@@ -101,10 +99,10 @@ public class Inventario {
     }
 
     /*
-          Pre: -
-          Pro: retorna la mitad de una lista de recursos, el redondeo es para abajo.
-          e.g.: size = 8 , descarta 4 , mantiene 4, size=9, descarta 4, mantiene 5,
-                size=10,  descarta 5, mantiene 5, size=11, descarte 5, mantiene 6.
+     * Pre: -
+     * Pro: retorna la mitad de una lista de recursos, el redondeo es para abajo.
+     * e.g.: size = 8 , descarta 4 , mantiene 4, size=9, descarta 4, mantiene 5,
+     * size=10, descarta 5, mantiene 5, size=11, descarte 5, mantiene 6.
      */
     public List<Recurso> descartarMitad() {
         int cantidadABorrar = recursos.size() / 2;
@@ -128,7 +126,6 @@ public class Inventario {
             this.recursos.remove(necesaria);
         }
     }
-
 
     public Recurso obtenerRecurso(int indice) {
         return this.recursos.get(indice);
@@ -157,8 +154,8 @@ public class Inventario {
         }
     }
 
-
-    public void descartarMitadSiCorresponde(){
-        if(excedeLimite()) descartarMitad();
+    public void descartarMitadSiCorresponde() {
+        if (excedeLimite())
+            descartarMitad();
     }
 }

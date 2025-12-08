@@ -12,8 +12,8 @@ public class Tablero {
     private final List<Hexagono> hexagonos;
     private static final List<Integer> DISTRIBUCION = new ArrayList<>(
             List.of(2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12));
-    private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[]{Terreno.BOSQUE,
-            Terreno.CAMPO, Terreno.COLINA, Terreno.DESIERTO, Terreno.MONTANA, Terreno.PASTIZAL}));
+    private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[] { Terreno.BOSQUE,
+            Terreno.CAMPO, Terreno.COLINA, Terreno.DESIERTO, Terreno.MONTANA, Terreno.PASTIZAL }));
     private Ladron ladron;
 
     public Tablero() {
@@ -60,10 +60,6 @@ public class Tablero {
         return totalRecursos;
     }
 
-
-
-
-
     public void moverLadronA(Hexagono destino) {
         this.ladron.moverA(destino);
     }
@@ -72,10 +68,9 @@ public class Tablero {
         return hexagonos.size();
     }
 
-
-   public void robarConLadronA(Jugador victima) {
-       this.ladron.robar(victima);
-   }
+    public void robarConLadronA(Jugador victima) {
+        this.ladron.robar(victima);
+    }
 
     public void agregarHexagono(Hexagono origen) {
         hexagonos.add(origen);
@@ -85,9 +80,11 @@ public class Tablero {
         this.ladron = new Ladron(origen);
     }
 
-
     public List<Hexagono> getHexagonos() {
         return hexagonos;
     }
-}
 
+    public List<Terreno> getTerrenos() {
+        return TERRENOS;
+    }
+}

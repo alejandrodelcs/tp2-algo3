@@ -1,10 +1,11 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Dado.Dado;
-import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.Jugador.*;
+import edu.fiuba.algo3.modelo.Tablero.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Juego
@@ -12,25 +13,31 @@ import java.util.ArrayList;
 public class Juego {
 
     private ArrayList<Jugador> jugadores;
+    private Tablero tablero;
 
     public Juego(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
+        this.tablero = new Tablero();
+        this.tablero.construir();
+    }
+
+    public Juego(Jugador jugador) {
+        this.jugadores = new ArrayList<>();// armar bien el inicializador;
+        this.tablero = new Tablero();
+        this.tablero.construir();
+        this.jugadores.add(jugador);
     }
 
     public ArrayList<Jugador> getJugadores() {
-        return  null;
+        return this.jugadores;
     }
 
-
-/*
-    public Juego() {
-        this.jugadores = new ArrayList<>();// armar bien el inicializador;
+    public Tablero getTablero() {
+        return tablero;
     }
 
-    public void producirSegunDado(Dado dado) {// testear
-        for (Jugador jugador : jugadores) {
-            jugador.accionSegunDado(dado);
+    public List<Terreno> getTerrenos() {
+        return this.tablero.getTerrenos();
 
-        }
-
-    }*/
+    }
 }

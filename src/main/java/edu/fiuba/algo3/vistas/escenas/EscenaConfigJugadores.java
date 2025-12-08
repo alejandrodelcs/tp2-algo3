@@ -115,7 +115,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
                 if (!campo.getText().trim().isEmpty()) {
                     System.out.println(campo.getText());
                     Jugador jugadorAgregado = new Jugador(campo.getText(), new Inventario());
-                    //jugadorAgregado.setAvatar(avataresDisponibles[i]);
+                    jugadorAgregado.setAvatar(avataresDisponibles[i]);
 
                     jugadores.add(jugadorAgregado);
                     i++;

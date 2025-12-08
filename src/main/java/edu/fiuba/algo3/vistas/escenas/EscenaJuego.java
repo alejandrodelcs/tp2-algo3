@@ -23,11 +23,9 @@ public class EscenaJuego extends EscenaGeneral {
     protected Pane crearLayout(Stage stage) {
         GridPane root = new GridPane();
 
-        // Juego juego = new Juego(new Jugador("hola", new Inventario()));// ver como
-        // setear jugadores
-        //Tablero tablero = juego.getTablero();
+        Tablero tablero = juego.getTablero();
 
-        TableroView tableroView = new TableroView(new Tablero()); //OJO ARREGLAR
+        TableroView tableroView = new TableroView(tablero); // OJO ARREGLAR
         tableroView.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 
         DropShadow sombra = new DropShadow();
