@@ -34,6 +34,56 @@ public class Tablero {
         hexagonos.add(posicionAleatoria, desierto);
         this.ladron = new Ladron(desierto);
 
+        this.generarVertices();
+    }
+
+    private void generarVertices() {
+        Map<String, Vertice> mapaVertices = new HashMap<>();
+
+        Iterator<Hexagono> iterador = hexagonos.iterator();
+
+        int[] fichasPorFila = { 3, 4, 5, 4, 3 };
+
+        double radio = 10.0;
+        double ancho = Math.sqrt(3) * radio;
+        double alto = 2 * radio;
+
+        double centroY = 0;
+
+        for (int fila = 0; fila < fichasPorFila.length; fila++) {
+            int cantidad = fichasPorFila[fila];
+
+            double offsetX = Math.abs(2 - fila) * (ancho / 2.0);
+
+            for (int col = 0; col < cantidad; col++) {
+                if (!iterador.hasNext())
+                    break;
+
+                Hexagono hex = iterador.next();
+                double centroX = offsetX + (col * ancho);
+
+                asignarVerticesAHexagono(hex, centroX, centroY, radio, mapaVertices);
+            }
+
+            centroY += alto * 0.75;
+        }
+    }
+
+    private void asignarVerticesAHexagono(Hexagono hex, double cx, double cy, double radio, Map<String, Vertice> mapa) {
+        for (int i = 0; i < 6; i++) {
+            double angulo = Math.toRadians(30 + (60 * i));
+
+            double vx = cx + radio * Math.cos(angulo);
+            double vy = cy + radio * Math.sin(angulo);
+
+            String clave = String.format("%.2f_%.2f", vx, vy);
+
+            mapa.putIfAbsent(clave, new Vertice());
+
+            Vertice vertice = mapa.get(clave);
+
+            vertice.agregarHexagono(hex);
+        }
     }
 
     public int obtenerRecursosDe(int valorFicha) {
