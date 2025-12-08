@@ -9,7 +9,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
-public class EstadoAcciones implements EstadoTurno{
+public class EstadoAcciones implements EstadoTurno {
     @Override
     public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
 
@@ -26,13 +26,15 @@ public class EstadoAcciones implements EstadoTurno{
     }
 
     @Override
-    public void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion, Object... ubicaciones) {
+    public void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion,
+            Object... ubicaciones) {
         jugador.construir(construible, construccion, ubicaciones);
 
     }
 
     @Override
     public void comerciar(Turno turno, Jugador receptor, InteraccionJugador interaccionJugador) {
+        System.out.println(interaccionJugador.toString() + " EstadoAcciones");
         receptor.aceptarComercio(interaccionJugador);
 
     }

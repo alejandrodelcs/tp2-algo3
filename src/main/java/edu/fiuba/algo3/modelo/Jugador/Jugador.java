@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.modelo.Jugador;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,40 +50,43 @@ public class Jugador {
         cartasDesarrollo.add(carta);
     }
 
-    public void serRobadoPor(Jugador ladron){
+    public void serRobadoPor(Jugador ladron) {
         Recurso recurso = this.inventario.robarUno();
-        if(recurso != null){
+        if (recurso != null) {
             ladron.recibirRecurso(recurso);
         }
     }
 
-/*    public void usarCartaDesarrollo(int indice) {
-        if (indice < 0 || indice >= this.cartasDesarrollo.size()) {
-            throw new CartaNoDisponibleException("");
-        }
-
-        CartaDesarrollo carta = this.cartasDesarrollo.get(indice);
-
-        carta.activar(this);
-
-        if (carta.esDeUnSoloUso()) {
-            this.cartasDesarrollo.remove(indice);
-        }
-    }*/
-/*
-    public void pasarTurno() {
-        for (CartaDesarrollo carta : this.cartasDesarrollo) {
-            carta.pasarTurno();
-        }
-
-        this.puedeMoverLadron = false;
-    }*/
+    /*
+     * public void usarCartaDesarrollo(int indice) {
+     * if (indice < 0 || indice >= this.cartasDesarrollo.size()) {
+     * throw new CartaNoDisponibleException("");
+     * }
+     * 
+     * CartaDesarrollo carta = this.cartasDesarrollo.get(indice);
+     * 
+     * carta.activar(this);
+     * 
+     * if (carta.esDeUnSoloUso()) {
+     * this.cartasDesarrollo.remove(indice);
+     * }
+     * }
+     */
+    /*
+     * public void pasarTurno() {
+     * for (CartaDesarrollo carta : this.cartasDesarrollo) {
+     * carta.pasarTurno();
+     * }
+     * 
+     * this.puedeMoverLadron = false;
+     * }
+     */
 
     public void sumarPuntoVictoria() {
         this.puntosVictoria++;
     }
 
-   public void habilitarMovimientoLadron() {
+    public void habilitarMovimientoLadron() {
         this.puedeMoverLadron = true;
     }
 
@@ -90,8 +94,7 @@ public class Jugador {
         return this.cartasDesarrollo.size();
     }
 
-
-   public void recibirRecurso(Recurso recurso) {
+    public void recibirRecurso(Recurso recurso) {
         if (recurso != null) {
             this.inventario.agregar(recurso);
         }
@@ -105,19 +108,16 @@ public class Jugador {
         }
     }
 
-
     // no debería hacerlo jugador sino el hexagono tal vez
-    public void generarRecursosPorConstrucciones(int dado){
-        for (Construccion c: construcciones) {
+    public void generarRecursosPorConstrucciones(int dado) {
+        for (Construccion c : construcciones) {
             inventario.agregarTodos(c.producirSegun(dado));
         }
     }
 
-
     public void descartarMitadSiCorresponde() {
         this.inventario.descartarMitadSiCorresponde();
     }
-
 
     public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
         construible.construir(this, construccion, ubicaciones);
@@ -149,12 +149,11 @@ public class Jugador {
         interaccion.aplicarSobre(this);
     }
 
-    public void comerciarCon(Jugador otro,  List<Class<? extends Recurso>> entrega,
-                             List<Class<? extends Recurso>> recibe){
+    public void comerciarCon(Jugador otro, List<Class<? extends Recurso>> entrega,
+            List<Class<? extends Recurso>> recibe) {
         InteraccionComercio i = new InteraccionComercio(entrega, recibe, this);
         otro.aceptarComercio(i);
     }
-
 
     public ReglaConstruccion reglaDistancia() {
         return new ReglaDistancia(construcciones);
@@ -168,5 +167,14 @@ public class Jugador {
     }
 
     public void pasarTurno() {
+    }
+
+    public void descartarTipo(List<Class<? extends Recurso>> descarte) {
+
+        for (Class<? extends Recurso> class1 : descarte) {
+
+            this.inventario.consumir(class1);
+        }
+
     }
 }

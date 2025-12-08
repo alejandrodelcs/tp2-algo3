@@ -8,8 +8,8 @@ public class Dado {
     public Dado(int dado) {
         this.dado = dado;
     }
-    public Dado()
-    {
+
+    public Dado() {
         this.dado = 0;
     }
 

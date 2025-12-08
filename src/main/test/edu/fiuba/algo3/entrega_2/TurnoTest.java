@@ -11,6 +11,7 @@ import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.*;
+import edu.fiuba.algo3.modelo.Turno.EstadoAcciones;
 import edu.fiuba.algo3.modelo.Turno.Turno;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,12 +25,11 @@ public class TurnoTest {
     private Jugador victima;
     private Tablero tablero;
 
-
     @BeforeEach
     public void setUp() {
         jugador = new Jugador("Hernesto", new Inventario(new Ladrillo(), new Madera(), new Lana(),
                 new Mineral(), new Grano(), new Madera()));
-        victima =  new Jugador("Pedro", new Inventario(new Ladrillo(), new Madera(), new Lana(),
+        victima = new Jugador("Pedro", new Inventario(new Ladrillo(), new Madera(), new Lana(),
                 new Mineral(), new Grano(), new Madera(), new Ladrillo()));
 
         tablero = new Tablero();
@@ -49,7 +49,7 @@ public class TurnoTest {
         Turno turno = new Turno(jugador, new Tablero());
         Vertice v = new Vertice();
         turno.tirarDado(new Dado());
-        turno.contruir(new ConstruirAsentamiento(), new Poblado(),v);
+        turno.contruir(new ConstruirAsentamiento(), new Poblado(), v);
         assertTrue(v.tieneConstruccion());
     }
 
@@ -59,13 +59,13 @@ public class TurnoTest {
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
         Arista a = new Arista(v1, v2);
-        turno.tirarDado(new Dado());
-        turno.contruir(new ConstruirCarretera(), new Carretera(),a);
+        turno.cambiarEstado(new EstadoAcciones());
+        turno.contruir(new ConstruirCarretera(), new Carretera(), a);
         assertEquals(4, jugador.consultarRecursos());
     }
 
     @Test
-    public void test04MoverLadronLuegoDeTirarSiete(){
+    public void test04MoverLadronLuegoDeTirarSiete() {
 
         Dado dadoMock = mock(Dado.class);
         when(dadoMock.lanzar()).thenReturn(7);
