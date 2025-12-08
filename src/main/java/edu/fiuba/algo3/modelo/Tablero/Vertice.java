@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayConstruccionParaMejorar;
