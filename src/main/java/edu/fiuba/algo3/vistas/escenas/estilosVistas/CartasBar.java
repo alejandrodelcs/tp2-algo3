@@ -37,15 +37,20 @@ public class CartasBar extends HBox {
         // Jugador activo (cuando tengas uno real, lo reemplazás)
         Jugador jugadorActivo = new Jugador("a1", new Inventario(new Ladrillo(), new Madera()));
 
-        /*for (Terreno terreno : juego.getTerrenos()) {
+        for (Terreno terreno : juego.getTerrenos()) {
 
             Recurso rec = terreno.retornarRecurso();
+            if (rec == null) {
+                continue;
+            }
+            System.out.println(rec.toString());
+
             int cantidadRecurso = jugadorActivo.cantidadDeRecursoTipo(rec.getClass());
 
             HBox carta = crearCartaVisual(rec.getClass(), cantidadRecurso);
 
             this.getChildren().add(carta);
-        }*/
+        }
     }
 
     private HBox crearCartaVisual(Class<? extends Recurso> tipo, int cantidad) {

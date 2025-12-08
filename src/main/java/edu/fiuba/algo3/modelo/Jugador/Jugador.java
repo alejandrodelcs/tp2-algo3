@@ -182,4 +182,8 @@ public class Jugador {
         return this.avatar;
     }
 
+    public int cantidadDeRecursoTipo(Class<? extends Recurso> tipo) {
+        return this.inventario.cantidadDeTipo(tipo);
+
+    }
 }
