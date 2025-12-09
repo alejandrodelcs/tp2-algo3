@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.vistas;
 
+import edu.fiuba.algo3.controllers.ControladorRegistro;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.vistas.Alertas.AlertaWarning;
 import edu.fiuba.algo3.vistas.escenas.*;
 import edu.fiuba.algo3.vistas.escenas.estilosVistas.BotonesVista;
 import edu.fiuba.algo3.vistas.escenas.estilosVistas.TituloVista;
@@ -77,8 +80,12 @@ public class MenuInicio extends EscenaGeneral {
 
         this.botonJugar.setOnAction(e -> {
             try {
-                EscenaConfigJugadores configJug = new EscenaConfigJugadores(stage);
-                stage.setScene(configJug.getScene());
+                Juego juego = new Juego();
+                AlertaWarning alertaWarning = new AlertaWarning();
+
+                ControladorRegistro controlador = new ControladorRegistro(alertaWarning, juego);
+                EscenaConfigJugadores escenaJuego = new EscenaConfigJugadores(stage, controlador);
+                stage.setScene(escenaJuego.getScene());
                 stage.setFullScreen(true);
             } catch (Exception ex) {
                 ex.printStackTrace();

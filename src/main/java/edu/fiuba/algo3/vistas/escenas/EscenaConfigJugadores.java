@@ -1,17 +1,21 @@
 package edu.fiuba.algo3.vistas.escenas;
 
+import edu.fiuba.algo3.controllers.ControladorRegistro;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Juego;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class EscenaConfigJugadores extends EscenaGeneral {
 
@@ -19,16 +23,12 @@ public class EscenaConfigJugadores extends EscenaGeneral {
     private Spinner<Integer> spinnerCantidad;
     private VBox nombresContainer;
     private Button botonComenzar;
-    private String[] avataresDisponibles = {
-            "/images/pj1.jpg",
-            "/images/pj2.jpg",
-            "/images/pj3.jpg",
-            "/images/pj4.jpg"
-    };
+    private ControladorRegistro controlador;
 
-    public EscenaConfigJugadores(Stage stage) {
+    public EscenaConfigJugadores(Stage stage, ControladorRegistro controlador) {
         super(stage);
-        this.init(stage);
+        //this.init(stage);
+        this.controlador = controlador;
     }
 
     @Override
@@ -102,7 +102,30 @@ public class EscenaConfigJugadores extends EscenaGeneral {
         return main;
     }
 
+
     @Override
+    protected void crearControladores(Stage stage) {
+        botonComenzar.setOnAction(e->{
+            List<String> nombres = new ArrayList<>();
+            for (Node n : nombresContainer.getChildren()) {
+                String s = ((TextField) n).getText().trim();
+                if (!s.isEmpty()) {
+                    nombres.add(s);
+                }
+            }
+
+            List<String> avatares = Arrays.asList(
+                    "/images/pj1.jpg",
+                    "/images/pj2.jpg",
+                    "/images/pj3.jpg",
+                    "/images/pj4.jpg"
+            ).subList(0, nombres.size());
+
+            controlador.registroJugadores(nombres,avatares,stage);
+        });
+    }
+
+  /*  @Override
     protected void crearControladores(Stage stage) {
 
         botonComenzar.setOnAction(e -> {
@@ -130,7 +153,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
                 alerta.showAndWait();
                 return;
             }
-            Juego juego = new Juego(jugadores);
+            Juego juego = new Juego();
 
             EscenaJuego escenaJuego = new EscenaJuego(stage, juego);
 
@@ -138,7 +161,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
             stage.setFullScreen(true);
         });
     }
-
+*/
     @Override
     protected void generarEstilos() {
     }
