@@ -14,14 +14,17 @@ public abstract class EscenaGeneral {
 
     protected Juego juego;
     protected Pane layout;
-    Scene scene;
+    protected Scene scene;
+    protected Stage stage;
 
     public EscenaGeneral(Stage stage, Juego juego) {
+        this.stage = stage;
         this.juego = juego;
         this.init(stage);
     }
 
     public EscenaGeneral(Stage stage) {
+        this.stage = stage;
         this.init(stage);
 
     }
@@ -60,5 +63,11 @@ public abstract class EscenaGeneral {
         layout.setBackground(new Background(backgroundImage));
 
     }
+
+    public void mostrar() {
+        stage.setScene(this.scene);
+        stage.show();
+    }
+
 
 }

@@ -29,8 +29,7 @@ public class ControladorRegistro {
             juego.validarJugadores();
 
             EscenaJuego escenaJuego = new EscenaJuego(stage, this.juego);
-            stage.setScene(escenaJuego.getScene());
-            stage.setFullScreen(true);
+            escenaJuego.mostrar();
 
 
         }catch (JugadoresMinimosRegistradosError e){

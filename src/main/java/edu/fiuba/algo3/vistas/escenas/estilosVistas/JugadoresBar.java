@@ -32,4 +32,6 @@ public class JugadoresBar extends VBox {
 
     }
 
+    public void actualizar(Juego juego) {
+    }
 }

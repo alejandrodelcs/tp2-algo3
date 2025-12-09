@@ -134,4 +134,7 @@ public class TableroView extends Pane {
     private void agregarHexagonoMar(double x, double y) {
         agregarHexagono(new Hexagono(Terreno.MAR, 0), x, y);
     }
+
+    public void actualizar(Tablero tablero) {
+    }
 }

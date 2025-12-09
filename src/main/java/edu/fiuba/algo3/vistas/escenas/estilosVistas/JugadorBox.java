@@ -36,6 +36,9 @@ public class JugadorBox extends VBox {
                         "-fx-border-color: #dddddd;" +
                         "-fx-border-width: 1;");
 
+
+
+
         // --- Columna derecha ---
         VBox derecha = new VBox(8);
         derecha.setAlignment(Pos.CENTER_LEFT);
@@ -58,10 +61,22 @@ public class JugadorBox extends VBox {
         Label valorConstrucciones = new Label(String.valueOf(jugador.cantidadConstrucciones()));
         Label valorPv = new Label(String.valueOf(jugador.consultarRecursos()));
 
-        filaValores.getChildren().addAll(valorCartas, valorConstrucciones, valorPv);
+        // --- Nombre del jugador ---
+
+        Label nombreJugador = new Label(jugador.getNombre());
+        System.out.println(jugador.getNombre().toUpperCase());
+
+        nombreJugador.setStyle(
+                "-fx-font-size: 20;" +
+                        "-fx-text-fill: #050505;" +
+                        "-fx-font-weight: bold;");
+
+
+
+        filaValores.getChildren().addAll(valorCartas, valorConstrucciones, valorPv, nombreJugador);
 
         // Cajita con borde para derecha ---
-        VBox cajaDerecha = new VBox(5, filaIcons, filaValores);
+        VBox cajaDerecha = new VBox(5, nombreJugador, filaIcons, filaValores);
         cajaDerecha.setStyle(
                 "-fx-background-color: #ffffff;" +
                         "-fx-background-radius: 10;" +

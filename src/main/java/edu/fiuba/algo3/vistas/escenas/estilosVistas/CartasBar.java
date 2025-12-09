@@ -103,4 +103,7 @@ public class CartasBar extends HBox {
         box.getChildren().addAll(imgView, lbl);
         return box;
     }
+
+    public void actualizar(Juego juego) {
+    }
 }

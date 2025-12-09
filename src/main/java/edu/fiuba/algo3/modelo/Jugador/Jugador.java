@@ -186,4 +186,8 @@ public class Jugador {
         return this.inventario.cantidadDeTipo(tipo);
 
     }
+
+    public String getNombre() {
+        return nombre;
+    }
 }

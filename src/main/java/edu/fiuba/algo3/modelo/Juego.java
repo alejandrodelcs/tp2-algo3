@@ -28,7 +28,7 @@ public class Juego {
     }
 
     public ArrayList<Jugador> getJugadores() {
-        return this.jugadores;
+        return jugadores;
     }
 
     public Tablero getTablero() {
@@ -57,4 +57,12 @@ public class Juego {
     }
 
 
+    public void tirarDado() {
+    }
+
+    public void construirCarretera() {
+    }
+
+    public void pasarTurno() {
+    }
 }

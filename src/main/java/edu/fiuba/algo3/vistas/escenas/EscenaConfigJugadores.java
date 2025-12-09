@@ -27,7 +27,6 @@ public class EscenaConfigJugadores extends EscenaGeneral {
 
     public EscenaConfigJugadores(Stage stage, ControladorRegistro controlador) {
         super(stage);
-        //this.init(stage);
         this.controlador = controlador;
     }
 
@@ -125,43 +124,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
         });
     }
 
-  /*  @Override
-    protected void crearControladores(Stage stage) {
 
-        botonComenzar.setOnAction(e -> {
-
-            ArrayList<Jugador> jugadores = new ArrayList<>();
-            int i = 0;
-
-            for (var nodo : nombresContainer.getChildren()) {
-                TextField campo = (TextField) nodo;
-                if (!campo.getText().trim().isEmpty()) {
-                    System.out.println(campo.getText());
-                    Jugador jugadorAgregado = new Jugador(campo.getText(), new Inventario());
-                    jugadorAgregado.setAvatar(avataresDisponibles[i]);
-
-                    jugadores.add(jugadorAgregado);
-                    i++;
-                }
-            }
-
-            if (jugadores.size() < 3) {
-                Alert alerta = new Alert(Alert.AlertType.WARNING);
-                alerta.setTitle("Faltan jugadores");
-                alerta.setHeaderText("No se puede iniciar la partida");
-                alerta.setContentText("Debes ingresar al menos 3 jugadores.");
-                alerta.showAndWait();
-                return;
-            }
-            Juego juego = new Juego();
-
-            EscenaJuego escenaJuego = new EscenaJuego(stage, juego);
-
-            stage.setScene(escenaJuego.getScene());
-            stage.setFullScreen(true);
-        });
-    }
-*/
     @Override
     protected void generarEstilos() {
     }

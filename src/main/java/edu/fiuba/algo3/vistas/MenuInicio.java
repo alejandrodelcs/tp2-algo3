@@ -65,19 +65,6 @@ public class MenuInicio extends EscenaGeneral {
     }
 
     protected void crearControladores(Stage stage) {
-        /*
-         * this.botonJugar.setOnAction(e -> {
-         * try {
-         * EscenaJuego escenaJuego = new EscenaJuego(stage);
-         * stage.setScene(escenaJuego.getScene());
-         * stage.setFullScreenExitHint("");
-         * stage.setFullScreen(true);
-         * } catch (Exception ex) {
-         * ex.printStackTrace();
-         * }
-         * });
-         */
-
         this.botonJugar.setOnAction(e -> {
             try {
                 Juego juego = new Juego();
