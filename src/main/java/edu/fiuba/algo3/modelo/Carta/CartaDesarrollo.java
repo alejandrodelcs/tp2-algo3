@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
 import edu.fiuba.algo3.modelo.Recurso.Lana;
 import edu.fiuba.algo3.modelo.Recurso.Mineral;
+import edu.fiuba.algo3.modelo.Turno.Turno;
 
 public abstract class CartaDesarrollo {
 
@@ -22,13 +23,6 @@ public abstract class CartaDesarrollo {
         this.disponible = true;
     }
 
-    public void activar(Jugador jugador) {
-        if (!this.disponible) {
-            throw new CartaNoDisponibleException("");
-        }
-        this.ejecutarEfecto(jugador);
-
-    }
 
     public void pagarCon(Inventario inventario) {
         costo.aplicar(inventario);
@@ -38,5 +32,7 @@ public abstract class CartaDesarrollo {
         return true;
     }
 
-    protected abstract void ejecutarEfecto(Jugador jugador);
+    protected abstract void usar(Jugador jugador, Turno turno);
+
+
 }
