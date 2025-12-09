@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Construccion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -23,18 +24,17 @@ public abstract class Construccion {
         costo.aplicar(inventario);
     }
 
-
-
     public boolean estaEn(Vertice v) {
         return this.verticeAsignado == v;
     }
 
-    public boolean puedeSerMejorada() {
-        return false;
-    }
 
     public Jugador getPropietario() {
         return this.propietario;
+    }
+
+    public boolean esPropietarioElJugador(Jugador jugador) {
+        return this.propietario == jugador;
     }
 
     public abstract int getPuntosDeVictoria();
@@ -64,6 +64,10 @@ public abstract class Construccion {
 
     public void asignarJugador(Jugador jugador) {
         this.propietario = jugador;
+    }
+
+    public Optional<Jugador> propietario(){
+        return Optional.of(propietario);
     }
 
 

@@ -14,6 +14,7 @@ public class Juego {
 
     private ArrayList<Jugador> jugadores;
     private Tablero tablero;
+    private Jugador jugadorConGranCaballeria;
 
     /*public Juego() {
         this.jugadores = jugadores;
@@ -64,5 +65,16 @@ public class Juego {
     }
 
     public void pasarTurno() {
+    }
+
+
+
+    public void actualizarGranCaballeria(Jugador jugador) {
+        if (!jugador.puedeReclamarGranCaballeria()) return;
+
+        if (jugadorConGranCaballeria == null ||
+                jugador.superaEnCaballerosA(jugadorConGranCaballeria)) {
+            jugadorConGranCaballeria = jugador;
+        }
     }
 }

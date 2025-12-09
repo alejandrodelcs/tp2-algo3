@@ -8,30 +8,30 @@ public class Ladron {
     public Hexagono ubicacionActual;
 
     public Ladron(Hexagono ubicacionInicial) {
-        this.ubicacionActual = ubicacionInicial; //desierto
-        this.ubicacionActual.colocarLadron(this); // tieneLadron = true
+        this.ubicacionActual = ubicacionInicial;
+        this.ubicacionActual.colocarLadron(this);
     }
-
-
 
 
     public void moverA(Hexagono nuevaUbicacion) {
         if (nuevaUbicacion.equals(this.ubicacionActual)) {
            throw new MovimientoLadronError();
         }
+        this.ubicacionActual.intercambiarFicha(nuevaUbicacion);
         this.ubicacionActual.colocarLadron(null);
         this.ubicacionActual = nuevaUbicacion;
         this.ubicacionActual.colocarLadron(this);
     }
 
-    public void robar(Jugador ladron) {
-        List<Jugador> candidatos = this.ubicacionActual.obtenerVictimas();
-        AccionRobar accionRobo = new AccionRobar(ladron, candidatos);
-        accionRobo.ejecutar();
-    }
-
 
     public Hexagono ubicacion() {
         return ubicacionActual;
+    }
+
+
+    public void robar(Jugador jugadorQueRoba, Jugador victima) {
+
+       victima.entregarRecursoA(jugadorQueRoba);
+
     }
 }

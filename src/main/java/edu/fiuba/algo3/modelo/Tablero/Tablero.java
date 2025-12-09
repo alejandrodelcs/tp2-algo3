@@ -118,8 +118,8 @@ public class Tablero {
         return hexagonos.size();
     }
 
-    public void robarConLadronA(Jugador victima) {
-        this.ladron.robar(victima);
+    public void robarConLadronA(Jugador jugadorQueRoba, Jugador victima) {
+        this.ladron.robar(jugadorQueRoba, victima);
     }
 
     public void agregarHexagono(Hexagono origen) {

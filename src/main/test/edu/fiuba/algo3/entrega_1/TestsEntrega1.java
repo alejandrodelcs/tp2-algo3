@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 
-import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
@@ -51,10 +50,10 @@ public class TestsEntrega1 {
         Arista arista = new Arista(primerVertice, segundoVertice);
 
         Jugador j = new Jugador("Ale", inventario3);
-        c.construir(j,pueblo, primerVertice);
+        c.construir(j, pueblo, primerVertice);
 
         assertThrows(ReglaDistanciaException.class, () -> {
-            c.construir(j,pueblo2, segundoVertice);;
+            c.construir(j, pueblo2, segundoVertice);;
         });
     }
 

@@ -136,5 +136,6 @@ public class TableroView extends Pane {
     }
 
     public void actualizar(Tablero tablero) {
+
     }
 }

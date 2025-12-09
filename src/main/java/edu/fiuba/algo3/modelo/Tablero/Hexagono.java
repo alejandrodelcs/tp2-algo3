@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Hexagono {
     private final Terreno terreno;
-    private final int ficha;
+    private int ficha;
     private Ladron ladron;
     private final List<Vertice> vertices;
 
@@ -29,11 +29,20 @@ public class Hexagono {
         }
     }
 
+    public void intercambiarFicha(Hexagono destino){
+        int fichaTemporal = this.ficha;
+        this.ficha = destino.ficha;
+        destino.ficha = fichaTemporal;
+
+    }
+
     public List<Jugador> obtenerVictimas() {
         List<Jugador> victimas = new ArrayList<>();
 
-        for (Vertice vertice : this.vertices) {
-            vertice.agregarVictimaPotencial(victimas);
+        for (Vertice v : this.vertices) {
+            if (v.tieneConstruccion()) {
+                v.jugadorPropietario().ifPresent(victimas::add);
+            }
         }
         return victimas;
     }

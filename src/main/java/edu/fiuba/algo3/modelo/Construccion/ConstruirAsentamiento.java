@@ -15,7 +15,6 @@ public class ConstruirAsentamiento implements Construible{
         construccion.asignarJugador(jugador);
         jugador.reglaDistancia().validar(vertice);
         jugador.descontarPara(construccion);
-        jugador.agregarConstruccion(construccion);
         vertice.construir(construccion);
     }
 }

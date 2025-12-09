@@ -105,5 +105,6 @@ public class CartasBar extends HBox {
     }
 
     public void actualizar(Juego juego) {
+
     }
 }

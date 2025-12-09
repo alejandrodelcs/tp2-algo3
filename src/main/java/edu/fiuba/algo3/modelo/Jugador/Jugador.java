@@ -2,13 +2,11 @@ package edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
-import edu.fiuba.algo3.modelo.Comercio.ComercioInterior;
 import edu.fiuba.algo3.modelo.Construccion.*;
-import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Construccion.ReglaAdyacencia;
 import edu.fiuba.algo3.modelo.Construccion.ReglaConstruccion;
@@ -24,15 +22,17 @@ public class Jugador {
     private final ArrayList<Construccion> construcciones;
     private String nombre;
     private int puntosVictoria;
-    private boolean puedeMoverLadron;
     private final Inventario inventario;
     private String avatar;
+    private int caballerosJugados;
 
     public Jugador(String nombre, Inventario inventario) {
         this.nombre = nombre;
         this.construcciones = new ArrayList<>();
         this.inventario = inventario;
         this.cartasDesarrollo = new ArrayList<>();
+        this.caballerosJugados = 0;
+
     }
 
     public int cantidadCartas() {
@@ -48,9 +48,7 @@ public class Jugador {
         vertice.mejorarA(nueva);
     }
 
-    public void comprarCartaDesarrollo(MazoDesarrollo mazo) {
-        CartaDesarrollo carta = mazo.entregarCarta();
-        carta.pagarCon(inventario);
+    public void compraCartaDesarrollo(CartaDesarrollo carta) {
         cartasDesarrollo.add(carta);
     }
 
@@ -83,10 +81,6 @@ public class Jugador {
         this.puntosVictoria++;
     }
 
-    public void habilitarMovimientoLadron() {
-        this.puedeMoverLadron = true;
-    }
-
     public int cantidadCartasDesarrollo() {
         return this.cartasDesarrollo.size();
     }
@@ -97,10 +91,10 @@ public class Jugador {
         }
     }
 
-    public void entregarRecursoA(Jugador ladron) {
+    public void entregarRecursoA(Jugador jugadorQueRoba) {
         Recurso recurso = this.inventario.robarUno();
         if (recurso != null) {
-            ladron.recibirRecurso(recurso);
+            jugadorQueRoba.recibirRecurso(recurso);
         }
     }
 
@@ -116,12 +110,10 @@ public class Jugador {
     }
 
     public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
-        construible.construir(this, construccion, ubicaciones);
-    }
-
-    public void agregarConstruccion(Construccion construccion) {
+        construible.construir(this,construccion, ubicaciones);
         this.construcciones.add(construccion);
     }
+
 
     public void descontarPara(Construccion construccion) {
         this.inventario.descontarPara(construccion);
@@ -145,18 +137,13 @@ public class Jugador {
         interaccion.aplicarSobre(this);
     }
 
-    public void comerciarCon(Jugador otro, List<Class<? extends Recurso>> entrega,
-            List<Class<? extends Recurso>> recibe) {
-        ComercioInterior i = new ComercioInterior(entrega, recibe, this);
-        otro.aceptarComercio(i);
-    }
 
     public ReglaConstruccion reglaDistancia() {
-        return new ReglaDistancia(construcciones);
+        return new ReglaDistancia();
     }
 
     public ReglaConstruccion reglaAdyacencia() {
-        return new ReglaAdyacencia(construcciones);
+        return new ReglaAdyacencia(this);
     }
 
     public void usarCarta(CartaDesarrollo cartaDesarrollo) {
@@ -189,5 +176,34 @@ public class Jugador {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public void obtenerDosRecursosAEleccion() {
+
+    }
+
+    public void activarMonopolio() {
+    }
+
+    public void construccionGratisCarreteras(int i) {
+    }
+
+    public boolean puedePagar(Costo costo) {
+        return costo.puedePagar(this.inventario);
+    }
+
+    public void pagar(Costo costo) {
+        costo.pagar(this.inventario);
+    }
+
+    public void registrarCaballeroJugado() {
+        this.caballerosJugados++;
+    }
+
+    public boolean superaEnCaballerosA(Jugador otro) {
+        return this.caballerosJugados > otro.caballerosJugados;
+    }
+    public boolean puedeReclamarGranCaballeria() {
+        return caballerosJugados >= 3;
     }
 }

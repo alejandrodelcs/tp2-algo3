@@ -45,8 +45,8 @@ public class Turno {
         this.estadoActual.moverLadron(this, this.tablero, destino);
     }
 
-    public void robar(Jugador victima) {
-        this.estadoActual.robar(this, tablero, victima);
+    public void robar(Jugador jugadorVictima) {
+        this.estadoActual.robar(this, tablero, jugadorVictima, jugadorActivo);
     }
 
     public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
@@ -72,4 +72,7 @@ public class Turno {
     }
 
 
+    public void habilitarAccionCaballero() {
+        this.estadoActual = new EstadoMoverLadron();
+    }
 }

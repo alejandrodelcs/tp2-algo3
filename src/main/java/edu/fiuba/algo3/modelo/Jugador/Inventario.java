@@ -158,4 +158,8 @@ public class Inventario {
         if (excedeLimite())
             descartarMitad();
     }
+
+    public boolean tiene(Class<? extends Recurso> tipo) {
+        return recursos.stream().anyMatch(tipo::isInstance);
+    }
 }

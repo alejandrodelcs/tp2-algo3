@@ -19,7 +19,7 @@ public class EstadoMoverLadron implements EstadoTurno{
     }
 
     @Override
-    public void robar(Turno turno, Tablero tablero, Jugador victima) {
+    public void robar(Turno turno, Tablero tablero, Jugador jugadorVictima, Jugador jugadorActivo) {
 
 
     }

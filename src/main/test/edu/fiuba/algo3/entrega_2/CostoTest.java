@@ -16,12 +16,16 @@ public class CostoTest {
 
     @Test
     public void test01DeberiaDescontarmeElCostoDeUnaCarretera(){
-        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
+        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo(),
+                                            new Madera(),new Ladrillo(), new Lana(), new Grano()));
+        Construible estrategia2 = new ConstruirAsentamiento();
         Construible estrategia = new ConstruirCarretera();
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
         Arista a = new Arista(v1, v2);
+
+        jugador.construir(estrategia2, new Poblado(), v1);
 
         jugador.construir(estrategia, new Carretera(), a);
 

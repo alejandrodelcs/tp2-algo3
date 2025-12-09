@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeConstruirCarreteraError;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
@@ -68,9 +69,9 @@ public class TestEntrega2 {
         Jugador jugador = new Jugador("Estratega", new Inventario(new Lana(), new Grano(), new Mineral()));
         MazoDesarrollo mazo = new MazoDesarrollo();
 
-        jugador.comprarCartaDesarrollo(mazo);
+        jugador.compraCartaDesarrollo(mazo.entregarCarta());
 
-        assertEquals(0, jugador.cantidadCartas());
+        assertEquals(3, jugador.cantidadCartas());
 
         assertEquals(1, jugador.cantidadCartasDesarrollo());
     }
@@ -80,13 +81,14 @@ public class TestEntrega2 {
         Jugador jugador = new Jugador("Impaciente", new Inventario(new Lana(), new Grano(), new Mineral()));
         MazoDesarrollo mazo = new MazoDesarrollo();
 
-        jugador.comprarCartaDesarrollo(mazo);
+        jugador.compraCartaDesarrollo(mazo.entregarCarta());
 
     }
 
     @Test
     public void noSePuedeConstruirCarreteraQueNoSeaAdyacenteALaRed() {
-        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo()));
+        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo(),
+                                        new Madera(), new Ladrillo(),new Lana(), new Grano()));
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
@@ -96,9 +98,13 @@ public class TestEntrega2 {
         Arista aristaDondeSePuede = new Arista(v1, v2);
         Arista aristaLejana = new Arista(v3, v4);
 
-        jugador.construir(new ConstruirCarretera(), new Carretera(), aristaDondeSePuede);
+        jugador.construir(new ConstruirAsentamiento(), new Poblado(), v1);
 
-        assertThrows(CarreteraNoConectadaError.class,
-                () -> jugador.construir(new ConstruirCarretera(), new Carretera(), aristaLejana));
+        jugador.construir(new ConstruirCarretera(), new Carretera(),
+                                                aristaDondeSePuede, v1,v2);
+
+        assertThrows(NoSePuedeConstruirCarreteraError.class,
+                () -> jugador.construir(new ConstruirCarretera(), new Carretera(),
+                        aristaLejana,v3,v4));
     }
 }

@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.Tablero;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayConstruccionParaMejorar;
@@ -40,6 +41,7 @@ public class Vertice {
     public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
         this.construccion.agregarPropietario(listaVictimas);
     }
+
 
     public void conectarArista(Arista arista) {
         this.aristas.add(arista);
@@ -97,4 +99,20 @@ public class Vertice {
         }
         return vecinos;
     }
+
+    public boolean tieneConstruccionDel(Jugador j) {
+        return construccion.esPropietarioElJugador(j);
+    }
+
+    public boolean tieneCarreteraDel(Jugador j) {
+        return aristas.stream()
+                .anyMatch(a -> a.tieneCarreteraDel(j));
+    }
+
+
+    public Optional<Jugador> jugadorPropietario() {
+        if (this.construccion == null) return Optional.empty();
+        return construccion.propietario();
+    }
+
 }

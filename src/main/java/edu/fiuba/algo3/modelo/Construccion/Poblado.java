@@ -22,12 +22,6 @@ public class Poblado extends Construccion {
 
 
     @Override
-    public boolean puedeSerMejorada() {
-        return true;
-    }
-
-
-    @Override
     public ArrayList<Recurso> producirSegun(int dado) {
         return this.verticeAsignado.generarRecurso(dado,1);
     }

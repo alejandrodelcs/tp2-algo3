@@ -21,7 +21,7 @@ public class EstadoAcciones implements EstadoTurno {
     }
 
     @Override
-    public void robar(Turno turno, Tablero tablero, Jugador victima) {
+    public void robar(Turno turno, Tablero tablero, Jugador jugadorVictima, Jugador jugadorActivo) {
 
     }
 
@@ -29,19 +29,20 @@ public class EstadoAcciones implements EstadoTurno {
     public void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion,
             Object... ubicaciones) {
         jugador.construir(construible, construccion, ubicaciones);
+        turno.cambiarEstado(new EstadoInicial());
 
     }
 
     @Override
     public void comerciar(Turno turno, Jugador receptor, Comercio comercio) {
-        System.out.println(comercio.toString() + " EstadoAcciones");
         receptor.aceptarComercio(comercio);
+        turno.cambiarEstado(new EstadoInicial());
 
     }
 
     @Override
     public void jugarCarta(Turno turno, Jugador jugador, MazoDesarrollo mazoDesarrollo) {
-        jugador.comprarCartaDesarrollo(mazoDesarrollo);
+        //jugador.compraCartaDesarrollo(mazoDesarrollo);
 
     }
 

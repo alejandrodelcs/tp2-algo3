@@ -22,13 +22,17 @@ import org.junit.jupiter.api.Test;
 public class TurnoTest {
 
     private Jugador jugador;
+    private Jugador jugador2;
     private Jugador victima;
     private Tablero tablero;
+
 
     @BeforeEach
     public void setUp() {
         jugador = new Jugador("Hernesto", new Inventario(new Ladrillo(), new Madera(), new Lana(),
-                new Mineral(), new Grano(), new Madera()));
+                new Grano(), new Mineral(), new Madera()));
+        jugador2 = new Jugador("Anastasio", new Inventario(new Ladrillo(), new Madera(), new Lana(),
+                 new Grano(), new Madera(), new Ladrillo()));
         victima = new Jugador("Pedro", new Inventario(new Ladrillo(), new Madera(), new Lana(),
                 new Mineral(), new Grano(), new Madera(), new Ladrillo()));
 
@@ -46,29 +50,34 @@ public class TurnoTest {
 
     @Test
     public void test02JugadorConstruyePobladoSiTieneRecursos() {
+        Dado dadoMock = mock(Dado.class);
+        when(dadoMock.lanzar()).thenReturn(2);
         Turno turno = new Turno(jugador, new Tablero());
         Vertice v = new Vertice();
-        turno.tirarDado(new Dado());
+        turno.tirarDado(dadoMock);
         turno.construir(new ConstruirAsentamiento(), new Poblado(), v);
         assertTrue(v.tieneConstruccion());
     }
 
     @Test
     public void test03JugadorConstruyeCarreteaSiTieneRecursos() {
-        Turno turno = new Turno(jugador, new Tablero());
+        Turno turno = new Turno(jugador2, new Tablero());
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
         Arista a = new Arista(v1, v2);
         turno.cambiarEstado(new EstadoAcciones());
+        turno.construir(new ConstruirAsentamiento(), new Poblado(), v1);
+        turno.cambiarEstado(new EstadoAcciones());
         turno.construir(new ConstruirCarretera(), new Carretera(), a);
-        assertEquals(4, jugador.consultarRecursos());
+        assertEquals(0, jugador2.consultarRecursos());
     }
 
     @Test
-    public void test04MoverLadronLuegoDeTirarSiete() {
+    public void  test04MoverLadronLuegoDeTirarSiete() {
 
         Dado dadoMock = mock(Dado.class);
         when(dadoMock.lanzar()).thenReturn(7);
+
 
         Tablero tablero = new Tablero();
 
@@ -84,20 +93,16 @@ public class TurnoTest {
         destino.agregarVertice(v);
 
 
-        Poblado p = new Poblado();
-        p.asignarJugador(victima);
-        v.construir(new Poblado());
-
-
-
         Turno turno = new Turno(jugador, tablero);
-
+        turno.cambiarEstado(new EstadoAcciones());
+        turno.construir(new ConstruirAsentamiento(), new Poblado(), v);
         turno.tirarDado(dadoMock);
         turno.moverLadronA(destino);
         turno.robar(victima);
 
-        assertEquals(7, jugador.cantidadCartas());
-        //assertEquals(6, victima.cantidadCartas());
+
+        assertEquals(3, jugador.cantidadCartas());
+        assertEquals(6, victima.cantidadCartas());
 
     }
 

@@ -27,8 +27,8 @@ public class EstadoPuedeRobar implements EstadoTurno{
 
 
     @Override
-    public void robar(Turno turno, Tablero tablero, Jugador victima) {
-        tablero.robarConLadronA(victima);
+    public void robar(Turno turno, Tablero tablero, Jugador jugadorVictima, Jugador jugadorActivo) {
+        tablero.robarConLadronA(jugadorActivo, jugadorVictima);
         turno.cambiarEstado(new EstadoAcciones());
     }
 
