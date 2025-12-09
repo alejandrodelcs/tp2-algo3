@@ -55,7 +55,7 @@ public class ReglaDistanciaTest {
         Arista arista = new Arista(primerVertice, segundoVertice);
 
         Jugador j = new Jugador("Ale", inventario);
-        c.construir(j,pueblo, primerVertice);
+        c.construir(j,pueblo,primerVertice);
 
         assertThrows(ReglaDistanciaException.class, () -> {
             c.construir(j,pueblo2, segundoVertice);;
