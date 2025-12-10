@@ -66,8 +66,8 @@ public abstract class EscenaGeneral {
 
     public void mostrar() {
         stage.setScene(this.scene);
+        stage.setFullScreen(true);
         stage.show();
     }
-
 
 }

@@ -47,7 +47,6 @@ public class TableroView extends Pane {
             crearFila(fila, cantidad, usarModelo, iterador, centroX, centroY);
         }
 
-        this.setPrefSize(800, 600);
     }
 
     private void crearFila(int fila, int cantidad, boolean usarModelo,
@@ -91,22 +90,24 @@ public class TableroView extends Pane {
     private void agregarVerticesDelHexagono(Hexagono hex, double hexX, double hexY) {
         List<Vertice> verticesModelo = hex.getVertices();
 
-        if (verticesModelo == null || verticesModelo.isEmpty()) return;
+        if (verticesModelo == null || verticesModelo.isEmpty())
+            return;
 
         double w = ANCHO_HEX;
         double h = ALTO_HEX;
 
         double[][] offsets = {
-                {w, h * 0.75},       // 0: Abajo Derecha (30°)
-                {w / 2, h},          // 1: Abajo (90°)
-                {0.0, h * 0.75},     // 2: Abajo Izquierda (150°)
-                {0.0, h / 4},        // 3: Arriba Izquierda (210°)
-                {w / 2, 0.0},        // 4: Arriba (270°)
-                {w, h / 4}           // 5: Arriba Derecha (330°)
+                { w, h * 0.75 }, // 0: Abajo Derecha (30°)
+                { w / 2, h }, // 1: Abajo (90°)
+                { 0.0, h * 0.75 }, // 2: Abajo Izquierda (150°)
+                { 0.0, h / 4 }, // 3: Arriba Izquierda (210°)
+                { w / 2, 0.0 }, // 4: Arriba (270°)
+                { w, h / 4 } // 5: Arriba Derecha (330°)
         };
 
         for (int i = 0; i < 6; i++) {
-            if (i >= verticesModelo.size()) break;
+            if (i >= verticesModelo.size())
+                break;
 
             Vertice verticeReal = verticesModelo.get(i);
 
@@ -124,7 +125,7 @@ public class TableroView extends Pane {
             vView.setLayoutX(vx);
             vView.setLayoutY(vy);
 
-//            vView.setViewOrder(-1.0);
+            // vView.setViewOrder(-1.0);
 
             verticesVisuales.put(verticeReal, vView);
             grupoVertices.getChildren().add(vView);

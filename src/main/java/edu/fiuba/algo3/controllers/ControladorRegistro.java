@@ -15,15 +15,15 @@ public class ControladorRegistro {
     private final AlertaWarning alertaWarning;
 
     public ControladorRegistro(AlertaWarning alertaWarning,
-                               Juego juego) {
+            Juego juego) {
         this.alertaWarning = alertaWarning;
         this.juego = juego;
     }
 
     public void registroJugadores(List<String> nombresJugadores,
-                                  List<String> avataresSeleccionados,
-                                  Stage stage){
-        try{
+            List<String> avataresSeleccionados,
+            Stage stage) {
+        try {
             juego.crearJugadores(
                     nombresJugadores, avataresSeleccionados);
             juego.validarJugadores();
@@ -31,13 +31,11 @@ public class ControladorRegistro {
             EscenaJuego escenaJuego = new EscenaJuego(stage, this.juego);
             escenaJuego.mostrar();
 
-
-        }catch (JugadoresMinimosRegistradosError e){
+        } catch (JugadoresMinimosRegistradosError e) {
             alertaWarning.mostrarWarning("Faltan Jugadores",
                     "No se puede iniciar la partida",
                     "Debe ingresar al menos 3 jugadores");
         }
-
 
     }
 
