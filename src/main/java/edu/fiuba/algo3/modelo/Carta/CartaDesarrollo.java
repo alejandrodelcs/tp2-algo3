@@ -6,6 +6,4 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 public interface CartaDesarrollo {
 
     void jugar(Jugador jugador, Tablero tablero, Object... args);
-
-
 }

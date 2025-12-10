@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Turno;
 
+import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
@@ -60,12 +61,14 @@ public class Turno {
         System.out.println(estadoActual.toString() + "comercio\n");
     }
 
-    public void jugarCarta(MazoDesarrollo mazoDesarrollo) {
-        this.estadoActual.jugarCarta(this, jugadorActivo, mazoDesarrollo);
+    public void jugarCarta(CartaDesarrollo carta,Object...args) {
+        this.estadoActual.jugarCarta(this, jugadorActivo,tablero, carta, args);
     }
 
     public void pasarTurno(Juego juego) {
-        this.estadoActual.pasarTurno(this, jugadorActivo, juego);
+        jugadorActivo.habilitarCartasDesarrollo();
+        jugadorActivo = juego.siguienteJugador(jugadorActivo);
+        this.estadoActual = new EstadoInicial();
     }
 
     public Jugador jugador() {
@@ -80,4 +83,6 @@ public class Turno {
     public void avanzarAlSiguienteJugador(Juego juego) {
         this.jugadorActivo = juego.siguienteJugador(jugadorActivo);
     }
+
+
 }

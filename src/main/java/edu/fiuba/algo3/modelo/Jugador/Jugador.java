@@ -3,15 +3,18 @@ package edu.fiuba.algo3.modelo.Jugador;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.fiuba.algo3.modelo.Carta.Carta;
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Costo.Costo;
+import edu.fiuba.algo3.modelo.Excepciones.CartaNoDisponibleException;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Construccion.ReglaAdyacencia;
 import edu.fiuba.algo3.modelo.Construccion.ReglaConstruccion;
 import edu.fiuba.algo3.modelo.Construccion.ReglaDistancia;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Turno.Turno;
 
@@ -198,5 +201,29 @@ public class Jugador {
 
     public void finalizarTurno() {
         this.puedeJugarCartaDesarrollo = true;
+    }
+
+
+    public void jugarCartaDesarrollo(CartaDesarrollo carta, Tablero tablero, Object...args) {
+
+        Carta c = (Carta) carta;
+
+        if (!c.estaDisponible()) {
+            throw new CartaNoDisponibleException("");
+        }
+
+        carta.jugar(this, tablero, args);
+
+        if (c.esDeUnSoloUso()) {
+            this.cartasDesarrollo.remove(carta);
+        }
+    }
+
+    public void habilitarCartasDesarrollo() {
+        for (CartaDesarrollo c : cartasDesarrollo) {
+            if (c instanceof Carta) {
+                ((Carta) c).habilitar();
+            }
+        }
     }
 }

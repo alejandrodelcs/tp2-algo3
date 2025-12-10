@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Turno;
 
-import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
@@ -44,7 +44,7 @@ public class EstadoPuedeRobar implements EstadoTurno{
     }
 
     @Override
-    public void jugarCarta(Turno turno, Jugador jugador, MazoDesarrollo mazoDesarrollo) {
+    public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo, Object... args) {
 
     }
 

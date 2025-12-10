@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Turno;
 
-import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
@@ -26,7 +26,7 @@ public interface  EstadoTurno {
 
     void comerciar(Turno turno, Jugador receptor, Comercio comercio);
 
-    void jugarCarta(Turno turno, Jugador jugador, MazoDesarrollo mazoDesarrollo);
+    void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo, Object... args);
 
     void pasarTurno(Turno turno, Jugador jugador, Juego juego);
 }

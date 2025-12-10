@@ -8,7 +8,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 
 
-public class CartaConstruccionCarreteras implements CartaDesarrollo {
+public class CartaConstruccionCarreteras extends Carta {
     @Override
     public void jugar(Jugador jugador, Tablero tablero, Object... args) {
         Arista a1 = (Arista) args[0];

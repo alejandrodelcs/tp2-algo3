@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 import java.util.List;
 
-public class CartaCaballero implements CartaDesarrollo {
+public class CartaCaballero extends Carta {
 
 
     @Override

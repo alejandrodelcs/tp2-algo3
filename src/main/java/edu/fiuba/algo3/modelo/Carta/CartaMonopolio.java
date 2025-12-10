@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
-public class CartaMonopolio implements CartaDesarrollo{
+public class CartaMonopolio extends Carta{
 
     @Override
     public void jugar(Jugador jugador, Tablero tablero, Object... args) {

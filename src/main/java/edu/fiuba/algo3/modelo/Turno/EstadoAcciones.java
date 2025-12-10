@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Turno;
 
-import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
@@ -42,11 +42,11 @@ public class EstadoAcciones implements EstadoTurno {
     }
 
     @Override
-    public void jugarCarta(Turno turno, Jugador jugador, MazoDesarrollo mazoDesarrollo) {
-        //jugador.jugarCartaDesarrollo(turno, mazoDesarrollo);
+    public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo carta, Object... args) {
+        jugador.jugarCartaDesarrollo(carta, tablero, args);
+        turno.cambiarEstado(new EstadoInicial());
 
     }
-
     @Override
     public void pasarTurno(Turno turno, Jugador jugador, Juego juego) {
         jugador.finalizarTurno();

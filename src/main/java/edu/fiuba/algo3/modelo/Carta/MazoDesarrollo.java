@@ -59,6 +59,7 @@ public class MazoDesarrollo {
         CartaDesarrollo carta = this.entregarCarta();
         jugador.compraCartaDesarrollo(carta);
 
+
         if(carta instanceof CartaPuntoVictoria){
             jugador.sumarPuntoVictoria();
         }
