@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Costo.Costo;
@@ -12,6 +13,7 @@ import edu.fiuba.algo3.modelo.Construccion.ReglaAdyacencia;
 import edu.fiuba.algo3.modelo.Construccion.ReglaConstruccion;
 import edu.fiuba.algo3.modelo.Construccion.ReglaDistancia;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.modelo.Turno.Turno;
 
 /**
  * Jugador
@@ -25,6 +27,7 @@ public class Jugador {
     private final Inventario inventario;
     private String avatar;
     private int caballerosJugados;
+    private boolean puedeJugarCartaDesarrollo;
 
     public Jugador(String nombre, Inventario inventario) {
         this.nombre = nombre;
@@ -32,6 +35,7 @@ public class Jugador {
         this.inventario = inventario;
         this.cartasDesarrollo = new ArrayList<>();
         this.caballerosJugados = 0;
+
 
     }
 
@@ -192,7 +196,7 @@ public class Jugador {
         this.caballerosJugados -= puntos;
     }
 
-    public int longitudRutaMasLarga() {
-
+    public void finalizarTurno() {
+        this.puedeJugarCartaDesarrollo = true;
     }
 }

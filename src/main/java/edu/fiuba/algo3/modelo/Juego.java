@@ -114,7 +114,7 @@ public class Juego {
         if (longitud < 5) return;
 
         if (granRutaComercial == null ||
-                longitud > granRutaComercial.longitudRutaMasLarga()) {
+                longitud > tablero.calcularLaRutaMasLarga(granRutaComercial)) {
 
             if (granRutaComercial != null) {
                 granRutaComercial.restarPuntosVictoria(2);
@@ -140,5 +140,10 @@ public class Juego {
 
     public void agregarJugador(Jugador jugador) {
         jugadores.add(jugador);
+    }
+
+    public Jugador siguienteJugador(Jugador jugadorActivo) {
+        indiceTurno = (indiceTurno + 1) % jugadores.size();
+        return jugadores.get(indiceTurno);
     }
 }

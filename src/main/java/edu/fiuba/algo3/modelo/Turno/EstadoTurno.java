@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -27,5 +28,5 @@ public interface  EstadoTurno {
 
     void jugarCarta(Turno turno, Jugador jugador, MazoDesarrollo mazoDesarrollo);
 
-    void pasarTurno(Turno turno, Jugador jugador);
+    void pasarTurno(Turno turno, Jugador jugador, Juego juego);
 }

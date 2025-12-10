@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -22,7 +23,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
  */
 public class Turno {
     private EstadoTurno estadoActual;
-    private final Jugador jugadorActivo;
+    private Jugador jugadorActivo;
     private final Tablero tablero;
 
     public Turno(Jugador jugadorActivo, Tablero tablero) {
@@ -63,8 +64,8 @@ public class Turno {
         this.estadoActual.jugarCarta(this, jugadorActivo, mazoDesarrollo);
     }
 
-    public void pasarTurno() {
-        this.estadoActual.pasarTurno(this, jugadorActivo);
+    public void pasarTurno(Juego juego) {
+        this.estadoActual.pasarTurno(this, jugadorActivo, juego);
     }
 
     public Jugador jugador() {
@@ -74,5 +75,9 @@ public class Turno {
 
     public void habilitarAccionCaballero() {
         this.estadoActual = new EstadoMoverLadron();
+    }
+
+    public void avanzarAlSiguienteJugador(Juego juego) {
+        this.jugadorActivo = juego.siguienteJugador(jugadorActivo);
     }
 }

@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -40,7 +41,7 @@ public class EstadoMoverLadron implements EstadoTurno{
     }
 
     @Override
-    public void pasarTurno(Turno turno, Jugador jugador) {
+    public void pasarTurno(Turno turno, Jugador jugador, Juego juego) {
 
     }
 
