@@ -52,30 +52,6 @@ public class Jugador {
         cartasDesarrollo.add(carta);
     }
 
-    /*
-     * public void usarCartaDesarrollo(int indice) {
-     * if (indice < 0 || indice >= this.cartasDesarrollo.size()) {
-     * throw new CartaNoDisponibleException("");
-     * }
-     * 
-     * CartaDesarrollo carta = this.cartasDesarrollo.get(indice);
-     * 
-     * carta.activar(this);
-     * 
-     * if (carta.esDeUnSoloUso()) {
-     * this.cartasDesarrollo.remove(indice);
-     * }
-     * }
-     */
-    /*
-     * public void pasarTurno() {
-     * for (CartaDesarrollo carta : this.cartasDesarrollo) {
-     * carta.pasarTurno();
-     * }
-     * 
-     * this.puedeMoverLadron = false;
-     * }
-     */
 
     public void sumarPuntoVictoria() {
         this.puntosVictoria++;
@@ -146,11 +122,6 @@ public class Jugador {
         return new ReglaAdyacencia(this);
     }
 
-    public void usarCarta(CartaDesarrollo cartaDesarrollo) {
-    }
-
-    public void pasarTurno() {
-    }
 
     public void descartarTipo(List<Class<? extends Recurso>> descarte) {
 
@@ -169,8 +140,8 @@ public class Jugador {
         return this.avatar;
     }
 
-    public int cantidadDeRecursoTipo(Class<? extends Recurso> tipo) {
-        return this.inventario.cantidadDeTipo(tipo);
+    public int cantidadDe(Class<? extends Recurso> recurso) {
+        return this.inventario.cantidadDeTipo(recurso);
 
     }
 
@@ -178,15 +149,6 @@ public class Jugador {
         return nombre;
     }
 
-    public void obtenerDosRecursosAEleccion() {
-
-    }
-
-    public void activarMonopolio() {
-    }
-
-    public void construccionGratisCarreteras(int i) {
-    }
 
     public boolean puedePagar(Costo costo) {
         return costo.puedePagar(this.inventario);
@@ -205,5 +167,19 @@ public class Jugador {
     }
     public boolean puedeReclamarGranCaballeria() {
         return caballerosJugados >= 3;
+    }
+
+    public void agregarRecursos(Recurso tipo, int total) {
+        for(int i=0; i<total; i++) {
+            this.inventario.agregar(tipo);
+        }
+    }
+
+    public int recolectarRecursosDelTipo(Recurso tipo) {
+        return inventario.sacarTodos(tipo);
+    }
+
+    public int getPuntosVictoria() {
+        return puntosVictoria;
     }
 }

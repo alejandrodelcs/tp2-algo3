@@ -1,13 +1,11 @@
 package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 
 import java.io.InputStream;
-import java.util.List;
 
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import javafx.scene.control.Label;
-import edu.fiuba.algo3.modelo.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import edu.fiuba.algo3.modelo.Juego;
@@ -15,7 +13,6 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 /**
  * CartasBar
@@ -45,7 +42,7 @@ public class CartasBar extends HBox {
             }
             System.out.println(rec.toString());
 
-            int cantidadRecurso = jugadorActivo.cantidadDeRecursoTipo(rec.getClass());
+            int cantidadRecurso = jugadorActivo.cantidadDe(rec.getClass());
 
             HBox carta = crearCartaVisual(rec.getClass(), cantidadRecurso);
 

@@ -42,13 +42,13 @@ public class EstadoAcciones implements EstadoTurno {
 
     @Override
     public void jugarCarta(Turno turno, Jugador jugador, MazoDesarrollo mazoDesarrollo) {
-        //jugador.compraCartaDesarrollo(mazoDesarrollo);
+
 
     }
 
     @Override
     public void pasarTurno(Turno turno, Jugador jugador) {
-        jugador.pasarTurno();
+        //jugador.pasarTurno();
         turno.cambiarEstado(new EstadoInicial());
 
     }

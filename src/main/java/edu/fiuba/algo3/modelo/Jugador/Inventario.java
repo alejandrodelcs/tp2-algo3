@@ -87,16 +87,21 @@ public class Inventario {
         return tipos;
     }
 
-    public boolean posee(List<Recurso> costo) {
-        List<Recurso> copiaInventario = new ArrayList<>(this.recursos);
+    public int sacarTodos(Recurso tipo) {
+        int total = 0;
+        Iterator<Recurso> it = recursos.iterator();
 
-        for (Recurso necesaria : costo) {
-            if (!copiaInventario.remove(necesaria)) {
-                return false;
+        while (it.hasNext()) {
+            Recurso r = it.next();
+            if (r.mismoTipoQue(tipo)) {
+                total++;
+                it.remove();
             }
         }
-        return true;
+        return total;
     }
+
+
 
     /*
      * Pre: -
@@ -117,15 +122,6 @@ public class Inventario {
         return descartadas;
     }
 
-    public void gastar(List<Recurso> costo) {
-        if (!posee(costo)) {
-            throw new RecursosInsuficientesException("No cubre el costo");
-        }
-
-        for (Recurso necesaria : costo) {
-            this.recursos.remove(necesaria);
-        }
-    }
 
     public Recurso obtenerRecurso(int indice) {
         return this.recursos.get(indice);

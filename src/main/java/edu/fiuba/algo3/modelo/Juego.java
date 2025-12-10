@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Excepciones.JugadoresMinimosRegistradosError;
 import edu.fiuba.algo3.modelo.Jugador.*;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.*;
 
 import java.util.ArrayList;
@@ -58,6 +59,21 @@ public class Juego {
     }
 
 
+    public int recolectarRecursosDeTodosMenos(Jugador excluido, Recurso tipo) {
+        int total = 0;
+
+        for (Jugador j : jugadores) {
+            if (!j.equals(excluido)) {
+                total += j.recolectarRecursosDelTipo(tipo);
+            }
+        }
+        return total;
+    }
+
+
+
+
+
     public void tirarDado() {
     }
 
@@ -76,5 +92,9 @@ public class Juego {
                 jugador.superaEnCaballerosA(jugadorConGranCaballeria)) {
             jugadorConGranCaballeria = jugador;
         }
+    }
+
+    public void agregarJugador(Jugador jugador) {
+        jugadores.add(jugador);
     }
 }

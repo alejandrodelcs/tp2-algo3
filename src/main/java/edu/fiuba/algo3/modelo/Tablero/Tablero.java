@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.*;
 
+import edu.fiuba.algo3.modelo.Construccion.Carretera;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Excepciones.NoExisteFichaError;
 import edu.fiuba.algo3.modelo.Ladron.Ladron;
@@ -136,5 +137,10 @@ public class Tablero {
 
     public List<Terreno> getTerrenos() {
         return TERRENOS;
+    }
+
+    public void construirCarreteraGratis(Jugador jugador, Carretera carretera, Arista arista) {
+        jugador.reglaAdyacencia().validar(arista);
+        arista.colocarCarretera(carretera);
     }
 }

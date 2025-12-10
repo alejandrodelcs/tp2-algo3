@@ -41,4 +41,7 @@ public abstract class Recurso {
 
     public abstract String getImagen();
 
+    public boolean mismoTipoQue(Recurso otro) {
+        return this.getClass() == otro.getClass();
+    }
 }

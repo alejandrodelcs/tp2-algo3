@@ -24,14 +24,6 @@ public abstract class Construccion {
         costo.aplicar(inventario);
     }
 
-    public boolean estaEn(Vertice v) {
-        return this.verticeAsignado == v;
-    }
-
-
-    public Jugador getPropietario() {
-        return this.propietario;
-    }
 
     public boolean esPropietarioElJugador(Jugador jugador) {
         return this.propietario == jugador;

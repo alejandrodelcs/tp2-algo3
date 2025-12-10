@@ -1,12 +1,11 @@
 package edu.fiuba.algo3.modelo.Carta;
 
-import edu.fiuba.algo3.modelo.Excepciones.CartaPVNoEstaActivaError;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Turno.Turno;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
-public class CartaPuntoVictoria extends CartaDesarrollo {
+public class CartaPuntoVictoria implements CartaDesarrollo {
     @Override
-    protected void usar(Jugador jugador, Turno turno) {
+    public void jugar(Jugador jugador, Tablero tablero, Object... args) {
         jugador.sumarPuntoVictoria();
     }
 
