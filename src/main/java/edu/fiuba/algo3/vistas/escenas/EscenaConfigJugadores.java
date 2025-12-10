@@ -1,29 +1,32 @@
 package edu.fiuba.algo3.vistas.escenas;
 
 import edu.fiuba.algo3.controllers.ControladorRegistro;
-import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.*;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class EscenaConfigJugadores extends EscenaGeneral {
 
     private VBox root;
     private Spinner<Integer> spinnerCantidad;
+    private final ControladorRegistro controlador;
     private VBox nombresContainer;
     private Button botonComenzar;
-    private final ControladorRegistro controlador;
+    private String[] avataresDisponibles = {
+            "/images/larry.jpeg",
+            "/images/pj1.jpg",
+            "/images/pj2.jpg",
+            "/images/pj3.jpg",
+            "/images/pj4.jpg"
+    };
 
     public EscenaConfigJugadores(Stage stage, ControladorRegistro controlador) {
         super(stage);
@@ -101,29 +104,42 @@ public class EscenaConfigJugadores extends EscenaGeneral {
         return main;
     }
 
-
     @Override
     protected void crearControladores(Stage stage) {
-        botonComenzar.setOnAction(e->{
-            List<String> nombres = new ArrayList<>();
-            for (Node n : nombresContainer.getChildren()) {
-                String s = ((TextField) n).getText().trim();
-                if (!s.isEmpty()) {
-                    nombres.add(s);
+
+        botonComenzar.setOnAction(e -> {
+
+            ArrayList<Jugador> jugadores = new ArrayList<>();
+            int i = 0;
+
+            for (var nodo : nombresContainer.getChildren()) {
+                TextField campo = (TextField) nodo;
+                if (!campo.getText().trim().isEmpty()) {
+                    System.out.println(campo.getText());
+                    Jugador jugadorAgregado = new Jugador(campo.getText(), new Inventario());
+                    jugadorAgregado.setAvatar(avataresDisponibles[i]);
+
+                    jugadores.add(jugadorAgregado);
+                    i++;
                 }
             }
 
-            List<String> avatares = Arrays.asList(
-                    "/images/pj1.jpg",
-                    "/images/pj2.jpg",
-                    "/images/pj3.jpg",
-                    "/images/pj4.jpg"
-            ).subList(0, nombres.size());
+            if (jugadores.size() < 3) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Faltan jugadores");
+                alerta.setHeaderText("No se puede iniciar la partida");
+                alerta.setContentText("Debes ingresar al menos 3 jugadores.");
+                alerta.showAndWait();
+                return;
+            }
+            Juego juego = new Juego(jugadores);
 
-            controlador.registroJugadores(nombres,avatares,stage);
+            EscenaJuego escenaJuego = new EscenaJuego(stage, juego);
+
+            stage.setScene(escenaJuego.getScene());
+            stage.setFullScreen(true);
         });
     }
-
 
     @Override
     protected void generarEstilos() {

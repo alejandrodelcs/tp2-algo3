@@ -28,8 +28,8 @@ public class CartasBar extends HBox {
         this.setPadding(new Insets(20));
         this.setStyle(
                 "-fx-background-color: #4d3a35;" +
-                        "-fx-background-radius: 20;" +
-                        "-fx-border-radius: 20;" +
+                        "-fx-background-radius: 0;" +
+                        "-fx-border-radius: 0;" +
                         "-fx-padding: 20;");
 
         // Jugador activo (cuando tengas uno real, lo reemplazás)

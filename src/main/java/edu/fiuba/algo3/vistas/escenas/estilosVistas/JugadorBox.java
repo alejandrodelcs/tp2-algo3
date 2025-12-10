@@ -17,10 +17,10 @@ public class JugadorBox extends VBox {
         this.setPrefSize(260, 120);
         this.setStyle(
                 "-fx-background-color: transparent;" +
-                        "-fx-background-radius: 12;" +
-                        "-fx-border-radius: 12;" +
+                        "-fx-background-radius: 0;" +
+                        "-fx-border-radius: 0;" +
                         "-fx-border-color: transparent;" +
-                        "-fx-border-width: 1;" +
+                        "-fx-border-width: 0;" +
                         "-fx-padding: 10;");
         this.setAlignment(Pos.TOP_LEFT);
 
@@ -79,9 +79,9 @@ public class JugadorBox extends VBox {
         VBox cajaDerecha = new VBox(5, nombreJugador, filaIcons, filaValores);
         cajaDerecha.setStyle(
                 "-fx-background-color: #ffffff;" +
-                        "-fx-background-radius: 10;" +
+                        "-fx-background-radius: 0;" +
                         "-fx-border-color: #e1e1e1;" +
-                        "-fx-border-width: 1;" +
+                        "-fx-border-width: 0;" +
                         "-fx-padding: 8;");
 
         // --- Contenedor principal ---

@@ -40,6 +40,16 @@ public class Juego {
         this.indiceTurno = 0;
     }
 
+    public Juego(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
+        this.tablero = new Tablero();
+        this.tablero.construir();
+        this.mazo = new MazoDesarrollo();
+        this.indiceTurno = 0;
+        this.turno = new Turno(jugadores.get(0), this.tablero);
+
+    }
+
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
