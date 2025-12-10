@@ -25,6 +25,7 @@ public class Juego {
     private int indiceTurno = 0;
     private MazoDesarrollo mazo;
     private Dado dado;
+    private int numeroActual = 0;
 
     /*
      * public Juego() {
@@ -137,10 +138,10 @@ public class Juego {
     }
 
     public void tirarDado() {
-        int numero = this.dado.lanzar();
-        this.turno.tirarDado(numero);
+        this.numeroActual = this.dado.lanzar();
+        this.turno.tirarDado(numeroActual);
         for (Jugador jugador : jugadores) {
-            jugador.generarRecursosPorConstrucciones(numero);
+            jugador.generarRecursosPorConstrucciones(numeroActual);
 
         }
     }
@@ -163,5 +164,9 @@ public class Juego {
 
     public int cantidadJugadores() {
         return this.jugadores.size();
+    }
+
+    public int getDadoActual() {
+        return this.numeroActual;
     }
 }

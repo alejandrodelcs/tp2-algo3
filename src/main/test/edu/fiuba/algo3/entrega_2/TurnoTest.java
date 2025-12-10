@@ -26,13 +26,12 @@ public class TurnoTest {
     private Jugador victima;
     private Tablero tablero;
 
-
     @BeforeEach
     public void setUp() {
         jugador = new Jugador("Hernesto", new Inventario(new Ladrillo(), new Madera(), new Lana(),
                 new Grano(), new Mineral(), new Madera()));
         jugador2 = new Jugador("Anastasio", new Inventario(new Ladrillo(), new Madera(), new Lana(),
-                 new Grano(), new Madera(), new Ladrillo()));
+                new Grano(), new Madera(), new Ladrillo()));
         victima = new Jugador("Pedro", new Inventario(new Ladrillo(), new Madera(), new Lana(),
                 new Mineral(), new Grano(), new Madera(), new Ladrillo()));
 
@@ -73,11 +72,10 @@ public class TurnoTest {
     }
 
     @Test
-    public void  test04MoverLadronLuegoDeTirarSiete() {
+    public void test04MoverLadronLuegoDeTirarSiete() {
 
         Dado dadoMock = mock(Dado.class);
         when(dadoMock.lanzar()).thenReturn(7);
-
 
         Tablero tablero = new Tablero();
 
@@ -92,14 +90,12 @@ public class TurnoTest {
         origen.agregarVertice(v);
         destino.agregarVertice(v);
 
-
         Turno turno = new Turno(jugador, tablero);
         turno.cambiarEstado(new EstadoAcciones());
         turno.construir(new ConstruirAsentamiento(), new Poblado(), v);
         turno.tirarDado(dadoMock);
         turno.moverLadronA(destino);
         turno.robar(victima);
-
 
         assertEquals(3, jugador.cantidadCartas());
         assertEquals(6, victima.cantidadCartas());

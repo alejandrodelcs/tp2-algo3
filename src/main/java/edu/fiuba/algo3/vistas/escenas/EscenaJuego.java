@@ -25,6 +25,7 @@ public class EscenaJuego extends EscenaGeneral {
     private JugadoresBar jugadoresBar;
     private CartasBar cartasBar;
     private Tablero tablero;
+    private DadoBar dadoBar;
 
     public EscenaJuego(Stage stage, Juego juego) {
         super(stage, juego);
@@ -38,7 +39,6 @@ public class EscenaJuego extends EscenaGeneral {
         GridPane gridLayout = new GridPane();
 
         this.jugadoresBar = new JugadoresBar(juego);
-        gridLayout.add(jugadoresBar, 0, 0);
 
         this.tablero = juego.getTablero();
         TableroView tableroView = new TableroView(tablero);
@@ -49,8 +49,6 @@ public class EscenaJuego extends EscenaGeneral {
 
         StackPane tableroContainer = new StackPane(this.tableroView);
         tableroContainer.setAlignment(Pos.CENTER);
-
-        gridLayout.add(tableroContainer, 1, 0);
 
         VBox panelAcciones = new VBox(20);
         panelAcciones.setAlignment(Pos.CENTER);
@@ -74,10 +72,15 @@ public class EscenaJuego extends EscenaGeneral {
 
         panelAcciones.getChildren().addAll(btnDado, btnConstruir, btnPasar);
 
-        gridLayout.add(panelAcciones, 2, 0);
-
         this.cartasBar = new CartasBar(juego);
+
+        this.dadoBar = new DadoBar(juego);
+
+        gridLayout.add(jugadoresBar, 0, 0);
+        gridLayout.add(tableroContainer, 1, 0);
+        gridLayout.add(panelAcciones, 2, 0);
         gridLayout.add(cartasBar, 0, 1, 3, 1);
+        gridLayout.add(dadoBar, 2, 1);
 
         ColumnConstraints colIzq = new ColumnConstraints();
         colIzq.setMinWidth(200);
@@ -174,6 +177,8 @@ public class EscenaJuego extends EscenaGeneral {
         cartasBar.actualizar(juego);
         jugadoresBar.actualizar(juego);
         tableroView.actualizar(juego.getTablero());
+        this.dadoBar.actualizar(juego);
+
     }
 
     private void aplicarSombra() {
