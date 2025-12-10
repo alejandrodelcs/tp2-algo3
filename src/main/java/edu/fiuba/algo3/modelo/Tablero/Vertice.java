@@ -1,9 +1,6 @@
 package edu.fiuba.algo3.modelo.Tablero;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayConstruccionParaMejorar;
@@ -17,8 +14,8 @@ import edu.fiuba.algo3.modelo.Recurso.*;
  */
 public class Vertice {
     private Construccion construccion;
-    private ArrayList<Arista> aristas;
-    private ArrayList<Hexagono> hexagonos;
+    private final ArrayList<Arista> aristas;
+    private final ArrayList<Hexagono> hexagonos;
 
     public Vertice() {
         this.construccion = new ConstruccionNula();
@@ -115,4 +112,7 @@ public class Vertice {
         return construccion.propietario();
     }
 
+    public Collection<? extends Arista> getAristas() {
+        return aristas;
+    }
 }

@@ -40,7 +40,7 @@ public class CartasBar extends HBox {
             if (rec == null) {
                 continue;
             }
-            System.out.println(rec.toString());
+            System.out.println(rec);
 
             int cantidadRecurso = jugadorActivo.cantidadDe(rec.getClass());
 

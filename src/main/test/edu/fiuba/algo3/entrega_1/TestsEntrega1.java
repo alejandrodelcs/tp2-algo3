@@ -53,7 +53,7 @@ public class TestsEntrega1 {
         c.construir(j, pueblo, primerVertice);
 
         assertThrows(ReglaDistanciaException.class, () -> {
-            c.construir(j, pueblo2, segundoVertice);;
+            c.construir(j, pueblo2, segundoVertice);
         });
     }
 

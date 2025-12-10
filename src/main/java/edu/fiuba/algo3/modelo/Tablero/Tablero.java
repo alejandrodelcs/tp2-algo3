@@ -143,4 +143,16 @@ public class Tablero {
         jugador.reglaAdyacencia().validar(arista);
         arista.colocarCarretera(carretera);
     }
+
+    public int calcularLaRutaMasLarga(Jugador jugador){
+        Set<Arista> todas = new HashSet<>();
+
+        for (Hexagono h : hexagonos) {
+            for (Vertice v : h.getVertices()) {
+                todas.addAll(v.getAristas());
+            }
+        }
+
+        return new ArrayList<>(todas).size();
+    }
 }

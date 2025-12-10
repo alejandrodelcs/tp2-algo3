@@ -4,8 +4,8 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.vistas.escenas.EscenaJuego;
 
 public class ControladorJuego {
-    private Juego juego;
-    private EscenaJuego escenaJuego;
+    private final Juego juego;
+    private final EscenaJuego escenaJuego;
 
     public ControladorJuego(Juego juego, EscenaJuego escenaJuego) {
         this.juego = juego;

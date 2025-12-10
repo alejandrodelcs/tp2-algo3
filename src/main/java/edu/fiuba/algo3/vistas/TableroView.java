@@ -20,10 +20,10 @@ public class TableroView extends Pane {
     private final double ANCHO_HEX = Math.sqrt(3) * RADIO;
     private final double ALTO_HEX = 2 * RADIO;
 
-    private Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
+    private final Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
 
-    private Group grupoHexagonos = new Group();
-    private Group grupoVertices = new Group();
+    private final Group grupoHexagonos = new Group();
+    private final Group grupoVertices = new Group();
 
     private final int[] FICHAS_POR_FILA = { 0, 3, 4, 5, 4, 3, 0 };
 

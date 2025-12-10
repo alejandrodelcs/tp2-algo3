@@ -9,7 +9,7 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 public class ReglaAdyacencia implements ReglaConstruccion {
 
-    private Jugador jugador;
+    private final Jugador jugador;
 
     public ReglaAdyacencia(Jugador jugador) {
         this.jugador = jugador;

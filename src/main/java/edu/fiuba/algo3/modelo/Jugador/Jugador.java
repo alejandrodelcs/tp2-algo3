@@ -18,9 +18,9 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice;
  */
 public class Jugador {
 
-    private List<CartaDesarrollo> cartasDesarrollo;
+    private final List<CartaDesarrollo> cartasDesarrollo;
     private final ArrayList<Construccion> construcciones;
-    private String nombre;
+    private final String nombre;
     private int puntosVictoria;
     private final Inventario inventario;
     private String avatar;
@@ -46,6 +46,7 @@ public class Jugador {
     public void mejorarConstruccion(Vertice vertice, Construccion nueva) {
         inventario.descontarPara(nueva);
         vertice.mejorarA(nueva);
+        this.sumarPuntoVictoria();
     }
 
     public void compraCartaDesarrollo(CartaDesarrollo carta) {
@@ -55,6 +56,10 @@ public class Jugador {
 
     public void sumarPuntoVictoria() {
         this.puntosVictoria++;
+    }
+
+    public void sumarPuntoVictoria(int puntos) {
+        this.puntosVictoria+=puntos;
     }
 
     public int cantidadCartasDesarrollo() {
@@ -181,5 +186,13 @@ public class Jugador {
 
     public int getPuntosVictoria() {
         return puntosVictoria;
+    }
+
+    public void restarPuntosVictoria(int puntos) {
+        this.caballerosJugados -= puntos;
+    }
+
+    public int longitudRutaMasLarga() {
+
     }
 }

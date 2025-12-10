@@ -1,9 +1,12 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Excepciones.JugadoresMinimosRegistradosError;
 import edu.fiuba.algo3.modelo.Jugador.*;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.*;
+import edu.fiuba.algo3.modelo.Turno.Turno;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +16,13 @@ import java.util.List;
  */
 public class Juego {
 
-    private ArrayList<Jugador> jugadores;
-    private Tablero tablero;
-    private Jugador jugadorConGranCaballeria;
+    private final ArrayList<Jugador> jugadores;
+    private final Tablero tablero;
+    private Jugador granCaballeria;
+    private Jugador granRutaComercial;
+    private Turno turno ;
+    private int indiceTurno;
+    private MazoDesarrollo mazo;
 
     /*public Juego() {
         this.jugadores = jugadores;
@@ -27,6 +34,8 @@ public class Juego {
         this.jugadores = new ArrayList<>();// armar bien el inicializador;
         this.tablero = new Tablero();
         this.tablero.construir();
+        this.mazo = new MazoDesarrollo();
+        this.indiceTurno = 0;
     }
 
     public ArrayList<Jugador> getJugadores() {
@@ -70,6 +79,52 @@ public class Juego {
         return total;
     }
 
+    public void pasarTurno() {
+        indiceTurno = (indiceTurno + 1) % jugadores.size();
+    }
+
+    public Jugador getJugadorActual() {
+        return jugadores.get(indiceTurno);
+    }
+
+    public CartaDesarrollo comprarCartaDesarrollo() {
+        return mazo.comprarCarta(getJugadorActual());
+    }
+
+    public void actualizarGranCaballeria(Jugador jugador) {
+
+        if (!jugador.puedeReclamarGranCaballeria()) return;
+
+        if (granCaballeria == null ||
+                jugador.superaEnCaballerosA(granCaballeria)) {
+
+            if (granCaballeria != null) {
+                granCaballeria.restarPuntosVictoria(2);
+            }
+
+            granCaballeria = jugador;
+            jugador.sumarPuntoVictoria(2);
+        }
+    }
+
+    public void actualizarGranRutaComercial(Jugador jugador) {
+
+        int longitud = tablero.calcularLaRutaMasLarga(jugador);
+
+        if (longitud < 5) return;
+
+        if (granRutaComercial == null ||
+                longitud > granRutaComercial.longitudRutaMasLarga()) {
+
+            if (granRutaComercial != null) {
+                granRutaComercial.restarPuntosVictoria(2);
+            }
+
+            granRutaComercial = jugador;
+            jugador.sumarPuntoVictoria(2);
+        }
+    }
+
 
 
 
@@ -80,19 +135,8 @@ public class Juego {
     public void construirCarretera() {
     }
 
-    public void pasarTurno() {
-    }
 
 
-
-    public void actualizarGranCaballeria(Jugador jugador) {
-        if (!jugador.puedeReclamarGranCaballeria()) return;
-
-        if (jugadorConGranCaballeria == null ||
-                jugador.superaEnCaballerosA(jugadorConGranCaballeria)) {
-            jugadorConGranCaballeria = jugador;
-        }
-    }
 
     public void agregarJugador(Jugador jugador) {
         jugadores.add(jugador);

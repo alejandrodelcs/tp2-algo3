@@ -23,7 +23,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
     private Spinner<Integer> spinnerCantidad;
     private VBox nombresContainer;
     private Button botonComenzar;
-    private ControladorRegistro controlador;
+    private final ControladorRegistro controlador;
 
     public EscenaConfigJugadores(Stage stage, ControladorRegistro controlador) {
         super(stage);

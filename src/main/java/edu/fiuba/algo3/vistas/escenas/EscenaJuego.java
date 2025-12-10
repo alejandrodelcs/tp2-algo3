@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class EscenaJuego extends EscenaGeneral {
 
-    private ControladorJuego controlador;
+    private final ControladorJuego controlador;
     private TableroView tableroView;
     private JugadoresBar jugadoresBar;
     private CartasBar cartasBar;

@@ -12,7 +12,7 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
  */
 public class Inventario {
 
-    private List<Recurso> recursos;
+    private final List<Recurso> recursos;
 
     public Inventario(Recurso... recursos) {
         this.recursos = new ArrayList<>(Arrays.asList(recursos));

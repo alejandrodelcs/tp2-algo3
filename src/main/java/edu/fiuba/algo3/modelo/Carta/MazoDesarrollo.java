@@ -13,8 +13,8 @@ import java.util.Stack;
 
 public class MazoDesarrollo {
 
-    private Stack<CartaDesarrollo> cartas;
-    private Costo costo ;
+    private final Stack<CartaDesarrollo> cartas;
+    private final Costo costo ;
 
     public MazoDesarrollo() {
         this.cartas = new Stack<>();
@@ -56,9 +56,14 @@ public class MazoDesarrollo {
             throw new NoHayRecursoDisponibleError();
         }
         jugador.pagar(costo);
-        CartaDesarrollo c = this.entregarCarta();
-        jugador.compraCartaDesarrollo(c);
-        return c;
+        CartaDesarrollo carta = this.entregarCarta();
+        jugador.compraCartaDesarrollo(carta);
+
+        if(carta instanceof CartaPuntoVictoria){
+            jugador.sumarPuntoVictoria();
+        }
+
+        return carta;
     }
 
 }

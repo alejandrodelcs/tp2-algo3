@@ -6,8 +6,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class VerticeView extends StackPane {
-    private Vertice verticeModelo;
-    private Circle circulo;
+    private final Vertice verticeModelo;
+    private final Circle circulo;
 
     public VerticeView(Vertice vertice, double radioHexagono) {
         this.verticeModelo = vertice;
