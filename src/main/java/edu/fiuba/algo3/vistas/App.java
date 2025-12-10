@@ -4,6 +4,7 @@ import edu.fiuba.algo3.SystemInfo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -20,6 +21,8 @@ public class App extends Application {
         stage.setScene(new MenuInicio(stage).getScene());
         stage.setWidth(1280);
         stage.setHeight(720);
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setFullScreen(true);
         stage.show();
 

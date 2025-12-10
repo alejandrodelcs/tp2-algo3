@@ -7,6 +7,7 @@ import edu.fiuba.algo3.vistas.escenas.*;
 import edu.fiuba.algo3.vistas.escenas.estilosVistas.BotonesVista;
 import edu.fiuba.algo3.vistas.escenas.estilosVistas.TituloVista;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
 
 import javafx.stage.Stage;
@@ -72,7 +73,10 @@ public class MenuInicio extends EscenaGeneral {
 
                 ControladorRegistro controlador = new ControladorRegistro(alertaWarning, juego);
                 EscenaConfigJugadores escenaJuego = new EscenaConfigJugadores(stage, controlador);
+
                 stage.setScene(escenaJuego.getScene());
+                stage.setFullScreenExitHint("");
+                stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
                 stage.setFullScreen(true);
             } catch (Exception ex) {
                 ex.printStackTrace();

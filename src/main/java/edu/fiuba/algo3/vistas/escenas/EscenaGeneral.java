@@ -3,6 +3,7 @@ package edu.fiuba.algo3.vistas.escenas;
 import edu.fiuba.algo3.modelo.Juego;
 import javafx.scene.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -67,6 +68,8 @@ public abstract class EscenaGeneral {
     public void mostrar() {
         stage.setScene(this.scene);
         stage.setFullScreen(true);
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.show();
     }
 
