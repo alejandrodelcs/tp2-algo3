@@ -18,14 +18,14 @@ public class VerticeView extends StackPane {
 
         this.circulo = new Circle(radioVertice);
         this.circulo.setFill(Color.TRANSPARENT);
-        this.circulo.setStroke(Color.RED);
+        // this.circulo.setStroke(Color.RED);
         this.circulo.setStrokeWidth(3);
 
         this.getChildren().add(circulo);
 
         this.setOnMouseClicked(e -> {
             onSeleccionado.accept(this);
-            //verticeModelo.contruir()
+            // verticeModelo.contruir()
         });
 
         this.setOnMouseEntered(e -> circulo.setStrokeWidth(5));

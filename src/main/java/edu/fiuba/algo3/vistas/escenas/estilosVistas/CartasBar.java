@@ -1,8 +1,8 @@
+
 package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 
 import java.io.InputStream;
 
-import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import javafx.scene.control.Label;
@@ -15,10 +15,12 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-/**
- * CartasBar
- */
 public class CartasBar extends HBox {
+
+    private final String CARTA_STYLE = "-fx-background-color: #6d524c;" +
+            "-fx-background-radius: 12;" +
+            "-fx-border-radius: 12;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);";
 
     public CartasBar(Juego juego) {
 
@@ -32,56 +34,30 @@ public class CartasBar extends HBox {
                         "-fx-border-radius: 0;" +
                         "-fx-padding: 20;");
 
-        // Jugador activo (cuando tengas uno real, lo reemplazás)
         Jugador jugadorActivo = juego.getJugadorActivo();
 
-        VBox jugadorIcon = this.jugadorIcon(jugadorActivo);
-
-        this.getChildren().add(jugadorIcon);
+        this.getChildren().add(crearIconoJugador(jugadorActivo));
 
         for (Terreno terreno : juego.getTerrenos()) {
-
             Recurso rec = terreno.retornarRecurso();
-            if (rec == null) {
+            if (rec == null)
                 continue;
-            }
-            System.out.println(rec);
 
-            int cantidadRecurso = jugadorActivo.cantidadDe(rec.getClass());
+            int cantidad = jugadorActivo.cantidadDe(rec.getClass());
 
-            HBox carta = crearCartaVisual(rec.getClass(), cantidadRecurso);
-
-            this.getChildren().add(carta);
+            this.getChildren().add(crearCartaVisual(rec.getClass(), cantidad));
         }
     }
 
-    private VBox jugadorIcon(Jugador jugador) {
+    private VBox crearIconoJugador(Jugador jugador) {
 
-        VBox box = new VBox(10);
-        box.setAlignment(Pos.CENTER);
-        box.setPadding(new Insets(10));
-        box.setStyle(
-                "-fx-background-color: #6d524c;" +
-                        "-fx-background-radius: 12;" +
-                        "-fx-border-radius: 12;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);");
+        VBox box = crearContenedorVertical();
 
-        ImageView iconView = new ImageView();
-
-        String ruta = jugador.getAvatar();
-        InputStream is = getClass().getResourceAsStream(ruta);
-
-        Image icon = new Image(is);
-        iconView.setImage(icon);
+        ImageView iconView = crearImagen(jugador.getAvatar());
         iconView.setFitHeight(70);
         iconView.setPreserveRatio(true);
 
-        // --- Cantidad ---
-        Label lbl = new Label("x" + jugador.getNombre());
-        lbl.setStyle(
-                "-fx-text-fill: white;" +
-                        "-fx-font-size: 26px;" +
-                        "-fx-font-weight: bold;");
+        Label lbl = crearLabel("" + jugador.getNombre());
 
         box.getChildren().addAll(iconView, lbl);
         return box;
@@ -96,49 +72,62 @@ public class CartasBar extends HBox {
             throw new RuntimeException("No se pudo instanciar el recurso " + tipo.getSimpleName(), e);
         }
 
-        // --- Contenedor de la carta ---
-        HBox box = new HBox(10);
-        box.setAlignment(Pos.CENTER);
-        box.setPadding(new Insets(10));
-        box.setStyle(
-                "-fx-background-color: #6d524c;" +
-                        "-fx-background-radius: 12;" +
-                        "-fx-border-radius: 12;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);");
+        HBox box = crearContenedorHorizontal();
 
-        // --- Imagen ---
-        ImageView imgView = new ImageView();
-        try {
-            String ruta = recurso.getImagen();
-            InputStream is = getClass().getResourceAsStream(ruta);
-
-            if (is != null) {
-                Image img = new Image(is);
-                imgView.setImage(img);
-
-                imgView.setFitHeight(70);
-                imgView.setPreserveRatio(true);
-
-            } else {
-                System.err.println("⚠️ Imagen no encontrada: " + ruta);
-            }
-
-        } catch (Exception e) {
-            System.err.println("⚠️ Error cargando imagen: " + e.getMessage());
+        ImageView imgView = crearImagen(recurso.getImagen());
+        if (imgView != null) {
+            imgView.setFitHeight(70);
+            imgView.setPreserveRatio(true);
         }
 
-        // --- Cantidad ---
-        Label lbl = new Label("x" + cantidad);
-        lbl.setStyle(
-                "-fx-text-fill: white;" +
-                        "-fx-font-size: 26px;" +
-                        "-fx-font-weight: bold;");
+        Label lbl = crearLabel("x" + cantidad);
 
         box.getChildren().addAll(imgView, lbl);
         return box;
     }
 
-    public void actualizar(Juego juego) {
+    private HBox crearContenedorHorizontal() {
+        HBox box = new HBox(10);
+        box.setAlignment(Pos.CENTER);
+        box.setPadding(new Insets(10));
+        box.setStyle(CARTA_STYLE);
+        return box;
+    }
 
+    private VBox crearContenedorVertical() {
+        VBox box = new VBox(10);
+        box.setAlignment(Pos.CENTER);
+        box.setPadding(new Insets(10));
+        box.setStyle(CARTA_STYLE);
+        return box;
+    }
+
+    private ImageView crearImagen(String ruta) {
+        try {
+            InputStream is = getClass().getResourceAsStream(ruta);
+            if (is == null) {
+                System.err.println("⚠️ Imagen no encontrada: " + ruta);
+                return new ImageView();
+            }
+            Image img = new Image(is);
+            return new ImageView(img);
+
+        } catch (Exception e) {
+            System.err.println("⚠️ Error cargando imagen: " + e.getMessage());
+            return new ImageView();
+        }
+    }
+
+    private Label crearLabel(String texto) {
+        Label lbl = new Label(texto);
+        lbl.setStyle(
+                "-fx-text-fill: white;" +
+                        "-fx-font-size: 26px;" +
+                        "-fx-font-weight: bold;");
+        return lbl;
+    }
+
+    public void actualizar(Juego juego) {
+        // pendiente
     }
 }
