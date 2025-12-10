@@ -138,8 +138,8 @@ public class Juego {
     }
 
     public void tirarDado() {
-        this.numeroActual = this.dado.lanzar();
-        this.turno.tirarDado(numeroActual);
+        //this.numeroActual = this.dado.lanzar();
+        this.numeroActual = this.turno.tirarDado();
         for (Jugador jugador : jugadores) {
             jugador.generarRecursosPorConstrucciones(numeroActual);
 

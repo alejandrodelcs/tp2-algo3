@@ -41,7 +41,7 @@ public class VerticeView extends StackPane {
 
     public void deseleccionar() {
         circulo.setFill(Color.TRANSPARENT);
-        circulo.setStroke(Color.RED);
+        circulo.setStroke(Color.TRANSPARENT);
     }
 
     public Vertice getVerticeModelo() {

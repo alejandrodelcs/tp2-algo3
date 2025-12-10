@@ -23,9 +23,11 @@ public class Tablero {
 
     public void construir() {
 
+        Random randomTerreno = new Random();
+        Random randomDistribucion = new Random();
         for (int i = 0; i < DISTRIBUCION.size(); i++) {
-            Terreno terreno = TERRENOS.get(i % TERRENOS.size());
-            Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(i));
+            Terreno terreno = TERRENOS.get(randomDistribucion.nextInt(TERRENOS.size()));
+            Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(randomTerreno.nextInt(DISTRIBUCION.size())));
             hexagonos.add(hexagono);
         }
 

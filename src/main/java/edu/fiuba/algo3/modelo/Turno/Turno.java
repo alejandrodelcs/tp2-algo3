@@ -26,6 +26,8 @@ public class Turno {
     private EstadoTurno estadoActual;
     private boolean primeraVuelta;
     private int numeroTurno;
+    private Dado dado;
+
 
     private Jugador jugadorActivo;
     private final Tablero tablero;
@@ -36,11 +38,15 @@ public class Turno {
         this.estadoActual = new EstadoInicial();
         this.primeraVuelta = true;
         this.numeroTurno = 0;
-
+        this.dado = new Dado();
     }
 
-    public void tirarDado(int numero) {
-        estadoActual.tirarDado(numero, jugadorActivo, this);
+//    public void tirarDado(int numero) {
+//        estadoActual.tirarDado(numero, jugadorActivo, this);
+//    }
+
+    public int tirarDado() {
+        return this.dado.lanzar();
     }
 
     public void cambiarEstado(EstadoTurno nuevo) {
