@@ -61,8 +61,8 @@ public class Turno {
         System.out.println(estadoActual.toString() + "comercio\n");
     }
 
-    public void jugarCarta(CartaDesarrollo carta,Object...args) {
-        this.estadoActual.jugarCarta(this, jugadorActivo,tablero, carta, args);
+    public void jugarCarta(CartaDesarrollo carta, Object... args) {
+        this.estadoActual.jugarCarta(this, jugadorActivo, tablero, carta, args);
     }
 
     public void pasarTurno(Juego juego) {
@@ -75,7 +75,6 @@ public class Turno {
         return this.jugadorActivo;
     }
 
-
     public void habilitarAccionCaballero() {
         this.estadoActual = new EstadoMoverLadron();
     }
@@ -84,5 +83,8 @@ public class Turno {
         this.jugadorActivo = juego.siguienteJugador(jugadorActivo);
     }
 
+    public Jugador getJugadorActivo() {
+        return this.jugadorActivo;
+    }
 
 }

@@ -13,6 +13,7 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * CartasBar
@@ -32,7 +33,11 @@ public class CartasBar extends HBox {
                         "-fx-padding: 20;");
 
         // Jugador activo (cuando tengas uno real, lo reemplazás)
-        Jugador jugadorActivo = new Jugador("a1", new Inventario(new Ladrillo(), new Madera()));
+        Jugador jugadorActivo = juego.getJugadorActivo();
+
+        VBox jugadorIcon = this.jugadorIcon(jugadorActivo);
+
+        this.getChildren().add(jugadorIcon);
 
         for (Terreno terreno : juego.getTerrenos()) {
 
@@ -48,6 +53,38 @@ public class CartasBar extends HBox {
 
             this.getChildren().add(carta);
         }
+    }
+
+    private VBox jugadorIcon(Jugador jugador) {
+
+        VBox box = new VBox(10);
+        box.setAlignment(Pos.CENTER);
+        box.setPadding(new Insets(10));
+        box.setStyle(
+                "-fx-background-color: #6d524c;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-border-radius: 12;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);");
+
+        ImageView iconView = new ImageView();
+
+        String ruta = jugador.getAvatar();
+        InputStream is = getClass().getResourceAsStream(ruta);
+
+        Image icon = new Image(is);
+        iconView.setImage(icon);
+        iconView.setFitHeight(70);
+        iconView.setPreserveRatio(true);
+
+        // --- Cantidad ---
+        Label lbl = new Label("x" + jugador.getNombre());
+        lbl.setStyle(
+                "-fx-text-fill: white;" +
+                        "-fx-font-size: 26px;" +
+                        "-fx-font-weight: bold;");
+
+        box.getChildren().addAll(iconView, lbl);
+        return box;
     }
 
     private HBox crearCartaVisual(Class<? extends Recurso> tipo, int cantidad) {

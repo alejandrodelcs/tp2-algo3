@@ -19,6 +19,8 @@ public class EscenaJuego extends EscenaGeneral {
     private TableroView tableroView;
     private JugadoresBar jugadoresBar;
     private CartasBar cartasBar;
+    private BotonTurnoDado botonTunroDado;
+    private CajaJugador cajaJugador;
 
     public EscenaJuego(Stage stage, Juego juego) {
         super(stage, juego);
@@ -31,16 +33,10 @@ public class EscenaJuego extends EscenaGeneral {
 
         Tablero tablero = juego.getTablero();
 
-
-
         this.tableroView = new TableroView(tablero); // OJO ARREGLAR
         this.tableroView.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 
-        DropShadow sombra = new DropShadow();
-        sombra.setRadius(40);
-        sombra.setOffsetY(20);
-        sombra.setColor(Color.rgb(0, 0, 0, 0.6));
-        this.tableroView.setEffect(sombra);
+        this.aplicarSombra();// agregar algun efecto
 
         StackPane tableroContainer = new StackPane(this.tableroView);
         tableroContainer.setAlignment(Pos.CENTER);
@@ -50,9 +46,16 @@ public class EscenaJuego extends EscenaGeneral {
 
         this.cartasBar = new CartasBar(juego);
 
+        this.botonTunroDado = new BotonTurnoDado();
+
+        this.cajaJugador = new CajaJugador();
+
         root.add(this.jugadoresBar, 0, 0);
         root.add(tableroContainer, 1, 0);
-        root.add(this.cartasBar, 0, 1, 2, 1);
+
+        root.add(this.cajaJugador, 0, 1);
+        root.add(this.cartasBar, 1, 1);
+        root.add(this.botonTunroDado, 2, 1);
 
         ColumnConstraints colIzq = new ColumnConstraints();
         colIzq.setMinWidth(200);
@@ -60,7 +63,10 @@ public class EscenaJuego extends EscenaGeneral {
         ColumnConstraints colCentro = new ColumnConstraints();
         colCentro.setHgrow(Priority.ALWAYS);
 
-        root.getColumnConstraints().addAll(colIzq, colCentro);
+        ColumnConstraints colDer = new ColumnConstraints();
+        colDer.setMinWidth(200);
+
+        root.getColumnConstraints().addAll(colIzq, colCentro, colDer);
 
         RowConstraints filaSuperior = new RowConstraints();
         filaSuperior.setVgrow(Priority.ALWAYS);
@@ -75,8 +81,8 @@ public class EscenaJuego extends EscenaGeneral {
 
     @Override
     protected void crearControladores(Stage stage) {
-        //artasBar.getBotonTirarDado().setOnAction(e -> controlador.tirarDado());
-        //jugadoresBar.getBotonPasarTurno().setOnAction(e -> controlador.pasarTurno());
+        // artasBar.getBotonTirarDado().setOnAction(e -> controlador.tirarDado());
+        // jugadoresBar.getBotonPasarTurno().setOnAction(e -> controlador.pasarTurno());
     }
 
     @Override
@@ -88,6 +94,10 @@ public class EscenaJuego extends EscenaGeneral {
         cartasBar.actualizar(juego);
         jugadoresBar.actualizar(juego);
         tableroView.actualizar(juego.getTablero());
+    }
+
+    private void aplicarSombra() {
+
     }
 
 }

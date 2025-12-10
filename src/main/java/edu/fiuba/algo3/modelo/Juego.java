@@ -20,15 +20,17 @@ public class Juego {
     private final Tablero tablero;
     private Jugador granCaballeria;
     private Jugador granRutaComercial;
-    private Turno turno ;
+    private Turno turno;
     private int indiceTurno;
     private MazoDesarrollo mazo;
 
-    /*public Juego() {
-        this.jugadores = jugadores;
-        this.tablero = new Tablero();
-        this.tablero.construir();
-    }*/
+    /*
+     * public Juego() {
+     * this.jugadores = jugadores;
+     * this.tablero = new Tablero();
+     * this.tablero.construir();
+     * }
+     */
 
     public Juego() {
         this.jugadores = new ArrayList<>();// armar bien el inicializador;
@@ -61,12 +63,11 @@ public class Juego {
     }
 
     public void validarJugadores() {
-        if (jugadores == null  || jugadores.size() < 3) {
+        if (jugadores == null || jugadores.size() < 3) {
             throw new JugadoresMinimosRegistradosError("Jugadores Menor a 3");
         }
 
     }
-
 
     public int recolectarRecursosDeTodosMenos(Jugador excluido, Recurso tipo) {
         int total = 0;
@@ -93,7 +94,8 @@ public class Juego {
 
     public void actualizarGranCaballeria(Jugador jugador) {
 
-        if (!jugador.puedeReclamarGranCaballeria()) return;
+        if (!jugador.puedeReclamarGranCaballeria())
+            return;
 
         if (granCaballeria == null ||
                 jugador.superaEnCaballerosA(granCaballeria)) {
@@ -111,7 +113,8 @@ public class Juego {
 
         int longitud = tablero.calcularLaRutaMasLarga(jugador);
 
-        if (longitud < 5) return;
+        if (longitud < 5)
+            return;
 
         if (granRutaComercial == null ||
                 longitud > tablero.calcularLaRutaMasLarga(granRutaComercial)) {
@@ -125,18 +128,15 @@ public class Juego {
         }
     }
 
-
-
-
-
     public void tirarDado() {
     }
 
     public void construirCarretera() {
     }
 
-
-
+    public Jugador getJugadorActivo() {
+        return this.turno.getJugadorActivo();
+    }
 
     public void agregarJugador(Jugador jugador) {
         jugadores.add(jugador);
