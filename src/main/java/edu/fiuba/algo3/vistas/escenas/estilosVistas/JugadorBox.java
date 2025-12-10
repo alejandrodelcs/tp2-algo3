@@ -36,9 +36,6 @@ public class JugadorBox extends VBox {
                         "-fx-border-color: #dddddd;" +
                         "-fx-border-width: 1;");
 
-
-
-
         // --- Columna derecha ---
         VBox derecha = new VBox(8);
         derecha.setAlignment(Pos.CENTER_LEFT);
@@ -47,9 +44,9 @@ public class JugadorBox extends VBox {
         HBox filaIcons = new HBox(15);
         filaIcons.setAlignment(Pos.CENTER_LEFT);
 
-        Label iconCartas = new Label("📜");
-        Label iconConstrucciones = new Label("🏠");
-        Label iconPv = new Label("⭐");
+        Label iconCartas = new Label("Rec");
+        Label iconConstrucciones = new Label("Con");
+        Label iconPv = new Label("Pv");
 
         filaIcons.getChildren().addAll(iconCartas, iconConstrucciones, iconPv);
 
@@ -59,7 +56,7 @@ public class JugadorBox extends VBox {
 
         Label valorCartas = new Label(String.valueOf(jugador.cantidadCartas()));
         Label valorConstrucciones = new Label(String.valueOf(jugador.cantidadConstrucciones()));
-        Label valorPv = new Label(String.valueOf(jugador.consultarRecursos()));
+        Label valorPv = new Label(String.valueOf(jugador.getPuntosVictoria()));
 
         // --- Nombre del jugador ---
 
@@ -70,8 +67,6 @@ public class JugadorBox extends VBox {
                 "-fx-font-size: 20;" +
                         "-fx-text-fill: #050505;" +
                         "-fx-font-weight: bold;");
-
-
 
         filaValores.getChildren().addAll(valorCartas, valorConstrucciones, valorPv, nombreJugador);
 
