@@ -23,7 +23,33 @@ public class CartasBar extends HBox {
             "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);";
 
     public CartasBar(Juego juego) {
+        configurarEstiloBase();
+        refrescarContenido(juego);
+    }
 
+    public void actualizar(Juego juego) {
+        refrescarContenido(juego);
+    }
+
+    private void refrescarContenido(Juego juego) {
+
+        this.getChildren().clear();
+        Jugador jugadorActivo = juego.getJugadorActivo();
+
+        this.getChildren().add(crearIconoJugador(jugadorActivo));
+
+        for (Terreno terreno : juego.getTerrenos()) {
+
+            Recurso rec = terreno.retornarRecurso();
+            if (rec == null)
+                continue;
+
+            int cantidad = jugadorActivo.cantidadDe(rec.getClass());
+            this.getChildren().add(crearCartaVisual(rec.getClass(), cantidad));
+        }
+    }
+
+    private void configurarEstiloBase() {
         this.setPrefWidth(600);
         this.setSpacing(25);
         this.setAlignment(Pos.CENTER);
@@ -33,57 +59,37 @@ public class CartasBar extends HBox {
                         "-fx-background-radius: 0;" +
                         "-fx-border-radius: 0;" +
                         "-fx-padding: 20;");
-
-        Jugador jugadorActivo = juego.getJugadorActivo();
-
-        this.getChildren().add(crearIconoJugador(jugadorActivo));
-
-        for (Terreno terreno : juego.getTerrenos()) {
-            Recurso rec = terreno.retornarRecurso();
-            if (rec == null)
-                continue;
-
-            int cantidad = jugadorActivo.cantidadDe(rec.getClass());
-
-            this.getChildren().add(crearCartaVisual(rec.getClass(), cantidad));
-        }
     }
 
     private VBox crearIconoJugador(Jugador jugador) {
-
         VBox box = crearContenedorVertical();
-
         ImageView iconView = crearImagen(jugador.getAvatar());
         iconView.setFitHeight(70);
         iconView.setPreserveRatio(true);
-
-        Label lbl = crearLabel("" + jugador.getNombre());
-
+        Label lbl = crearLabel(jugador.getNombre());
         box.getChildren().addAll(iconView, lbl);
         return box;
     }
 
     private HBox crearCartaVisual(Class<? extends Recurso> tipo, int cantidad) {
-
-        Recurso recurso;
         try {
-            recurso = tipo.getDeclaredConstructor().newInstance();
+            Recurso recurso = tipo.getDeclaredConstructor().newInstance();
+            HBox box = crearContenedorHorizontal();
+
+            ImageView imgView = crearImagen(recurso.getImagen());
+            if (imgView != null) {
+                imgView.setFitHeight(70);
+                imgView.setPreserveRatio(true);
+            }
+
+            Label lbl = crearLabel("x" + cantidad);
+            box.getChildren().addAll(imgView, lbl);
+
+            return box;
+
         } catch (Exception e) {
             throw new RuntimeException("No se pudo instanciar el recurso " + tipo.getSimpleName(), e);
         }
-
-        HBox box = crearContenedorHorizontal();
-
-        ImageView imgView = crearImagen(recurso.getImagen());
-        if (imgView != null) {
-            imgView.setFitHeight(70);
-            imgView.setPreserveRatio(true);
-        }
-
-        Label lbl = crearLabel("x" + cantidad);
-
-        box.getChildren().addAll(imgView, lbl);
-        return box;
     }
 
     private HBox crearContenedorHorizontal() {
@@ -111,7 +117,6 @@ public class CartasBar extends HBox {
             }
             Image img = new Image(is);
             return new ImageView(img);
-
         } catch (Exception e) {
             System.err.println("⚠️ Error cargando imagen: " + e.getMessage());
             return new ImageView();
@@ -125,9 +130,5 @@ public class CartasBar extends HBox {
                         "-fx-font-size: 26px;" +
                         "-fx-font-weight: bold;");
         return lbl;
-    }
-
-    public void actualizar(Juego juego) {
-        // pendiente
     }
 }

@@ -24,6 +24,9 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
  */
 public class Turno {
     private EstadoTurno estadoActual;
+    private boolean primeraVuelta;
+    private int numeroTurno;
+
     private Jugador jugadorActivo;
     private final Tablero tablero;
 
@@ -31,11 +34,13 @@ public class Turno {
         this.jugadorActivo = jugadorActivo;
         this.tablero = tablero;
         this.estadoActual = new EstadoInicial();
+        this.primeraVuelta = true;
+        this.numeroTurno = 0;
 
     }
 
-    public void tirarDado(Dado dado) {
-        estadoActual.tirarDado(dado, jugadorActivo, this);
+    public void tirarDado(int numero) {
+        estadoActual.tirarDado(numero, jugadorActivo, this);
     }
 
     public void cambiarEstado(EstadoTurno nuevo) {
@@ -67,8 +72,16 @@ public class Turno {
 
     public void pasarTurno(Juego juego) {
         jugadorActivo.habilitarCartasDesarrollo();
-        jugadorActivo = juego.siguienteJugador(jugadorActivo);
+        jugadorActivo = juego.siguienteJugador();
         this.estadoActual = new EstadoInicial();
+
+        this.numeroTurno++;
+        if (numeroTurno < juego.cantidadJugadores()) {
+            this.primeraVuelta = false;
+            this.estadoActual = new EstadoInicial();
+
+        }
+
     }
 
     public Jugador jugador() {
@@ -80,7 +93,7 @@ public class Turno {
     }
 
     public void avanzarAlSiguienteJugador(Juego juego) {
-        this.jugadorActivo = juego.siguienteJugador(jugadorActivo);
+        this.jugadorActivo = juego.siguienteJugador();
     }
 
     public Jugador getJugadorActivo() {

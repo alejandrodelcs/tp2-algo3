@@ -14,10 +14,9 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
     Puede robar una carta aun jugador con construcciones adyacentes sino excepction
  */
 
-
-public class EstadoPuedeRobar implements EstadoTurno{
+public class EstadoPuedeRobar implements EstadoTurno {
     @Override
-    public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
+    public void tirarDado(int dado, Jugador jugador, Turno turno) {
 
     }
 
@@ -26,7 +25,6 @@ public class EstadoPuedeRobar implements EstadoTurno{
 
     }
 
-
     @Override
     public void robar(Turno turno, Tablero tablero, Jugador jugadorVictima, Jugador jugadorActivo) {
         tablero.robarConLadronA(jugadorActivo, jugadorVictima);
@@ -34,7 +32,8 @@ public class EstadoPuedeRobar implements EstadoTurno{
     }
 
     @Override
-    public void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion, Object... ubicaciones) {
+    public void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion,
+            Object... ubicaciones) {
 
     }
 
@@ -44,7 +43,8 @@ public class EstadoPuedeRobar implements EstadoTurno{
     }
 
     @Override
-    public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo, Object... args) {
+    public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo,
+            Object... args) {
 
     }
 
@@ -52,6 +52,5 @@ public class EstadoPuedeRobar implements EstadoTurno{
     public void pasarTurno(Turno turno, Jugador jugador, Juego juego) {
 
     }
-
 
 }

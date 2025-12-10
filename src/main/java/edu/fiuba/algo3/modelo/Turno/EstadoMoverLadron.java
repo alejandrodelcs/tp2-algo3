@@ -10,11 +10,10 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
-public class EstadoMoverLadron implements EstadoTurno{
-
+public class EstadoMoverLadron implements EstadoTurno {
 
     @Override
-    public void moverLadron(Turno turno, Tablero tablero, Hexagono destino){
+    public void moverLadron(Turno turno, Tablero tablero, Hexagono destino) {
         tablero.moverLadronA(destino);
         turno.cambiarEstado(new EstadoPuedeRobar());
     }
@@ -22,11 +21,11 @@ public class EstadoMoverLadron implements EstadoTurno{
     @Override
     public void robar(Turno turno, Tablero tablero, Jugador jugadorVictima, Jugador jugadorActivo) {
 
-
     }
 
     @Override
-    public void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion, Object... ubicaciones) {
+    public void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion,
+            Object... ubicaciones) {
 
     }
 
@@ -36,7 +35,8 @@ public class EstadoMoverLadron implements EstadoTurno{
     }
 
     @Override
-    public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo, Object... args) {
+    public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo,
+            Object... args) {
 
     }
 
@@ -45,11 +45,9 @@ public class EstadoMoverLadron implements EstadoTurno{
 
     }
 
-
     @Override
-    public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
+    public void tirarDado(int dado, Jugador jugador, Turno turno) {
 
     }
-
 
 }

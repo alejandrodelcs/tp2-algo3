@@ -3,7 +3,10 @@ package edu.fiuba.algo3.vistas.escenas;
 import edu.fiuba.algo3.controllers.ControladorRegistro;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.*;
-
+import edu.fiuba.algo3.modelo.Recurso.Grano;
+import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
+import edu.fiuba.algo3.modelo.Recurso.Lana;
+import edu.fiuba.algo3.modelo.Recurso.Madera;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -116,7 +119,8 @@ public class EscenaConfigJugadores extends EscenaGeneral {
                 TextField campo = (TextField) nodo;
                 if (!campo.getText().trim().isEmpty()) {
                     System.out.println(campo.getText());
-                    Jugador jugadorAgregado = new Jugador(campo.getText(), new Inventario());
+                    Jugador jugadorAgregado = new Jugador(campo.getText(),
+                            new Inventario(new Madera(), new Ladrillo(), new Lana(), new Grano()));
                     jugadorAgregado.setAvatar(avataresDisponibles[i]);
 
                     jugadores.add(jugadorAgregado);

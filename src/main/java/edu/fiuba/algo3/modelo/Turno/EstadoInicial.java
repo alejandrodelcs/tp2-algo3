@@ -13,20 +13,21 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
-public class EstadoInicial implements EstadoTurno{
+public class EstadoInicial implements EstadoTurno {
 
     @Override
-    public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
-        int numero = dado.lanzar();
+    public void tirarDado(int numero, Jugador jugador, Turno turno) {
+
+        System.out.println("dado:" + numero);
 
         AccionDado accion = (numero == 7)
-                        ? new AccionReducirRecursos(numero)
-                        : new AccionGenerarRecursos(numero);
+                ? new AccionReducirRecursos(numero)
+                : new AccionGenerarRecursos(numero);
         accion.aplicar(jugador);
 
         if (numero == 7) {
             turno.cambiarEstado(new EstadoMoverLadron());
-        }else{
+        } else {
             turno.cambiarEstado(new EstadoAcciones());
         }
 
@@ -37,14 +38,14 @@ public class EstadoInicial implements EstadoTurno{
 
     }
 
-
     @Override
     public void robar(Turno turno, Tablero tablero, Jugador jugadorVictima, Jugador jugadorActivo) {
 
     }
 
     @Override
-    public void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion, Object... ubicaciones) {
+    public void construir(Turno turno, Jugador jugador, Construible construible, Construccion construccion,
+            Object... ubicaciones) {
 
     }
 
@@ -54,7 +55,8 @@ public class EstadoInicial implements EstadoTurno{
     }
 
     @Override
-    public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo, Object... args) {
+    public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo,
+            Object... args) {
 
     }
 
@@ -62,6 +64,5 @@ public class EstadoInicial implements EstadoTurno{
     public void pasarTurno(Turno turno, Jugador jugador, Juego juego) {
 
     }
-
 
 }

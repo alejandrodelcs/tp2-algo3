@@ -4,20 +4,17 @@ import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.effect.DropShadow;
 import edu.fiuba.algo3.vistas.TableroView;
 import edu.fiuba.algo3.vistas.escenas.estilosVistas.*;
-import javafx.scene.image.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-//import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -27,8 +24,7 @@ public class EscenaJuego extends EscenaGeneral {
     private TableroView tableroView;
     private JugadoresBar jugadoresBar;
     private CartasBar cartasBar;
-    private BotonTurnoDado botonTunroDado;
-    private CajaJugador cajaJugador;
+    private Tablero tablero;
 
     public EscenaJuego(Stage stage, Juego juego) {
         super(stage, juego);
@@ -41,10 +37,10 @@ public class EscenaJuego extends EscenaGeneral {
 
         GridPane gridLayout = new GridPane();
 
-        JugadoresBar jugadoresBar = new JugadoresBar(juego);
+        this.jugadoresBar = new JugadoresBar(juego);
         gridLayout.add(jugadoresBar, 0, 0);
 
-        Tablero tablero = juego.getTablero();
+        this.tablero = juego.getTablero();
         TableroView tableroView = new TableroView(tablero);
         this.tableroView = tableroView;
         tableroView.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
@@ -64,13 +60,13 @@ public class EscenaJuego extends EscenaGeneral {
         panelAcciones.setMaxWidth(300);
 
         BotonesVista btnDado = new BotonesVista("Tirar Dado");
-        btnDado.setOnAction(e -> System.out.println("Tirando dados..."));
+        btnDado.setOnAction(e -> this.controlador.tirarDado());
 
         BotonesVista btnConstruir = new BotonesVista("Construir");
         btnConstruir.setOnAction(e -> manejarClickConstruir());
 
         BotonesVista btnPasar = new BotonesVista("Pasar Turno");
-        btnPasar.setOnAction(e -> System.out.println("Pasando turno..."));
+        btnPasar.setOnAction(e -> this.controlador.pasarTurno());
 
         btnDado.setMaxWidth(Double.MAX_VALUE);
         btnConstruir.setMaxWidth(Double.MAX_VALUE);
@@ -80,7 +76,7 @@ public class EscenaJuego extends EscenaGeneral {
 
         gridLayout.add(panelAcciones, 2, 0);
 
-        CartasBar cartasBar = new CartasBar(juego);
+        this.cartasBar = new CartasBar(juego);
         gridLayout.add(cartasBar, 0, 1, 3, 1);
 
         ColumnConstraints colIzq = new ColumnConstraints();
@@ -109,6 +105,7 @@ public class EscenaJuego extends EscenaGeneral {
 
     private void manejarClickConstruir() {
         Vertice verticeSeleccionado = tableroView.obtenerVerticeSeleccionado();
+        Jugador jugador = juego.getJugadorActivo();
 
         if (verticeSeleccionado == null) {
             mostrarAlerta("Atención", "¡Debes seleccionar un Vértice primero!");
@@ -139,6 +136,7 @@ public class EscenaJuego extends EscenaGeneral {
                 System.out.println(" Construyendo " + nombreElegido + "...");
 
                 verticeSeleccionado.construir(nuevaObra);
+                jugador.construir(new ConstruirAsentamiento(), nuevaObra, verticeSeleccionado);
 
                 // tableroView.actualizarVisualizacion();
 

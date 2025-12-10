@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.JugadoresMinimosRegistradosError;
 import edu.fiuba.algo3.modelo.Jugador.*;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
@@ -21,8 +22,9 @@ public class Juego {
     private Jugador granCaballeria;
     private Jugador granRutaComercial;
     private Turno turno;
-    private int indiceTurno;
+    private int indiceTurno = 0;
     private MazoDesarrollo mazo;
+    private Dado dado;
 
     /*
      * public Juego() {
@@ -37,7 +39,7 @@ public class Juego {
         this.tablero = new Tablero();
         this.tablero.construir();
         this.mazo = new MazoDesarrollo();
-        this.indiceTurno = 0;
+        this.dado = new Dado();
     }
 
     public Juego(ArrayList<Jugador> jugadores) {
@@ -45,8 +47,8 @@ public class Juego {
         this.tablero = new Tablero();
         this.tablero.construir();
         this.mazo = new MazoDesarrollo();
-        this.indiceTurno = 0;
         this.turno = new Turno(jugadores.get(0), this.tablero);
+        this.dado = new Dado();
 
     }
 
@@ -91,15 +93,11 @@ public class Juego {
     }
 
     public void pasarTurno() {
-        indiceTurno = (indiceTurno + 1) % jugadores.size();
-    }
-
-    public Jugador getJugadorActual() {
-        return jugadores.get(indiceTurno);
+        this.turno.pasarTurno(this);
     }
 
     public CartaDesarrollo comprarCartaDesarrollo() {
-        return mazo.comprarCarta(getJugadorActual());
+        return mazo.comprarCarta(turno.getJugadorActivo());
     }
 
     public void actualizarGranCaballeria(Jugador jugador) {
@@ -139,6 +137,12 @@ public class Juego {
     }
 
     public void tirarDado() {
+        int numero = this.dado.lanzar();
+        this.turno.tirarDado(numero);
+        for (Jugador jugador : jugadores) {
+            jugador.generarRecursosPorConstrucciones(numero);
+
+        }
     }
 
     public void construirCarretera() {
@@ -152,8 +156,12 @@ public class Juego {
         jugadores.add(jugador);
     }
 
-    public Jugador siguienteJugador(Jugador jugadorActivo) {
-        indiceTurno = (indiceTurno + 1) % jugadores.size();
+    public Jugador siguienteJugador() {
+        this.indiceTurno = (this.indiceTurno + 1) % jugadores.size();
         return jugadores.get(indiceTurno);
+    }
+
+    public int cantidadJugadores() {
+        return this.jugadores.size();
     }
 }
