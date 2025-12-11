@@ -27,8 +27,8 @@ public class JugadorBox extends VBox {
         // --- Avatar ---
         ImageView avatar = new ImageView(new Image(
                 getClass().getResource(jugador.getAvatar()).toExternalForm()));
-        avatar.setFitWidth(60);
-        avatar.setFitHeight(60);
+        avatar.setFitWidth(70);
+        avatar.setFitHeight(70);
         avatar.setStyle(
                 "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 1);" +
                         "-fx-background-radius: 30;" +
@@ -45,8 +45,11 @@ public class JugadorBox extends VBox {
         filaIcons.setAlignment(Pos.CENTER_LEFT);
 
         Label iconCartas = new Label("Rec");
+        iconCartas.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
         Label iconConstrucciones = new Label("Con");
+        iconConstrucciones.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
         Label iconPv = new Label("Pv");
+        iconPv.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
 
         filaIcons.getChildren().addAll(iconCartas, iconConstrucciones, iconPv);
 
@@ -55,8 +58,11 @@ public class JugadorBox extends VBox {
         filaValores.setAlignment(Pos.CENTER_LEFT);
 
         Label valorCartas = new Label(String.valueOf(jugador.cantidadCartas()));
+        valorCartas.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
         Label valorConstrucciones = new Label(String.valueOf(jugador.cantidadConstrucciones()));
+        valorConstrucciones.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;");
         Label valorPv = new Label(String.valueOf(jugador.getPuntosVictoria()));
+        valorPv.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
 
         // --- Nombre del jugador ---
 
@@ -64,7 +70,7 @@ public class JugadorBox extends VBox {
         System.out.println(jugador.getNombre().toUpperCase());
 
         nombreJugador.setStyle(
-                "-fx-font-size: 20;" +
+                "-fx-font-size: 30;" +
                         "-fx-text-fill: #050505;" +
                         "-fx-font-weight: bold;");
 
@@ -73,7 +79,7 @@ public class JugadorBox extends VBox {
         // Cajita con borde para derecha ---
         VBox cajaDerecha = new VBox(5, nombreJugador, filaIcons, filaValores);
         cajaDerecha.setStyle(
-                "-fx-background-color: #ffffff;" +
+                "-fx-background-color: transparent;" +
                         "-fx-background-radius: 0;" +
                         "-fx-border-color: #e1e1e1;" +
                         "-fx-border-width: 0;" +

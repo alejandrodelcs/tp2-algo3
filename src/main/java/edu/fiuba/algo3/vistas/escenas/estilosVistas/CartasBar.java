@@ -71,10 +71,10 @@ public class CartasBar extends HBox {
         return box;
     }
 
-    private HBox crearCartaVisual(Class<? extends Recurso> tipo, int cantidad) {
+    private VBox crearCartaVisual(Class<? extends Recurso> tipo, int cantidad) {
         try {
             Recurso recurso = tipo.getDeclaredConstructor().newInstance();
-            HBox box = crearContenedorHorizontal();
+            VBox box = crearContenedorHorizontal();
 
             ImageView imgView = crearImagen(recurso.getImagen());
             if (imgView != null) {
@@ -82,7 +82,7 @@ public class CartasBar extends HBox {
                 imgView.setPreserveRatio(true);
             }
 
-            Label lbl = crearLabel("x" + cantidad);
+            Label lbl = crearLabel("x " + cantidad);
             box.getChildren().addAll(imgView, lbl);
 
             return box;
@@ -92,8 +92,8 @@ public class CartasBar extends HBox {
         }
     }
 
-    private HBox crearContenedorHorizontal() {
-        HBox box = new HBox(10);
+    private VBox crearContenedorHorizontal() {
+        VBox box = new VBox(10);
         box.setAlignment(Pos.CENTER);
         box.setPadding(new Insets(10));
         box.setStyle(CARTA_STYLE);
