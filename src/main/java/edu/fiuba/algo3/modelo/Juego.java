@@ -22,16 +22,17 @@ public class Juego {
     private Jugador granCaballeria;
     private Jugador granRutaComercial;
     private Turno turno;
-    private int indiceTurno = 0;
+    private int indiceTurno;
     private Mazo mazo;
     private Dado dado;
-    private int numeroActual = 0;
+    private int numeroActualDado;
 
     /*
      * public Juego() {
      * this.jugadores = jugadores;
      * this.tablero = new Tablero();
      * this.tablero.construir();
+     *
      * }
      */
 
@@ -41,6 +42,7 @@ public class Juego {
         this.tablero.construir();
         this.mazo = new Mazo();
         this.dado = new Dado();
+        this.indiceTurno = 0;
     }
 
     public Juego(ArrayList<Jugador> jugadores) {
@@ -139,9 +141,9 @@ public class Juego {
 
     public void tirarDado() {
         //this.numeroActual = this.dado.lanzar();
-        this.numeroActual = this.turno.tirarDado();
+        this.numeroActualDado = this.turno.tirarDado();
         for (Jugador jugador : jugadores) {
-            jugador.generarRecursosPorConstrucciones(numeroActual);
+            jugador.generarRecursosPorConstrucciones(numeroActualDado);
 
         }
     }
@@ -167,6 +169,6 @@ public class Juego {
     }
 
     public int getDadoActual() {
-        return this.numeroActual;
+        return this.numeroActualDado;
     }
 }

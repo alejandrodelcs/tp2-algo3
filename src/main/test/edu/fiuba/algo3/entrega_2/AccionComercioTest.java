@@ -45,7 +45,7 @@ public class AccionComercioTest {
         this.turno = new Turno(jugadorActivo, tablero);
 
         this.mockDado = mock(Dado.class);
-        when(mockDado.tirarDado()).thenReturn(2);
+        when(mockDado.generar()).thenReturn(2);
         turno.tirarDado(mockDado);
 
         this.banca = new Banca();

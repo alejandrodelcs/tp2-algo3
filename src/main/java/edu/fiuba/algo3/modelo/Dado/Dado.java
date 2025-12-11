@@ -13,12 +13,12 @@ public class Dado {
         this.dado = 0;
     }
 
-    public int tirarDado() {
+    public int generar() {
         return new Random().nextInt(6) + 1;
     }
 
     public int lanzar() {
-        return this.tirarDado() + this.tirarDado();
+        return this.generar() + this.generar();
     }
 
 }
