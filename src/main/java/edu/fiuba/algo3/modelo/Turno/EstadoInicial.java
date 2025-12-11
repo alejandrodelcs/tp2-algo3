@@ -16,9 +16,8 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 public class EstadoInicial implements EstadoTurno {
 
     @Override
-    public void tirarDado(int numero, Jugador jugador, Turno turno) {
-
-        System.out.println("dado:" + numero);
+    public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
+        int numero = dado.lanzar();
 
         AccionDado accion = (numero == 7)
                 ? new AccionReducirRecursos(numero)
@@ -30,10 +29,9 @@ public class EstadoInicial implements EstadoTurno {
         } else {
             turno.cambiarEstado(new EstadoAcciones());
         }
-
     }
 
-    @Override
+        @Override
     public void moverLadron(Turno turno, Tablero tablero, Hexagono destino) {
 
     }

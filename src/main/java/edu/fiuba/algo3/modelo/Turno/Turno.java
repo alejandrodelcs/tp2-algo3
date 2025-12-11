@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.Turno;
 
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
-import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
@@ -41,9 +40,9 @@ public class Turno {
         this.dado = new Dado();
     }
 
-//    public void tirarDado(int numero) {
-//        estadoActual.tirarDado(numero, jugadorActivo, this);
-//    }
+    public void tirarDado(Dado dado) {
+       estadoActual.tirarDado(dado, jugadorActivo, this);
+   }
 
     public int tirarDado() {
         return this.dado.lanzar();

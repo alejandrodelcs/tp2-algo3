@@ -46,7 +46,7 @@ public class EstadoMoverLadron implements EstadoTurno {
     }
 
     @Override
-    public void tirarDado(int dado, Jugador jugador, Turno turno) {
+    public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
 
     }
 

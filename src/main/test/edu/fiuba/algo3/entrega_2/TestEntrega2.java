@@ -5,10 +5,9 @@ import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeConstruirCarreteraError;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
-import edu.fiuba.algo3.modelo.Excepciones.CarreteraNoConectadaError;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.Mazo;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import org.junit.jupiter.api.Test;
 
@@ -67,7 +66,7 @@ public class TestEntrega2 {
    @Test
     public void test04ComprarCartaDesarrolloConsumeRecursosYVaAManoOculta() {
         Jugador jugador = new Jugador("Estratega", new Inventario(new Lana(), new Grano(), new Mineral()));
-        MazoDesarrollo mazo = new MazoDesarrollo();
+        Mazo mazo = new Mazo();
 
         jugador.compraCartaDesarrollo(mazo.entregarCarta());
 
@@ -79,7 +78,7 @@ public class TestEntrega2 {
     @Test
     public void test05CartaCompradaNoSePuedeJugarEnElMismoTurno() {
         Jugador jugador = new Jugador("Impaciente", new Inventario(new Lana(), new Grano(), new Mineral()));
-        MazoDesarrollo mazo = new MazoDesarrollo();
+        Mazo mazo = new Mazo();
 
         jugador.compraCartaDesarrollo(mazo.entregarCarta());
 

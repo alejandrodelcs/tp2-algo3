@@ -2,7 +2,7 @@ package edu.fiuba.algo3.entrega_2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.Mazo;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -18,7 +18,7 @@ public class MazoTest {
         Inventario inventario = new Inventario(new Lana(), new Grano(), new Mineral());
         Jugador jugador = new Jugador("Ale", inventario);
 
-        MazoDesarrollo mazo = new MazoDesarrollo();
+        Mazo mazo = new Mazo();
 
 
         mazo.comprarCarta(jugador);
@@ -31,7 +31,7 @@ public class MazoTest {
         Inventario inventario = new Inventario(new Lana()); // Solo 1 recurso
         Jugador jugador = new Jugador("Ale", inventario);
 
-        MazoDesarrollo mazo = new MazoDesarrollo();
+        Mazo mazo = new Mazo();
 
         assertThrows(NoHayRecursoDisponibleError.class, () -> mazo.comprarCarta(jugador));
     }

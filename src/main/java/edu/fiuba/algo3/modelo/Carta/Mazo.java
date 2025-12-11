@@ -11,12 +11,12 @@ import edu.fiuba.algo3.modelo.Recurso.Mineral;
 import java.util.Collections;
 import java.util.Stack;
 
-public class MazoDesarrollo {
+public class Mazo {
 
-    private final Stack<CartaDesarrollo> cartas;
+    private final Stack<Carta> cartas;
     private final Costo costo ;
 
-    public MazoDesarrollo() {
+    public Mazo() {
         this.cartas = new Stack<>();
         this.costo = new Costo(Lana.class, Grano.class, Mineral.class);
         this.inicializarMazo();

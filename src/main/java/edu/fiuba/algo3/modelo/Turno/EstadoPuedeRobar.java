@@ -16,7 +16,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 public class EstadoPuedeRobar implements EstadoTurno {
     @Override
-    public void tirarDado(int dado, Jugador jugador, Turno turno) {
+    public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
 
     }
 

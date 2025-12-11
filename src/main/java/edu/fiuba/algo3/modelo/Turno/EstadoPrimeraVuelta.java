@@ -3,9 +3,6 @@ package edu.fiuba.algo3.modelo.Turno;
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Construible;
-import edu.fiuba.algo3.modelo.Dado.AccionDado;
-import edu.fiuba.algo3.modelo.Dado.AccionGenerarRecursos;
-import edu.fiuba.algo3.modelo.Dado.AccionReducirRecursos;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Juego;
@@ -19,7 +16,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 public class EstadoPrimeraVuelta implements EstadoTurno {
 
     @Override
-    public void tirarDado(int dado, Jugador jugador, Turno turno) {
+    public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
 
     }
 

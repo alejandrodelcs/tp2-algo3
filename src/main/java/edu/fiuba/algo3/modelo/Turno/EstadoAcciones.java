@@ -12,7 +12,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 public class EstadoAcciones implements EstadoTurno {
     @Override
-    public void tirarDado(int dado, Jugador jugador, Turno turno) {
+    public void tirarDado(Dado dado, Jugador jugador, Turno turno) {
 
     }
 

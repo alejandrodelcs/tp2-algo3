@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
-import edu.fiuba.algo3.modelo.Carta.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.Mazo;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.JugadoresMinimosRegistradosError;
 import edu.fiuba.algo3.modelo.Jugador.*;
@@ -23,7 +23,7 @@ public class Juego {
     private Jugador granRutaComercial;
     private Turno turno;
     private int indiceTurno = 0;
-    private MazoDesarrollo mazo;
+    private Mazo mazo;
     private Dado dado;
     private int numeroActual = 0;
 
@@ -39,7 +39,7 @@ public class Juego {
         this.jugadores = new ArrayList<>();// armar bien el inicializador;
         this.tablero = new Tablero();
         this.tablero.construir();
-        this.mazo = new MazoDesarrollo();
+        this.mazo = new Mazo();
         this.dado = new Dado();
     }
 
@@ -47,7 +47,7 @@ public class Juego {
         this.jugadores = jugadores;
         this.tablero = new Tablero();
         this.tablero.construir();
-        this.mazo = new MazoDesarrollo();
+        this.mazo = new Mazo();
         this.turno = new Turno(jugadores.get(0), this.tablero);
         this.dado = new Dado();
 

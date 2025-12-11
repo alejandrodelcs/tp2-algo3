@@ -12,7 +12,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 public interface EstadoTurno {
 
-    void tirarDado(int dado, Jugador jugador, Turno turno);
+    void tirarDado(Dado dado, Jugador jugador, Turno turno);
 
     void moverLadron(Turno turno, Tablero tablero, Hexagono destino);
 
