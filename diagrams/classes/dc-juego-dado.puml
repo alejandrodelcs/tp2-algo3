@@ -1,0 +1,50 @@
+@startuml
+
+
+class Dado{
+   +generar():int
+   +lanzar():int
+}
+
+
+interface AccionDado{
+    +aplicar(jugador:Jugador)
+}
+
+
+class AccionGenerarRecursos implements AccionDado {
+     +aplicar(jugador:Jugador)
+}
+
+
+class AccionReducirRecursos implements AccionDado {
+     +aplicar(jugador:Jugador)
+}
+
+
+Dado .> AccionDado : <<use>>
+
+class Juego{
+  -jugadores:List<Jugador>
+  -tablero:Tablero
+  -granCaballero:Jugador
+  -granRutaComercial:Jugador
+  -turno:Turno
+  -indiceTurno
+  -mazo:Mazo
+  -numeroActualDado:int
+
+  +crearJugadores(nombre:List<String>, avatares: List<String>)
+  +validarJugadores()
+  +recolectarRecursosDeTodosMenos(excluido:Jugador,tipo:Recurso):int
+  +pasarTurno()
+  +actualizarGranCaballeria(jugador:Jugador)
+  +actualizarGranRutaComercial(jugador:Jugador)
+  +siguienteJugador():Jugador
+
+}
+
+
+Juego" 1" --> "2" Dado : tiene
+
+@enduml

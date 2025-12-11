@@ -1,0 +1,92 @@
+@startuml
+
+
+class Turno{
+    -estadoActual:EstadoActual
+    +moverLadron(destino:Hexagono)
+    +robar(jugadorVictima:Jugador)
+    +construir(construible:Construible, construccion:Construccion, ubicaciones:Object[*])
+    +comerciar(comercio:Comercio)
+    +jugarCarta(carta:CartaDesarrollo, args:Object[*])
+    +pasarTurno(juego:Juego)
+
+
+}
+
+class Acciones{
+    +tirarDado(dado:Dado, jugador:Jugador, turno:Turno)
+   +moverLadron(turno:Turno, tablero:Tablero, destino:Hexagono)
+   +robar(turno:Turno, tablero:Tablero, jugadorVictima:jugador, jugadorActivo:Jugador)
+   +construir(turno:Turno,jugador:Jugador, construible:Construible, construccion:Construccion)
+   +comercia(turno:Turno,receptor:Jugador, comercio:Comercio)
+   +jugarCarta(turno:Turno, jugador:Jugador, tablero:Tablero
+}
+
+
+class MoverLadron{
+    +tirarDado(dado:Dado, jugador:Jugador, turno:Turno)
+   +moverLadron(turno:Turno, tablero:Tablero, destino:Hexagono)
+   +robar(turno:Turno, tablero:Tablero, jugadorVictima:jugador, jugadorActivo:Jugador)
+   +construir(turno:Turno,jugador:Jugador, construible:Construible, construccion:Construccion)
+   +comercia(turno:Turno,receptor:Jugador, comercio:Comercio)
+   +jugarCarta(turno:Turno, jugador:Jugador, tablero:Tablero, cartaDesarrollo:CartaDesarrllo, args:Object[*])
+   +pasarTurno(turno:Turno, jugador:Jugador, juego:Juego)
+}
+
+class PrimeraVuelta{
+    +tirarDado(dado:Dado, jugador:Jugador, turno:Turno)
+   +moverLadron(turno:Turno, tablero:Tablero, destino:Hexagono)
+   +robar(turno:Turno, tablero:Tablero, jugadorVictima:jugador, jugadorActivo:Jugador)
+   +construir(turno:Turno,jugador:Jugador, construible:Construible, construccion:Construccion)
+   +comercia(turno:Turno,receptor:Jugador, comercio:Comercio)
+   +jugarCarta(turno:Turno, jugador:Jugador, tablero:Tablero, cartaDesarrollo:CartaDesarrllo, args:Object[*])
+   +pasarTurno(turno:Turno, jugador:Jugador, juego:Juego)
+}
+
+
+class PuedeRobar{
+    +tirarDado(dado:Dado, jugador:Jugador, turno:Turno)
+   +moverLadron(turno:Turno, tablero:Tablero, destino:Hexagono)
+   +robar(turno:Turno, tablero:Tablero, jugadorVictima:jugador, jugadorActivo:Jugador)
+   +construir(turno:Turno,jugador:Jugador, construible:Construible, construccion:Construccion)
+   +comercia(turno:Turno,receptor:Jugador, comercio:Comercio)
+   +jugarCarta(turno:Turno, jugador:Jugador, tablero:Tablero, cartaDesarrollo:CartaDesarrllo, args:Object[*])
+   +pasarTurno(turno:Turno, jugador:Jugador, juego:Juego)
+}
+
+class Inicial{
+    +tirarDado(dado:Dado, jugador:Jugador, turno:Turno)
+   +moverLadron(turno:Turno, tablero:Tablero, destino:Hexagono)
+   +robar(turno:Turno, tablero:Tablero, jugadorVictima:jugador, jugadorActivo:Jugador)
+   +construir(turno:Turno,jugador:Jugador, construible:Construible, construccion:Construccion)
+   +comercia(turno:Turno,receptor:Jugador, comercio:Comercio)
+   +jugarCarta(turno:Turno, jugador:Jugador, tablero:Tablero, cartaDesarrollo:CartaDesarrllo, args:Object[*])
+   +pasarTurno(turno:Turno, jugador:Jugador, juego:Juego)
+
+}
+
+interface EstadoTurno{
+   +tirarDado(dado:Dado, jugador:Jugador, turno:Turno)
+   +moverLadron(turno:Turno, tablero:Tablero, destino:Hexagono)
+   +robar(turno:Turno, tablero:Tablero, jugadorVictima:jugador, jugadorActivo:Jugador)
+   +construir(turno:Turno,jugador:Jugador, construible:Construible, construccion:Construccion)
+   +comercia(turno:Turno,receptor:Jugador, comercio:Comercio)
+   +jugarCarta(turno:Turno, jugador:Jugador, tablero:Tablero, cartaDesarrollo:CartaDesarrllo, args:Object[*])
+   +pasarTurno(turno:Turno, jugador:Jugador, juego:Juego)
+
+}
+
+
+EstadoTurno ..|> Inicial
+EstadoTurno ..|> PuedeRobar
+PrimeraVuelta <|.. EstadoTurno
+Acciones <|.. EstadoTurno
+MoverLadron <|... EstadoTurno
+
+
+
+Turno o--- EstadoTurno
+
+
+
+@enduml

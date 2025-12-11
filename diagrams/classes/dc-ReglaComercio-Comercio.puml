@@ -1,0 +1,53 @@
+@startuml
+
+class Banca{
+   +entregarTipos(jugador:Jugador, recibe:List<Recurso>
+   +instanciarRecurso(tipo:Recurso): Recurso
+}
+
+interface Comercio{
+  +aplicarSobre(jugador:Jugador)
+}
+
+
+class ComercioBanca{
+   -oferente: Jugador
+   -entrega: Recurso
+   -recibe : Recurso
+   +aplicarSobre(jugador:Jugador)
+}
+
+
+class ComercioInterior{
+   +aplicaSobre(receptor:Jugador)
+}
+
+interface ReglaComercio{
+   +validar(entrega:Recurso, recibe:Recurso)
+}
+
+class ReglaComercio2a1{
+   +validar(entrega:Recurso, recibe:Recurso)
+}
+
+
+class ReglaComercio3a1{
+     +validar(entrega:Recurso, recibe:Recurso)
+}
+
+
+class ReglaComercio4a1{
+     +validar(entrega:Recurso, recibe:Recurso)
+}
+
+
+ReglaComercio2a1 ..|> ReglaComercio
+ReglaComercio3a1 ..|> ReglaComercio
+ReglaComercio <|.. ReglaComercio4a1
+ComercioInterior ..|> Comercio
+ComercioBanca ..|> Comercio
+ReglaComercio <.. ComercioBanca : <<use>>
+ComercioBanca --> Banca :Tiene
+
+
+@enduml

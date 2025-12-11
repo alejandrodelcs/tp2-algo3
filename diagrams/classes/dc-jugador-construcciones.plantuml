@@ -1,51 +1,88 @@
 @startuml
 
-
 class Construccion{
     - propietario : Jugador
     - costo : Costo
     - vertice: Vertice
     + pagarCon(inventario:Inventario)
     + agregarPropietario(listaVictimas : List<Jugador>)
+    + esPropietarioElJugador(jugador:Jugador):boolean
+    + agregarPropietario(listaVictimas:List<Jugador>]
     + esAdyacenteA(Arista nueva): boolean
     + {abstract} producirSegun(dado:int):List<Recurso>
 
 }
 
 
-class Ciudad extends Construccion {
+class Ciudad  {
     +producirSegun(dado:int):List<Recurso>
 }
 
 
-class ConstruccionNula extends Construccion{
-    +producirSegun(dado:int):List<Recurso>
-}
-
-class Poblado extends Construccion{
+class Poblado{
       +producirSegun(dado:int):List<Recurso>
 }
 
 
-class Carretera extends Construccion{
+class Carretera {
     -arista:Arista
     +producirSegun(dado:int):List<Recurso>
     +esAdyacenteA(otra:Arista):boolean
 
 }
 
+class ConstruirAsentamiento{
+     +construir(jugador:Jugador,
+     construccion:Construccion, ubicaciones:Object[*])
 
-class Jugador{
- -nombre:String
- -cartasDesarrollo: List<CartaDesarrollo>
- -puntosVictoria: int
- +construir(vertice:Vertice, construccion:Construccion)
- +robarAR(victima:Jugador)
- +recibirRecurso(recurso:Recurso)
- +entregarRecursoA(ladron:Jugador)
 }
 
 
-Jugador "1" o-- "*" Construccion
+class ConstruirCarretera{
+    +construir(jugador:Jugador,
+    construccion:Construccion, ubicaciones:Object[*])
+}
+
+
+class Construible{
+  +construir(jugador:Jugador,
+  construccion:Construccion, ubicaciones:Object[*])
+}
+
+
+interface ReglaConstruccion{
+   +validar(ubicaciones:Object[*])
+}
+
+class ReglaAdyacencia{
+   +validar(ubicaciones:Object[*])
+}
+
+
+class ReglaDistancia{
+    +validar(ubicaciones:Object[*])
+}
+
+
+
+
+Ciudad --|> Construccion
+Construccion <|-- Poblado
+Construccion <|-- Carretera
+
+ConstruirAsentamiento ..|> Construible
+Construible <|.. ConstruirCarretera
+
+
+
+Construible ..> Construccion : <<use>>
+
+
+ReglaConstruccion ..|> ReglaAdyacencia
+ReglaConstruccion ..|> ReglaDistancia
+
+Construible --> ReglaConstruccion : tiene
+
+
 
 @enduml

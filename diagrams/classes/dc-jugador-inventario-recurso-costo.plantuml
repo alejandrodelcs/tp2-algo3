@@ -1,0 +1,96 @@
+@startuml
+
+
+class Jugador{
+
+
+    - cartasDesarrollo: List<CartaDesarrollo>
+    - construcciones: List<Construccion>
+    - nombre:String
+    - puntosVictoria:int
+    - avatar:URL
+    - caballerosJugados:int
+    - puedeJugarCartaDesarrollo:boolean
+
+
+    +construir(construible:Construible, construccion:Construccion, ubicaciones:Object[*])
+    +recibirRecurso(recurso:Recurso)
+    +entregarRecursoA(jugadoQueRoba:Jugador)
+    +generarRecursosPorConstruccion(dado:int)
+    +habilitarCartasDesarrollo()
+    +jugarCartaDesarrollo()
+    +aceptarComercio(intercambio:Comercio)
+    +entregarTipo(otroJugador:jugador, solicitud:Recurso)
+    +aceptarComercio(interaccion:Comercio)
+    +descontarPara(construccion:Construccion)
+    +puedeReclamarGranCaballeria():boolean
+    +superaEnCaballerosA(otro:Jugador):boolean
+    +recolectarRecursosDelTipo(tipo:Recurso):int
+
+}
+
+
+class Inventario{
+  -recurso:Recurso
+  +agregarTodos(listaRecurso: Lis<Recurso>)
+  +cantidadDeTipo(tipo:Recurso)
+  +quitar(tipo:Recurso):Recurso
+  +excedeLimite():boolean
+  +tiposDisponibles():List<Recurso>
+  +sacarTodos(tipo:Recurso):int
+  +descartaMitad():List<Recurso>
+  +reducirAlaMitar()
+  +estaVacio():boolean
+  +remover(tipoRecurso:Recurso):Recurso
+  +agregarTodos(listaRecursos:List<Recursos>)
+  +tiene(tipo:Recurso):boolean
+
+}
+
+abstract Recurso {
+    - int cantidad
+    + {abstract} clonar():Recurso
+    + {abstract} aumentar()
+}
+
+class Madera extends Recurso{
+    + clonar():Recurso
+    + aumentar()
+}
+
+class Ladrillo extends Recurso{
+    + clonar():Recurso
+    + aumentar()
+}
+
+class Lana extends Recurso {
+    + clonar():Recurso
+    + aumentar()
+}
+
+class Grano extends Recurso {
+    + clonar():Recurso
+    + aumentar()
+}
+
+class Mineral extends Recurso{
+    + clonar():Recurso
+   + aumentar()
+}
+
+class Costo{
+   +puedePagar(inventario:Inventario)
+   +aplicar(inventario:Inventario)
+   +pagar(inventario:Inventario)
+}
+
+
+
+Jugador ..> Inventario : <<use>>
+
+Inventario "1" *-- "*" Recurso
+Inventario <.. Costo
+
+
+
+@enduml
