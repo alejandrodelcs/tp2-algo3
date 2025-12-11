@@ -1,0 +1,46 @@
+@startuml
+
+hide empty members
+
+
+
+class Turno {
+    - estadoActual : EstadoTurno
+    + tirarDado(dado : Dado)
+    + moverLadron(destino : Hexagono)
+    + robar(victima : Jugador)
+    + construir(construible : Construible, construccion : Construccion, ubicaciones : Object[*])
+    + comerciar(comercio : Comercio)
+    + jugarCarta(carta : CartaDesarrollo, args : Object[*])
+    + pasarTurno(juego : Juego)
+}
+
+
+
+interface EstadoTurno <<interface>> {
+    + tirarDado(dado:Dado, jugador:Jugador, turno:Turno)
+    + moverLadron(turno:Turno, tablero:Tablero, destino:Hexagono)
+    + robar(turno:Turno, tablero:Tablero, victima:Jugador, jugadorActivo:Jugador)
+    + construir(turno:Turno, jugador:Jugador, construible:Construible, construccion:Construccion, ubicaciones:Object[*])
+    + comerciar(turno:Turno, receptor:Jugador, comercio:Comercio)
+    + jugarCarta(turno:Turno, jugador:Jugador, tablero:Tablero, carta:CartaDesarrollo, args:Object[*])
+    + pasarTurno(turno:Turno, jugador:Jugador, juego:Juego)
+}
+
+
+class EstadoInicial <<state>>
+class EstadoAcciones <<state>>
+class EstadoMoverLadron <<state>>
+class EstadoPuedeRobar <<state>>
+class EstadoPrimeraVuelta <<state>>
+
+
+EstadoTurno --o Turno
+
+EstadoInicial ..|> EstadoTurno
+EstadoAcciones ..|> EstadoTurno
+EstadoMoverLadron ..|> EstadoTurno
+EstadoPuedeRobar ..|> EstadoTurno
+EstadoPrimeraVuelta ..|> EstadoTurno
+
+@enduml
