@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.entrega_2;
 
-
 import edu.fiuba.algo3.modelo.Carta.CartaCaballero;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Juego;
@@ -10,7 +9,6 @@ import edu.fiuba.algo3.modelo.Ladron.Ladron;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,11 +44,10 @@ public class CartaCaballeroTest {
 
     }
 
-
     @Test
-    public void test01ElJugadorUsarCartaCaballeroDeberiaPoderMoverLadronYRobarRecurso(){
-        Hexagono origen = new Hexagono(Terreno.DESIERTO, -1);
-        Hexagono destino = new Hexagono(Terreno.BOSQUE, 6);
+    public void test01ElJugadorUsarCartaCaballeroDeberiaPoderMoverLadronYRobarRecurso() {
+        Hexagono origen = new Hexagono(new Desierto(), -1);
+        Hexagono destino = new Hexagono(new Desierto(), 6);
         Poblado poblado = new Poblado();
 
         tablero.agregarHexagono(destino);
@@ -62,14 +59,10 @@ public class CartaCaballeroTest {
         poblado.asignarJugador(jugadorVictima);
         v.construir(poblado);
 
-
-
-
         carta.jugar(jugadorActivo, tablero, destino);
 
         assertEquals(3, jugadorActivo.cantidadCartas());
         assertEquals(2, jugadorVictima.cantidadCartas());
-
 
     }
 

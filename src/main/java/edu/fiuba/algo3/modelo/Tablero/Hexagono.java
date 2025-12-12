@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hexagono {
-    private final Terreno terreno;
+    private final Recurso recurso;
     private int ficha;
     private Ladron ladron;
     private final List<Vertice> vertices;
 
-    public Hexagono(Terreno terreno, int ficha) {
-        this.terreno = terreno;
+    public Hexagono(Recurso recurso, int ficha) {
+        this.recurso = recurso;
         this.ficha = ficha;
         this.vertices = new ArrayList<>();
     }
@@ -29,7 +29,7 @@ public class Hexagono {
         }
     }
 
-    public void intercambiarFicha(Hexagono destino){
+    public void intercambiarFicha(Hexagono destino) {
         int fichaTemporal = this.ficha;
         this.ficha = destino.ficha;
         destino.ficha = fichaTemporal;
@@ -59,17 +59,14 @@ public class Hexagono {
 
         if (this.coincideCon(numeroDado)) {
 
-            return terreno.retornarRecurso();
+            return this.recurso;
         }
         return null;
     }
 
-
-
     public Recurso obtenerRecursoBase() {
-        return terreno.retornarRecurso();
+        return this.recurso;
     }
-
 
     public List<Recurso> generarRecursos(int numeroDado, int cantidad) {
         List<Recurso> recursos = new ArrayList<>();
@@ -79,26 +76,25 @@ public class Hexagono {
         }
 
         for (int i = 0; i < cantidad; i++) {
-            recursos.add(terreno.retornarRecurso());
+            recursos.add(this.recurso);
         }
 
         return recursos;
     }
 
-
-    public boolean tieneLadron(){
+    public boolean tieneLadron() {
         return this.ladron == null;
     }
 
-    public Terreno getTerreno() {
-        return terreno;
+    public Recurso getTerreno() {
+        return this.recurso;
     }
 
     public int getFicha() {
         return ficha;
     }
 
-    //Para el visual
+    // Para el visual
     public List<Vertice> getVertices() {
         return vertices;
     }

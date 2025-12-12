@@ -63,7 +63,7 @@ public class Juego {
         return tablero;
     }
 
-    public List<Terreno> getTerrenos() {
+    public List<Recurso> getTerrenos() {
         return this.tablero.getTerrenos();
 
     }
@@ -140,7 +140,7 @@ public class Juego {
     }
 
     public void tirarDado() {
-        //this.numeroActual = this.dado.lanzar();
+        // this.numeroActual = this.dado.lanzar();
         this.numeroActualDado = this.turno.tirarDado();
         for (Jugador jugador : jugadores) {
             jugador.generarRecursosPorConstrucciones(numeroActualDado);

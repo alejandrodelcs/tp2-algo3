@@ -79,8 +79,8 @@ public class TurnoTest {
 
         Tablero tablero = new Tablero();
 
-        Hexagono origen = new Hexagono(Terreno.DESIERTO, -1);
-        Hexagono destino = new Hexagono(Terreno.BOSQUE, 6);
+        Hexagono origen = new Hexagono(new Desierto(), -1);
+        Hexagono destino = new Hexagono(new Desierto(), 6);
 
         tablero.agregarHexagono(destino);
         tablero.agregarHexagono(origen);

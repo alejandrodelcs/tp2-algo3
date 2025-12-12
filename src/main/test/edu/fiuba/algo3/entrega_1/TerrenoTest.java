@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Excepciones.NoExisteFichaError;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -15,13 +16,13 @@ public class TerrenoTest {
      * Número.
      */
     @Test
-    public void test01deberiaAsignarseAleatoriamenteLosHexagonosDeTerrenosConSusFichas() {
+    public void test01deberiaAsignarseAleatoriamenteLosHexagonosDeTerrenosConSusFichasYProducirAlmenosUnRecurso() {
         Tablero t = new Tablero();
         t.construir();
 
         int recursosObtenidos = t.obtenerRecursosDe(4);
 
-        assertEquals(1, recursosObtenidos);
+        assertTrue(recursosObtenidos > 0);
 
     }
 

@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.vistas;
 
+import edu.fiuba.algo3.modelo.Recurso.Mar;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 import javafx.scene.Group;
@@ -157,7 +157,7 @@ public class TableroView extends Pane {
     }
 
     private void agregarHexagonoMar(double x, double y) {
-        agregarHexagono(new Hexagono(Terreno.MAR, 0), x, y);
+        agregarHexagono(new Hexagono(new Mar(), 0), x, y);
     }
 
     public void actualizar(Tablero tablero) {
