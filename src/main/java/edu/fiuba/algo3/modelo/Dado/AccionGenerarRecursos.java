@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Dado;
 
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 public class AccionGenerarRecursos implements AccionDado{
     private final int dado;

@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Tablero;
 
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Ladron.Ladron;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 import java.util.ArrayList;
@@ -8,26 +9,18 @@ import java.util.List;
 
 public class Hexagono {
     private final Terreno terreno;
-    private final int ficha;
-    private boolean tieneLadron;
-    private List<Vertice> vertices = new ArrayList<>();
+    private int ficha;
+    private Ladron ladron;
+    private final List<Vertice> vertices;
 
     public Hexagono(Terreno terreno, int ficha) {
         this.terreno = terreno;
         this.ficha = ficha;
-        this.tieneLadron = false;
+        this.vertices = new ArrayList<>();
     }
 
-    public void colocarLadron() {
-        this.tieneLadron = true;
-    }
-
-    public void moverLadron() {
-        this.tieneLadron = false;
-    }
-
-    public boolean tieneLadron() {
-        return this.tieneLadron;
+    public void colocarLadron(Ladron ladron) {
+        this.ladron = ladron;
     }
 
     public void agregarVertice(Vertice vertice) {
@@ -36,11 +29,20 @@ public class Hexagono {
         }
     }
 
+    public void intercambiarFicha(Hexagono destino){
+        int fichaTemporal = this.ficha;
+        this.ficha = destino.ficha;
+        destino.ficha = fichaTemporal;
+
+    }
+
     public List<Jugador> obtenerVictimas() {
         List<Jugador> victimas = new ArrayList<>();
 
-        for (Vertice vertice : this.vertices) {
-            vertice.agregarVictimaPotencial(victimas);
+        for (Vertice v : this.vertices) {
+            if (v.tieneConstruccion()) {
+                v.jugadorPropietario().ifPresent(victimas::add);
+            }
         }
         return victimas;
     }
@@ -51,7 +53,7 @@ public class Hexagono {
 
     public Recurso obtenerRecurso(int numeroDado) {
 
-        if (this.tieneLadron) {
+        if (this.ladron != null) {
             return null;
         }
 
@@ -62,31 +64,42 @@ public class Hexagono {
         return null;
     }
 
+
+
     public Recurso obtenerRecursoBase() {
         return terreno.retornarRecurso();
     }
 
 
-    public boolean puedeGenerar() {
-        return !tieneLadron;
-    }
-
-    public List<Recurso> generarRecursos(int dado, int cantidad) {
+    public List<Recurso> generarRecursos(int numeroDado, int cantidad) {
         List<Recurso> recursos = new ArrayList<>();
 
-        if (tieneLadron) return recursos;
-        if (!coincideCon(dado)) return recursos;
+        if (!this.tieneLadron() || !this.coincideCon(numeroDado)) {
+            return recursos;
+        }
 
         for (int i = 0; i < cantidad; i++) {
-            recursos.add(crearRecursoDeHexagono());
+            recursos.add(terreno.retornarRecurso());
         }
 
         return recursos;
     }
 
-    private Recurso crearRecursoDeHexagono() {
-        return terreno.retornarRecurso();
+
+    public boolean tieneLadron(){
+        return this.ladron == null;
     }
 
+    public Terreno getTerreno() {
+        return terreno;
+    }
 
+    public int getFicha() {
+        return ficha;
+    }
+
+    //Para el visual
+    public List<Vertice> getVertices() {
+        return vertices;
+    }
 }

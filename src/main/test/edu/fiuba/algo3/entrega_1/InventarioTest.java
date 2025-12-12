@@ -1,14 +1,13 @@
 package edu.fiuba.algo3.entrega_1;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.Set;
 
 import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import org.junit.jupiter.api.Test;
-import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Recurso.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * InventarioTest

@@ -1,47 +1,86 @@
 @startuml
 
+
 class Tablero{
- -hexagonos: List<Hexagono>
- -terrenos: List<Terreno>
- +construir()
- +obtenerRecursoDe(valorFicha:int)
- +moverLadron(hexagonoDestino:Hexagono, ladron:Jugador)
+    -terrenos: List<Terreno>
+    -ladron:Ladron
+    +construir()
+    +generarVertices()
+    +asignarVerticesAHexagono(hexagono:Hexagono,cx:double, cy:double,
+                            radio:double, mapa:List<String, Vertice>)
+    +obtenerRecursosDe(valorFicha:int):int
+    +moverLadronA(hexagono:Hexagono)
+    +construirCarreteraGratis(jugador:Jugador, carretera:Carretera, arista:Arista)
+    +calcularLaRutaMasLarga(jugador:Jugador):int
 }
 
-class Hexagono{
-  -terreno: Terreno   
-  -ficha:int
-  -boolean: tieneLadron
-  -vertices:List<Vertice>
-  +conectarVertice(vertice:Vertice)
-  +obtenerVictimas():List<Jugador>
-  +obtenerRecurso(numDado: int)
+class Hexagono {
+    -terreno : Terreno
+    -ficha: int
+    -ladron: Ladron
+    +colocarLadron(ladron:Ladron)
+    +agregarVertice(vertice:Vertice)
+    +intercambiarFicha(hexagono:Destino)
+    +obtenerVictimas():List<Jugador>
+    +coincideCon(valorFicha:int)
+    +obtenerRecursoPor(numeroDado:int):Recurso
+    +obtenerRecursosIniciales():Recurso
+    +generarRecursos(numDado:int, cantidad:int):List<Recurso>
+    +tieneLadron():boolean
+
 }
 
-class Arista{
-   -primerVertice : Vertice
-   -segundoVertice: Vertice
-   
-   +conectarVertices()
-   +vecinoConstruido(vertice:Vertice):boolean
-   +obtenerOtroVertice(vertice:Vertice)
-   
+Enum Terreno{
+    Bosque
+    Mar
+    Colina
+    Pastizal
+    Campo
+    Montana
+    Desierto
+    +obtenerRecurso():int
+
 }
 
 
 class Vertice{
--construccion:Construccion
-   -aristas:List<Arista>
-   -hexagonos: List<Hexagono>
-   +construir(construccion:Construccion)
-   +agregarVictimaPotencial(listaVictimas:List<Jugador>)
-   +entregarRecursosIniciales():Inventario
+    -construccion:Construccion
+    +construir(construccion:Construccion)
+    +agregarHexagono(hexagono:Hexagono)
+    +conectarArista(arista:Arista)
+    +puntoVictoria():int
+    +tieneConstruccion():boolean
+    +generarRecurso(numDado: int, canditad:int): List<Recurso>
+    +entregarRecursosIniciales(): Inventario
+    +mejorarA(nueva:Construccion)
+    +verticesVecinos:List<Vertice>
+    +tieneConstruccionDel(jugador:Jugador):boolean
+    +tieneCarreteraDel(jugador:Jugador):boolean
+    +jugadorPropietario:Jugador
+}
+
+class Arista{
+   -carretera:Carretera
+   +conectarVertices()
+   +colocarCarretera(carretera:Carretera)
+   +retornarOtro(vertice:Vertice):Vertice
+   +esAdayacenteA(otra:Arista):boolean
+   +-tieneCarreteraDel(jugador:Jugador)
+   +consultarConexionCon(jugador: Jugador): boolean
+
 
 }
 
+Terreno <- Tablero
+
+Tablero "1" *-- "19" Hexagono
+
+Hexagono "1" *-- "6" Vertice
+
+Vertice "2" --* "1" Arista
+
+Vertice "1" o- "3" Vertice
 
 
-Tablero "1" o--> "*" Hexagono 
-Hexagono "1" o--> "6" Vertice
-Arista o--> Vertice
+
 @enduml

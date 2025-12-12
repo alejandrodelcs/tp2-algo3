@@ -1,9 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
-
-import static org.junit.Assert.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
-
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -27,8 +25,7 @@ public class HexagonoTest {
 
         Recurso recGenerad = hexa1.obtenerRecurso(numeroDado);
 
-        assertTrue(recGenerad instanceof Recurso);
-        // assertEquals(1, recGenerad);
+        assertEquals(1, recGenerad.cantidad);
     }
 
     @Test
@@ -45,6 +42,6 @@ public class HexagonoTest {
         Recurso recGenerad = hexa1.obtenerRecurso(numeroDado);
 
         // assertEquals(0, recGenerad);
-        assertEquals(null, recGenerad);
+        assertNull(recGenerad);
     }
 }

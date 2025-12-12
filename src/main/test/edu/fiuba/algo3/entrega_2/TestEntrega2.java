@@ -1,20 +1,17 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeConstruirCarreteraError;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
-import edu.fiuba.algo3.modelo.Excepciones.CarreteraNoConectadaError;
-import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
-import edu.fiuba.algo3.modelo.MazoDesarrollo;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Carta.Mazo;
 import edu.fiuba.algo3.modelo.Recurso.*;
-
-import org.junit.jupiter.api.Assertions;
-
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -27,7 +24,7 @@ public class TestEntrega2 {
 
         jugador.construir(new ConstruirAsentamiento(), new Carretera(), new Vertice());
 
-        Assertions.assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.consultarRecursos());
 
     }
 
@@ -66,59 +63,47 @@ public class TestEntrega2 {
         assertEquals(2, vertice.puntoVictoria());
     }
 
-    @Test
+   @Test
     public void test04ComprarCartaDesarrolloConsumeRecursosYVaAManoOculta() {
-        Jugador jugador = new Jugador("Estratega", new Inventario());
-        MazoDesarrollo mazo = new MazoDesarrollo();
+        Jugador jugador = new Jugador("Estratega", new Inventario(new Lana(), new Grano(), new Mineral()));
+        Mazo mazo = new Mazo();
 
-        jugador.recibirRecurso(new Lana());
-        jugador.recibirRecurso(new Grano());
-        jugador.recibirRecurso(new Mineral());
+        jugador.compraCartaDesarrollo(mazo.entregarCarta());
 
-        jugador.comprarCartaDesarrollo(mazo);
-
-        assertEquals(0, jugador.cantidadCartas());
+        assertEquals(3, jugador.cantidadCartas());
 
         assertEquals(1, jugador.cantidadCartasDesarrollo());
     }
 
     @Test
     public void test05CartaCompradaNoSePuedeJugarEnElMismoTurno() {
-        Jugador jugador = new Jugador("Impaciente", new Inventario());
-        MazoDesarrollo mazo = new MazoDesarrollo();
+        Jugador jugador = new Jugador("Impaciente", new Inventario(new Lana(), new Grano(), new Mineral()));
+        Mazo mazo = new Mazo();
 
-        jugador.recibirRecurso(new Lana());
-        jugador.recibirRecurso(new Grano());
-        jugador.recibirRecurso(new Mineral());
-
-        jugador.comprarCartaDesarrollo(mazo);
+        jugador.compraCartaDesarrollo(mazo.entregarCarta());
 
     }
 
     @Test
     public void noSePuedeConstruirCarreteraQueNoSeaAdyacenteALaRed() {
-        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo()));
+        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo(),
+                                        new Madera(), new Ladrillo(),new Lana(), new Grano()));
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
         Vertice v3 = new Vertice();
         Vertice v4 = new Vertice();
 
-        jugador.construir(new ConstruirCarretera(), new Carretera(), v1,v2);
+        Arista aristaDondeSePuede = new Arista(v1, v2);
+        Arista aristaLejana = new Arista(v3, v4);
 
-        assertThrows(CarreteraNoConectadaError.class,
-                () -> jugador.construir(new ConstruirCarretera(), new Carretera(), v3,v4));
+        jugador.construir(new ConstruirAsentamiento(), new Poblado(), v1);
 
+        jugador.construir(new ConstruirCarretera(), new Carretera(),
+                                                aristaDondeSePuede, v1,v2);
 
-
-        /*assertThrows(CartaNoDisponibleException.class, () -> {
-            jugador.usarCartaDesarrollo(0);
-        });
-
-        jugador.pasarTurno();
-
-        assertDoesNotThrow(() -> {
-            jugador.usarCartaDesarrollo(0);
-        });*/
+        assertThrows(NoSePuedeConstruirCarreteraError.class,
+                () -> jugador.construir(new ConstruirCarretera(), new Carretera(),
+                        aristaLejana,v3,v4));
     }
 }

@@ -1,13 +1,12 @@
 package edu.fiuba.algo3.modelo.Tablero;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayConstruccionParaMejorar;
 import edu.fiuba.algo3.modelo.Construccion.*;
-import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -15,8 +14,8 @@ import edu.fiuba.algo3.modelo.Recurso.*;
  */
 public class Vertice {
     private Construccion construccion;
-    private ArrayList<Arista> aristas;
-    private ArrayList<Hexagono> hexagonos;
+    private final ArrayList<Arista> aristas;
+    private final ArrayList<Hexagono> hexagonos;
 
     public Vertice() {
         this.construccion = new ConstruccionNula();
@@ -29,20 +28,6 @@ public class Vertice {
         construccion.asignarVertice(this);
     }
 
-    public void mejorar(Construccion nuevaConstruccion) {
-        if (!this.construccion.puedeSerMejorada()) {
-            throw new AccionNoPermitidaException("No hay nada para mejorar o ya está al máximo nivel.");
-        }
-
-        if (this.construccion.getPropietario() != nuevaConstruccion.getPropietario()) {
-            throw new AccionNoPermitidaException("No puedes mejorar un edificio que no es tuyo.");
-        }
-
-        this.construccion = nuevaConstruccion;
-
-        nuevaConstruccion.asignarVertice(this);
-    }
-
     public void agregarHexagono(Hexagono hexagono) {
         if (!hexagonos.contains(hexagono)) {
             hexagonos.add(hexagono);
@@ -53,6 +38,7 @@ public class Vertice {
     public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
         this.construccion.agregarPropietario(listaVictimas);
     }
+
 
     public void conectarArista(Arista arista) {
         this.aristas.add(arista);
@@ -102,15 +88,6 @@ public class Vertice {
         this.construccion = nueva;
     }
 
-    public boolean tieneVecinoConstruido() {   //luego lo arreglo
-        for (Arista a : aristas) {
-            if (a.vecinoConstruido(this)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     public List<Vertice> verticesVecinos() {
         List<Vertice> vecinos = new ArrayList<>();
@@ -118,5 +95,24 @@ public class Vertice {
             vecinos.add(a.getOtroVertice(this));
         }
         return vecinos;
+    }
+
+    public boolean tieneConstruccionDel(Jugador j) {
+        return construccion.esPropietarioElJugador(j);
+    }
+
+    public boolean tieneCarreteraDel(Jugador j) {
+        return aristas.stream()
+                .anyMatch(a -> a.tieneCarreteraDel(j));
+    }
+
+
+    public Optional<Jugador> jugadorPropietario() {
+        if (this.construccion == null) return Optional.empty();
+        return construccion.propietario();
+    }
+
+    public Collection<? extends Arista> getAristas() {
+        return aristas;
     }
 }

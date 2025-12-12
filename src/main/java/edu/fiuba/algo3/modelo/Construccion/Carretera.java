@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
@@ -27,7 +28,7 @@ public class Carretera extends Construccion{
 
 
     @Override
-    public ArrayList<Recurso> generarSegunVertice(int dado) {
+    public ArrayList<Recurso> producirSegun(int dado) {
         return null;
     }
 
@@ -41,6 +42,8 @@ public class Carretera extends Construccion{
         return this.arista != null && this.arista.esAdyacenteA(otra);
     }
 
-
+    public boolean carreteraEsPropietarioDe(Jugador j){
+        return this.propietario == j;
+    }
 
 }

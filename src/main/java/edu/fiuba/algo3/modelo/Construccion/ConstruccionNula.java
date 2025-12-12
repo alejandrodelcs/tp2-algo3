@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo.Construccion;
 
 import java.util.ArrayList;
 
-import edu.fiuba.algo3.modelo.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
 
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
@@ -27,7 +27,7 @@ public class ConstruccionNula extends Construccion {
 
 
     @Override
-    public ArrayList<Recurso> generarSegunVertice(int dado) {
+    public ArrayList<Recurso> producirSegun(int dado) {
         return null;
     }
 

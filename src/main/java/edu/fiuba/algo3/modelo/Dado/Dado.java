@@ -9,20 +9,16 @@ public class Dado {
         this.dado = dado;
     }
 
-    public Dado(){
-        this.dado = tirarDado() + tirarDado();
+    public Dado() {
+        this.dado = 0;
     }
 
-
-
-    public int tirarDado() {
+    public int generar() {
         return new Random().nextInt(6) + 1;
     }
 
-    public AccionDado lanzar() {
-        return (dado == 7)
-                ? new AccionReducirRecursos(dado)
-                : new AccionGenerarRecursos(dado);
+    public int lanzar() {
+        return this.generar() + this.generar();
     }
 
 }

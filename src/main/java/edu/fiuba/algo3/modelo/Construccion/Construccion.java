@@ -2,10 +2,11 @@ package edu.fiuba.algo3.modelo.Construccion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
-import edu.fiuba.algo3.modelo.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
@@ -14,35 +15,18 @@ import edu.fiuba.algo3.modelo.Tablero.Arista;
  * Construccion
  */
 public abstract class Construccion {
-    protected Vertice vertice;
     protected Costo costo;
+    protected Jugador propietario;
+    protected Vertice verticeAsignado;
+
 
     public void pagarCon(Inventario inventario) {
         costo.aplicar(inventario);
     }
 
-    protected Jugador propietario;
-    protected Vertice verticeAsignado;
 
-    public Construccion() {
-        this.propietario = null;
-
-    }
-
-    public Construccion(Jugador propietario) {
-        this.propietario = propietario;
-    }
-
-    public boolean estaEn(Vertice v) {
-        return this.verticeAsignado == v;
-    }
-
-    public boolean puedeSerMejorada() {
-        return false;
-    }
-
-    public Jugador getPropietario() {
-        return this.propietario;
+    public boolean esPropietarioElJugador(Jugador jugador) {
+        return this.propietario == jugador;
     }
 
     public abstract int getPuntosDeVictoria();
@@ -57,8 +41,7 @@ public abstract class Construccion {
     }
 
 
-
-    public abstract ArrayList<Recurso> generarSegunVertice(int dado);
+    public abstract ArrayList<Recurso> producirSegun(int dado);
 
 
     public boolean esAdyacenteA(Arista nueva) {
@@ -66,7 +49,7 @@ public abstract class Construccion {
     }
 
     public void agregarPropietario(List<Jugador> listaVictimas) {
-        if (!listaVictimas.contains(this.propietario)) {
+        if (this.propietario != null){
             listaVictimas.add(this.propietario);
         }
     }
@@ -75,10 +58,9 @@ public abstract class Construccion {
         this.propietario = jugador;
     }
 
-
-
-
-
+    public Optional<Jugador> propietario(){
+        return Optional.of(propietario);
+    }
 
 
 }

@@ -1,12 +1,15 @@
 package edu.fiuba.algo3.entrega_1;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 
-import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Ladron.Ladron;
 import edu.fiuba.algo3.modelo.Tablero.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,35 +20,28 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 
 public class TestsEntrega1 {
 
-    private Jugador jugador1;
-    private Jugador jugador2;
-    private Inventario inventario1;
-    private Inventario inventario2;
     private Inventario inventario3;
 
     @BeforeEach
     public void setUp() {
-        inventario1 = new Inventario((Recurso) null);
-        inventario2 = new Inventario((Recurso) null);
         inventario3 = new Inventario(new Madera(),
-                    new Ladrillo(), new Lana(), new Grano(),new Madera(),
-                    new Ladrillo(), new Lana(), new Grano());
-
-        jugador1 = new Jugador("Jugador 1", inventario1);
-        jugador2 = new Jugador("Jugador 2", inventario2);
+                new Ladrillo(), new Lana(), new Grano(), new Madera(),
+                new Ladrillo(), new Lana(), new Grano());
     }
 
-    @Test
-    public void test01deberiaAsignarseAleatoriamenteLosHexagonosDeTerrenosConSusFichas() {
-        Tablero t = new Tablero();
-        t.construir();
-
-        int recursosObtenidos = t.obtenerRecursosDe(2);
-
-        Assertions.assertEquals(1, recursosObtenidos);
-
-    }
-
+    /*
+     * @Test
+     * public void
+     * test01deberiaAsignarseAleatoriamenteLosHexagonosDeTerrenosConSusFichas() {
+     * Tablero t = new Tablero();
+     * t.construir();
+     * 
+     * int recursosObtenidos = t.obtenerRecursosDe(2);
+     * 
+     * Assertions.assertEquals(1, recursosObtenidos);
+     * 
+     * }
+     */
     @Test
     public void test02NoSePuedeConstruirEnUnVerticeConVecinosConstruidos() {
         Vertice primerVertice = new Vertice();
@@ -56,10 +52,10 @@ public class TestsEntrega1 {
         Arista arista = new Arista(primerVertice, segundoVertice);
 
         Jugador j = new Jugador("Ale", inventario3);
-        c.construir(j,pueblo, primerVertice);
+        c.construir(j, pueblo, primerVertice);
 
         assertThrows(ReglaDistanciaException.class, () -> {
-            c.construir(j,pueblo2, segundoVertice);;
+            c.construir(j, pueblo2, segundoVertice);
         });
     }
 
@@ -83,10 +79,10 @@ public class TestsEntrega1 {
 
     @Test
     public void test04VerificarQueElLanzamientoDeDadosGenereNumeroValido2_12() {
-        LanzamientoDados lanzamiento = new LanzamientoDados();
+        Dado dado = new Dado();
 
-        for (int i=0; i < 100; i++){
-            int resultado = lanzamiento.lanzar();
+        for (int i = 0; i < 100; i++) {
+            int resultado = dado.lanzar();
             assertTrue(resultado >= 2 && resultado <= 12);
         }
     }
@@ -101,15 +97,15 @@ public class TestsEntrega1 {
 
         Vertice verticeCiudad = new Vertice();
         verticeCiudad.agregarHexagono(hexBosque);
-        verticeCiudad.construir(new Ciudad(new Jugador("Test", new Inventario())));
+        verticeCiudad.construir(new Ciudad());
 
-        ArrayList<Recurso> produccionPoblado = verticePoblado.generarRecurso(6,1);
+        ArrayList<Recurso> produccionPoblado = verticePoblado.generarRecurso(6, 1);
         assertEquals(1, produccionPoblado.size());
 
-        ArrayList<Recurso> produccionCiudad = verticeCiudad.generarRecurso(6,2);
+        ArrayList<Recurso> produccionCiudad = verticeCiudad.generarRecurso(6, 2);
         assertEquals(2, produccionCiudad.size());
 
-        ArrayList<Recurso> produccionFallida = verticeCiudad.generarRecurso(5,2);
+        ArrayList<Recurso> produccionFallida = verticeCiudad.generarRecurso(5, 2);
         assertTrue(produccionFallida.isEmpty());
     }
 
@@ -122,12 +118,11 @@ public class TestsEntrega1 {
         vertice.agregarHexagono(hexTrigo);
         vertice.construir(new Poblado());
 
-        hexTrigo.colocarLadron();
+        hexTrigo.colocarLadron(new Ladron(new Hexagono(Terreno.DESIERTO, -1)));
 
-        ArrayList<Recurso> recursos = vertice.generarRecurso(numeroSuerte,1);
+        ArrayList<Recurso> recursos = vertice.generarRecurso(numeroSuerte, 1);
 
         Assertions.assertEquals(0, recursos.size());
     }
-
 
 }

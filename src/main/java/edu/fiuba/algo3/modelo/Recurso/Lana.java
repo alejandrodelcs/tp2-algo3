@@ -11,5 +11,10 @@ public class Lana extends Recurso {
         return new Lana();
     }
 
+    @Override
+    public String getImagen() {
+        return "/images/lana.png";
+
+    }
 
 }

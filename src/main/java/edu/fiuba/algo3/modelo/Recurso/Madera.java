@@ -11,5 +11,10 @@ public class Madera extends Recurso {
         return new Madera();
     }
 
+    @Override
+    public String getImagen() {
+        return "/images/madera.png";
+
+    }
 
 }

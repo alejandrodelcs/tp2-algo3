@@ -11,5 +11,9 @@ public class Grano extends Recurso {
         return new Grano();
     }
 
+    public String getImagen() {
+        return "/images/grano.png";
+
+    }
 
 }

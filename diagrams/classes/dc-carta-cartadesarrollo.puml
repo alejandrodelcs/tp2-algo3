@@ -1,0 +1,63 @@
+@startuml
+
+
+
+class Carta implements CartaDesarrollo {
+   -disponible:boolean
+   +estaDisponible():boolean
+   +esDeUnSoloUso():boolean
+   +habilitar()
+}
+
+
+class CartaCaballero{
+    +jugar(jugador:Jugador, tablero:Tablero, args:Object[*])
+}
+
+class CartaConstruccionCarreteras{
+    +jugar(jugador:Jugador, tablero:Tablero, args:Object[*])
+}
+
+
+
+
+interface CartaDesarrollo{
+    +jugar(jugador:Jugador, tablero:Tablero, args:Object[*])
+}
+
+
+class CartaDescubrimiento{
+   +jugar(jugador:Jugador, tablero:Tablero, args:Object[*])
+}
+
+
+
+class CartaMonopolio {
+   +jugar(jugador:Jugador, tablero:Tablero, args:Object[*])
+}
+
+Class CartaPuntoVictoria {
+   +jugar(jugador:Jugador, tablero:Tablero, args:Object[*])
+}
+
+
+Class Mazo {
+    -cartas:List<Carta>
+    -costo:Costo
+    +inicializarMazo()
+    +entregarCarta:Carta
+    +comprarCarta(jugador:Jugador):Carta
+
+}
+
+
+Carta <|-- CartaCaballero
+Carta <|-- CartaConstruccionCarreteras
+Carta <|-- CartaDescubrimiento
+CartaMonopolio --|> Carta
+CartaPuntoVictoria --|> Carta
+
+Mazo "1" *-> "*" Carta : Tiene
+
+
+@enduml

@@ -2,18 +2,20 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.*;
 
-import edu.fiuba.algo3.modelo.Juego.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Construccion.Carretera;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Excepciones.NoExisteFichaError;
+import edu.fiuba.algo3.modelo.Ladron.Ladron;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
 public class Tablero {
 
-    private final List<edu.fiuba.algo3.modelo.Tablero.Hexagono> hexagonos;
+    private final List<Hexagono> hexagonos;
     private static final List<Integer> DISTRIBUCION = new ArrayList<>(
             List.of(2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12));
     private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[] { Terreno.BOSQUE,
-            Terreno.CAMPO, Terreno.COLINA, Terreno.DESIERTO, Terreno.MONTANA, Terreno.PASTIZAL }));
+            Terreno.CAMPO, Terreno.COLINA, Terreno.MONTANA, Terreno.PASTIZAL }));
+    private Ladron ladron;
 
     public Tablero() {
         this.hexagonos = new ArrayList<>();
@@ -21,17 +23,70 @@ public class Tablero {
 
     public void construir() {
 
+        Random randomTerreno = new Random();
+        Random randomDistribucion = new Random();
         for (int i = 0; i < DISTRIBUCION.size(); i++) {
-            Terreno terreno = TERRENOS.get(i % TERRENOS.size());
-            edu.fiuba.algo3.modelo.Tablero.Hexagono hexagono = new edu.fiuba.algo3.modelo.Tablero.Hexagono(terreno, DISTRIBUCION.get(i));
+            Terreno terreno = TERRENOS.get(randomDistribucion.nextInt(TERRENOS.size()));
+            Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(randomTerreno.nextInt(DISTRIBUCION.size())));
             hexagonos.add(hexagono);
         }
 
         Random random = new Random();
         int posicionAleatoria = random.nextInt(hexagonos.size() + 1);
-        edu.fiuba.algo3.modelo.Tablero.Hexagono desierto = new edu.fiuba.algo3.modelo.Tablero.Hexagono(Terreno.DESIERTO, -1);
+        Hexagono desierto = new Hexagono(Terreno.DESIERTO, -1);
         hexagonos.add(posicionAleatoria, desierto);
+        this.ladron = new Ladron(desierto);
 
+        this.generarVertices();
+    }
+
+    private void generarVertices() {
+        Map<String, Vertice> mapaVertices = new HashMap<>();
+
+        Iterator<Hexagono> iterador = hexagonos.iterator();
+
+        int[] fichasPorFila = { 3, 4, 5, 4, 3 };
+
+        double radio = 10.0;
+        double ancho = Math.sqrt(3) * radio;
+        double alto = 2 * radio;
+
+        double centroY = 0;
+
+        for (int fila = 0; fila < fichasPorFila.length; fila++) {
+            int cantidad = fichasPorFila[fila];
+
+            double offsetX = Math.abs(2 - fila) * (ancho / 2.0);
+
+            for (int col = 0; col < cantidad; col++) {
+                if (!iterador.hasNext())
+                    break;
+
+                Hexagono hex = iterador.next();
+                double centroX = offsetX + (col * ancho);
+
+                asignarVerticesAHexagono(hex, centroX, centroY, radio, mapaVertices);
+            }
+
+            centroY += alto * 0.75;
+        }
+    }
+
+    private void asignarVerticesAHexagono(Hexagono hex, double cx, double cy, double radio, Map<String, Vertice> mapa) {
+        for (int i = 0; i < 6; i++) {
+            double angulo = Math.toRadians(30 + (60 * i));
+
+            double vx = cx + radio * Math.cos(angulo);
+            double vy = cy + radio * Math.sin(angulo);
+
+            String clave = String.format("%.2f_%.2f", vx, vy);
+
+            mapa.putIfAbsent(clave, new Vertice());
+
+            Vertice vertice = mapa.get(clave);
+
+            vertice.agregarHexagono(hex);
+        }
     }
 
     public int obtenerRecursosDe(int valorFicha) {
@@ -40,7 +95,7 @@ public class Tablero {
         int indice = 0;
 
         while (indice < hexagonos.size()) {
-            edu.fiuba.algo3.modelo.Tablero.Hexagono hexagono = hexagonos.get(indice);
+            Hexagono hexagono = hexagonos.get(indice);
             Recurso recurso = hexagono.obtenerRecurso(valorFicha);
 
             if (recurso != null) {
@@ -58,23 +113,48 @@ public class Tablero {
         return totalRecursos;
     }
 
-    public void moverLadron(edu.fiuba.algo3.modelo.Tablero.Hexagono hexagonoDestino, Jugador ladron) {
-
-        hexagonoDestino.colocarLadron();
-
-        List<Jugador> posiblesVictimas = hexagonoDestino.obtenerVictimas();
-
-        posiblesVictimas.remove(ladron);
-
-        if (!posiblesVictimas.isEmpty()) {
-            Random random = new Random();
-            Jugador victima = posiblesVictimas.get(random.nextInt(posiblesVictimas.size()));
-
-            ladron.robarA(victima);
-        }
+    public void moverLadronA(Hexagono destino) {
+        this.ladron.moverA(destino);
     }
 
     public int cantidadHexagonos() {
         return hexagonos.size();
+    }
+
+    public void robarConLadronA(Jugador jugadorQueRoba, Jugador victima) {
+        this.ladron.robar(jugadorQueRoba, victima);
+    }
+
+    public void agregarHexagono(Hexagono origen) {
+        hexagonos.add(origen);
+    }
+
+    public void colocarLadronEn(Hexagono origen) {
+        this.ladron = new Ladron(origen);
+    }
+
+    public List<Hexagono> getHexagonos() {
+        return hexagonos;
+    }
+
+    public List<Terreno> getTerrenos() {
+        return TERRENOS;
+    }
+
+    public void construirCarreteraGratis(Jugador jugador, Carretera carretera, Arista arista) {
+        jugador.reglaAdyacencia().validar(arista);
+        arista.colocarCarretera(carretera);
+    }
+
+    public int calcularLaRutaMasLarga(Jugador jugador){
+        Set<Arista> todas = new HashSet<>();
+
+        for (Hexagono h : hexagonos) {
+            for (Vertice v : h.getVertices()) {
+                todas.addAll(v.getAristas());
+            }
+        }
+
+        return new ArrayList<>(todas).size();
     }
 }

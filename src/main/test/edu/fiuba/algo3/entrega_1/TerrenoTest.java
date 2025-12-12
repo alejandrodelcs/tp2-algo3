@@ -19,7 +19,7 @@ public class TerrenoTest {
         Tablero t = new Tablero();
         t.construir();
 
-        int recursosObtenidos = t.obtenerRecursosDe(2);
+        int recursosObtenidos = t.obtenerRecursosDe(4);
 
         assertEquals(1, recursosObtenidos);
 

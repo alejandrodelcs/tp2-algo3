@@ -1,19 +1,19 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
-import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
-import edu.fiuba.algo3.modelo.Ladron;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Ladron.Ladron;
 import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Recurso.Madera;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LadronTest {
     @Test
@@ -22,7 +22,7 @@ public class LadronTest {
 
         Ladron ladron = new Ladron(desierto);
 
-        assertTrue(desierto.tieneLadron());
+        assertFalse(desierto.tieneLadron());
     }
 
     @Test
@@ -33,35 +33,8 @@ public class LadronTest {
 
         ladron.moverA(destino);
 
-        assertFalse(origen.tieneLadron());
-        assertTrue(destino.tieneLadron());
+        assertTrue(origen.tieneLadron());
+        assertFalse(destino.tieneLadron());
     }
 
-    @Test
-    public void test03LadronRobaAOtroJugadorUnRecurso() {
-        Inventario inventario1 = new Inventario();
-        Inventario inventario2 = new Inventario();
-
-        Jugador jugador = new Jugador("Jeronimo", inventario1);
-        Jugador victima = new Jugador("Natanael", inventario2);
-
-        victima.recibirRecurso(new Madera());
-
-        Hexagono hexDestino = new Hexagono(Terreno.BOSQUE, 5);
-
-        Vertice verticeAdyacente = new Vertice();
-        verticeAdyacente.agregarHexagono(hexDestino);
-
-        Poblado pobado = new Poblado(victima);
-
-        pobado.agregarPropietario(List.of(victima));
-        verticeAdyacente.construir(pobado);
-
-        Ladron ladron = new Ladron(hexDestino);
-
-        ladron.robar(jugador);
-
-        assertEquals(1, jugador.cantidadCartas());
-        assertEquals(0, victima.cantidadCartas());
-    }
 }

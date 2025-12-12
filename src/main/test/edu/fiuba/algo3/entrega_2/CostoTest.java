@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
-import edu.fiuba.algo3.modelo.Inventario;
-import edu.fiuba.algo3.modelo.Juego.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,11 +16,20 @@ public class CostoTest {
 
     @Test
     public void test01DeberiaDescontarmeElCostoDeUnaCarretera(){
-        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
+        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo(),
+                                            new Madera(),new Ladrillo(), new Lana(), new Grano()));
+        Construible estrategia2 = new ConstruirAsentamiento();
         Construible estrategia = new ConstruirCarretera();
-        jugador.construir(estrategia, new Carretera(),new Vertice(), new Vertice());
 
-        Assertions.assertEquals(0, jugador.consultarRecursos());
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
+        Arista a = new Arista(v1, v2);
+
+        jugador.construir(estrategia2, new Poblado(), v1);
+
+        jugador.construir(estrategia, new Carretera(), a);
+
+        assertEquals(0, jugador.consultarRecursos());
     }
 
     @Test
@@ -29,7 +39,7 @@ public class CostoTest {
         Construible estrategia = new ConstruirAsentamiento();
         jugador.construir(estrategia, new Ciudad(), new Vertice());
 
-        Assertions.assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.consultarRecursos());
     }
 
     @Test
@@ -40,7 +50,7 @@ public class CostoTest {
         Construible estrategia = new ConstruirAsentamiento();
         jugador.construir(estrategia, new Poblado(), new Vertice());
 
-        Assertions.assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.consultarRecursos());
     }
 
 
@@ -62,6 +72,6 @@ public class CostoTest {
         Construible estrategia = new ConstruirAsentamiento();
         jugador.construir(estrategia, new Poblado(), new Vertice());
 
-        Assertions.assertEquals(3, jugador.consultarRecursos());
+        assertEquals(3, jugador.consultarRecursos());
     }
 }

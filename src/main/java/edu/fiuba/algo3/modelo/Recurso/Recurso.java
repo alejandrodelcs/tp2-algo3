@@ -9,15 +9,11 @@ public abstract class Recurso {
         this.cantidad = 1;
     }
 
-
-
     public abstract int obtenerRecurso();
-
 
     public int acumular(int acumulador) {
         return acumulador + this.cantidad;
     }
-
 
     public abstract Recurso clonar();
 
@@ -27,9 +23,9 @@ public abstract class Recurso {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        return true;
+        if (this == obj)
+            return true;
+        return obj != null && getClass() == obj.getClass();
     }
 
     @Override
@@ -41,4 +37,9 @@ public abstract class Recurso {
         return tipo.isAssignableFrom(this.getClass());
     }
 
+    public abstract String getImagen();
+
+    public boolean mismoTipoQue(Recurso otro) {
+        return this.getClass() == otro.getClass();
+    }
 }

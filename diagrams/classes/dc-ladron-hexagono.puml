@@ -1,0 +1,26 @@
+@startuml
+class Ladron{
+    +moverA(nuevUbicacion:Hexagono)
+    +robar(jugadorQueRobar: Jugador, victima:Jugador)
+}
+
+
+class Hexagono {
+    -terreno : Terreno
+    -ficha: int
+    +colocarLadron(ladron:Ladron)
+    +agregarVertice(vertice:Vertice)
+    +intercambiarFicha(hexagono:Destino)
+    +obtenerVictimas():List<Jugador>
+    +coincideCon(valorFicha:int)
+    +obtenerRecursoPor(numeroDado:int):Recurso
+    +obtenerRecursosIniciales():Recurso
+    +generarRecursos(numDado:int, cantidad:int):List<Recurso>
+    +tieneLadron():boolean
+
+}
+
+
+Hexagono -> Ladron: tiene
+
+@enduml
