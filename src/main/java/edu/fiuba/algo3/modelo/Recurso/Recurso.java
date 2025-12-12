@@ -37,9 +37,10 @@ public abstract class Recurso {
         return tipo.isAssignableFrom(this.getClass());
     }
 
-    public abstract String getImagen();
-
     public boolean mismoTipoQue(Recurso otro) {
         return this.getClass() == otro.getClass();
     }
+
+    @Override
+    public abstract String toString();
 }

@@ -12,9 +12,8 @@ public class Madera extends Recurso {
     }
 
     @Override
-    public String getImagen() {
-        return "/images/madera.png";
-
+    public String toString() {
+        return "MADERA";
     }
 
 }

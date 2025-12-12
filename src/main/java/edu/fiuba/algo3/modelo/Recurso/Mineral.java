@@ -13,9 +13,8 @@ public class Mineral extends Recurso {
     }
 
     @Override
-    public String getImagen() {
-        return "/images/mineral.png";
-
+    public String toString() {
+        return "MINERAL";
     }
 
 }

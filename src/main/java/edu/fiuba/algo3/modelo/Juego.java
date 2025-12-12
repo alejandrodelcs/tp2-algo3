@@ -71,7 +71,6 @@ public class Juego {
     public void crearJugadores(List<String> nombres, List<String> avatares) {
         for (int i = 0; i < nombres.size(); i++) {
             Jugador jugador = new Jugador(nombres.get(i), new Inventario());
-            jugador.setAvatar(avatares.get(i));
             jugadores.add(jugador);
         }
 
