@@ -6,15 +6,15 @@ import edu.fiuba.algo3.modelo.Construccion.Carretera;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Excepciones.NoExisteFichaError;
 import edu.fiuba.algo3.modelo.Ladron.Ladron;
-import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Recurso.*;
 
 public class Tablero {
 
     private final List<Hexagono> hexagonos;
     private static final List<Integer> DISTRIBUCION = new ArrayList<>(
             List.of(2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12));
-    private static final List<Terreno> TERRENOS = new ArrayList<>(List.of(new Terreno[] { Terreno.BOSQUE,
-            Terreno.CAMPO, Terreno.COLINA, Terreno.MONTANA, Terreno.PASTIZAL }));
+    private static final List<Recurso> TERRENOS = new ArrayList<>(List.of(new Recurso[] { new Madera(),
+            new Grano(), new Ladrillo(), new Mineral(), new Lana() }));
     private Ladron ladron;
 
     public Tablero() {
@@ -26,14 +26,14 @@ public class Tablero {
         Random randomTerreno = new Random();
         Random randomDistribucion = new Random();
         for (int i = 0; i < DISTRIBUCION.size(); i++) {
-            Terreno terreno = TERRENOS.get(randomDistribucion.nextInt(TERRENOS.size()));
+            Recurso terreno = TERRENOS.get(randomDistribucion.nextInt(TERRENOS.size()));
             Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(randomTerreno.nextInt(DISTRIBUCION.size())));
             hexagonos.add(hexagono);
         }
 
         Random random = new Random();
         int posicionAleatoria = random.nextInt(hexagonos.size() + 1);
-        Hexagono desierto = new Hexagono(Terreno.DESIERTO, -1);
+        Hexagono desierto = new Hexagono(new Desierto(), -1);
         hexagonos.add(posicionAleatoria, desierto);
         this.ladron = new Ladron(desierto);
 
@@ -137,7 +137,7 @@ public class Tablero {
         return hexagonos;
     }
 
-    public List<Terreno> getTerrenos() {
+    public List<Recurso> getTerrenos() {
         return TERRENOS;
     }
 
@@ -146,7 +146,7 @@ public class Tablero {
         arista.colocarCarretera(carretera);
     }
 
-    public int calcularLaRutaMasLarga(Jugador jugador){
+    public int calcularLaRutaMasLarga(Jugador jugador) {
         Set<Arista> todas = new HashSet<>();
 
         for (Hexagono h : hexagonos) {

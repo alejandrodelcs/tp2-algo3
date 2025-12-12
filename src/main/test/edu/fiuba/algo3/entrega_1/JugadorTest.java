@@ -1,10 +1,8 @@
 package edu.fiuba.algo3.entrega_1;
 
-
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
-import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.Construccion.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * JugadorTest
  */
@@ -43,7 +42,7 @@ public class JugadorTest {
     @Test
     public void test02UnaConstruccionGeneraUnCartaRecursoParaJugador() {
 
-        Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 6);
+        Hexagono hexMadera = new Hexagono(new Madera(), 6);
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexMadera);
 
@@ -56,9 +55,9 @@ public class JugadorTest {
 
     @Test
     public void test03UnJugadorRecibeRecursosDeSuConstruccion() {
-        Jugador jugador = new Jugador("Julia",  minimoPoblado);
+        Jugador jugador = new Jugador("Julia", minimoPoblado);
         int dado = 6;
-        Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 6);
+        Hexagono hexMadera = new Hexagono(new Madera(), 6);
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexMadera);
 
@@ -71,17 +70,16 @@ public class JugadorTest {
 
     }
 
-   @Test
+    @Test
     public void test04UnJugadorRecibeDosRecursosDeUnaCuidad() {
 
         int dado = 6;
-        Hexagono hexaPiedra = new Hexagono(Terreno.MONTANA, 6);
-        Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 6);
+        Hexagono hexaPiedra = new Hexagono(new Mineral(), 6);
+        Hexagono hexaLana = new Hexagono(new Grano(), 6);
 
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexaPiedra);
         vertice.agregarHexagono(hexaLana);
-
 
         Jugador jugador = new Jugador("Alberto", minimoCiudad);
 
@@ -102,9 +100,9 @@ public class JugadorTest {
         int dado2 = 2;
         int dado3 = 3;
 
-        Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 1);
-        Hexagono hexaPiedra = new Hexagono(Terreno.MONTANA, 2);
-        Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 3);
+        Hexagono hexMadera = new Hexagono(new Madera(), 1);
+        Hexagono hexaPiedra = new Hexagono(new Mineral(), 2);
+        Hexagono hexaLana = new Hexagono(new Grano(), 3);
 
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexMadera);
@@ -127,8 +125,6 @@ public class JugadorTest {
 
     }
 
-
-
     @Test
     public void test06UnJugadorDescartaLaMitadDeSusCartasSiSale7yTieneMasDe7Cartas() {
 
@@ -136,9 +132,9 @@ public class JugadorTest {
         int dado1 = 1;
         int dado2 = 2;
         int dado3 = 3;
-        Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 1);
-        Hexagono hexaPiedra = new Hexagono(Terreno.MONTANA, 2);
-        Hexagono hexaLana = new Hexagono(Terreno.PASTIZAL, 3);
+        Hexagono hexMadera = new Hexagono(new Madera(), 1);
+        Hexagono hexaPiedra = new Hexagono(new Mineral(), 2);
+        Hexagono hexaLana = new Hexagono(new Grano(), 3);
 
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexMadera);

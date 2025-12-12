@@ -4,7 +4,6 @@ package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 import java.io.InputStream;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Tablero.Terreno;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,9 +37,9 @@ public class CartasBar extends HBox {
 
         this.getChildren().add(crearIconoJugador(jugadorActivo));
 
-        for (Terreno terreno : juego.getTerrenos()) {
+        for (Recurso terreno : juego.getTerrenos()) {
 
-            Recurso rec = terreno.retornarRecurso();
+            Recurso rec = terreno;
             if (rec == null)
                 continue;
 

@@ -61,8 +61,8 @@ public class TestsEntrega1 {
 
     @Test
     public void test03SegundoPobladoEntregaRecursosDeTodosLosHexagonosAdyacentes() {
-        Hexagono hexMadera = new Hexagono(Terreno.BOSQUE, 6);
-        Hexagono hexPiedra = new Hexagono(Terreno.MONTANA, 8);
+        Hexagono hexMadera = new Hexagono(new Madera(), 6);
+        Hexagono hexPiedra = new Hexagono(new Mineral(), 8);
 
         Vertice vertice = new Vertice();
 
@@ -89,7 +89,7 @@ public class TestsEntrega1 {
 
     @Test
     public void test05VerificarLaProduccionCorrectaDeUnRecursoPorPobladoYDosRecursosPorCiudad() {
-        Hexagono hexBosque = new Hexagono(Terreno.BOSQUE, 6);
+        Hexagono hexBosque = new Hexagono(new Madera(), 6);
 
         Vertice verticePoblado = new Vertice();
         verticePoblado.agregarHexagono(hexBosque);
@@ -112,13 +112,13 @@ public class TestsEntrega1 {
     @Test
     public void test06TerrenoConLadronNoProduceRecursosAunqueSalgaElNumero() {
         int numeroSuerte = 6;
-        Hexagono hexTrigo = new Hexagono(Terreno.CAMPO, numeroSuerte);
+        Hexagono hexTrigo = new Hexagono(new Lana(), numeroSuerte);
 
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexTrigo);
         vertice.construir(new Poblado());
 
-        hexTrigo.colocarLadron(new Ladron(new Hexagono(Terreno.DESIERTO, -1)));
+        hexTrigo.colocarLadron(new Ladron(new Hexagono(new Desierto(), -1)));
 
         ArrayList<Recurso> recursos = vertice.generarRecurso(numeroSuerte, 1);
 
