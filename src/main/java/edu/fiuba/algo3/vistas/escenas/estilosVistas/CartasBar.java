@@ -75,7 +75,7 @@ public class CartasBar extends HBox {
             Recurso recurso = tipo.getDeclaredConstructor().newInstance();
             VBox box = crearContenedorHorizontal();
 
-            ImageView imgView = crearImagen(recurso.getImagen());
+            ImageView imgView = crearImagen(this.obtenerRutaImagen(recurso.toString()));
             if (imgView != null) {
                 imgView.setFitHeight(70);
                 imgView.setPreserveRatio(true);
@@ -129,5 +129,24 @@ public class CartasBar extends HBox {
                         "-fx-font-size: 26px;" +
                         "-fx-font-weight: bold;");
         return lbl;
+    }
+
+    private String obtenerRutaImagen(String recurso) {
+        switch (recurso.toUpperCase()) {
+            case "MADERA":
+                return "/images/madera.png";
+            case "LADRILLO":
+                return "/images/ladrillo.png";
+            case "LANA":
+                return "/images/lana.png";
+            case "GRANO":
+                return "/images/grano.png";
+            case "MINERAL":
+                return "/images/mineral.png";
+            case "DESIERTO":
+                return "/images/desierto.png";
+            default:
+                return "/images/mar.png";
+        }
     }
 }

@@ -15,8 +15,7 @@ public class Desierto extends Recurso {
     }
 
     @Override
-    public String getImagen() {
-        return null;
-
+    public String toString() {
+        return "DESIERTO";
     }
 }

@@ -12,9 +12,7 @@ public class Lana extends Recurso {
     }
 
     @Override
-    public String getImagen() {
-        return "/images/lana.png";
-
+    public String toString() {
+        return "LANA";
     }
-
 }

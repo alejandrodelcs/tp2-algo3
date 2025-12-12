@@ -11,8 +11,8 @@ public class Ladrillo extends Recurso {
         return new Ladrillo();
     }
 
-    public String getImagen() {
-        return "/images/ladrillo.png";
-
+    @Override
+    public String toString() {
+        return "LADRILLO";
     }
 }

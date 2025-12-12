@@ -108,18 +108,17 @@ public class HexagonoView extends StackPane {
 
     private String obtenerRutaImagen(String terreno) {
         switch (terreno.toUpperCase()) {
-            case "AGUA":
+            case "MAR":
                 return "/images/mar.png";
-            case "BOSQUE":
+            case "MADERA":
                 return "/images/bosque.png";
-            case "COLINA":
+            case "LADRILLO":
                 return "/images/colina.png";
-            case "PASTIZAL":
+            case "LANA":
                 return "/images/pastizal.png";
-            case "CAMPO":
-            case "TRIGO":
+            case "GRANO":
                 return "/images/campo.png";
-            case "MONTANA":
+            case "MINERAL":
                 return "/images/montaña.png";
             case "DESIERTO":
                 return "/images/desierto.png";

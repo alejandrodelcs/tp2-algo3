@@ -14,8 +14,7 @@ public class Mar extends Recurso {
     }
 
     @Override
-    public String getImagen() {
-        return null;
-
+    public String toString() {
+        return "MAR";
     }
 }
