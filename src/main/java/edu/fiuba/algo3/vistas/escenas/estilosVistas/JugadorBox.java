@@ -93,6 +93,8 @@ public class JugadorBox extends VBox {
         contenedorPrincipal.setAlignment(Pos.CENTER_LEFT);
         contenedorPrincipal.getChildren().addAll(avatar, cajaDerecha);
 
+        this.setOnMouseClicked(e -> controlador.seleccionarJugador(jugador));
+
         this.getChildren().add(contenedorPrincipal);
 
     }
