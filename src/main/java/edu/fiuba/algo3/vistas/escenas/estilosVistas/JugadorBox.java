@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 
+import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -12,8 +13,10 @@ import javafx.scene.image.ImageView;
  * JugadorBox
  */
 public class JugadorBox extends VBox {
+    private ControladorJuego controlador;
 
-    public JugadorBox(Jugador jugador) {
+    public JugadorBox(Jugador jugador, ControladorJuego controlador) {
+        this.controlador = controlador;
         this.setPrefSize(260, 120);
         this.setStyle(
                 "-fx-background-color: transparent;" +
@@ -26,7 +29,7 @@ public class JugadorBox extends VBox {
 
         // --- Avatar ---
         ImageView avatar = new ImageView(new Image(
-                getClass().getResource(jugador.getAvatar()).toExternalForm()));
+                getClass().getResource(controlador.getAvatar(jugador)).toExternalForm()));
         avatar.setFitWidth(70);
         avatar.setFitHeight(70);
         avatar.setStyle(
