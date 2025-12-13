@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import javafx.geometry.Insets;
@@ -16,12 +17,14 @@ import javafx.scene.layout.VBox;
 
 public class CartasBar extends HBox {
 
+    private ControladorJuego controlador;
     private final String CARTA_STYLE = "-fx-background-color: #6d524c;" +
             "-fx-background-radius: 12;" +
             "-fx-border-radius: 12;" +
             "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);";
 
-    public CartasBar(Juego juego) {
+    public CartasBar(Juego juego, ControladorJuego controlador) {
+        this.controlador = controlador;
         configurarEstiloBase();
         refrescarContenido(juego);
     }
@@ -62,7 +65,7 @@ public class CartasBar extends HBox {
 
     private VBox crearIconoJugador(Jugador jugador) {
         VBox box = crearContenedorVertical();
-        ImageView iconView = crearImagen(jugador.getAvatar());
+        ImageView iconView = crearImagen(this.controlador.getAvatar(jugador));
         iconView.setFitHeight(70);
         iconView.setPreserveRatio(true);
         Label lbl = crearLabel(jugador.getNombre());

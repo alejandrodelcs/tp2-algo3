@@ -3,6 +3,7 @@ package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.geometry.Insets;
@@ -14,8 +15,10 @@ import javafx.scene.layout.VBox;
  * JugadoresBar
  */
 public class JugadoresBar extends VBox {
+    private ControladorJuego controlador;
 
-    public JugadoresBar(Juego juego) {
+    public JugadoresBar(Juego juego, ControladorJuego controlador) {
+        this.controlador = controlador;
         configurarEstiloBase();
         refrescarContenido(juego);
     }
@@ -36,7 +39,7 @@ public class JugadoresBar extends VBox {
         }
 
         for (Jugador jugador : jugadores) {
-            JugadorBox box = new JugadorBox(jugador);
+            JugadorBox box = new JugadorBox(jugador, this.controlador);
 
             if (jugador.equals(jugadorActivo)) {
                 box.setStyle(

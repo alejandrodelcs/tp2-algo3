@@ -20,7 +20,6 @@ import java.util.function.Supplier;
 
 public class EscenaJuego extends EscenaGeneral {
 
-    private final ControladorJuego controlador;
     private TableroView tableroView;
     private JugadoresBar jugadoresBar;
     private CartasBar cartasBar;
@@ -29,16 +28,17 @@ public class EscenaJuego extends EscenaGeneral {
 
     public EscenaJuego(Stage stage, Juego juego) {
         super(stage, juego);
-        this.controlador = new ControladorJuego(juego, this);
+
     }
 
     @Override
     protected Pane crearLayout(Stage stage) {
+        ControladorJuego controlador = new ControladorJuego(juego, this);
         StackPane root = new StackPane();
 
         GridPane gridLayout = new GridPane();
 
-        this.jugadoresBar = new JugadoresBar(juego);
+        this.jugadoresBar = new JugadoresBar(juego, controlador);
 
         this.tablero = juego.getTablero();
         TableroView tableroView = new TableroView(tablero);
@@ -58,13 +58,13 @@ public class EscenaJuego extends EscenaGeneral {
         panelAcciones.setMaxWidth(300);
 
         BotonesVista btnDado = new BotonesVista("Tirar Dado");
-        btnDado.setOnAction(e -> this.controlador.tirarDado());
+        btnDado.setOnAction(e -> controlador.tirarDado());
 
         BotonesVista btnConstruir = new BotonesVista("Construir");
         btnConstruir.setOnAction(e -> manejarClickConstruir());
 
         BotonesVista btnPasar = new BotonesVista("Pasar Turno");
-        btnPasar.setOnAction(e -> this.controlador.pasarTurno());
+        btnPasar.setOnAction(e -> controlador.pasarTurno());
 
         btnDado.setMaxWidth(Double.MAX_VALUE);
         btnConstruir.setMaxWidth(Double.MAX_VALUE);
@@ -72,7 +72,7 @@ public class EscenaJuego extends EscenaGeneral {
 
         panelAcciones.getChildren().addAll(btnDado, btnConstruir, btnPasar);
 
-        this.cartasBar = new CartasBar(juego);
+        this.cartasBar = new CartasBar(juego, controlador);
 
         this.dadoBar = new DadoBar(juego);
 

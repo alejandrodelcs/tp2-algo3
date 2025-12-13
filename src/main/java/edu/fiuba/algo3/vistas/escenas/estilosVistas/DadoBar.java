@@ -27,10 +27,9 @@ public class DadoBar extends HBox {
 
         numeroDadoLabel.setText(String.valueOf(numeroActual));
         numeroDadoLabel.setStyle(
-                "-fx-font-size: 72px;" + // tamaño bien grande
+                "-fx-font-size: 72px;" +
                         "-fx-font-weight: bold;" +
-                        "-fx-text-fill: #ffffff;" // blanco (podés cambiarlo)
-        );
+                        "-fx-text-fill: #ffffff;");
     }
 
     private void configurarEstiloBase() {
@@ -42,6 +41,6 @@ public class DadoBar extends HBox {
                         "-fx-border-color: transparent;" +
                         "-fx-border-width: 1;" +
                         "-fx-padding: 10;");
-        this.setAlignment(Pos.CENTER); // centrado
+        this.setAlignment(Pos.CENTER);
     }
 }

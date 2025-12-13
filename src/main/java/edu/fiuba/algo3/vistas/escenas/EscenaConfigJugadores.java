@@ -23,13 +23,6 @@ public class EscenaConfigJugadores extends EscenaGeneral {
     private final ControladorRegistro controlador;
     private VBox nombresContainer;
     private Button botonComenzar;
-    private String[] avataresDisponibles = {
-            "/images/larry.jpeg",
-            "/images/pj1.jpg",
-            "/images/pj2.jpg",
-            "/images/pj3.jpg",
-            "/images/pj4.jpg"
-    };
 
     public EscenaConfigJugadores(Stage stage, ControladorRegistro controlador) {
         super(stage);
@@ -113,19 +106,16 @@ public class EscenaConfigJugadores extends EscenaGeneral {
         botonComenzar.setOnAction(e -> {
 
             ArrayList<Jugador> jugadores = new ArrayList<>();
-            int i = 0;
 
-            for (var nodo : nombresContainer.getChildren()) {
+            for (var nodo : nombresContainer.getChildren()) {// que esto lo haga el controlador
                 TextField campo = (TextField) nodo;
                 if (!campo.getText().trim().isEmpty()) {
                     System.out.println(campo.getText());
                     Jugador jugadorAgregado = new Jugador(campo.getText(),
                             new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo(), new Lana(),
                                     new Lana(), new Grano(), new Grano()));
-                    jugadorAgregado.setAvatar(avataresDisponibles[i]);
 
                     jugadores.add(jugadorAgregado);
-                    i++;
                 }
             }
 
