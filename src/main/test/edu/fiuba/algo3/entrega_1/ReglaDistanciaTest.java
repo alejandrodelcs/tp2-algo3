@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import edu.fiuba.algo3.modelo.Costo.ReglaCostoConstruccion;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
@@ -49,16 +50,16 @@ public class ReglaDistanciaTest {
 
         Vertice primerVertice = new Vertice();
         Vertice segundoVertice = new Vertice();
-        ConstruirAsentamiento c = new ConstruirAsentamiento();
+        ConstruirAsentamiento c = new ConstruirAsentamiento(new ReglaDistancia());
         Construccion pueblo = new Poblado();
         Construccion pueblo2 = new Poblado();
         Arista arista = new Arista(primerVertice, segundoVertice);
 
         Jugador j = new Jugador("Ale", inventario);
-        c.construir(j,pueblo,primerVertice);
+        c.construir(pueblo, j, primerVertice);
 
         assertThrows(ReglaDistanciaException.class, () -> {
-            c.construir(j,pueblo2, segundoVertice);
+            c.construir(pueblo2, j, segundoVertice);
         });
 
     }

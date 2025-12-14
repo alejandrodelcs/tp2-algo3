@@ -12,8 +12,8 @@ import edu.fiuba.algo3.vistas.escenas.EscenaJuego;
 public class ControladorJuego {
     private final Juego juego;
     private final EscenaJuego escenaJuego;
-    private Map<Jugador, String> avatarDeJugador = new HashMap<>();
-    private String[] avataresDisponibles = {
+    private final Map<Jugador, String> avatarDeJugador = new HashMap<>();
+    private final String[] avataresDisponibles = {
             "/images/larry.jpeg",
             "/images/pj1.jpg",
             "/images/pj2.jpg",

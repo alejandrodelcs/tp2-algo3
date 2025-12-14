@@ -139,7 +139,7 @@ public class EscenaJuego extends EscenaGeneral {
                 System.out.println(" Construyendo " + nombreElegido + "...");
 
                 verticeSeleccionado.construir(nuevaObra);
-                jugador.construir(new ConstruirAsentamiento(), nuevaObra, verticeSeleccionado);
+                jugador.construir(nuevaObra, verticeSeleccionado);
 
                 // tableroView.actualizarVisualizacion();
 

@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
  * JugadorBox
  */
 public class JugadorBox extends VBox {
-    private ControladorJuego controlador;
+    private final ControladorJuego controlador;
 
     public JugadorBox(Jugador jugador, ControladorJuego controlador) {
         this.controlador = controlador;

@@ -1,12 +1,15 @@
 package edu.fiuba.algo3.entrega_2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
+import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Costo.ReglaCostoConstruccion;
 import edu.fiuba.algo3.modelo.Dado.Dado;
+import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -22,84 +25,40 @@ import org.junit.jupiter.api.Test;
 public class TurnoTest {
 
     private Jugador jugador;
-    private Jugador jugador2;
-    private Jugador victima;
     private Tablero tablero;
 
     @BeforeEach
     public void setUp() {
         jugador = new Jugador("Hernesto", new Inventario(new Ladrillo(), new Madera(), new Lana(),
                 new Grano(), new Mineral(), new Madera()));
-        jugador2 = new Jugador("Anastasio", new Inventario(new Ladrillo(), new Madera(), new Lana(),
-                new Grano(), new Madera(), new Ladrillo()));
-        victima = new Jugador("Pedro", new Inventario(new Ladrillo(), new Madera(), new Lana(),
-                new Mineral(), new Grano(), new Madera(), new Ladrillo()));
-
         tablero = new Tablero();
 
     }
 
     @Test
-    public void test01LadronRobaUnRecursoSeEsperaLaMitadDeL() {
-
-        Turno turno = new Turno(jugador, tablero);
-
-        assertEquals(jugador, turno.jugador());
-    }
-
-    @Test
-    public void test02JugadorConstruyePobladoSiTieneRecursos() {
+    public void test02AlTirarElDadoSeNotificaALaClaseJuego() {
         Dado dadoMock = mock(Dado.class);
         when(dadoMock.lanzar()).thenReturn(2);
-        Turno turno = new Turno(jugador, new Tablero());
-        Vertice v = new Vertice();
-        turno.tirarDado(dadoMock);
-        turno.construir(new ConstruirAsentamiento(), new Poblado(), v);
-        assertTrue(v.tieneConstruccion());
+
+        Juego juegoMock = mock(Juego.class);
+
+        Turno turno = new Turno(jugador, new Tablero(), dadoMock);
+
+        turno.tirarDado(juegoMock);
+
+        verify(juegoMock).resolverTirada(2);
     }
 
     @Test
-    public void test03JugadorConstruyeCarreteaSiTieneRecursos() {
-        Turno turno = new Turno(jugador2, new Tablero());
-        Vertice v1 = new Vertice();
-        Vertice v2 = new Vertice();
-        Arista a = new Arista(v1, v2);
-        turno.cambiarEstado(new EstadoAcciones());
-        turno.construir(new ConstruirAsentamiento(), new Poblado(), v1);
-        turno.cambiarEstado(new EstadoAcciones());
-        turno.construir(new ConstruirCarretera(), new Carretera(), a);
-        assertEquals(0, jugador2.consultarRecursos());
-    }
-
-    @Test
-    public void test04MoverLadronLuegoDeTirarSiete() {
-
-        Dado dadoMock = mock(Dado.class);
-        when(dadoMock.lanzar()).thenReturn(7);
-
-        Tablero tablero = new Tablero();
-
-        Hexagono origen = new Hexagono(new Desierto(), -1);
-        Hexagono destino = new Hexagono(new Desierto(), 6);
-
-        tablero.agregarHexagono(destino);
-        tablero.agregarHexagono(origen);
-        tablero.colocarLadronEn(origen);
-
+    public void test03NoSePuedeConstruirAntesDeTirarElDado() {
+        Turno turno = new Turno(jugador, tablero, mock(Dado.class));
         Vertice v = new Vertice();
-        origen.agregarVertice(v);
-        destino.agregarVertice(v);
 
-        Turno turno = new Turno(jugador, tablero);
-        turno.cambiarEstado(new EstadoAcciones());
-        turno.construir(new ConstruirAsentamiento(), new Poblado(), v);
-        turno.tirarDado(dadoMock);
-        turno.moverLadronA(destino);
-        turno.robar(victima);
-
-        assertEquals(3, jugador.cantidadCartas());
-        assertEquals(6, victima.cantidadCartas());
-
+        assertThrows(AccionNoPermitidaException.class, () ->
+                turno.construir(new Poblado(), v)
+        );
     }
+
+
 
 }

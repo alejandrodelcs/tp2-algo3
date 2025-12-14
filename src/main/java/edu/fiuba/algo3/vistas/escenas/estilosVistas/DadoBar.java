@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 
 public class DadoBar extends HBox {
 
-    private Label numeroDadoLabel;
+    private final Label numeroDadoLabel;
 
     public DadoBar(Juego juego) {
         numeroDadoLabel = new Label();

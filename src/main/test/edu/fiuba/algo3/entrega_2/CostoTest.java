@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Costo.ReglaCostoConstruccion;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
@@ -18,50 +19,42 @@ public class CostoTest {
     public void test01DeberiaDescontarmeElCostoDeUnaCarretera(){
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo(),
                                             new Madera(),new Ladrillo(), new Lana(), new Grano()));
-        Construible estrategia2 = new ConstruirAsentamiento();
-        Construible estrategia = new ConstruirCarretera();
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
         Arista a = new Arista(v1, v2);
 
-        jugador.construir(estrategia2, new Poblado(), v1);
+        jugador.construir(new Poblado(), v1);
 
-        jugador.construir(estrategia, new Carretera(), a);
+        jugador.construir(new Carretera(new ReglaCostoConstruccion()), a);
 
-        assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.cantidadCartas());
     }
 
     @Test
     public void test02DeberiaDescontarmeElCostoDeUnaCiudad(){
         Jugador jugador = new Jugador("Ale", new Inventario(new Grano(), new Grano(),
                                                     new Mineral(), new Mineral(), new Mineral()));
-        Construible estrategia = new ConstruirAsentamiento();
-        jugador.construir(estrategia, new Ciudad(), new Vertice());
+        jugador.construir(new Ciudad(), new Vertice());
 
-        assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.cantidadCartas());
     }
 
     @Test
     public void test03DeberiaDescontarmeElCostoDeUnPoblado(){
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo(),
                                                                     new Lana(), new Grano()));
+        jugador.construir(new Poblado(), new Vertice());
 
-        Construible estrategia = new ConstruirAsentamiento();
-        jugador.construir(estrategia, new Poblado(), new Vertice());
-
-        assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.cantidadCartas());
     }
 
 
     @Test
     public void test04NoTieneLosRecursosSuficienteParaConstruirDeberiaLanzarUnaExcepcion(){
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
-        Construible estrategia = new ConstruirAsentamiento();
-
-
         assertThrows(NoHayRecursoDisponibleError.class,
-                () -> jugador.construir(estrategia, new Poblado(), new Vertice()));
+                () -> jugador.construir(new Poblado(), new Vertice()));
     }
 
     @Test
@@ -69,9 +62,8 @@ public class CostoTest {
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo(),
                 new Lana(), new Grano(), new Grano() , new Madera() , new Ladrillo()));
 
-        Construible estrategia = new ConstruirAsentamiento();
-        jugador.construir(estrategia, new Poblado(), new Vertice());
+        jugador.construir(new Poblado(), new Vertice());
 
-        assertEquals(3, jugador.consultarRecursos());
+        assertEquals(3, jugador.cantidadCartas());
     }
 }

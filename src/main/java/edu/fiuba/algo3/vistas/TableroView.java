@@ -20,7 +20,7 @@ public class TableroView extends Pane {
     private final double ANCHO_HEX = Math.sqrt(3) * RADIO;
     private final double ALTO_HEX = 2 * RADIO;
 
-    private Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
+    private final Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
     private VerticeView verticeSeleccionadoVisual = null;
 
     private final Group grupoHexagonos = new Group();

@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.Turno;
 
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
-import edu.fiuba.algo3.modelo.Construccion.Construible;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Juego;
@@ -23,30 +22,28 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
  */
 public class Turno {
     private EstadoTurno estadoActual;
-    private boolean primeraVuelta;
-    private int numeroTurno;
-    private Dado dado;
+    private final boolean primeraVuelta;
+    private final int numeroTurno;
+    private final Dado dado;
 
 
-    private Jugador jugadorActivo;
+    private final Jugador jugadorActivo;
     private final Tablero tablero;
 
-    public Turno(Jugador jugadorActivo, Tablero tablero) {
+    public Turno(Jugador jugadorActivo, Tablero tablero, Dado dado) {
         this.jugadorActivo = jugadorActivo;
         this.tablero = tablero;
         this.estadoActual = new EstadoInicial();
         this.primeraVuelta = true;
         this.numeroTurno = 0;
-        this.dado = new Dado();
+        this.dado = dado;
     }
 
-    public void tirarDado(Dado dado) {
-       estadoActual.tirarDado(dado, jugadorActivo, this);
+    public void tirarDado(Juego juego) {
+
+        estadoActual.tirarDado(this, juego, dado);
    }
 
-    public int tirarDado() {
-        return this.dado.lanzar();
-    }
 
     public void cambiarEstado(EstadoTurno nuevo) {
         this.estadoActual = nuevo;
@@ -61,8 +58,8 @@ public class Turno {
         this.estadoActual.robar(this, tablero, jugadorVictima, jugadorActivo);
     }
 
-    public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
-        this.estadoActual.construir(this, jugadorActivo, construible, construccion, ubicaciones);
+    public void construir(Construccion construccion, Object... ubicaciones) {
+        this.estadoActual.construir(this, jugadorActivo, construccion, ubicaciones);
 
     }
 
@@ -76,33 +73,8 @@ public class Turno {
     }
 
     public void pasarTurno(Juego juego) {
-        jugadorActivo.habilitarCartasDesarrollo();
-        jugadorActivo = juego.siguienteJugador();
-        this.estadoActual = new EstadoInicial();
+        this.estadoActual.pasarTurno(this, jugadorActivo, juego);
 
-        this.numeroTurno++;
-        if (numeroTurno < juego.cantidadJugadores()) {
-            this.primeraVuelta = false;
-            this.estadoActual = new EstadoInicial();
-
-        }
-
-    }
-
-    public Jugador jugador() {
-        return this.jugadorActivo;
-    }
-
-    public void habilitarAccionCaballero() {
-        this.estadoActual = new EstadoMoverLadron();
-    }
-
-    public void avanzarAlSiguienteJugador(Juego juego) {
-        this.jugadorActivo = juego.siguienteJugador();
-    }
-
-    public Jugador getJugadorActivo() {
-        return this.jugadorActivo;
     }
 
 }

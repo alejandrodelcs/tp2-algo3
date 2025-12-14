@@ -98,4 +98,14 @@ public class Hexagono {
     public List<Vertice> getVertices() {
         return vertices;
     }
+
+
+    public void producirSegunCorresponde(int numDado){
+        if (!coincideCon(numDado)) return;
+        if (!tieneLadron()) return;
+
+        for(Vertice v : vertices){
+            v.producir(this.recurso);
+        }
+    }
 }

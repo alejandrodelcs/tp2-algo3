@@ -26,7 +26,7 @@ public class CartaDescubrimientoTest {
     @Test
     public void test01JugadorRecibeDosRecursos() {
 
-        assertEquals(0, jugador.consultarRecursos());
+        assertEquals(0, jugador.cantidadCartas());
 
         cartaDescubrimiento.jugar(jugador, tablero, new Madera(), new Grano());
 

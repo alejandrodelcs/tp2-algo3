@@ -10,9 +10,6 @@ import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Excepciones.CartaNoDisponibleException;
 import edu.fiuba.algo3.modelo.Recurso.*;
-import edu.fiuba.algo3.modelo.Construccion.ReglaAdyacencia;
-import edu.fiuba.algo3.modelo.Construccion.ReglaConstruccion;
-import edu.fiuba.algo3.modelo.Construccion.ReglaDistancia;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
@@ -48,9 +45,8 @@ public class Jugador {
         return this.construcciones.size();
     }
 
-    public void mejorarConstruccion(Vertice vertice, Construccion nueva) {
-        inventario.descontarPara(nueva);
-        vertice.mejorarA(nueva);
+    public void mejorarConstruccionUbicadoEn(Vertice vertice) {
+        vertice.mejorar(this);
         this.sumarPuntoVictoria();
     }
 
@@ -84,30 +80,22 @@ public class Jugador {
         }
     }
 
-    // no debería hacerlo jugador sino el hexagono tal vez
-    public void generarRecursosPorConstrucciones(int dado) {
-        for (Construccion c : construcciones) {
-            inventario.agregarTodos(c.producirSegun(dado));
-        }
-    }
-
     public void descartarMitadSiCorresponde() {
         this.inventario.descartarMitadSiCorresponde();
     }
 
-    public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
-        construible.construir(this,construccion, ubicaciones);
+    public void construir(Construccion construccion, Object... ubicaciones) {
+        construccion.asignarJugador(this);
         this.construcciones.add(construccion);
+        construccion.construir(ubicaciones);
+
     }
 
 
-    public void descontarPara(Construccion construccion) {
-        this.inventario.descontarPara(construccion);
+    public void descontarCon(Costo costo) {
+        costo.aplicar(this.inventario);
     }
 
-    public int consultarRecursos() {
-        return this.inventario.total();
-    }
 
     public void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
 
@@ -124,15 +112,6 @@ public class Jugador {
     }
 
 
-    public ReglaConstruccion reglaDistancia() {
-        return new ReglaDistancia();
-    }
-
-    public ReglaConstruccion reglaAdyacencia() {
-        return new ReglaAdyacencia(this);
-    }
-
-
     public void descartarTipo(List<Class<? extends Recurso>> descarte) {
 
         for (Class<? extends Recurso> class1 : descarte) {
@@ -140,14 +119,6 @@ public class Jugador {
             this.inventario.consumir(class1);
         }
 
-    }
-
-    public void setAvatar(String url) {
-        this.avatar = url;
-    }
-
-    public String getAvatar() {
-        return this.avatar;
     }
 
     public int cantidadDe(Class<? extends Recurso> recurso) {

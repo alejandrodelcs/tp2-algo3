@@ -3,6 +3,7 @@ package edu.fiuba.algo3.entrega_1;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +20,7 @@ public class JugadorTest {
     private Jugador jugador;
     private Inventario minimoCiudad;
     private Inventario minimoPoblado;
+    private Tablero tablero;
 
     @BeforeEach
     public void setUp() {
@@ -28,6 +30,7 @@ public class JugadorTest {
         minimoPoblado = new Inventario(new Madera(),
                 new Ladrillo(), new Lana(), new Grano());
         jugador = new Jugador("Ale", inventario);
+        tablero = new Tablero();
 
     }
 
@@ -46,8 +49,7 @@ public class JugadorTest {
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexMadera);
 
-        Construible estrategia = new ConstruirAsentamiento();
-        jugador.construir(estrategia, new Poblado(), vertice);
+        jugador.construir(new Poblado(), vertice);
 
         assertEquals(1, jugador.cantidadConstrucciones());
 
@@ -58,13 +60,15 @@ public class JugadorTest {
         Jugador jugador = new Jugador("Julia", minimoPoblado);
         int dado = 6;
         Hexagono hexMadera = new Hexagono(new Madera(), 6);
+
+        tablero.agregarHexagono(hexMadera);
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexMadera);
 
-        jugador.construir(new ConstruirAsentamiento(), new Poblado(), vertice);
+        jugador.construir(new Poblado(), vertice);
 
         for (int i = 0; i < 10; i++) {
-            jugador.generarRecursosPorConstrucciones(dado);
+            tablero.producirRecursosSegun(6);
         }
         assertEquals(10, jugador.cantidadCartas());
 
@@ -77,16 +81,19 @@ public class JugadorTest {
         Hexagono hexaPiedra = new Hexagono(new Mineral(), 6);
         Hexagono hexaLana = new Hexagono(new Grano(), 6);
 
+        tablero.agregarHexagono(hexaPiedra);
+        tablero.agregarHexagono(hexaLana);
+
+
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexaPiedra);
         vertice.agregarHexagono(hexaLana);
 
         Jugador jugador = new Jugador("Alberto", minimoCiudad);
 
-        Construible estrategia = new ConstruirAsentamiento();
-        jugador.construir(estrategia, new Ciudad(), vertice);
+        jugador.construir(new Ciudad(), vertice);
 
-        jugador.generarRecursosPorConstrucciones(dado);
+        tablero.producirRecursosSegun(dado);
 
         assertEquals(4, jugador.cantidadCartas());
 
@@ -104,21 +111,25 @@ public class JugadorTest {
         Hexagono hexaPiedra = new Hexagono(new Mineral(), 2);
         Hexagono hexaLana = new Hexagono(new Grano(), 3);
 
+        tablero.agregarHexagono(hexMadera);
+        tablero.agregarHexagono(hexaPiedra);
+        tablero.agregarHexagono(hexaLana);
+
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexMadera);
         vertice.agregarHexagono(hexaPiedra);
         vertice.agregarHexagono(hexaLana);
 
-        jugador.construir(new ConstruirAsentamiento(), new Poblado(), vertice);
+        jugador.construir(new Poblado(), vertice);
 
         for (int i = 0; i < 3; i++) {
-            jugador.generarRecursosPorConstrucciones(dado1);
+            tablero.producirRecursosSegun(dado1);
         }
         for (int i = 0; i < 3; i++) {
-            jugador.generarRecursosPorConstrucciones(dado2);
+            tablero.producirRecursosSegun(dado2);
         }
         for (int i = 0; i < 3; i++) {
-            jugador.generarRecursosPorConstrucciones(dado3);
+            tablero.producirRecursosSegun(dado3);
         }
 
         assertEquals(9, jugador.cantidadCartas());
@@ -128,35 +139,19 @@ public class JugadorTest {
     @Test
     public void test06UnJugadorDescartaLaMitadDeSusCartasSiSale7yTieneMasDe7Cartas() {
 
-        Jugador jugador = new Jugador("Julia", minimoPoblado);
-        int dado1 = 1;
-        int dado2 = 2;
-        int dado3 = 3;
-        Hexagono hexMadera = new Hexagono(new Madera(), 1);
-        Hexagono hexaPiedra = new Hexagono(new Mineral(), 2);
-        Hexagono hexaLana = new Hexagono(new Grano(), 3);
-
-        Vertice vertice = new Vertice();
-        vertice.agregarHexagono(hexMadera);
-        vertice.agregarHexagono(hexaPiedra);
-        vertice.agregarHexagono(hexaLana);
-
-        Construible estrategia = new ConstruirAsentamiento();
-        jugador.construir(estrategia, new Poblado(), vertice);
-
-        for (int i = 0; i < 3; i++) {
-            jugador.generarRecursosPorConstrucciones(dado1);
-        }
-        for (int i = 0; i < 3; i++) {
-            jugador.generarRecursosPorConstrucciones(dado2);
-        }
-        for (int i = 0; i < 3; i++) {
-            jugador.generarRecursosPorConstrucciones(dado3);
-        }
+        Jugador jugador = new Jugador("Julia", new Inventario());
+        jugador.recibirRecurso(new Madera());
+        jugador.recibirRecurso(new Madera());
+        jugador.recibirRecurso(new Madera());
+        jugador.recibirRecurso(new Madera());
+        jugador.recibirRecurso(new Madera());
+        jugador.recibirRecurso(new Madera());
+        jugador.recibirRecurso(new Madera());
+        jugador.recibirRecurso(new Madera());
 
         jugador.descartarMitadSiCorresponde();
 
-        assertEquals(5, jugador.cantidadCartas());
+        assertEquals(4, jugador.cantidadCartas());
     }
 
 }

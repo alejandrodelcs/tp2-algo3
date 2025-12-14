@@ -1,20 +1,20 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
-import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-
-import java.util.Arrays;
-import java.util.List;
+import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 public class ConstruirAsentamiento implements Construible{
 
+    ReglaConstruccion reglaConstruccion;
+
+    public ConstruirAsentamiento(ReglaConstruccion reglaConstruccion) {
+        this.reglaConstruccion = reglaConstruccion;
+    }
 
     @Override
-    public void construir(Jugador jugador, Construccion construccion, Object... ubicaciones) {
+    public void construir(Construccion construccion, Jugador jugador, Object... ubicaciones) {
+        reglaConstruccion.validar(jugador,ubicaciones);
         Vertice vertice = (Vertice) ubicaciones[0];
-        construccion.asignarJugador(jugador);
-        jugador.reglaDistancia().validar(vertice);
-        jugador.descontarPara(construccion);
         vertice.construir(construccion);
     }
 }

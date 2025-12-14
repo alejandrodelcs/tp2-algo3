@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.*;
 
-import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayConstruccionParaMejorar;
 import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
@@ -18,7 +17,6 @@ public class Vertice {
     private final ArrayList<Hexagono> hexagonos;
 
     public Vertice() {
-        this.construccion = new ConstruccionNula();
         this.aristas = new ArrayList<>();
         this.hexagonos = new ArrayList<>();
     }
@@ -35,11 +33,6 @@ public class Vertice {
         }
     }
 
-    public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
-        this.construccion.agregarPropietario(listaVictimas);
-    }
-
-
     public void conectarArista(Arista arista) {
         this.aristas.add(arista);
     }
@@ -49,7 +42,7 @@ public class Vertice {
     }
 
     public boolean tieneConstruccion() {
-        return !this.construccion.esNula();
+        return  (this.construccion != null);
     }
 
 
@@ -81,10 +74,14 @@ public class Vertice {
         return new Inventario(recursos.toArray(new Recurso[0]));
     }
 
-    public void mejorarA(Construccion nueva){
+    public void mejorar(Jugador jugador){
         if(!this.tieneConstruccion()){
             throw new NoHayConstruccionParaMejorar();
         }
+
+        Construccion nueva = construccion.mejorar();
+        nueva.asignarJugador(jugador);
+        nueva.cobrarA(jugador);
         this.construccion = nueva;
     }
 
@@ -98,7 +95,7 @@ public class Vertice {
     }
 
     public boolean tieneConstruccionDel(Jugador j) {
-        return construccion.esPropietarioElJugador(j);
+        return construccion!= null && construccion.esPropietarioElJugador(j);
     }
 
     public boolean tieneCarreteraDel(Jugador j) {
@@ -114,5 +111,10 @@ public class Vertice {
 
     public Collection<? extends Arista> getAristas() {
         return aristas;
+    }
+
+    public void producir(Recurso recurso) {
+        if(!tieneConstruccion()) return;
+        construccion.producirSegun(recurso);
     }
 }

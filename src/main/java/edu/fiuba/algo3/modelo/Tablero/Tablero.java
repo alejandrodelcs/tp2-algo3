@@ -127,6 +127,7 @@ public class Tablero {
 
     public void agregarHexagono(Hexagono origen) {
         hexagonos.add(origen);
+
     }
 
     public void colocarLadronEn(Hexagono origen) {
@@ -141,11 +142,6 @@ public class Tablero {
         return TERRENOS;
     }
 
-    public void construirCarreteraGratis(Jugador jugador, Carretera carretera, Arista arista) {
-        jugador.reglaAdyacencia().validar(arista);
-        arista.colocarCarretera(carretera);
-    }
-
     public int calcularLaRutaMasLarga(Jugador jugador) {
         Set<Arista> todas = new HashSet<>();
 
@@ -157,4 +153,12 @@ public class Tablero {
 
         return new ArrayList<>(todas).size();
     }
+
+   public void producirRecursosSegun(int numDado){
+        for(Hexagono h : hexagonos){
+            h.producirSegunCorresponde(numDado);
+        }
+   }
+
+
 }
