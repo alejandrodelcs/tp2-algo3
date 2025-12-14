@@ -15,7 +15,7 @@ public class ReglaAdyacencia implements ReglaConstruccion {
         boolean conectado = arista.consultarConexionCon(jugador);
 
         if (!conectado) {
-            throw new NoSePuedeConstruirCarreteraError("");
+            throw new NoSePuedeConstruirCarreteraError("Tiene que estar conectado");
         }
     }
 }

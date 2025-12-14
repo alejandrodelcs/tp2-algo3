@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Excepciones.AristaOcupadaError;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -77,6 +78,10 @@ public class Arista {
         return adyacentes;
     }
 
+    public Carretera getCarretera() {
+        return carretera;
+    }
+
     public boolean consultarConexionCon(Jugador jugador) {
         return conectaConConstruccionDe(jugador)
                 || conectaConCarreteraDe(jugador);
@@ -85,5 +90,12 @@ public class Arista {
     public boolean conectaA(Vertice v1, Vertice v2) {
         return (this.primerVertice == v1 && this.segundoVertice == v2)
                 || (this.primerVertice == v2 && this.segundoVertice == v1);
+    }
+
+    public Optional<Jugador> getPropietario() {
+        if (this.carretera == null) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(this.carretera.getPropietario());
     }
 }

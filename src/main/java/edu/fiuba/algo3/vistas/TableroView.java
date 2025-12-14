@@ -2,6 +2,7 @@ package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.Recurso.Mar;
+import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
@@ -24,15 +25,23 @@ public class TableroView extends Pane {
 
     private final Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
     private VerticeView verticeSeleccionadoVisual = null;
+    private AristaView aristaSeleccionadoVisual = null;
 
+    private Map<Arista, AristaView> aristasMap;
     private final Group grupoHexagonos = new Group();
     private final Group grupoVertices = new Group();
+    private Group grupoAristas;
 
     private final int[] FICHAS_POR_FILA = { 0, 3, 4, 5, 4, 3, 0 };
 
     public TableroView(Tablero tableroModelo, ControladorJuego controlador) {
         this.controlador = controlador;
-        this.getChildren().addAll(grupoHexagonos, grupoVertices);
+        this.grupoAristas = new Group();
+        this.aristasMap = new HashMap<>();
+
+        this.getChildren().addAll(grupoHexagonos, grupoAristas ,grupoVertices);
+
+
 
         inicializarTablero(tableroModelo);
     }
@@ -54,7 +63,7 @@ public class TableroView extends Pane {
     }
 
     private void crearFila(int fila, int cantidad, boolean usarModelo,
-            Iterator<Hexagono> iterador, double centroX, double centroY) {
+                           Iterator<Hexagono> iterador, double centroX, double centroY) {
 
         double offsetFila = Math.abs(RADIO_TABLERO - fila) * (ANCHO_HEX / 2);
         double y = centroY + (fila * (ALTO_HEX * 0.75));
@@ -67,7 +76,7 @@ public class TableroView extends Pane {
             return;
         }
 
-        agregarHexagonoMar(centroX + offsetFila, y);
+        agregarHexagonoMar(centroX + offsetFila, y); // Mar izquierdo
 
         for (int col = 1; col <= cantidad; col++) {
 
@@ -77,11 +86,14 @@ public class TableroView extends Pane {
 
             agregarHexagono(hex, x, y);
 
+            double radio = ALTO_HEX / 2;
+            agregarAristasDelHexagono(hex, x, y, radio);
+
             agregarVerticesDelHexagono(hex, x, y);
         }
 
         double xDerecha = centroX + offsetFila + ((cantidad + 1) * ANCHO_HEX);
-        agregarHexagonoMar(xDerecha, y);
+        agregarHexagonoMar(xDerecha, y); // Mar derecho
     }
 
     private void agregarHexagono(Hexagono hex, double x, double y) {
@@ -137,10 +149,61 @@ public class TableroView extends Pane {
             vView.setLayoutX(vx);
             vView.setLayoutY(vy);
 
-            // vView.setViewOrder(-1.0);
 
             verticesVisuales.put(verticeReal, vView);
             grupoVertices.getChildren().add(vView);
+        }
+    }
+
+    private void agregarAristasDelHexagono(Hexagono hex, double centroX, double centroY, double radio) {
+        List<Arista> aristas = hex.getAristas();
+
+        double apotema = radio * (Math.sqrt(3) / 2);
+
+        double[] angulos = { 60, 120, 180, 240, 300, 0 };
+
+        for (int i = 0; i < 6; i++) {
+            if (i >= aristas.size()) break;
+
+            Arista aristaModelo = aristas.get(i);
+
+            if (aristasMap.containsKey(aristaModelo)) {
+                continue;
+            }
+
+            AristaView aristaView = new AristaView(aristaModelo, radio, this::manejarClickArista, this.controlador);
+
+            double rad = Math.toRadians(angulos[i]);
+
+            double x = centroX + apotema * Math.cos(rad);
+            double y = centroY + apotema * Math.sin(rad);
+
+            x += 35;
+            y += 65;
+
+            aristaView.setLayoutX(x);
+            aristaView.setLayoutY(y);
+
+            aristaView.setRotate(angulos[i] + 90);
+
+            aristasMap.put(aristaModelo, aristaView);
+            grupoAristas.getChildren().add(aristaView);
+        }
+    }
+
+    private void manejarClickArista(AristaView vista) {
+        System.out.println("Arista clickeada");
+
+        if (aristaSeleccionadoVisual != null) {
+            aristaSeleccionadoVisual.deseleccionar();
+        }
+
+        aristaSeleccionadoVisual = vista;
+        aristaSeleccionadoVisual.seleccionar();
+
+        if (verticeSeleccionadoVisual != null) {
+            verticeSeleccionadoVisual.deseleccionar();
+            verticeSeleccionadoVisual = null;
         }
     }
 
@@ -160,11 +223,12 @@ public class TableroView extends Pane {
         System.out.println("Tablero: Vertice seleccionado guardado.");
     }
 
-    public Vertice obtenerVerticeSeleccionado() {
-        if (verticeSeleccionadoVisual == null) {
-            return null;
-        }
-        return verticeSeleccionadoVisual.getVerticeModelo();
+    public VerticeView obtenerVerticeSeleccionadoVisual() {
+        return this.verticeSeleccionadoVisual;
+    }
+
+    public AristaView obtenerAristaSeleccionadaVisual() {
+        return this.aristaSeleccionadoVisual;
     }
 
     private void agregarHexagonoMar(double x, double y) {

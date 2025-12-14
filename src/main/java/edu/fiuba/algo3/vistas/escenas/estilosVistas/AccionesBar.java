@@ -7,11 +7,15 @@ import java.util.function.Supplier;
 import java.util.ArrayList;
 import java.util.List;
 import edu.fiuba.algo3.controllers.ControladorJuego;
+import edu.fiuba.algo3.modelo.Costo.ReglaCostoConstruccion;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
+import edu.fiuba.algo3.vistas.AristaView;
 import edu.fiuba.algo3.vistas.TableroView;
+import edu.fiuba.algo3.vistas.VerticeView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -71,24 +75,29 @@ public class AccionesBar extends VBox {
     }
 
     private void manejarClickConstruir() {
-        Vertice verticeSeleccionado = tableroView.obtenerVerticeSeleccionado();
-        Jugador jugador = juego.getJugadorActivo();
+        VerticeView verticeVisual = tableroView.obtenerVerticeSeleccionadoVisual();
+        AristaView aristaVisual = tableroView.obtenerAristaSeleccionadaVisual();
 
-        if (verticeSeleccionado == null) {
-            mostrarAlerta("Atención", "¡Debes seleccionar un Vértice primero!");
+        if (verticeVisual == null && aristaVisual == null) {
+            mostrarAlerta("Atencion", "¡Debes seleccionar un lugar en el tablero primero!");
             return;
         }
 
-        Map<String, Supplier<Construccion>> opcionesDeConstruccion = new HashMap<>();
+        Jugador jugador = juego.getJugadorActivo();
 
-        opcionesDeConstruccion.put("Poblado", () -> new Poblado());
-        opcionesDeConstruccion.put("Ciudad", () -> new Ciudad());
+        List<String> opciones = new ArrayList<>();
+        if (verticeVisual != null) {
+            opciones.add("Poblado");
+            opciones.add("Ciudad");
+        }
+        if (aristaVisual != null) {
+            opciones.add("Carretera");
+        }
 
-        List<String> listaNombres = new ArrayList<>(opcionesDeConstruccion.keySet());
-        ChoiceDialog<String> dialogo = new ChoiceDialog<>("Poblado", listaNombres);
+        ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
         dialogo.setTitle("Construcción");
-        dialogo.setHeaderText("¿Qué deseas construir?");
-        dialogo.setContentText("Selecciona:");
+        dialogo.setHeaderText("Construcción");
+        dialogo.setContentText("¿Qué deseas construir?");
 
         Optional<String> resultado = dialogo.showAndWait();
 
@@ -96,17 +105,35 @@ public class AccionesBar extends VBox {
             String nombreElegido = resultado.get();
 
             try {
-                Supplier<Construccion> constructor = opcionesDeConstruccion.get(nombreElegido);
+                if (nombreElegido.equals("Carretera")) {
+                    if (aristaVisual == null) throw new RuntimeException("No hay arista seleccionada");
 
-                Construccion nuevaObra = constructor.get();
+                    Carretera carretera = new Carretera(new ReglaCostoConstruccion());
+                    Arista aristaModelo = aristaVisual.getAristaModelo();
 
-                System.out.println(" Construyendo " + nombreElegido + "...");
+                    jugador.construir(carretera, aristaModelo);
 
-                verticeSeleccionado.construir(nuevaObra);
-                jugador.construir(nuevaObra, verticeSeleccionado);
+                    aristaVisual.actualizarVisualizacion();
+                    aristaVisual.deseleccionar();
+                }
 
-                tableroView.actualizarVisualizacionDelSeleccionado();
-                // tableroView.actualizarVisualizacion();
+                else {
+                    if (verticeVisual == null) throw new RuntimeException("No hay vértice seleccionado");
+
+                    Construccion nuevaObra;
+                    if (nombreElegido.equals("Poblado")) nuevaObra = new Poblado();
+                    else nuevaObra = new Ciudad();
+
+                    Vertice verticeModelo = verticeVisual.getVerticeModelo();
+
+                    verticeModelo.construir(nuevaObra);
+                    jugador.construir(nuevaObra, verticeModelo);
+
+                    verticeVisual.actualizarVisualizacion();
+                    verticeVisual.deseleccionar();
+                }
+
+                System.out.println("Construcción de " + nombreElegido + " exitosa.");
 
             } catch (Exception e) {
                 mostrarAlerta("Error de Construcción", e.getMessage());
