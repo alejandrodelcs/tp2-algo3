@@ -1,6 +1,9 @@
 package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 
 import javafx.scene.image.Image;
+
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
@@ -14,6 +17,8 @@ import javafx.scene.layout.VBox;
  */
 public class ComercioRecursoBox extends VBox {
     private Recurso recurso;
+    private TextField cantidadOfrecida;
+    private TextField cantidadPedida;
 
     public ComercioRecursoBox(Recurso recurso) {
         this.recurso = recurso;
@@ -26,7 +31,13 @@ public class ComercioRecursoBox extends VBox {
                         "-fx-border-color: transparent;" +
                         "-fx-border-width: 0;" +
                         "-fx-padding: 10;");
-        this.setAlignment(Pos.TOP_RIGHT);
+        this.setAlignment(Pos.CENTER);
+
+        this.cantidadOfrecida = crearCampoNumero();
+        this.cantidadPedida = crearCampoNumero();
+
+        HBox fila = new HBox(12);
+        fila.setAlignment(Pos.CENTER_LEFT);
 
         ImageView avatar = new ImageView(new Image(
                 getClass().getResource(this.obtenerRutaImagen(recurso.toString())).toExternalForm()));
@@ -42,9 +53,34 @@ public class ComercioRecursoBox extends VBox {
 
         HBox contenedorPrincipal = new HBox(15);
         contenedorPrincipal.setAlignment(Pos.CENTER);
-        contenedorPrincipal.getChildren().addAll(avatar);
+        contenedorPrincipal.getChildren().addAll(cantidadOfrecida, avatar, cantidadPedida);
 
         this.getChildren().add(contenedorPrincipal);
+
+    }
+
+    private TextField crearCampoNumero() {
+        TextField tf = new TextField();
+
+        tf.setPrefWidth(45);
+        tf.setPrefHeight(40);
+        tf.setAlignment(Pos.CENTER);
+
+        tf.setStyle(
+                "-fx-font-size: 20px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-background-color: #eeeeee;");
+
+        tf.textProperty().addListener((obs, oldText, newText) -> {
+            if (!newText.matches("\\d*")) {
+                tf.setText(newText.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        tf.setText("0");
+
+        return tf;
 
     }
 
