@@ -30,7 +30,7 @@ public class Arista {
 
     public void colocarCarretera(Carretera carretera) {
         if (this.carretera != null) {
-            throw new AristaOcupadaError();
+            throw new AristaOcupadaError("Esta arista ya esta ocupada.");
         }
         this.carretera = carretera;
     }

@@ -126,8 +126,8 @@ public class AccionesBar extends VBox {
 
                     Vertice verticeModelo = verticeVisual.getVerticeModelo();
 
-                    verticeModelo.construir(nuevaObra);
                     jugador.construir(nuevaObra, verticeModelo);
+                    verticeModelo.construir(nuevaObra);
 
                     verticeVisual.actualizarVisualizacion();
                     verticeVisual.deseleccionar();

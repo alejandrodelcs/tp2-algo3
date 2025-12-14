@@ -66,6 +66,8 @@ public class AristaView extends StackPane {
 
         if (propietarioOpt.isPresent()) {
             Jugador jugador = propietarioOpt.get();
+
+            String color = controladorJuego.getColor(jugador);
             Color colorJugador = mapaDeColores(controladorJuego.getColor(jugador));
 
             forma.setFill(colorJugador);
@@ -101,13 +103,13 @@ public class AristaView extends StackPane {
     }
 
     private Color mapaDeColores(String nombreColor) {
-        if (nombreColor == null) return Color.BLACK;
+        if (nombreColor == null) return Color.WHITE;
         switch (nombreColor.toLowerCase()) {
             case "rojo": return Color.RED;
-            case "azul": return Color.DODGERBLUE;
+            case "celeste": return Color.LIGHTBLUE;
             case "amarillo": return Color.GOLD;
-            case "blanco": return Color.WHITE;
             case "verde": return Color.LIMEGREEN;
+            case "negro": return Color.BLACK;
             default: return Color.GRAY;
         }
     }

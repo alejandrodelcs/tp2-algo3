@@ -75,7 +75,7 @@ public abstract class Construccion {
     }
 
     public void construir(Object[] ubicaciones) {
-        construible.construir(this, propietario, ubicaciones);
         reglaCosto.aplicarSobre(propietario, this);
+        construible.construir(this, propietario, ubicaciones);
     }
 }
