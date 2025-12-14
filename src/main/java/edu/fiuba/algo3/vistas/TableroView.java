@@ -220,6 +220,11 @@ public class TableroView extends Pane {
         verticeSeleccionadoVisual = nuevoVerticeClickeado;
         verticeSeleccionadoVisual.seleccionar();
 
+        if (aristaSeleccionadoVisual != null) {
+            aristaSeleccionadoVisual.deseleccionar();
+            aristaSeleccionadoVisual = null;
+        }
+
         System.out.println("Tablero: Vertice seleccionado guardado.");
     }
 

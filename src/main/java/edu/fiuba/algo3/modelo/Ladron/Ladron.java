@@ -15,7 +15,7 @@ public class Ladron {
 
     public void moverA(Hexagono nuevaUbicacion) {
         if (nuevaUbicacion.equals(this.ubicacionActual)) {
-           throw new MovimientoLadronError();
+           throw new MovimientoLadronError("El Ladron debe moverse a una ubicacion diferente.");
         }
         this.ubicacionActual.intercambiarFicha(nuevaUbicacion);
         this.ubicacionActual.colocarLadron(null);
