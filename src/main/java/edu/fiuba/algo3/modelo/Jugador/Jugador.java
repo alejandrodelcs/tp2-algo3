@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import edu.fiuba.algo3.modelo.Carta.Carta;
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
@@ -186,5 +188,20 @@ public class Jugador {
                 ((Carta) c).habilitar();
             }
         }
+    }
+
+    public boolean puedeEntregar(List<Class<? extends Recurso>> solicitud) {
+
+        Map<Class<? extends Recurso>, Long> requeridos = solicitud.stream()
+                .collect(Collectors.groupingBy(
+                        tipo -> tipo,
+                        Collectors.counting()));
+
+        for (var entry : requeridos.entrySet()) {
+            if (inventario.cantidadDeTipo(entry.getKey()) < entry.getValue()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

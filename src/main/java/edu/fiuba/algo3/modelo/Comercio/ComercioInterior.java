@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Comercio;
 
+import edu.fiuba.algo3.modelo.Excepciones.ComercioInvalido1a1;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 
@@ -11,8 +12,8 @@ public class ComercioInterior implements Comercio {
     private final List<Class<? extends Recurso>> recibe;
 
     public ComercioInterior(List<Class<? extends Recurso>> entrega,
-                            List<Class<? extends Recurso>> recibe,
-                            Jugador oferente) {
+            List<Class<? extends Recurso>> recibe,
+            Jugador oferente) {
         this.entrega = entrega;
         this.recibe = recibe;
         this.oferente = oferente;
@@ -20,6 +21,12 @@ public class ComercioInterior implements Comercio {
 
     @Override
     public void aplicarSobre(Jugador receptor) {
+        if (!oferente.puedeEntregar(entrega)
+                || !receptor.puedeEntregar(recibe)) {
+
+            throw new ComercioInvalido1a1(
+                    "Alguno de los jugadores no tiene recursos suficientes");
+        }
         receptor.entregarTipos(oferente, recibe);
         oferente.entregarTipos(receptor, entrega);
     }
