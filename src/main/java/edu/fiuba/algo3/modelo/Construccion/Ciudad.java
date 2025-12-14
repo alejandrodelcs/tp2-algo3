@@ -18,6 +18,10 @@ public class Ciudad extends Construccion {
         return 2;
     }
 
+    @Override
+    public String getNombre(){
+        return "ciudad";
+    }
 
     @Override
     public ArrayList<Recurso> producirSegun(int dado) {

@@ -136,12 +136,17 @@ public class EscenaJuego extends EscenaGeneral {
 
                 Construccion nuevaObra = constructor.get();
 
+                nuevaObra.asignarJugador(jugador);
+
                 System.out.println(" Construyendo " + nombreElegido + "...");
 
                 verticeSeleccionado.construir(nuevaObra);
+
+
                 jugador.construir(new ConstruirAsentamiento(), nuevaObra, verticeSeleccionado);
 
-                // tableroView.actualizarVisualizacion();
+                tableroView.actualizarVisualizacionDelSeleccionado();
+
 
             } catch (Exception e) {
                 mostrarAlerta("Error de Construcción", e.getMessage());

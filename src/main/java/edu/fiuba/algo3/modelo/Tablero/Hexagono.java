@@ -12,11 +12,13 @@ public class Hexagono {
     private int ficha;
     private Ladron ladron;
     private final List<Vertice> vertices;
+    private final List<Arista> aristas;
 
     public Hexagono(Terreno terreno, int ficha) {
         this.terreno = terreno;
         this.ficha = ficha;
         this.vertices = new ArrayList<>();
+        this.aristas = new ArrayList<>();
     }
 
     public void colocarLadron(Ladron ladron) {
@@ -101,5 +103,15 @@ public class Hexagono {
     //Para el visual
     public List<Vertice> getVertices() {
         return vertices;
+    }
+
+    public void agregarArista(Arista arista) {
+        if (!aristas.contains(arista)) {
+            aristas.add(arista);
+        }
+    }
+
+    public List<Arista> getAristas() {
+        return aristas;
     }
 }

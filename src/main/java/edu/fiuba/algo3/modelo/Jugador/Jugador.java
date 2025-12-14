@@ -27,6 +27,7 @@ public class Jugador {
     private int puntosVictoria;
     private final Inventario inventario;
     private String avatar;
+    private String color;
     private int caballerosJugados;
     private boolean puedeJugarCartaDesarrollo;
 
@@ -146,6 +147,13 @@ public class Jugador {
         this.avatar = url;
     }
 
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getColor() {
+        return this.color;
+    }
     public String getAvatar() {
         return this.avatar;
     }

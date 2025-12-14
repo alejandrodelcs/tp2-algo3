@@ -24,7 +24,10 @@ public class Carretera extends Construccion{
         return 0;
     }
 
-
+    @Override
+    public String getNombre() {
+        return "carretera";
+    }
 
 
     @Override

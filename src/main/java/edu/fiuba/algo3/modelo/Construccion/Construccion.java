@@ -24,6 +24,7 @@ public abstract class Construccion {
         costo.aplicar(inventario);
     }
 
+    public abstract String getNombre();
 
     public boolean esPropietarioElJugador(Jugador jugador) {
         return this.propietario == jugador;
@@ -60,6 +61,10 @@ public abstract class Construccion {
 
     public Optional<Jugador> propietario(){
         return Optional.of(propietario);
+    }
+
+    public Jugador getPropietario() {
+        return propietario;
     }
 
 
