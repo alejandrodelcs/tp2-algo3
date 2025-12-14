@@ -15,7 +15,7 @@ import edu.fiuba.algo3.modelo.Turno.Turno;
 import edu.fiuba.algo3.vistas.escenas.EscenaJuego;
 
 public class ControladorJuego {
-    private boolean comercioAbierto, ofertaAceptada, demandaAceptada;
+    private boolean comercioAbierto;
     private Jugador jugadorSeleccionado;
     private final Juego juego;
     private Map<Class<? extends Recurso>, Integer> demandaActual, ofertaActual;
@@ -105,12 +105,10 @@ public class ControladorJuego {
 
     public void armarPaqueteOferta(Map<Class<? extends Recurso>, Integer> oferta) {
         this.ofertaActual = oferta;
-        this.ofertaAceptada = true;
     }
 
     public void armarPaqueteDemanda(Map<Class<? extends Recurso>, Integer> demanda) {
         this.demandaActual = demanda;
-        this.demandaAceptada = true;
     }
 
     private List<Class<? extends Recurso>> expandirPaquete(
@@ -130,8 +128,7 @@ public class ControladorJuego {
     }
 
     public void confirmarComercio() {
-        if (!comercioAbierto || jugadorSeleccionado == null
-                || !ofertaAceptada || !demandaAceptada) {
+        if (!comercioAbierto || jugadorSeleccionado == null) {
             return;
         }
 
@@ -146,8 +143,6 @@ public class ControladorJuego {
 
         comercio.aplicarSobre(jugadorSeleccionado);
 
-        ofertaAceptada = false;
-        demandaAceptada = false;
         ofertaActual.clear();
         demandaActual.clear();
 

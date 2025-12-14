@@ -11,6 +11,8 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.vistas.TableroView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -34,6 +36,10 @@ public class ComercioBar extends VBox {
         refrescarContenido();
     }
 
+    public void actualizar() {
+        this.refrescarContenido();
+    }
+
     private void refrescarContenido() {
         this.getChildren().clear();
         cajasRecurso.clear();
@@ -53,20 +59,66 @@ public class ComercioBar extends VBox {
 
         }
 
-        BotonesVista btnAceptar1 = new BotonesVista("btnAceptar1");
-        BotonesVista btnAceptar2 = new BotonesVista("btnAceptar2");
+        ToggleButton btnAceptarOferta = crearBotonAceptar();
+        ToggleButton btnAceptarDemanda = crearBotonAceptar();
         BotonesVista botonSalir = new BotonesVista("Volver");
         botonSalir.setOnAction(e -> controlador.cerrarComercio());
-        btnAceptar1.setOnAction(e -> controlador.armarPaqueteOferta(this.construirPaqueteOferta()));
-        btnAceptar2.setOnAction(e -> controlador.armarPaqueteDemanda(this.construirPaqueteDemanda()));
+        btnAceptarOferta.setOnAction(e -> {
+            controlador.armarPaqueteOferta(this.construirPaqueteOferta());
+        });
+
+        btnAceptarDemanda.setOnAction(e -> {
+            controlador.armarPaqueteDemanda(this.construirPaqueteDemanda());
+        });
 
         BotonesVista botonEjecutar = new BotonesVista("Ejecutar");
+        botonEjecutar.setMaxWidth(Double.MAX_VALUE);
+        botonEjecutar.setDisable(true);
         botonEjecutar.setOnAction(e -> controlador.confirmarComercio());
+
+        bindearEjecucion(btnAceptarOferta, btnAceptarDemanda, botonEjecutar);
+
+        HBox cajaAceptar = new HBox(15);
+        cajaAceptar.setAlignment(Pos.CENTER);
+        cajaAceptar.getChildren().addAll(btnAceptarOferta, btnAceptarDemanda);
 
         botonSalir.setMaxWidth(Double.MAX_VALUE);
 
-        this.getChildren().addAll(btnAceptar1, btnAceptar2, botonSalir, botonEjecutar);
+        this.getChildren().addAll(cajaAceptar, botonEjecutar, botonSalir);
 
+    }
+
+    private void bindearEjecucion(
+            ToggleButton aceptarOferta,
+            ToggleButton aceptarDemanda,
+            Button ejecutar) {
+
+        ejecutar.disableProperty().bind(
+                aceptarOferta.selectedProperty().not()
+                        .or(aceptarDemanda.selectedProperty().not()));
+    }
+
+    private ToggleButton crearBotonAceptar() {
+        ToggleButton boton = new ToggleButton("✔");
+
+        boton.setPrefSize(56, 56);
+
+        boton.setStyle(
+                "-fx-font-size: 24px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 28;" +
+                        "-fx-background-color: #dddddd;");
+
+        boton.selectedProperty().addListener((obs, oldVal, seleccionado) -> {
+            boton.setStyle(
+                    "-fx-font-size: 24px;" +
+                            "-fx-font-weight: bold;" +
+                            "-fx-background-radius: 28;" +
+                            "-fx-background-color: " +
+                            (seleccionado ? "#6fcf97" : "#dddddd"));
+        });
+
+        return boton;
     }
 
     private Map<Class<? extends Recurso>, Integer> construirPaqueteOferta() {
