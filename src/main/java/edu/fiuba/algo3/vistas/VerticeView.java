@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
+import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import javafx.geometry.Pos;
@@ -9,15 +10,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public class VerticeView extends StackPane {
     private final Vertice verticeModelo;
     private final Circle circulo;
     private ImageView imagenConstruccion;
+    private ControladorJuego controlador;
 
-    public VerticeView(Vertice vertice, double radioHexagono, Consumer<VerticeView> onSeleccionado) {
+    public VerticeView(Vertice vertice, double radioHexagono, Consumer<VerticeView> onSeleccionado,
+            ControladorJuego controlador) {
+        this.controlador = controlador;
         this.verticeModelo = vertice;
 
         this.setMaxSize(0, 0);
@@ -28,13 +31,11 @@ public class VerticeView extends StackPane {
         double altoDeLaImagen = radioHexagono * 2;
         double tamanoVisual = radioHexagono * 0.4;
 
-
         this.circulo = new Circle((tamanoVisual / 2) * 1.2);
         this.circulo.setFill(Color.TRANSPARENT);
         this.circulo.setStroke(Color.TRANSPARENT);
         this.circulo.setStrokeWidth(4);
         this.circulo.setMouseTransparent(false);
-
 
         this.imagenConstruccion = new ImageView();
         this.imagenConstruccion.setFitHeight(altoDeLaImagen);
@@ -61,7 +62,7 @@ public class VerticeView extends StackPane {
         }
 
         Jugador propietario = verticeModelo.getPropietario();
-        String color = propietario.getColor().toLowerCase();
+        String color = this.controlador.getColor(propietario).toLowerCase();
         String nombre = verticeModelo.getConstruccion().getNombre().toLowerCase();
 
         String ruta = "/images/" + nombre + "_" + color + ".png";
@@ -70,9 +71,7 @@ public class VerticeView extends StackPane {
 
         Image imgConstruccion = new Image(inputStream);
 
-
         imagenConstruccion.setImage(imgConstruccion);
-
 
     }
 

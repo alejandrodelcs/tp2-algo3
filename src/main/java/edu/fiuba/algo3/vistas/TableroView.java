@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
+import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.Recurso.Mar;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -19,6 +20,7 @@ public class TableroView extends Pane {
     private final double RADIO_TABLERO = 3;
     private final double ANCHO_HEX = Math.sqrt(3) * RADIO;
     private final double ALTO_HEX = 2 * RADIO;
+    private ControladorJuego controlador;
 
     private Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
     private VerticeView verticeSeleccionadoVisual = null;
@@ -28,7 +30,8 @@ public class TableroView extends Pane {
 
     private final int[] FICHAS_POR_FILA = { 0, 3, 4, 5, 4, 3, 0 };
 
-    public TableroView(Tablero tableroModelo) {
+    public TableroView(Tablero tableroModelo, ControladorJuego controlador) {
+        this.controlador = controlador;
         this.getChildren().addAll(grupoHexagonos, grupoVertices);
 
         inicializarTablero(tableroModelo);
@@ -124,7 +127,7 @@ public class TableroView extends Pane {
                 continue;
             }
 
-            VerticeView vView = new VerticeView(verticeReal, RADIO, this::manejarClickVertice);
+            VerticeView vView = new VerticeView(verticeReal, RADIO, this::manejarClickVertice, this.controlador);
 
             double correccionCentro = RADIO * 0.2;
 

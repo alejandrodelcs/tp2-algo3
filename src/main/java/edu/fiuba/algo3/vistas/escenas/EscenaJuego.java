@@ -44,7 +44,7 @@ public class EscenaJuego extends EscenaGeneral {
         this.jugadoresBar = new JugadoresBar(juego, controlador);
 
         this.tablero = juego.getTablero();
-        TableroView tableroView = new TableroView(tablero);
+        TableroView tableroView = new TableroView(tablero, controlador);
         this.tableroView = tableroView;
         tableroView.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 

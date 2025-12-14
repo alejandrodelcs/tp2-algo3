@@ -113,7 +113,6 @@ public class EscenaConfigJugadores extends EscenaGeneral {
         botonComenzar.setOnAction(e -> {
 
             ArrayList<Jugador> jugadores = new ArrayList<>();
-            int i = 0;
 
             for (var nodo : nombresContainer.getChildren()) {// que esto lo haga el controlador
                 TextField campo = (TextField) nodo;
@@ -122,11 +121,8 @@ public class EscenaConfigJugadores extends EscenaGeneral {
                     Jugador jugadorAgregado = new Jugador(campo.getText(),
                             new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo(), new Lana(),
                                     new Lana(), new Grano(), new Grano()));
-                    jugadorAgregado.setAvatar(avataresDisponibles[i][0]);
-                    jugadorAgregado.setColor(avataresDisponibles[i][1]);
 
                     jugadores.add(jugadorAgregado);
-                    i++;
                 }
             }
 
@@ -144,7 +140,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
 
             stage.setScene(escenaJuego.getScene());
             // CAMBIO PARA DEBUGEAR
-            // stage.setFullScreen(true);
+            stage.setFullScreen(true);
         });
     }
 

@@ -15,12 +15,13 @@ public class ControladorJuego {
     private final Juego juego;
     private final EscenaJuego escenaJuego;
     private Map<Jugador, String> avatarDeJugador = new HashMap<>();
-    private String[] avataresDisponibles = {
-            "/images/larry.jpeg",
-            "/images/pj1.jpg",
-            "/images/pj2.jpg",
-            "/images/pj3.jpg",
-            "/images/pj4.jpg"
+    private Map<Jugador, String> coloresConstrucciones = new HashMap<>();
+    private String[][] avataresDisponibles = {
+            { "/images/larry.jpeg", "negro" },
+            { "/images/pj1.jpg", "celeste" },
+            { "/images/pj2.jpg", "amarillo" },
+            { "/images/pj3.jpg", "rojo" },
+
     };
 
     public ControladorJuego(Juego juego, EscenaJuego escenaJuego) {
@@ -35,7 +36,8 @@ public class ControladorJuego {
 
         for (int i = 0; i < jugadores.size(); i++) {
 
-            this.avatarDeJugador.put(jugadores.get(i), avataresDisponibles[i]);
+            this.avatarDeJugador.put(jugadores.get(i), avataresDisponibles[i][0]);
+            this.coloresConstrucciones.put(jugadores.get(i), avataresDisponibles[i][1]);
 
         }
     }
@@ -88,5 +90,9 @@ public class ControladorJuego {
 
     public boolean comercioEstaAbierto() {
         return this.comercioAbierto;
+    }
+
+    public String getColor(Jugador jugador) {
+        return this.coloresConstrucciones.get(jugador);
     }
 }
