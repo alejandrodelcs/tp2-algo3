@@ -21,13 +21,23 @@ public class Tablero {
         this.hexagonos = new ArrayList<>();
     }
 
-    public void construir() {
+    public void construir(){
+        List<Integer> numerosMezclados = new ArrayList<>(DISTRIBUCION);
+        Collections.shuffle(numerosMezclados);
+        List<Recurso> terrenosParaMezclar = new ArrayList<>();
 
-        Random randomTerreno = new Random();
-        Random randomDistribucion = new Random();
-        for (int i = 0; i < DISTRIBUCION.size(); i++) {
-            Recurso terreno = TERRENOS.get(randomDistribucion.nextInt(TERRENOS.size()));
-            Hexagono hexagono = new Hexagono(terreno, DISTRIBUCION.get(randomTerreno.nextInt(DISTRIBUCION.size())));
+        agregarTerrenos(terrenosParaMezclar, new Madera(), 4);
+        agregarTerrenos(terrenosParaMezclar, new Lana(), 4);
+        agregarTerrenos(terrenosParaMezclar, new Grano(), 4);
+        agregarTerrenos(terrenosParaMezclar, new Ladrillo(), 3);
+        agregarTerrenos(terrenosParaMezclar, new Mineral(), 3);
+        Collections.shuffle(terrenosParaMezclar);
+
+        for (int i = 0; i < numerosMezclados.size(); i++) {
+            Recurso terreno = terrenosParaMezclar.get(i);
+            Integer numero = numerosMezclados.get(i);
+            
+            Hexagono hexagono = new Hexagono(terreno, numero);
             hexagonos.add(hexagono);
         }
 
@@ -38,6 +48,17 @@ public class Tablero {
         this.ladron = new Ladron(desierto);
 
         this.generarVertices();
+    }
+
+    private void agregarTerrenos(List<Recurso> lista, Recurso recurso, int cantidad) {
+        for (int i = 0; i < cantidad; i++) {
+            try {
+                lista.add(recurso.getClass().getDeclaredConstructor().newInstance());
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("Error al crear la ficha de recurso: " + recurso.getClass().getName());
+            }
+        }
     }
 
     private void generarVertices() {
