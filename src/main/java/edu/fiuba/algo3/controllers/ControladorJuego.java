@@ -1,18 +1,24 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Comercio.Comercio;
+import edu.fiuba.algo3.modelo.Comercio.ComercioInterior;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Turno.Turno;
 import edu.fiuba.algo3.vistas.escenas.EscenaJuego;
 
 public class ControladorJuego {
     private boolean comercioAbierto;
     private Jugador jugadorSeleccionado;
     private final Juego juego;
+    private Map<Class<? extends Recurso>, Integer> demandaActual, ofertaActual;
     private final EscenaJuego escenaJuego;
     private Map<Jugador, String> avatarDeJugador = new HashMap<>();
     private Map<Jugador, String> coloresConstrucciones = new HashMap<>();
@@ -67,6 +73,7 @@ public class ControladorJuego {
     }
 
     public void abrirComercio() {
+
         escenaJuego.mostrarBarraComercio();
         escenaJuego.actualizarVista();
         this.comercioAbierto = true;
@@ -94,5 +101,51 @@ public class ControladorJuego {
 
     public String getColor(Jugador jugador) {
         return this.coloresConstrucciones.get(jugador);
+    }
+
+    public void armarPaqueteOferta(Map<Class<? extends Recurso>, Integer> oferta) {
+        this.ofertaActual = oferta;
+    }
+
+    public void armarPaqueteDemanda(Map<Class<? extends Recurso>, Integer> demanda) {
+        this.demandaActual = demanda;
+    }
+
+    private List<Class<? extends Recurso>> expandirPaquete(
+            Map<Class<? extends Recurso>, Integer> paquete) {
+
+        List<Class<? extends Recurso>> resultado = new ArrayList<>();
+
+        for (Map.Entry<Class<? extends Recurso>, Integer> entry : paquete.entrySet()) {
+            Class<? extends Recurso> tipo = entry.getKey();
+            int cantidad = entry.getValue();
+
+            for (int i = 0; i < cantidad; i++) {
+                resultado.add(tipo);
+            }
+        }
+        return resultado;
+    }
+
+    public void confirmarComercio() {
+        if (!comercioAbierto || jugadorSeleccionado == null) {
+            return;
+        }
+
+        List<Class<? extends Recurso>> oferta = expandirPaquete(ofertaActual);
+
+        List<Class<? extends Recurso>> demanda = expandirPaquete(demandaActual);
+
+        Comercio comercio = new ComercioInterior(
+                oferta,
+                demanda,
+                juego.getJugadorActivo());
+
+        comercio.aplicarSobre(jugadorSeleccionado);
+
+        ofertaActual.clear();
+        demandaActual.clear();
+
+        escenaJuego.actualizarVista();
     }
 }
