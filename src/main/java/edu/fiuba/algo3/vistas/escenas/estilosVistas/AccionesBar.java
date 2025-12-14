@@ -103,7 +103,7 @@ public class AccionesBar extends VBox {
                 System.out.println(" Construyendo " + nombreElegido + "...");
 
                 verticeSeleccionado.construir(nuevaObra);
-                jugador.construir(new ConstruirAsentamiento(), nuevaObra, verticeSeleccionado);
+                jugador.construir(nuevaObra, verticeSeleccionado);
 
                 // tableroView.actualizarVisualizacion();
 
