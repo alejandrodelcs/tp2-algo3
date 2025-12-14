@@ -5,6 +5,7 @@ import java.util.Optional;
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Costo.ReglaCosto;
 import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeMejorarConstruccionError;
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
@@ -75,7 +76,11 @@ public abstract class Construccion {
     }
 
     public void construir(Object[] ubicaciones) {
+        if (!propietario.puedePagar(this.costo)) {
+            throw new RecursosInsuficientesException("No hay recursos para construir");
+        }
+
         construible.construir(this, propietario, ubicaciones);
-        reglaCosto.aplicarSobre(propietario, this);
+        reglaCosto.aplicarSobre(propietario, this); 
     }
 }

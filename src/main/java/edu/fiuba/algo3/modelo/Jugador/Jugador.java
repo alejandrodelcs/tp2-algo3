@@ -83,10 +83,9 @@ public class Jugador {
 
     public void construir(Construccion construccion, Object... ubicaciones) {
         construccion.asignarJugador(this);
-        this.construcciones.add(construccion);
         construccion.construir(ubicaciones);
-
-    }
+        this.construcciones.add(construccion);
+}
 
     public void descontarCon(Costo costo) {
         costo.aplicar(this.inventario);
