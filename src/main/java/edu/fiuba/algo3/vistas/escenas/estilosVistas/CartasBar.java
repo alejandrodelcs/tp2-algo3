@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 
 public class CartasBar extends HBox {
 
-    private ControladorJuego controlador;
+    private final ControladorJuego controlador;
     private final String CARTA_STYLE = "-fx-background-color: #6d524c;" +
             "-fx-background-radius: 12;" +
             "-fx-border-radius: 12;" +

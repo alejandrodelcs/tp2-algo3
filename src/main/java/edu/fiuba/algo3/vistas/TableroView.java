@@ -22,7 +22,7 @@ public class TableroView extends Pane {
     private final double ALTO_HEX = 2 * RADIO;
     private ControladorJuego controlador;
 
-    private Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
+    private final Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
     private VerticeView verticeSeleccionadoVisual = null;
 
     private final Group grupoHexagonos = new Group();

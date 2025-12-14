@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Ladron.Ladron;
@@ -46,16 +47,16 @@ public class TestsEntrega1 {
     public void test02NoSePuedeConstruirEnUnVerticeConVecinosConstruidos() {
         Vertice primerVertice = new Vertice();
         Vertice segundoVertice = new Vertice();
-        ConstruirAsentamiento c = new ConstruirAsentamiento();
+        ConstruirAsentamiento c = new ConstruirAsentamiento(new ReglaDistancia());
         Construccion pueblo = new Poblado();
         Construccion pueblo2 = new Poblado();
         Arista arista = new Arista(primerVertice, segundoVertice);
 
         Jugador j = new Jugador("Ale", inventario3);
-        c.construir(j, pueblo, primerVertice);
+        c.construir(pueblo,j , primerVertice);
 
         assertThrows(ReglaDistanciaException.class, () -> {
-            c.construir(j, pueblo2, segundoVertice);
+            c.construir(pueblo2,j , segundoVertice);
         });
     }
 

@@ -1,8 +1,11 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Costo.ReglaCostoConstruccion;
 import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeConstruirCarreteraError;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
@@ -20,11 +23,19 @@ public class TestEntrega2 {
     @Test
     public void test01VerificarElConsumoDeRecursosYLaCorrectaColocacionDeUnaCarretera(){
 
-        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
+        Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo(), new Lana(), new Grano(),
+                        new Madera(), new Ladrillo()));
 
-        jugador.construir(new ConstruirAsentamiento(), new Carretera(), new Vertice());
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
 
-        assertEquals(0, jugador.consultarRecursos());
+        Arista a = new Arista(v1,v2);
+
+        jugador.construir(new Poblado(), v1);
+
+        jugador.construir(new Carretera(new ReglaCostoConstruccion()), a);
+
+        assertEquals(0, jugador.cantidadCartas());
 
     }
 
@@ -37,10 +48,10 @@ public class TestEntrega2 {
         Vertice v2 = new Vertice();
         Arista a = new Arista(v1,v2);
 
-        jugador.construir(new ConstruirAsentamiento(), new Poblado(), v1);
+        jugador.construir(new Poblado(), v1);
 
         assertThrows(ReglaDistanciaException.class, () -> {
-            jugador.construir(new ConstruirAsentamiento(),new Poblado(), v2);
+            jugador.construir(new Poblado(), v2);
         });
     }
 
@@ -52,11 +63,11 @@ public class TestEntrega2 {
         Vertice vertice = new Vertice();
 
 
-        jugador.construir(new ConstruirAsentamiento(), new Poblado(), vertice);
+        jugador.construir(new Poblado(), vertice);
 
         assertEquals(1, vertice.puntoVictoria());
 
-        jugador.mejorarConstruccion(vertice, new Ciudad());
+        jugador.mejorarConstruccionUbicadoEn(vertice);
 
         assertEquals(0, jugador.cantidadCartas());
 
@@ -97,13 +108,35 @@ public class TestEntrega2 {
         Arista aristaDondeSePuede = new Arista(v1, v2);
         Arista aristaLejana = new Arista(v3, v4);
 
-        jugador.construir(new ConstruirAsentamiento(), new Poblado(), v1);
+        jugador.construir( new Poblado(), v1);
 
-        jugador.construir(new ConstruirCarretera(), new Carretera(),
-                                                aristaDondeSePuede, v1,v2);
+        jugador.construir(new Carretera(new ReglaCostoConstruccion()),aristaDondeSePuede, v1,v2);
 
         assertThrows(NoSePuedeConstruirCarreteraError.class,
-                () -> jugador.construir(new ConstruirCarretera(), new Carretera(),
+                () -> jugador.construir(new Carretera(new ReglaCostoConstruccion()),
                         aristaLejana,v3,v4));
     }
+
+
+    @Test
+    void test07cuandoSaleNumeroJugadorRecibeUnRecursoPorPoblado() {
+        Tablero tablero = new Tablero();
+        Jugador jugador = new Jugador("Juan", new Inventario());
+
+        Poblado p = new Poblado();
+        p.asignarJugador(jugador);
+
+        Hexagono hexagono = new Hexagono(new Madera(), 6);
+        tablero.agregarHexagono(hexagono);
+        Vertice vertice = new Vertice();
+
+        vertice.agregarHexagono(hexagono);
+
+        vertice.construir(p);
+
+        tablero.producirRecursosSegun(6);
+
+        assertEquals(1, jugador.cantidadCartas());
+    }
+
 }

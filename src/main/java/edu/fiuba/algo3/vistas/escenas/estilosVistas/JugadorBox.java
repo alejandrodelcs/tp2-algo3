@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
  * JugadorBox
  */
 public class JugadorBox extends VBox {
-    private ControladorJuego controlador;
+    private final ControladorJuego controlador;
 
     public JugadorBox(Jugador jugador, ControladorJuego controlador) {
         this.controlador = controlador;
@@ -70,7 +70,6 @@ public class JugadorBox extends VBox {
         // --- Nombre del jugador ---
 
         Label nombreJugador = new Label(jugador.getNombre());
-        System.out.println(jugador.getNombre().toUpperCase());
 
         nombreJugador.setStyle(
                 "-fx-font-size: 30;" +

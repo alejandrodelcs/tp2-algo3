@@ -4,6 +4,9 @@ import edu.fiuba.algo3.modelo.Construccion.Carretera;
 import edu.fiuba.algo3.modelo.Excepciones.AristaOcupadaError;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Arista
  */
@@ -41,8 +44,6 @@ public class Arista {
         return null;// modelar exepcion
     }
 
-    
-
     public boolean esAdyacenteA(Arista otra) {
         return this.primerVertice == otra.primerVertice
                 || this.primerVertice == otra.segundoVertice
@@ -50,22 +51,39 @@ public class Arista {
                 || this.segundoVertice == otra.segundoVertice;
     }
 
+    public boolean conectaConConstruccionDe(Jugador jugador) {
+        return primerVertice.tieneConstruccionDel(jugador)
+                || segundoVertice.tieneConstruccionDel(jugador);
+    }
+
+    public boolean tieneCarreteraDel(Jugador j) {
+        return carretera != null && carretera.carreteraEsPropietarioDe(j);
+    }
+
+    public boolean conectaConCarreteraDe(Jugador jugador) {
+        return this.aristasAdyacentes()
+                .stream()
+                .anyMatch(a -> a.tieneCarreteraDel(jugador));
+    }
+
+    private Set<Arista> aristasAdyacentes() {
+        Set<Arista> adyacentes = new HashSet<>();
+
+        adyacentes.addAll(primerVertice.getAristas());
+        adyacentes.addAll(segundoVertice.getAristas());
+
+        adyacentes.remove(this);
+
+        return adyacentes;
+    }
+
+    public boolean consultarConexionCon(Jugador jugador) {
+        return conectaConConstruccionDe(jugador)
+                || conectaConCarreteraDe(jugador);
+    }
 
     public boolean conectaA(Vertice v1, Vertice v2) {
         return (this.primerVertice == v1 && this.segundoVertice == v2)
                 || (this.primerVertice == v2 && this.segundoVertice == v1);
-    }
-
-
-
-    public boolean tieneCarreteraDel(Jugador j) {
-        return carretera != null &&  carretera.carreteraEsPropietarioDe(j);
-    }
-
-    public boolean consultarConexionCon(Jugador jugador) {
-       return  this.primerVertice.tieneConstruccionDel(jugador) ||
-               this.segundoVertice.tieneConstruccionDel(jugador) ||
-               this.primerVertice.tieneCarreteraDel(jugador) ||
-               this.segundoVertice.tieneCarreteraDel(jugador);
     }
 }

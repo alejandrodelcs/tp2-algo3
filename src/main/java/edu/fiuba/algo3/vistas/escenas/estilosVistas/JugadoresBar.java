@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
  * JugadoresBar
  */
 public class JugadoresBar extends VBox {
-    private ControladorJuego controlador;
+    private final ControladorJuego controlador;
 
     public JugadoresBar(Juego juego, ControladorJuego controlador) {
         this.controlador = controlador;

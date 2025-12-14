@@ -3,7 +3,8 @@ package edu.fiuba.algo3.modelo.Construccion;
 import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
-import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Costo.ReglaCosto;
+import edu.fiuba.algo3.modelo.Costo.ReglaCostoConstruccion;
 import edu.fiuba.algo3.modelo.Recurso.*;
 
 /**
@@ -17,6 +18,7 @@ public class Poblado extends Construccion {
     }
 
     public Poblado(){
+        super(new ConstruirAsentamiento(new ReglaDistancia()), new ReglaCostoConstruccion());
         this.costo = new Costo(Madera.class, Ladrillo.class,Lana.class, Grano.class);
     }
 
@@ -26,8 +28,13 @@ public class Poblado extends Construccion {
 
 
     @Override
-    public ArrayList<Recurso> producirSegun(int dado) {
-        return this.verticeAsignado.generarRecurso(dado,1);
+    public void producirSegun(Recurso recurso) {
+        propietario.recibirRecurso(recurso);
+    }
+
+    @Override
+    public Construccion mejorar() {
+        return new Ciudad();
     }
 
 

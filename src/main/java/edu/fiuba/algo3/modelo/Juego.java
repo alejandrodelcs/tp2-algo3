@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Carta.Mazo;
 import edu.fiuba.algo3.modelo.Dado.Dado;
+import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.JugadoresMinimosRegistradosError;
 import edu.fiuba.algo3.modelo.Jugador.*;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.*;
+import edu.fiuba.algo3.modelo.Turno.EstadoMoverLadron;
 import edu.fiuba.algo3.modelo.Turno.Turno;
 
 import java.util.ArrayList;
@@ -21,37 +22,30 @@ public class Juego {
     private final Tablero tablero;
     private Jugador granCaballeria;
     private Jugador granRutaComercial;
-    private Turno turno;
-    private int indiceTurno;
-    private Mazo mazo;
-    private Dado dado;
+    private Turno turnoActual;
+    private final Mazo mazo;
+    private final Dado dado;
     private int numeroActualDado;
-
-    /*
-     * public Juego() {
-     * this.jugadores = jugadores;
-     * this.tablero = new Tablero();
-     * this.tablero.construir();
-     *
-     * }
-     */
+    private boolean debeMoverLadron;
+    private int indiceJugadorActual;
 
     public Juego() {
+        this.indiceJugadorActual = 0;
         this.jugadores = new ArrayList<>();// armar bien el inicializador;
         this.tablero = new Tablero();
         this.tablero.construir();
         this.mazo = new Mazo();
         this.dado = new Dado();
-        this.indiceTurno = 0;
     }
 
     public Juego(ArrayList<Jugador> jugadores) {
+        this.indiceJugadorActual = 0;
         this.jugadores = jugadores;
         this.tablero = new Tablero();
         this.tablero.construir();
         this.mazo = new Mazo();
-        this.turno = new Turno(jugadores.get(0), this.tablero);
         this.dado = new Dado();
+        this.turnoActual = new Turno(jugadorActivo(), tablero, dado);
 
     }
 
@@ -95,11 +89,7 @@ public class Juego {
     }
 
     public void pasarTurno() {
-        this.turno.pasarTurno(this);
-    }
-
-    public CartaDesarrollo comprarCartaDesarrollo() {
-        return mazo.comprarCarta(turno.getJugadorActivo());
+        this.turnoActual.pasarTurno(this);
     }
 
     public void actualizarGranCaballeria(Jugador jugador) {
@@ -139,28 +129,25 @@ public class Juego {
     }
 
     public void tirarDado() {
-        // this.numeroActual = this.dado.lanzar();
-        this.numeroActualDado = this.turno.tirarDado();
-        for (Jugador jugador : jugadores) {
-            jugador.generarRecursosPorConstrucciones(numeroActualDado);
-
-        }
+        this.turnoActual.tirarDado(this);
+        // tablero.producirRecursosSegun(numeroActualDado);
     }
 
     public void construirCarretera() {
     }
 
-    public Jugador getJugadorActivo() {
-        return this.turno.getJugadorActivo();
+    public Jugador jugadorActivo() {
+        return this.jugadores.get(indiceJugadorActual);
     }
 
     public void agregarJugador(Jugador jugador) {
         jugadores.add(jugador);
     }
 
-    public Jugador siguienteJugador() {
-        this.indiceTurno = (this.indiceTurno + 1) % jugadores.size();
-        return jugadores.get(indiceTurno);
+    public void finalizarTurnoActual() {
+        this.indiceJugadorActual = (this.indiceJugadorActual + 1) % jugadores.size();
+
+        turnoActual = new Turno(jugadorActivo(), tablero, dado);
     }
 
     public int cantidadJugadores() {
@@ -170,4 +157,45 @@ public class Juego {
     public int getDadoActual() {
         return this.numeroActualDado;
     }
+
+    public void repartirRecursosPorDado(int numDado) {
+        tablero.producirRecursosSegun(numDado);
+    }
+
+    public void aplicarPenalidadPorSiete() {
+        for (Jugador j : jugadores) {
+            j.descartarMitadSiCorresponde();
+        }
+    }
+
+    public void activarLadron() {
+        this.debeMoverLadron = true;
+    }
+
+    public void moverLadronA(Hexagono destino) {
+        if (!debeMoverLadron) {
+            throw new AccionNoPermitidaException("");
+        }
+        tablero.moverLadronA(destino);
+        debeMoverLadron = false;
+    }
+
+    public Turno turnoActual() {
+        return turnoActual;
+    }
+
+    public void resolverTirada(int resultado) {
+        this.numeroActualDado = resultado;
+        if (resultado == 7) {
+            aplicarPenalidadPorSiete();
+            turnoActual.cambiarEstado(new EstadoMoverLadron());
+        } else {
+            tablero.producirRecursosSegun(resultado);
+        }
+    }
+
+    public Jugador getJugadorActivo() {
+        return jugadores.get(indiceJugadorActual);
+    }
+
 }

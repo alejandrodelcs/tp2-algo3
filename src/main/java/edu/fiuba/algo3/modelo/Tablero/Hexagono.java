@@ -110,4 +110,15 @@ public class Hexagono {
     public List<Arista> getAristas() {
         return aristas;
     }
+
+    public void producirSegunCorresponde(int numDado) {
+        if (!coincideCon(numDado))
+            return;
+        if (!tieneLadron())
+            return;
+
+        for (Vertice v : vertices) {
+            v.producir(this.recurso);
+        }
+    }
 }

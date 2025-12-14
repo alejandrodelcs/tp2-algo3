@@ -10,8 +10,6 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.Arrays;
-import java.util.List;
 
 public class CartaMonopolioTest {
     private CartaMonopolio carta;
@@ -43,7 +41,7 @@ public class CartaMonopolioTest {
     @Test
     public void test01MonopolioRobaMaderasDeTodosMenosJugadorActivo() {
 
-        assertEquals(0, jugadorA.consultarRecursos());
+        assertEquals(0, jugadorA.cantidadCartas());
 
         carta.jugar(jugadorA, tablero, new Madera(), juego);
 

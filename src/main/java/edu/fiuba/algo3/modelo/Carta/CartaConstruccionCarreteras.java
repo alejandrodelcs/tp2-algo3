@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Carta;
 
 import edu.fiuba.algo3.modelo.Construccion.Carretera;
+import edu.fiuba.algo3.modelo.Costo.ReglaCostoGratis;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 import edu.fiuba.algo3.modelo.Tablero.Arista;
@@ -14,13 +15,13 @@ public class CartaConstruccionCarreteras extends Carta {
         Arista a1 = (Arista) args[0];
         Arista a2 = (Arista) args[1];
 
-        Carretera c1 = new Carretera();
+        Carretera c1 = new Carretera(new ReglaCostoGratis());
         c1.asignarJugador(jugador);
-        tablero.construirCarreteraGratis(jugador, c1, a1);
+        jugador.construir(c1, a1);
 
-        Carretera c2 = new Carretera();
+        Carretera c2 = new Carretera(new ReglaCostoGratis());
         c2.asignarJugador(jugador);
-        tablero.construirCarreteraGratis(jugador, c2, a2);
+        jugador.construir(c2, a2);
 
     }
 }

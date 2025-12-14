@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import java.util.*;
 
-import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayConstruccionParaMejorar;
 import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
@@ -18,7 +17,6 @@ public class Vertice {
     private final ArrayList<Hexagono> hexagonos;
 
     public Vertice() {
-        this.construccion = new ConstruccionNula();
         this.aristas = new ArrayList<>();
         this.hexagonos = new ArrayList<>();
     }
@@ -35,12 +33,6 @@ public class Vertice {
         }
     }
 
-    public void agregarVictimaPotencial(List<Jugador> listaVictimas) {
-        this.construccion.agregarPropietario(listaVictimas);
-    }
-
-
-
     public void conectarArista(Arista arista) {
         this.aristas.add(arista);
     }
@@ -50,10 +42,8 @@ public class Vertice {
     }
 
     public boolean tieneConstruccion() {
-        return !this.construccion.esNula();
+        return (this.construccion != null);
     }
-
-
 
     public ArrayList<Recurso> generarRecurso(int dado, int cantidad) {
         ArrayList<Recurso> resultado = new ArrayList<>();
@@ -69,7 +59,7 @@ public class Vertice {
         List<Recurso> recursos = new ArrayList<>();
 
         if (!this.tieneConstruccion()) {
-            return null;  //Crear una excepcion y testear
+            return null; // Crear una excepcion y testear
         }
 
         for (Hexagono hex : this.hexagonos) {
@@ -82,13 +72,16 @@ public class Vertice {
         return new Inventario(recursos.toArray(new Recurso[0]));
     }
 
-    public void mejorarA(Construccion nueva){
-        if(!this.tieneConstruccion()){
+    public void mejorar(Jugador jugador) {
+        if (!this.tieneConstruccion()) {
             throw new NoHayConstruccionParaMejorar();
         }
+
+        Construccion nueva = construccion.mejorar();
+        nueva.asignarJugador(jugador);
+        nueva.cobrarA(jugador);
         this.construccion = nueva;
     }
-
 
     public List<Vertice> verticesVecinos() {
         List<Vertice> vecinos = new ArrayList<>();
@@ -99,7 +92,7 @@ public class Vertice {
     }
 
     public boolean tieneConstruccionDel(Jugador j) {
-        return construccion.esPropietarioElJugador(j);
+        return construccion != null && construccion.esPropietarioElJugador(j);
     }
 
     public boolean tieneCarreteraDel(Jugador j) {
@@ -107,9 +100,9 @@ public class Vertice {
                 .anyMatch(a -> a.tieneCarreteraDel(j));
     }
 
-
     public Optional<Jugador> jugadorPropietario() {
-        if (this.construccion == null) return Optional.empty();
+        if (this.construccion == null)
+            return Optional.empty();
         return construccion.propietario();
     }
 
@@ -123,5 +116,11 @@ public class Vertice {
 
     public Construccion getConstruccion() {
         return construccion;
+    }
+
+    public void producir(Recurso recurso) {
+        if (!tieneConstruccion())
+            return;
+        construccion.producirSegun(recurso);
     }
 }
