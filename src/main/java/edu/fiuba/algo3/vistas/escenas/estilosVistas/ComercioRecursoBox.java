@@ -84,6 +84,18 @@ public class ComercioRecursoBox extends VBox {
 
     }
 
+    public Class<? extends Recurso> getTipoRecurso() {
+        return recurso.getClass();
+    }
+
+    public int getCantidadOfrecida() {
+        return Integer.parseInt(cantidadOfrecida.getText());
+    }
+
+    public int getCantidadPedida() {
+        return Integer.parseInt(cantidadPedida.getText());
+    }
+
     private String obtenerRutaImagen(String recurso) {
 
         switch (recurso.toUpperCase()) {
