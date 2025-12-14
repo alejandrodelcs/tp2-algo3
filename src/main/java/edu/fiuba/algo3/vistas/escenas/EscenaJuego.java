@@ -25,6 +25,9 @@ public class EscenaJuego extends EscenaGeneral {
     private CartasBar cartasBar;
     private Tablero tablero;
     private DadoBar dadoBar;
+    private StackPane panelDerecho;
+    private ComercioBar barraComercio;
+    private AccionesBar panelAcciones;
 
     public EscenaJuego(Stage stage, Juego juego) {
         super(stage, juego);
@@ -50,27 +53,14 @@ public class EscenaJuego extends EscenaGeneral {
         StackPane tableroContainer = new StackPane(this.tableroView);
         tableroContainer.setAlignment(Pos.CENTER);
 
-        VBox panelAcciones = new VBox(20);
-        panelAcciones.setAlignment(Pos.CENTER);
-        panelAcciones.setPadding(new Insets(15));
+        this.panelAcciones = new AccionesBar(this.juego, controlador, this.tableroView);
+        this.barraComercio = new ComercioBar(this.juego, controlador, this.tableroView);
 
-        panelAcciones.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-background-radius: 10;");
-        panelAcciones.setMaxWidth(300);
+        barraComercio.setVisible(false);
+        barraComercio.setManaged(false);
 
-        BotonesVista btnDado = new BotonesVista("Tirar Dado");
-        btnDado.setOnAction(e -> controlador.tirarDado());
-
-        BotonesVista btnConstruir = new BotonesVista("Construir");
-        btnConstruir.setOnAction(e -> manejarClickConstruir());
-
-        BotonesVista btnPasar = new BotonesVista("Pasar Turno");
-        btnPasar.setOnAction(e -> controlador.pasarTurno());
-
-        btnDado.setMaxWidth(Double.MAX_VALUE);
-        btnConstruir.setMaxWidth(Double.MAX_VALUE);
-        btnPasar.setMaxWidth(Double.MAX_VALUE);
-
-        panelAcciones.getChildren().addAll(btnDado, btnConstruir, btnPasar);
+        this.panelDerecho = new StackPane(panelAcciones, barraComercio);
+        this.panelDerecho.setAlignment(Pos.TOP_CENTER);
 
         this.cartasBar = new CartasBar(juego, controlador);
 
@@ -78,7 +68,7 @@ public class EscenaJuego extends EscenaGeneral {
 
         gridLayout.add(jugadoresBar, 0, 0);
         gridLayout.add(tableroContainer, 1, 0);
-        gridLayout.add(panelAcciones, 2, 0);
+        gridLayout.add(panelDerecho, 2, 0);
         gridLayout.add(cartasBar, 0, 1, 3, 1);
         gridLayout.add(dadoBar, 2, 1);
 
@@ -106,60 +96,9 @@ public class EscenaJuego extends EscenaGeneral {
         return root;
     }
 
-    private void manejarClickConstruir() {
-        Vertice verticeSeleccionado = tableroView.obtenerVerticeSeleccionado();
-        Jugador jugador = juego.getJugadorActivo();
-
-        if (verticeSeleccionado == null) {
-            mostrarAlerta("Atención", "¡Debes seleccionar un Vértice primero!");
-            return;
-        }
-
-        Map<String, Supplier<Construccion>> opcionesDeConstruccion = new HashMap<>();
-
-        opcionesDeConstruccion.put("Poblado", () -> new Poblado());
-        opcionesDeConstruccion.put("Ciudad", () -> new Ciudad());
-
-        List<String> listaNombres = new ArrayList<>(opcionesDeConstruccion.keySet());
-        ChoiceDialog<String> dialogo = new ChoiceDialog<>("Poblado", listaNombres);
-        dialogo.setTitle("Construcción");
-        dialogo.setHeaderText("¿Qué deseas construir?");
-        dialogo.setContentText("Selecciona:");
-
-        Optional<String> resultado = dialogo.showAndWait();
-
-        if (resultado.isPresent()) {
-            String nombreElegido = resultado.get();
-
-            try {
-                Supplier<Construccion> constructor = opcionesDeConstruccion.get(nombreElegido);
-
-                Construccion nuevaObra = constructor.get();
-
-                System.out.println(" Construyendo " + nombreElegido + "...");
-
-                verticeSeleccionado.construir(nuevaObra);
-                jugador.construir(nuevaObra, verticeSeleccionado);
-
-                // tableroView.actualizarVisualizacion();
-
-            } catch (Exception e) {
-                mostrarAlerta("Error de Construcción", e.getMessage());
-            }
-        }
-    }
-
     private void ejecutarConstruccion(String tipoConstruccion) {
         Vertice verticeSeleccionado = tableroView.obtenerVerticeSeleccionado();
 
-    }
-
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
     }
 
     @Override
@@ -183,6 +122,17 @@ public class EscenaJuego extends EscenaGeneral {
 
     private void aplicarSombra() {
 
+    }
+
+    public void mostrarBarraComercio() {
+        barraComercio.setVisible(true);
+        barraComercio.setManaged(true);
+        barraComercio.toFront();
+    }
+
+    public void ocultarBarraComercio() {
+        barraComercio.setVisible(false);
+        barraComercio.setManaged(false);
     }
 
 }

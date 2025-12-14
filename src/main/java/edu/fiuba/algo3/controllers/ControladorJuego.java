@@ -10,6 +10,8 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.vistas.escenas.EscenaJuego;
 
 public class ControladorJuego {
+    private boolean comercioAbierto;
+    private Jugador jugadorSeleccionado;
     private final Juego juego;
     private final EscenaJuego escenaJuego;
     private final Map<Jugador, String> avatarDeJugador = new HashMap<>();
@@ -25,6 +27,7 @@ public class ControladorJuego {
         this.juego = juego;
         this.escenaJuego = escenaJuego;
         this.setAvatares();
+        this.comercioAbierto = false;
     }
 
     private void setAvatares() {
@@ -57,4 +60,33 @@ public class ControladorJuego {
         escenaJuego.actualizarVista();
     }
 
+    public void actualizar() {
+        escenaJuego.actualizarVista();
+    }
+
+    public void abrirComercio() {
+        escenaJuego.mostrarBarraComercio();
+        escenaJuego.actualizarVista();
+        this.comercioAbierto = true;
+
+    }
+
+    public void cerrarComercio() {
+        escenaJuego.ocultarBarraComercio();
+        escenaJuego.actualizarVista();
+        this.comercioAbierto = false;
+    }
+
+    public void seleccionarJugador(Jugador jugador) {
+        this.jugadorSeleccionado = jugador;
+        this.escenaJuego.actualizarVista();
+    }
+
+    public Jugador getJugadorSeleccionado() {
+        return this.jugadorSeleccionado;
+    }
+
+    public boolean comercioEstaAbierto() {
+        return this.comercioAbierto;
+    }
 }

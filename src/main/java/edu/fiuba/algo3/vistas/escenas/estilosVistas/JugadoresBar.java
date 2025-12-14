@@ -48,6 +48,7 @@ public class JugadoresBar extends VBox {
                                 "-fx-border-radius: 12;" +
                                 "-fx-padding: 10;" +
                                 "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);");
+
             } else {
                 box.setStyle(
                         "-fx-background-color: #6d524c;" +
@@ -56,8 +57,19 @@ public class JugadoresBar extends VBox {
                                 "-fx-padding: 10;");
             }
 
+            if (!jugador.equals(jugadorActivo) && this.controlador.comercioEstaAbierto()
+                    && jugador.equals(controlador.getJugadorSeleccionado())) {
+                box.setStyle(
+                        "-fx-background-color: #111111;" +
+                                "-fx-background-radius: 12;" +
+                                "-fx-border-radius: 12;" +
+                                "-fx-padding: 10;" +
+                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);");
+
+            }
             this.getChildren().add(box);
         }
+
     }
 
     private void configurarEstiloBase() {
