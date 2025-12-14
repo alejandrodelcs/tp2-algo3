@@ -23,6 +23,13 @@ public class EscenaConfigJugadores extends EscenaGeneral {
     private final ControladorRegistro controlador;
     private VBox nombresContainer;
     private Button botonComenzar;
+    private String[][] avataresDisponibles = { // quitar
+            { "/images/larry.jpeg", "amarillo" },
+            { "/images/pj1.jpg", "celeste" },
+            { "/images/pj2.jpg", "negro" },
+            { "/images/pj3.jpg", "rojo" },
+            { "/images/pj4.jpg", "rojo" }
+    };
 
     public EscenaConfigJugadores(Stage stage, ControladorRegistro controlador) {
         super(stage);
@@ -101,11 +108,12 @@ public class EscenaConfigJugadores extends EscenaGeneral {
     }
 
     @Override
-    protected void crearControladores(Stage stage) {
+    protected void crearControladores(Stage stage) {// modiicar
 
         botonComenzar.setOnAction(e -> {
 
             ArrayList<Jugador> jugadores = new ArrayList<>();
+            int i = 0;
 
             for (var nodo : nombresContainer.getChildren()) {// que esto lo haga el controlador
                 TextField campo = (TextField) nodo;
@@ -114,8 +122,11 @@ public class EscenaConfigJugadores extends EscenaGeneral {
                     Jugador jugadorAgregado = new Jugador(campo.getText(),
                             new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo(), new Lana(),
                                     new Lana(), new Grano(), new Grano()));
+                    jugadorAgregado.setAvatar(avataresDisponibles[i][0]);
+                    jugadorAgregado.setColor(avataresDisponibles[i][1]);
 
                     jugadores.add(jugadorAgregado);
+                    i++;
                 }
             }
 
@@ -132,7 +143,8 @@ public class EscenaConfigJugadores extends EscenaGeneral {
             EscenaJuego escenaJuego = new EscenaJuego(stage, juego);
 
             stage.setScene(escenaJuego.getScene());
-            stage.setFullScreen(true);
+            // CAMBIO PARA DEBUGEAR
+            // stage.setFullScreen(true);
         });
     }
 

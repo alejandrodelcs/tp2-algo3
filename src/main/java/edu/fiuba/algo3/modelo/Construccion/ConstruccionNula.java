@@ -21,6 +21,11 @@ public class ConstruccionNula extends Construccion {
 
 
     @Override
+    public String getNombre(){
+        return "";
+    }
+
+    @Override
     public boolean esNula() {
         return true;
     }

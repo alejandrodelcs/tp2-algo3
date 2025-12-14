@@ -40,6 +40,7 @@ public class Vertice {
     }
 
 
+
     public void conectarArista(Arista arista) {
         this.aristas.add(arista);
     }
@@ -112,7 +113,15 @@ public class Vertice {
         return construccion.propietario();
     }
 
+    public Jugador getPropietario() {
+        return construccion.getPropietario();
+    }
+
     public Collection<? extends Arista> getAristas() {
         return aristas;
+    }
+
+    public Construccion getConstruccion() {
+        return construccion;
     }
 }

@@ -88,6 +88,14 @@ public class TableroView extends Pane {
         grupoHexagonos.getChildren().add(hexView);
     }
 
+    public void actualizarVisualizacionDelSeleccionado() {
+        if (verticeSeleccionadoVisual != null) {
+            verticeSeleccionadoVisual.actualizarVisualizacion();
+            verticeSeleccionadoVisual.deseleccionar();
+            verticeSeleccionadoVisual = null;
+        }
+    }
+
     private void agregarVerticesDelHexagono(Hexagono hex, double hexX, double hexY) {
         List<Vertice> verticesModelo = hex.getVertices();
 

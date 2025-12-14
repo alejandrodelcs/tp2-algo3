@@ -16,7 +16,7 @@ public class ReglaDistancia implements ReglaConstruccion {
                         .anyMatch(Vertice::tieneConstruccion);
 
         if (prohibido) {
-            throw new ReglaDistanciaException();
+            throw new ReglaDistanciaException("Ya hay una construccion adyacente.");
         }
     }
 }

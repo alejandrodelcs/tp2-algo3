@@ -96,11 +96,6 @@ public class EscenaJuego extends EscenaGeneral {
         return root;
     }
 
-    private void ejecutarConstruccion(String tipoConstruccion) {
-        Vertice verticeSeleccionado = tableroView.obtenerVerticeSeleccionado();
-
-    }
-
     @Override
     protected void crearControladores(Stage stage) {
         // artasBar.getBotonTirarDado().setOnAction(e -> controlador.tirarDado());

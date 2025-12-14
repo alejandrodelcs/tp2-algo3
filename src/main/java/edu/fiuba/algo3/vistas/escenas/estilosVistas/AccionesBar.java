@@ -105,6 +105,7 @@ public class AccionesBar extends VBox {
                 verticeSeleccionado.construir(nuevaObra);
                 jugador.construir(new ConstruirAsentamiento(), nuevaObra, verticeSeleccionado);
 
+                tableroView.actualizarVisualizacionDelSeleccionado();
                 // tableroView.actualizarVisualizacion();
 
             } catch (Exception e) {

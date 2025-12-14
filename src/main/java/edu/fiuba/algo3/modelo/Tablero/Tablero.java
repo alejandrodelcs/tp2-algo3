@@ -73,6 +73,8 @@ public class Tablero {
     }
 
     private void asignarVerticesAHexagono(Hexagono hex, double cx, double cy, double radio, Map<String, Vertice> mapa) {
+        List<Vertice> verticesDelHexagono = new ArrayList<>();
+
         for (int i = 0; i < 6; i++) {
             double angulo = Math.toRadians(30 + (60 * i));
 
@@ -82,11 +84,35 @@ public class Tablero {
             String clave = String.format("%.2f_%.2f", vx, vy);
 
             mapa.putIfAbsent(clave, new Vertice());
-
             Vertice vertice = mapa.get(clave);
 
             vertice.agregarHexagono(hex);
+            verticesDelHexagono.add(vertice);
         }
+
+        for (int i = 0; i < 6; i++) {
+            Vertice v1 = verticesDelHexagono.get(i);
+            Vertice v2 = verticesDelHexagono.get((i + 1) % 6);
+
+            Arista arista = buscarAristaEntre(v1, v2);
+
+            if (arista == null) {
+                arista = new Arista(v1, v2);
+            }
+
+            hex.agregarArista(arista);
+        }
+    }
+
+    private Arista buscarAristaEntre(Vertice v1, Vertice v2) {
+        if (v1.getAristas() != null) {
+            for (Arista arista : v1.getAristas()) {
+                if (arista.conectaA(v1, v2)) {
+                    return arista;
+                }
+            }
+        }
+        return null;
     }
 
     public int obtenerRecursosDe(int valorFicha) {

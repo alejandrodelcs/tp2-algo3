@@ -26,7 +26,8 @@ public class Jugador {
     private final String nombre;
     private int puntosVictoria;
     private final Inventario inventario;
-    private String avatar;
+    private String avatar;// quitar
+    private String color;// quitar
     private int caballerosJugados;
     private boolean puedeJugarCartaDesarrollo;
 
@@ -36,7 +37,6 @@ public class Jugador {
         this.inventario = inventario;
         this.cartasDesarrollo = new ArrayList<>();
         this.caballerosJugados = 0;
-
 
     }
 
@@ -58,13 +58,12 @@ public class Jugador {
         cartasDesarrollo.add(carta);
     }
 
-
     public void sumarPuntoVictoria() {
         this.puntosVictoria++;
     }
 
     public void sumarPuntoVictoria(int puntos) {
-        this.puntosVictoria+=puntos;
+        this.puntosVictoria += puntos;
     }
 
     public int cantidadCartasDesarrollo() {
@@ -96,10 +95,9 @@ public class Jugador {
     }
 
     public void construir(Construible construible, Construccion construccion, Object... ubicaciones) {
-        construible.construir(this,construccion, ubicaciones);
+        construible.construir(this, construccion, ubicaciones);
         this.construcciones.add(construccion);
     }
-
 
     public void descontarPara(Construccion construccion) {
         this.inventario.descontarPara(construccion);
@@ -123,7 +121,6 @@ public class Jugador {
         interaccion.aplicarSobre(this);
     }
 
-
     public ReglaConstruccion reglaDistancia() {
         return new ReglaDistancia();
     }
@@ -131,7 +128,6 @@ public class Jugador {
     public ReglaConstruccion reglaAdyacencia() {
         return new ReglaAdyacencia(this);
     }
-
 
     public void descartarTipo(List<Class<? extends Recurso>> descarte) {
 
@@ -142,11 +138,19 @@ public class Jugador {
 
     }
 
-    public void setAvatar(String url) {
+    public void setAvatar(String url) {// quitar
         this.avatar = url;
     }
 
-    public String getAvatar() {
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getColor() {// quitar
+        return this.color;
+    }
+
+    public String getAvatar() {// quitar
         return this.avatar;
     }
 
@@ -158,7 +162,6 @@ public class Jugador {
     public String getNombre() {
         return nombre;
     }
-
 
     public boolean puedePagar(Costo costo) {
         return costo.puedePagar(this.inventario);
@@ -175,12 +178,13 @@ public class Jugador {
     public boolean superaEnCaballerosA(Jugador otro) {
         return this.caballerosJugados > otro.caballerosJugados;
     }
+
     public boolean puedeReclamarGranCaballeria() {
         return caballerosJugados >= 3;
     }
 
     public void agregarRecursos(Recurso tipo, int total) {
-        for(int i=0; i<total; i++) {
+        for (int i = 0; i < total; i++) {
             this.inventario.agregar(tipo);
         }
     }
@@ -201,8 +205,7 @@ public class Jugador {
         this.puedeJugarCartaDesarrollo = true;
     }
 
-
-    public void jugarCartaDesarrollo(CartaDesarrollo carta, Tablero tablero, Object...args) {
+    public void jugarCartaDesarrollo(CartaDesarrollo carta, Tablero tablero, Object... args) {
 
         Carta c = (Carta) carta;
 

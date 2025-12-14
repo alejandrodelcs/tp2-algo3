@@ -11,6 +11,10 @@ import edu.fiuba.algo3.modelo.Recurso.*;
  */
 public class Poblado extends Construccion {
 
+    @Override
+    public String getNombre(){
+        return "poblado";
+    }
 
     public Poblado(){
         this.costo = new Costo(Madera.class, Ladrillo.class,Lana.class, Grano.class);

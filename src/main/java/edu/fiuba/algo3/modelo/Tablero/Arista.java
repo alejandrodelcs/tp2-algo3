@@ -56,6 +56,8 @@ public class Arista {
                 || (this.primerVertice == v2 && this.segundoVertice == v1);
     }
 
+
+
     public boolean tieneCarreteraDel(Jugador j) {
         return carretera != null &&  carretera.carreteraEsPropietarioDe(j);
     }
