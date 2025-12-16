@@ -2,6 +2,8 @@
 package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.scene.control.Label;
@@ -10,10 +12,12 @@ import javafx.scene.image.ImageView;
 import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Recurso.*;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class CartasBar extends HBox {
 
@@ -23,44 +27,68 @@ public class CartasBar extends HBox {
             "-fx-border-radius: 12;" +
             "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);";
 
+    private final Map<Class<? extends Recurso>, Label> labelsCantidad = new HashMap<>();
+    private final Map<Class<? extends Recurso>, Integer> valoresMostrados = new HashMap<>();
+
     public CartasBar(Juego juego, ControladorJuego controlador) {
         this.controlador = controlador;
+
+        this.getStylesheets().add(
+                getClass().getResource("/styles/estilos.css").toExternalForm());
         configurarEstiloBase();
-        refrescarContenido(juego);
+        crearCartas(juego);
+        actualizar(juego);
     }
 
     public void actualizar(Juego juego) {
-        refrescarContenido(juego);
+
+        Jugador jugadorActivo = juego.getJugadorActivo();
+
+        for (var entry : labelsCantidad.entrySet()) {
+
+            Class<? extends Recurso> tipo = entry.getKey();
+            Label label = entry.getValue();
+
+            int viejo = valoresMostrados.getOrDefault(tipo, 0);
+            int nuevo = jugadorActivo.cantidadDe(tipo);
+
+            if (nuevo > viejo) {
+                animarCambio(label, true);
+                valoresMostrados.put(tipo, nuevo);
+            } else if (nuevo < viejo) {
+                label.setText("x " + nuevo);
+                animarCambio(label, false);
+            }
+
+            label.setText("x " + nuevo);
+
+            valoresMostrados.put(tipo, nuevo);
+        }
     }
 
-    private void refrescarContenido(Juego juego) {
+    private void crearCartas(Juego juego) {
 
-        this.getChildren().clear();
         Jugador jugadorActivo = juego.getJugadorActivo();
 
         this.getChildren().add(crearIconoJugador(jugadorActivo));
 
         for (Recurso terreno : juego.getTerrenos()) {
 
-            Recurso rec = terreno;
-            if (rec == null)
+            if (terreno == null)
                 continue;
 
-            int cantidad = jugadorActivo.cantidadDe(rec.getClass());
-            this.getChildren().add(crearCartaVisual(rec.getClass(), cantidad));
-        }
-    }
+            Class<? extends Recurso> tipo = terreno.getClass();
 
-    private void configurarEstiloBase() {
-        this.setPrefWidth(600);
-        this.setSpacing(25);
-        this.setAlignment(Pos.CENTER);
-        this.setPadding(new Insets(20));
-        this.setStyle(
-                "-fx-background-color: #4d3a35;" +
-                        "-fx-background-radius: 0;" +
-                        "-fx-border-radius: 0;" +
-                        "-fx-padding: 20;");
+            if (labelsCantidad.containsKey(tipo))
+                continue;
+
+            int cantidad = jugadorActivo.cantidadDe(tipo);
+
+            VBox carta = crearCartaVisual(tipo, cantidad);
+
+            this.getChildren().add(carta);
+            valoresMostrados.put(tipo, cantidad);
+        }
     }
 
     private VBox crearIconoJugador(Jugador jugador) {
@@ -76,30 +104,22 @@ public class CartasBar extends HBox {
     private VBox crearCartaVisual(Class<? extends Recurso> tipo, int cantidad) {
         try {
             Recurso recurso = tipo.getDeclaredConstructor().newInstance();
-            VBox box = crearContenedorHorizontal();
+            VBox box = crearContenedorVertical();
 
-            ImageView imgView = crearImagen(this.obtenerRutaImagen(recurso.toString()));
-            if (imgView != null) {
-                imgView.setFitHeight(70);
-                imgView.setPreserveRatio(true);
-            }
+            ImageView imgView = crearImagen(obtenerRutaImagen(recurso.toString()));
+            imgView.setFitHeight(70);
+            imgView.setPreserveRatio(true);
 
-            Label lbl = crearLabel("x " + cantidad);
-            box.getChildren().addAll(imgView, lbl);
+            Label lblCantidad = crearLabel("x " + cantidad);
 
+            labelsCantidad.put(tipo, lblCantidad);
+
+            box.getChildren().addAll(imgView, lblCantidad);
             return box;
 
         } catch (Exception e) {
-            throw new RuntimeException("No se pudo instanciar el recurso " + tipo.getSimpleName(), e);
+            throw new RuntimeException(e);
         }
-    }
-
-    private VBox crearContenedorHorizontal() {
-        VBox box = new VBox(10);
-        box.setAlignment(Pos.CENTER);
-        box.setPadding(new Insets(10));
-        box.setStyle(CARTA_STYLE);
-        return box;
     }
 
     private VBox crearContenedorVertical() {
@@ -127,11 +147,25 @@ public class CartasBar extends HBox {
 
     private Label crearLabel(String texto) {
         Label lbl = new Label(texto);
-        lbl.setStyle(
-                "-fx-text-fill: white;" +
-                        "-fx-font-size: 26px;" +
-                        "-fx-font-weight: bold;");
+        lbl.getStyleClass().add("carta-cantidad");
         return lbl;
+    }
+
+    private void animarCambio(Label label, boolean sube) {
+
+        String clase = sube ? "valor-sube" : "valor-baja";
+        label.getStyleClass().add(clase);
+
+        ScaleTransition scale = new ScaleTransition(Duration.millis(300), label);
+        scale.setFromX(1.0);
+        scale.setFromY(1.0);
+        scale.setToX(1.25);
+        scale.setToY(1.25);
+        scale.setAutoReverse(true);
+        scale.setCycleCount(2);
+
+        scale.setOnFinished(e -> label.getStyleClass().remove(clase));
+        scale.play();
     }
 
     private String obtenerRutaImagen(String recurso) {
@@ -151,5 +185,17 @@ public class CartasBar extends HBox {
             default:
                 return "/images/mar.png";
         }
+    }
+
+    private void configurarEstiloBase() {
+        this.setPrefWidth(600);
+        this.setSpacing(25);
+        this.setAlignment(Pos.CENTER);
+        this.setPadding(new Insets(20));
+        this.setStyle(
+                "-fx-background-color: #4d3a35;" +
+                        "-fx-background-radius: 0;" +
+                        "-fx-border-radius: 0;" +
+                        "-fx-padding: 20;");
     }
 }

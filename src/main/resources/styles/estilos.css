@@ -138,5 +138,16 @@
 .valor-baja {
     -fx-text-fill: #e57373; /* rojo pastel */
 }
+.carta-cantidad {
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
 
+.carta-cantidad.valor-sube {
+    -fx-text-fill: #6fbf73;
+}
 
+.carta-cantidad.valor-baja {
+    -fx-text-fill: #e57373;
+}
