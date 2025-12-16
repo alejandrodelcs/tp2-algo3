@@ -1,22 +1,13 @@
 package edu.fiuba.algo3.vistas.escenas;
 
 import edu.fiuba.algo3.controllers.ControladorJuego;
-import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Juego;
-import edu.fiuba.algo3.modelo.Construccion.*;
-import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.*;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceDialog;
 import edu.fiuba.algo3.vistas.TableroView;
 import edu.fiuba.algo3.vistas.escenas.estilosVistas.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import java.util.*;
-import java.util.function.Supplier;
 
 public class EscenaJuego extends EscenaGeneral {
 
