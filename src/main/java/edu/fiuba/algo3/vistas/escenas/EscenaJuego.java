@@ -27,6 +27,7 @@ public class EscenaJuego extends EscenaGeneral {
     private DadoBar dadoBar;
     private StackPane panelDerecho;
     private ComercioBar barraComercio;
+    private SeleccionComercioBar barraSeleccionComercio;
     private AccionesBar panelAcciones;
 
     public EscenaJuego(Stage stage, Juego juego) {
@@ -54,12 +55,16 @@ public class EscenaJuego extends EscenaGeneral {
         tableroContainer.setAlignment(Pos.CENTER);
 
         this.panelAcciones = new AccionesBar(this.juego, controlador, this.tableroView);
-        this.barraComercio = new ComercioBar(this.juego, controlador, this.tableroView);
 
+        this.barraSeleccionComercio = new SeleccionComercioBar(controlador);
+        this.barraComercio = new ComercioBar(controlador, this.tableroView);
+
+        barraSeleccionComercio.setVisible(false);
+        barraSeleccionComercio.setManaged(false);
         barraComercio.setVisible(false);
         barraComercio.setManaged(false);
 
-        this.panelDerecho = new StackPane(panelAcciones, barraComercio);
+        this.panelDerecho = new StackPane(panelAcciones, barraComercio, barraSeleccionComercio);
         this.panelDerecho.setAlignment(Pos.TOP_CENTER);
 
         this.cartasBar = new CartasBar(juego, controlador);
@@ -120,10 +125,23 @@ public class EscenaJuego extends EscenaGeneral {
 
     }
 
-    public void mostrarBarraComercio() {
+    public void mostrarBarraSeleccionComercio() {
+
+        barraSeleccionComercio.setVisible(true);
+        barraSeleccionComercio.setManaged(true);
+        barraSeleccionComercio.toFront();
+    }
+
+    public void mostrarBarraComercioInterno(int num) {
         barraComercio.setVisible(true);
         barraComercio.setManaged(true);
+        barraComercio.setRelacion(num);
         barraComercio.toFront();
+    }
+
+    public void ocultarBarraSeleccionComercio() {
+        barraSeleccionComercio.setVisible(false);
+        barraSeleccionComercio.setManaged(false);
     }
 
     public void ocultarBarraComercio() {

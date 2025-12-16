@@ -53,7 +53,7 @@ public class AccionesBar extends VBox {
         btnPasar.setOnAction(e -> controlador.pasarTurno());
 
         BotonesVista botonComercio = new BotonesVista("Comerciar");
-        botonComercio.setOnAction(e -> controlador.abrirComercio());
+        botonComercio.setOnAction(e -> controlador.abrirSeleccionComercio());
 
         botonComercio.setMaxWidth(Double.MAX_VALUE);
         btnDado.setMaxWidth(Double.MAX_VALUE);
@@ -106,7 +106,8 @@ public class AccionesBar extends VBox {
 
             try {
                 if (nombreElegido.equals("Carretera")) {
-                    if (aristaVisual == null) throw new RuntimeException("No hay arista seleccionada");
+                    if (aristaVisual == null)
+                        throw new RuntimeException("No hay arista seleccionada");
 
                     Carretera carretera = new Carretera(new ReglaCostoConstruccion());
                     Arista aristaModelo = aristaVisual.getAristaModelo();
@@ -118,11 +119,14 @@ public class AccionesBar extends VBox {
                 }
 
                 else {
-                    if (verticeVisual == null) throw new RuntimeException("No hay vértice seleccionado");
+                    if (verticeVisual == null)
+                        throw new RuntimeException("No hay vértice seleccionado");
 
                     Construccion nuevaObra;
-                    if (nombreElegido.equals("Poblado")) nuevaObra = new Poblado();
-                    else nuevaObra = new Ciudad();
+                    if (nombreElegido.equals("Poblado"))
+                        nuevaObra = new Poblado();
+                    else
+                        nuevaObra = new Ciudad();
 
                     Vertice verticeModelo = verticeVisual.getVerticeModelo();
 

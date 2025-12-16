@@ -140,7 +140,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
 
             stage.setScene(escenaJuego.getScene());
             // CAMBIO PARA DEBUGEAR
-            stage.setFullScreen(false);
+            stage.setFullScreen(true);
         });
     }
 

@@ -35,11 +35,12 @@ public class BotonesVista extends Button {
                         "-fx-border-color: #DEB887;" +
                         "-fx-border-width: 2px;" +
                         "-fx-border-radius: 5px;" +
-                        "-fx-background-radius: 5px;"
-        );
+                        "-fx-background-radius: 5px;");
 
         this.transicion = new ScaleTransition(Duration.millis(70), this);
         this.transicion.setInterpolator(Interpolator.EASE_OUT);
+
+        this.setMaxWidth(Double.MAX_VALUE);
 
         transicion = new ScaleTransition(Duration.millis(70), this);
         transicion.setInterpolator(Interpolator.EASE_OUT);

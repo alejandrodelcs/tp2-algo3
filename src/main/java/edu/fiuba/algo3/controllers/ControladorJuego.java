@@ -1,8 +1,11 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Comercio.Banca;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
+import edu.fiuba.algo3.modelo.Comercio.ComercioBanca;
 import edu.fiuba.algo3.modelo.Comercio.ComercioInterior;
+import edu.fiuba.algo3.modelo.Comercio.ReglaComercio4a1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,15 +75,26 @@ public class ControladorJuego {
         escenaJuego.actualizarVista();
     }
 
-    public void abrirComercio() {
-
-        escenaJuego.mostrarBarraComercio();
+    public void abrirSeleccionComercio() {
+        escenaJuego.mostrarBarraSeleccionComercio();
         escenaJuego.actualizarVista();
+    }
+
+    public void abrirComercioInterno(int num) {
+
+        this.cerrarSeleccionComercio();
+        escenaJuego.mostrarBarraComercioInterno(num);
         this.comercioAbierto = true;
+        escenaJuego.actualizarVista();
 
     }
 
-    public void cerrarComercio() {
+    public void cerrarSeleccionComercio() {
+        escenaJuego.ocultarBarraSeleccionComercio();
+        escenaJuego.actualizarVista();
+    }
+
+    public void cerrarComercioInterno() {
         escenaJuego.ocultarBarraComercio();
         escenaJuego.actualizarVista();
         this.comercioAbierto = false;
@@ -127,7 +141,7 @@ public class ControladorJuego {
         return resultado;
     }
 
-    public void confirmarComercio() {
+    public void confirmarComercio(int relacionTradeo) {
         if (!comercioAbierto || jugadorSeleccionado == null) {
             return;
         }
@@ -136,16 +150,26 @@ public class ControladorJuego {
 
         List<Class<? extends Recurso>> demanda = expandirPaquete(demandaActual);
 
-        Comercio comercio = new ComercioInterior(
-                oferta,
-                demanda,
-                juego.getJugadorActivo());
-
-        comercio.aplicarSobre(jugadorSeleccionado);
+        if (relacionTradeo == 1) {
+            Comercio comercio = new ComercioInterior(
+                    oferta,
+                    demanda,
+                    juego.getJugadorActivo());
+            comercio.aplicarSobre(jugadorSeleccionado);
+        } else {
+            System.out.println("demadna: " + demanda + " oferta: " + oferta);
+            ComercioBanca comercio = new ComercioBanca(oferta, demanda, new ReglaComercio4a1(), new Banca());
+            comercio.aplicarSobre(juego.jugadorActivo());
+        }
 
         ofertaActual.clear();
         demandaActual.clear();
 
         escenaJuego.actualizarVista();
     }
+
+    public List<Recurso> getTerrenos() {
+        return juego.getTerrenos();
+    }
+
 }

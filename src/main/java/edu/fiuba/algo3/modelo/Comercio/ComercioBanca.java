@@ -15,8 +15,8 @@ public class ComercioBanca implements Comercio {
     private final List<Class<? extends Recurso>> recibe;
 
     public ComercioBanca(List<Class<? extends Recurso>> entrega,
-                         List<Class<? extends Recurso>> recibe, ReglaComercio reglaComercio,
-                         Banca banca) {
+            List<Class<? extends Recurso>> recibe, ReglaComercio reglaComercio,
+            Banca banca) {
         this.entrega = entrega;
         this.recibe = recibe;
         this.banca = banca;
