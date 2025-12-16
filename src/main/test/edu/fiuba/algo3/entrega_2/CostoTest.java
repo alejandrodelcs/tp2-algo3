@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Costo.ReglaCostoConstruccion;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import edu.fiuba.algo3.modelo.Excepciones.NoHayRecursoDisponibleError;
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.*;
@@ -53,7 +54,7 @@ public class CostoTest {
     @Test
     public void test04NoTieneLosRecursosSuficienteParaConstruirDeberiaLanzarUnaExcepcion(){
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo()));
-        assertThrows(NoHayRecursoDisponibleError.class,
+        assertThrows(RecursosInsuficientesException.class,
                 () -> jugador.construir(new Poblado(), new Vertice()));
     }
 
