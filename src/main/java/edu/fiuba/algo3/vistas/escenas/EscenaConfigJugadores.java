@@ -117,7 +117,6 @@ public class EscenaConfigJugadores extends EscenaGeneral {
             for (var nodo : nombresContainer.getChildren()) {// que esto lo haga el controlador
                 TextField campo = (TextField) nodo;
                 if (!campo.getText().trim().isEmpty()) {
-                    System.out.println(campo.getText());
                     Jugador jugadorAgregado = new Jugador(campo.getText(),
                             new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo(), new Lana(),
                                     new Lana(), new Grano(), new Grano()));

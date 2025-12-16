@@ -1,7 +1,9 @@
 package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.*;
@@ -15,6 +17,7 @@ import javafx.scene.layout.VBox;
  */
 public class JugadoresBar extends VBox {
     private final ControladorJuego controlador;
+    private final Map<Jugador, JugadorBox> jugadorBoxes = new HashMap<>();
 
     public JugadoresBar(Juego juego, ControladorJuego controlador) {
         this.controlador = controlador;
@@ -23,44 +26,47 @@ public class JugadoresBar extends VBox {
                 getClass().getResource("/styles/estilos.css").toExternalForm());
 
         getStyleClass().add("principal-bar");
-
         configurarEstiloBase();
-        refrescarContenido(juego);
+
+        for (Jugador jugador : juego.getJugadores()) {
+            JugadorBox box = new JugadorBox(jugador, controlador);
+            jugadorBoxes.put(jugador, box);
+            this.getChildren().add(box);
+        }
+
+        actualizar(juego);
     }
 
     public void actualizar(Juego juego) {
-        refrescarContenido(juego);
-    }
-
-    private void refrescarContenido(Juego juego) {
-        this.getChildren().clear();
-        List<Jugador> jugadores = juego.getJugadores();
-
-        Jugador jugadorActivo;
+        Jugador activo;
         try {
-            jugadorActivo = juego.getJugadorActivo();
+            activo = juego.getJugadorActivo();
         } catch (Exception e) {
-            jugadorActivo = null;
+            activo = null;
         }
 
-        for (Jugador jugador : jugadores) {
-            JugadorBox box = new JugadorBox(jugador, this.controlador);
+        for (Jugador jugador : juego.getJugadores()) {
+            JugadorBox box = jugadorBoxes.get(jugador);
 
-            box.getStyleClass().add("jugador-box");
+            // actualizar valores → dispara animaciones
+            box.actualizar(jugador);
 
-            if (jugador.equals(jugadorActivo)) {
+            // limpiar estados
+            box.getStyleClass().removeAll(
+                    "jugador-activo",
+                    "jugador-seleccionado");
+
+            if (jugador.equals(activo)) {
                 box.getStyleClass().add("jugador-activo");
             }
 
             if (controlador.comercioEstaAbierto()
                     && jugador.equals(controlador.getJugadorSeleccionado())
-                    && !jugador.equals(jugadorActivo)) {
+                    && !jugador.equals(activo)) {
 
                 box.getStyleClass().add("jugador-seleccionado");
             }
-            this.getChildren().add(box);
         }
-
     }
 
     private void configurarEstiloBase() {

@@ -7,6 +7,7 @@
     -fx-negro: #111111;
     -fx-verde-ok: #6fcf97;
     -fx-gris: #dddddd;
+    -fx-amarillo: #cfa16e;
 }
 
 /* =========================
@@ -90,7 +91,7 @@
 }
 
 .jugador-seleccionado {
-    -fx-background-color: -fx-negro;
+    -fx-background-color: -fx-amarillo;
 }
 
 /* =========================
@@ -121,3 +122,21 @@
     -fx-background-color: transparent;
     -fx-padding: 8;
 }
+
+.valor-animado {
+    -fx-text-fill: -fx-amarillo;
+}
+
+.valor-resaltado {
+    -fx-text-fill: -fx-amarillo;
+}
+
+.valor-sube {
+    -fx-text-fill: #6fbf73; /* verde pastel */
+}
+
+.valor-baja {
+    -fx-text-fill: #e57373; /* rojo pastel */
+}
+
+
