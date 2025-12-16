@@ -8,7 +8,6 @@ import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.VBox;
 
 /**
@@ -19,6 +18,12 @@ public class JugadoresBar extends VBox {
 
     public JugadoresBar(Juego juego, ControladorJuego controlador) {
         this.controlador = controlador;
+
+        this.getStylesheets().add(
+                getClass().getResource("/styles/estilos.css").toExternalForm());
+
+        getStyleClass().add("principal-bar");
+
         configurarEstiloBase();
         refrescarContenido(juego);
     }
@@ -41,31 +46,17 @@ public class JugadoresBar extends VBox {
         for (Jugador jugador : jugadores) {
             JugadorBox box = new JugadorBox(jugador, this.controlador);
 
-            if (jugador.equals(jugadorActivo)) {
-                box.setStyle(
-                        "-fx-background-color: #7e57c2;" +
-                                "-fx-background-radius: 12;" +
-                                "-fx-border-radius: 12;" +
-                                "-fx-padding: 10;" +
-                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);");
+            box.getStyleClass().add("jugador-box");
 
-            } else {
-                box.setStyle(
-                        "-fx-background-color: #6d524c;" +
-                                "-fx-background-radius: 12;" +
-                                "-fx-border-radius: 12;" +
-                                "-fx-padding: 10;");
+            if (jugador.equals(jugadorActivo)) {
+                box.getStyleClass().add("jugador-activo");
             }
 
-            if (!jugador.equals(jugadorActivo) && this.controlador.comercioEstaAbierto()
-                    && jugador.equals(controlador.getJugadorSeleccionado())) {
-                box.setStyle(
-                        "-fx-background-color: #111111;" +
-                                "-fx-background-radius: 12;" +
-                                "-fx-border-radius: 12;" +
-                                "-fx-padding: 10;" +
-                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);");
+            if (controlador.comercioEstaAbierto()
+                    && jugador.equals(controlador.getJugadorSeleccionado())
+                    && !jugador.equals(jugadorActivo)) {
 
+                box.getStyleClass().add("jugador-seleccionado");
             }
             this.getChildren().add(box);
         }

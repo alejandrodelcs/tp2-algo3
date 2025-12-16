@@ -57,7 +57,7 @@ public class EscenaJuego extends EscenaGeneral {
         this.panelAcciones = new AccionesBar(this.juego, controlador, this.tableroView);
 
         this.barraSeleccionComercio = new SeleccionComercioBar(controlador);
-        this.barraComercio = new ComercioBar(controlador, this.tableroView);
+        this.barraComercio = new ComercioBar(controlador);
 
         barraSeleccionComercio.setVisible(false);
         barraSeleccionComercio.setManaged(false);

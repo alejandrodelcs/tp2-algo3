@@ -17,14 +17,11 @@ public class JugadorBox extends VBox {
 
     public JugadorBox(Jugador jugador, ControladorJuego controlador) {
         this.controlador = controlador;
+
+        // Clase base (el estado se agrega afuera)
+        this.getStyleClass().add("jugador-box");
+
         this.setPrefSize(260, 120);
-        this.setStyle(
-                "-fx-background-color: transparent;" +
-                        "-fx-background-radius: 0;" +
-                        "-fx-border-radius: 0;" +
-                        "-fx-border-color: transparent;" +
-                        "-fx-border-width: 0;" +
-                        "-fx-padding: 10;");
         this.setAlignment(Pos.TOP_LEFT);
 
         // --- Avatar ---
@@ -32,69 +29,58 @@ public class JugadorBox extends VBox {
                 getClass().getResource(controlador.getAvatar(jugador)).toExternalForm()));
         avatar.setFitWidth(70);
         avatar.setFitHeight(70);
-        avatar.setStyle(
-                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 1);" +
-                        "-fx-background-radius: 30;" +
-                        "-fx-border-radius: 30;" +
-                        "-fx-border-color: #dddddd;" +
-                        "-fx-border-width: 1;");
+        avatar.getStyleClass().add("jugador-avatar");
 
         // --- Columna derecha ---
         VBox derecha = new VBox(8);
         derecha.setAlignment(Pos.CENTER_LEFT);
 
-        // --- Caja superior: íconos ---
+        // --- Íconos ---
         HBox filaIcons = new HBox(15);
         filaIcons.setAlignment(Pos.CENTER_LEFT);
 
-        Label iconCartas = new Label("Rec");
-        iconCartas.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
-        Label iconConstrucciones = new Label("Con");
-        iconConstrucciones.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
-        Label iconPv = new Label("Pv");
-        iconPv.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
+        Label iconCartas = crearIcono("Rec");
+        Label iconConstrucciones = crearIcono("Con");
+        Label iconPv = crearIcono("Pv");
 
         filaIcons.getChildren().addAll(iconCartas, iconConstrucciones, iconPv);
 
-        // --- Caja inferior: valores ---
+        // --- Valores ---
         HBox filaValores = new HBox(35);
         filaValores.setAlignment(Pos.CENTER_LEFT);
 
-        Label valorCartas = new Label(String.valueOf(jugador.cantidadCartas()));
-        valorCartas.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
-        Label valorConstrucciones = new Label(String.valueOf(jugador.cantidadConstrucciones()));
-        valorConstrucciones.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;");
-        Label valorPv = new Label(String.valueOf(jugador.getPuntosVictoria()));
-        valorPv.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;-fx-text-fill: white;");
-
-        // --- Nombre del jugador ---
+        Label valorCartas = crearValor(jugador.cantidadCartas());
+        Label valorConstrucciones = crearValor(jugador.cantidadConstrucciones());
+        Label valorPv = crearValor(jugador.getPuntosVictoria());
 
         Label nombreJugador = new Label(jugador.getNombre());
+        nombreJugador.getStyleClass().add("jugador-nombre");
 
-        nombreJugador.setStyle(
-                "-fx-font-size: 30;" +
-                        "-fx-text-fill: #050505;" +
-                        "-fx-font-weight: bold;");
+        filaValores.getChildren().addAll(
+                valorCartas,
+                valorConstrucciones,
+                valorPv);
 
-        filaValores.getChildren().addAll(valorCartas, valorConstrucciones, valorPv, nombreJugador);
-
-        // Cajita con borde para derecha ---
         VBox cajaDerecha = new VBox(5, nombreJugador, filaIcons, filaValores);
-        cajaDerecha.setStyle(
-                "-fx-background-color: transparent;" +
-                        "-fx-background-radius: 0;" +
-                        "-fx-border-color: #e1e1e1;" +
-                        "-fx-border-width: 0;" +
-                        "-fx-padding: 8;");
+        cajaDerecha.getStyleClass().add("jugador-datos");
 
-        // --- Contenedor principal ---
-        HBox contenedorPrincipal = new HBox(15);
-        contenedorPrincipal.setAlignment(Pos.CENTER_LEFT);
-        contenedorPrincipal.getChildren().addAll(avatar, cajaDerecha);
+        HBox contenedor = new HBox(15, avatar, cajaDerecha);
+        contenedor.setAlignment(Pos.CENTER_LEFT);
 
         this.setOnMouseClicked(e -> controlador.seleccionarJugador(jugador));
 
-        this.getChildren().add(contenedorPrincipal);
+        this.getChildren().add(contenedor);
+    }
 
+    private Label crearIcono(String texto) {
+        Label label = new Label(texto);
+        label.getStyleClass().add("jugador-icono");
+        return label;
+    }
+
+    private Label crearValor(int valor) {
+        Label label = new Label(String.valueOf(valor));
+        label.getStyleClass().add("jugador-valor");
+        return label;
     }
 }

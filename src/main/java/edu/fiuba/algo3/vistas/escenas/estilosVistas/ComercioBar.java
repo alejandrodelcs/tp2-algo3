@@ -6,9 +6,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import edu.fiuba.algo3.controllers.ControladorJuego;
-import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
-import edu.fiuba.algo3.vistas.TableroView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -25,14 +23,15 @@ import javafx.scene.layout.VBox;
 public class ComercioBar extends VBox {
 
     private ControladorJuego controlador;
-    private TableroView tableroView;
     private List<ComercioRecursoBox> cajasRecurso = new ArrayList<>();
 
-    public ComercioBar(ControladorJuego controlador, TableroView tablero) {
+    public ComercioBar(ControladorJuego controlador) {
 
         this.controlador = controlador;
-        this.tableroView = tablero;
 
+        this.getStylesheets().add(
+                getClass().getResource("/styles/estilos.css").toExternalForm());
+        getStyleClass().add("principal-bar");
         configurarEstiloBase();
         refrescarContenido();
     }
@@ -51,11 +50,6 @@ public class ComercioBar extends VBox {
 
         for (Recurso recurso : recursos) {
             ComercioRecursoBox box = new ComercioRecursoBox(recurso);
-            box.setStyle(
-                    "-fx-background-color: #6d524c;" +
-                            "-fx-background-radius: 12;" +
-                            "-fx-border-radius: 12;" +
-                            "-fx-padding: 10;");
 
             this.cajasRecurso.add(box);
             this.getChildren().add(box);
@@ -64,12 +58,13 @@ public class ComercioBar extends VBox {
 
         ToggleButton btnAceptarOferta = crearBotonAceptar();
         ToggleButton btnAceptarDemanda = crearBotonAceptar();
+
         BotonesVista botonSalir = new BotonesVista("Volver");
         botonSalir.setOnAction(e -> controlador.cerrarComercioInterno());
+
         btnAceptarOferta.setOnAction(e -> {
             controlador.armarPaqueteOferta(this.construirPaqueteOferta());
         });
-
         btnAceptarDemanda.setOnAction(e -> {
             controlador.armarPaqueteDemanda(this.construirPaqueteDemanda());
         });
@@ -104,19 +99,10 @@ public class ComercioBar extends VBox {
 
         boton.setPrefSize(56, 56);
 
-        boton.setStyle(
-                "-fx-font-size: 24px;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-background-radius: 28;" +
-                        "-fx-background-color: #dddddd;");
-
+        boton.getStyleClass().add("boton-aceptar");
         boton.selectedProperty().addListener((obs, oldVal, seleccionado) -> {
             boton.setStyle(
-                    "-fx-font-size: 24px;" +
-                            "-fx-font-weight: bold;" +
-                            "-fx-background-radius: 28;" +
-                            "-fx-background-color: " +
-                            (seleccionado ? "#6fcf97" : "#dddddd"));
+                    (seleccionado ? "#6fcf97" : "#dddddd"));
         });
 
         return boton;
@@ -160,20 +146,11 @@ public class ComercioBar extends VBox {
         Label lblYo = new Label("Ofrezco");
         Label lblOtro = new Label("Recibo");
 
-        lblYo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;");
-        lblOtro.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;");
-
         Region separador = new Region();
         HBox.setHgrow(separador, Priority.ALWAYS);
 
         HBox encabezado = new HBox(20, lblYo, separador, lblOtro);
-        encabezado.setAlignment(Pos.CENTER);
-        encabezado.setPadding(new Insets(0, 10, 10, 10));
-        encabezado.setStyle("-fx-background-color: #7e57c2;" +
-                "-fx-background-radius: 12;" +
-                "-fx-border-radius: 12;" +
-                "-fx-padding: 10;" +
-                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);");
+        encabezado.getStyleClass().add("encabezado-comercio");
 
         return encabezado;
     }

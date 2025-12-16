@@ -25,7 +25,7 @@ public class ComercioRecursoBox extends VBox {
         this.setPrefSize(260, 120);
 
         this.setStyle(
-                "-fx-background-color: transparent;" +
+                "-fx-background-color: #6d524c;" +
                         "-fx-background-radius: 0;" +
                         "-fx-border-radius: 0;" +
                         "-fx-border-color: transparent;" +

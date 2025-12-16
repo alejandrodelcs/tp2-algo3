@@ -1,0 +1,123 @@
+
+
+* {
+    -fx-morado: #7e57c2;
+    -fx-marron: #4d3a35;
+    -fx-marron-claro: #6d524c;
+    -fx-negro: #111111;
+    -fx-verde-ok: #6fcf97;
+    -fx-gris: #dddddd;
+}
+
+/* =========================
+   barraPpal (contenedor)
+   ========================= */
+.principal-bar {
+    -fx-background-color: -fx-marron;
+    -fx-padding: 40 20 40 20;
+    -fx-spacing: 20;
+    -fx-alignment: center-right;
+}
+
+
+/* =========================
+   Encabezado columnas
+   ========================= */
+
+.encabezado-comercio {
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-background-color: -fx-morado;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);
+}
+
+.encabezado-comercio Label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+/* =========================
+   Recurso box
+   ========================= */
+
+.recurso-box {
+    -fx-background-color: #6d524c;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 10;
+}
+
+/* =========================
+   Botones aceptar (Toggle)
+   ========================= */
+
+.boton-aceptar {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+
+    -fx-pref-width: 56;
+    -fx-pref-height: 56;
+
+    -fx-background-radius: 28;
+    -fx-background-color: #dddddd;
+    -fx-text-fill: black;
+}
+
+.boton-aceptar:hover {
+    -fx-background-color: #cccccc;
+}
+
+.boton-aceptar:selected {
+    -fx-background-color: #6fcf97;
+}
+
+
+/* =========================
+   JugadorBox
+   ========================= */
+
+.jugador-box {
+    -fx-background-color: -fx-marron-claro;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 10;
+}
+
+.jugador-activo {
+    -fx-background-color: -fx-morado;
+}
+
+.jugador-seleccionado {
+    -fx-background-color: -fx-negro;
+}
+
+/* =========================
+   Avatar y textos
+   ========================= */
+
+.jugador-avatar {
+    -fx-border-color: -fx-gris;
+    -fx-border-width: 1;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+.jugador-icono,
+.jugador-valor {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.jugador-nombre {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #050505;
+}
+
+.jugador-datos {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+}

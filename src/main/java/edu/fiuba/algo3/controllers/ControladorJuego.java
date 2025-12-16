@@ -14,7 +14,7 @@ import edu.fiuba.algo3.vistas.escenas.EscenaJuego;
 
 public class ControladorJuego {
     private SesionDeComercio sesionComercio;
-    private boolean comercioAbierto;
+    private boolean seleccionJuador;
     private Jugador jugadorSeleccionado;
     private final Juego juego;
     private final EscenaJuego escenaJuego;
@@ -32,7 +32,7 @@ public class ControladorJuego {
         this.juego = juego;
         this.escenaJuego = escenaJuego;
         this.setAvatares();
-        this.comercioAbierto = false;
+        this.seleccionJuador = false;
     }
 
     private void setAvatares() {
@@ -77,7 +77,7 @@ public class ControladorJuego {
     }
 
     public void setSleccion() {
-        this.comercioAbierto = true;
+        this.seleccionJuador = true;
     }
 
     public void abrirComercio() {
@@ -92,7 +92,7 @@ public class ControladorJuego {
     }
 
     public void cerrarComercioInterno() {
-        this.comercioAbierto = false;
+        this.seleccionJuador = false;
         ejecutarAccion(escenaJuego::ocultarBarraComercio);
     }
 
@@ -106,7 +106,7 @@ public class ControladorJuego {
     }
 
     public boolean comercioEstaAbierto() {
-        return this.comercioAbierto;
+        return this.seleccionJuador;
     }
 
     public String getColor(Jugador jugador) {
