@@ -1,11 +1,7 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.Juego;
-import edu.fiuba.algo3.modelo.Comercio.Banca;
-import edu.fiuba.algo3.modelo.Comercio.Comercio;
-import edu.fiuba.algo3.modelo.Comercio.ComercioBanca;
-import edu.fiuba.algo3.modelo.Comercio.ComercioInterior;
-import edu.fiuba.algo3.modelo.Comercio.ReglaComercio4a1;
+import edu.fiuba.algo3.modelo.Comercio.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +10,13 @@ import java.util.Map;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
-import edu.fiuba.algo3.modelo.Turno.Turno;
 import edu.fiuba.algo3.vistas.escenas.EscenaJuego;
 
 public class ControladorJuego {
+    private SesionDeComercio sesionComercio;
     private boolean comercioAbierto;
     private Jugador jugadorSeleccionado;
     private final Juego juego;
-    private Map<Class<? extends Recurso>, Integer> demandaActual, ofertaActual;
     private final EscenaJuego escenaJuego;
     private Map<Jugador, String> avatarDeJugador = new HashMap<>();
     private Map<Jugador, String> coloresConstrucciones = new HashMap<>();
@@ -51,14 +46,17 @@ public class ControladorJuego {
         }
     }
 
-    public void tirarDado() {
-        juego.tirarDado();
+    private void ejecutarAccion(Runnable accion) {
+        accion.run();
         escenaJuego.actualizarVista();
     }
 
+    public void tirarDado() {
+        ejecutarAccion(juego::tirarDado);
+    }
+
     public void construirCarretera() {
-        juego.construirCarretera();
-        escenaJuego.actualizarVista();
+        ejecutarAccion(juego::construirCarretera);
     }
 
     public String getAvatar(Jugador jugador) {
@@ -67,8 +65,7 @@ public class ControladorJuego {
     }
 
     public void pasarTurno() {
-        juego.pasarTurno();
-        escenaJuego.actualizarVista();
+        ejecutarAccion(juego::pasarTurno);
     }
 
     public void actualizar() {
@@ -76,28 +73,27 @@ public class ControladorJuego {
     }
 
     public void abrirSeleccionComercio() {
-        escenaJuego.mostrarBarraSeleccionComercio();
-        escenaJuego.actualizarVista();
+        ejecutarAccion(escenaJuego::mostrarBarraSeleccionComercio);
     }
 
-    public void abrirComercioInterno(int num) {
+    public void setSleccion() {
+        this.comercioAbierto = true;
+    }
+
+    public void abrirComercio() {
 
         this.cerrarSeleccionComercio();
-        escenaJuego.mostrarBarraComercioInterno(num);
-        this.comercioAbierto = true;
-        escenaJuego.actualizarVista();
+        ejecutarAccion(escenaJuego::mostrarBarraComercioInterno);
 
     }
 
     public void cerrarSeleccionComercio() {
-        escenaJuego.ocultarBarraSeleccionComercio();
-        escenaJuego.actualizarVista();
+        ejecutarAccion(escenaJuego::ocultarBarraSeleccionComercio);
     }
 
     public void cerrarComercioInterno() {
-        escenaJuego.ocultarBarraComercio();
-        escenaJuego.actualizarVista();
         this.comercioAbierto = false;
+        ejecutarAccion(escenaJuego::ocultarBarraComercio);
     }
 
     public void seleccionarJugador(Jugador jugador) {
@@ -118,53 +114,17 @@ public class ControladorJuego {
     }
 
     public void armarPaqueteOferta(Map<Class<? extends Recurso>, Integer> oferta) {
-        this.ofertaActual = oferta;
+        sesionComercio.setOferta(oferta);
     }
 
     public void armarPaqueteDemanda(Map<Class<? extends Recurso>, Integer> demanda) {
-        this.demandaActual = demanda;
+        sesionComercio.setDemanda(demanda);
+
     }
 
-    private List<Class<? extends Recurso>> expandirPaquete(
-            Map<Class<? extends Recurso>, Integer> paquete) {
+    public void confirmarComercio() {
 
-        List<Class<? extends Recurso>> resultado = new ArrayList<>();
-
-        for (Map.Entry<Class<? extends Recurso>, Integer> entry : paquete.entrySet()) {
-            Class<? extends Recurso> tipo = entry.getKey();
-            int cantidad = entry.getValue();
-
-            for (int i = 0; i < cantidad; i++) {
-                resultado.add(tipo);
-            }
-        }
-        return resultado;
-    }
-
-    public void confirmarComercio(int relacionTradeo) {
-        if (!comercioAbierto || jugadorSeleccionado == null) {
-            return;
-        }
-
-        List<Class<? extends Recurso>> oferta = expandirPaquete(ofertaActual);
-
-        List<Class<? extends Recurso>> demanda = expandirPaquete(demandaActual);
-
-        if (relacionTradeo == 1) {
-            Comercio comercio = new ComercioInterior(
-                    oferta,
-                    demanda,
-                    juego.getJugadorActivo());
-            comercio.aplicarSobre(jugadorSeleccionado);
-        } else {
-            System.out.println("demadna: " + demanda + " oferta: " + oferta);
-            ComercioBanca comercio = new ComercioBanca(oferta, demanda, new ReglaComercio4a1(), new Banca());
-            comercio.aplicarSobre(juego.jugadorActivo());
-        }
-
-        ofertaActual.clear();
-        demandaActual.clear();
-
+        sesionComercio.ejecutar(juego, jugadorSeleccionado);
         escenaJuego.actualizarVista();
     }
 
@@ -172,4 +132,7 @@ public class ControladorJuego {
         return juego.getTerrenos();
     }
 
+    public void setModoComercio(ModoDeComercio modo) {
+        this.sesionComercio = new SesionDeComercio(modo);
+    }
 }

@@ -101,8 +101,6 @@ public class Inventario {
         return total;
     }
 
-
-
     /*
      * Pre: -
      * Pro: retorna la mitad de una lista de recursos, el redondeo es para abajo.
@@ -121,7 +119,6 @@ public class Inventario {
 
         return descartadas;
     }
-
 
     public Recurso obtenerRecurso(int indice) {
         return this.recursos.get(indice);

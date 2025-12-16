@@ -27,7 +27,6 @@ public class ComercioBar extends VBox {
     private ControladorJuego controlador;
     private TableroView tableroView;
     private List<ComercioRecursoBox> cajasRecurso = new ArrayList<>();
-    private int relacionTradeo;
 
     public ComercioBar(ControladorJuego controlador, TableroView tablero) {
 
@@ -78,7 +77,7 @@ public class ComercioBar extends VBox {
         BotonesVista botonEjecutar = new BotonesVista("Ejecutar");
         botonEjecutar.setMaxWidth(Double.MAX_VALUE);
         botonEjecutar.setDisable(true);
-        botonEjecutar.setOnAction(e -> controlador.confirmarComercio(this.relacionTradeo));
+        botonEjecutar.setOnAction(e -> controlador.confirmarComercio());
 
         bindearEjecucion(btnAceptarOferta, btnAceptarDemanda, botonEjecutar);
 
@@ -179,7 +178,4 @@ public class ComercioBar extends VBox {
         return encabezado;
     }
 
-    public void setRelacion(int numero) {
-        this.relacionTradeo = numero;
-    }
 }

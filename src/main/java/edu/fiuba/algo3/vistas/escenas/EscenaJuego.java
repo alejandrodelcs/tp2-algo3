@@ -132,10 +132,9 @@ public class EscenaJuego extends EscenaGeneral {
         barraSeleccionComercio.toFront();
     }
 
-    public void mostrarBarraComercioInterno(int num) {
+    public void mostrarBarraComercioInterno() {
         barraComercio.setVisible(true);
         barraComercio.setManaged(true);
-        barraComercio.setRelacion(num);
         barraComercio.toFront();
     }
 

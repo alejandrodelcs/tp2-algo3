@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 
 import edu.fiuba.algo3.controllers.ControladorJuego;
-import edu.fiuba.algo3.modelo.Juego;
-import edu.fiuba.algo3.vistas.TableroView;
+import edu.fiuba.algo3.modelo.Comercio.ModoConBanca;
+import edu.fiuba.algo3.modelo.Comercio.ModoEntreJugadores;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
@@ -28,12 +28,22 @@ public class SeleccionComercioBar extends VBox {
 
     private void refrescarContenido() {
         BotonesVista btnInterno = new BotonesVista("Interno");
-        btnInterno.setOnAction(e -> controlador.abrirComercioInterno(1));
+        btnInterno.setOnAction(e -> {
+            controlador.setSleccion();
+            controlador.setModoComercio(new ModoEntreJugadores());
+            controlador.abrirComercio();
+        });
 
         BotonesVista btnBanca = new BotonesVista("Banca");
-        btnBanca.setOnAction(e -> controlador.abrirComercioInterno(4));
+        btnBanca.setOnAction(e -> {
+            controlador.setModoComercio(new ModoConBanca());
+            controlador.abrirComercio();
+        });
 
-        this.getChildren().addAll(btnInterno, btnBanca);
+        BotonesVista botonSalir = new BotonesVista("Volver");
+        botonSalir.setOnAction(e -> controlador.cerrarSeleccionComercio());
+
+        this.getChildren().addAll(btnInterno, btnBanca, botonSalir);
 
     }
 
