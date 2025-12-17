@@ -30,6 +30,9 @@ public class CartasBar extends HBox {
     private final Map<Class<? extends Recurso>, Label> labelsCantidad = new HashMap<>();
     private final Map<Class<? extends Recurso>, Integer> valoresMostrados = new HashMap<>();
 
+    private ImageView imgAvatar;
+    private Label lblNombreJugador;
+
     public CartasBar(Juego juego, ControladorJuego controlador) {
         this.controlador = controlador;
 
@@ -37,12 +40,25 @@ public class CartasBar extends HBox {
                 getClass().getResource("/styles/estilos.css").toExternalForm());
         configurarEstiloBase();
         crearCartas(juego);
-        actualizar(juego);
     }
 
     public void actualizar(Juego juego) {
 
         Jugador jugadorActivo = juego.getJugadorActivo();
+
+        if (this.imgAvatar != null && this.lblNombreJugador != null) {
+            this.lblNombreJugador.setText(jugadorActivo.getNombre());
+
+            String rutaAvatar = controlador.getAvatar(jugadorActivo);
+            try {
+                InputStream is = getClass().getResourceAsStream(rutaAvatar);
+                if (is != null) {
+                    this.imgAvatar.setImage(new Image(is));
+                }
+            } catch (Exception e) {
+                System.err.println("Error actualizando avatar: " + e.getMessage());
+            }
+        }
 
         for (var entry : labelsCantidad.entrySet()) {
 
@@ -93,13 +109,17 @@ public class CartasBar extends HBox {
 
     private VBox crearIconoJugador(Jugador jugador) {
         VBox box = crearContenedorVertical();
-        ImageView iconView = crearImagen(this.controlador.getAvatar(jugador));
-        iconView.setFitHeight(70);
-        iconView.setPreserveRatio(true);
-        Label lbl = crearLabel(jugador.getNombre());
-        box.getChildren().addAll(iconView, lbl);
+
+        this.imgAvatar = crearImagen(this.controlador.getAvatar(jugador));
+        this.imgAvatar.setFitHeight(70);
+        this.imgAvatar.setPreserveRatio(true);
+
+        this.lblNombreJugador = crearLabel(jugador.getNombre());
+
+        box.getChildren().addAll(this.imgAvatar, this.lblNombreJugador);
         return box;
     }
+
 
     private VBox crearCartaVisual(Class<? extends Recurso> tipo, int cantidad) {
         try {
@@ -134,13 +154,13 @@ public class CartasBar extends HBox {
         try {
             InputStream is = getClass().getResourceAsStream(ruta);
             if (is == null) {
-                System.err.println("⚠️ Imagen no encontrada: " + ruta);
+                System.err.println("Imagen no encontrada: " + ruta);
                 return new ImageView();
             }
             Image img = new Image(is);
             return new ImageView(img);
         } catch (Exception e) {
-            System.err.println("⚠️ Error cargando imagen: " + e.getMessage());
+            System.err.println("Error cargando imagen: " + e.getMessage());
             return new ImageView();
         }
     }

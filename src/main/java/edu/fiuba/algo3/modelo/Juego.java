@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.JugadoresMinimosRegistradosError;
 import edu.fiuba.algo3.modelo.Jugador.*;
+import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.*;
 import edu.fiuba.algo3.modelo.Turno.EstadoMoverLadron;
@@ -67,7 +68,6 @@ public class Juego {
             Jugador jugador = new Jugador(nombres.get(i), new Inventario());
             jugadores.add(jugador);
         }
-
     }
 
     public void validarJugadores() {

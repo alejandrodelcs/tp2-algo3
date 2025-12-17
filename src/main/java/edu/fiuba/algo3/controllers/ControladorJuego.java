@@ -3,16 +3,20 @@ package edu.fiuba.algo3.controllers;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Comercio.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Turno.EstadoMoverLadron;
+import edu.fiuba.algo3.modelo.Turno.EstadoTurno;
+import edu.fiuba.algo3.modelo.Turno.ObservadorTurno;
 import edu.fiuba.algo3.vistas.escenas.EscenaJuego;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceDialog;
 
-public class ControladorJuego {
+public class ControladorJuego implements ObservadorTurno {
     private SesionDeComercio sesionComercio;
     private boolean seleccionJuador;
     private Jugador jugadorSeleccionado;
@@ -31,6 +35,9 @@ public class ControladorJuego {
     public ControladorJuego(Juego juego, EscenaJuego escenaJuego) {
         this.juego = juego;
         this.escenaJuego = escenaJuego;
+
+        this.juego.turnoActual().agregarObservador(this);
+
         this.setAvatares();
         this.seleccionJuador = false;
     }
@@ -53,6 +60,86 @@ public class ControladorJuego {
 
     public void tirarDado() {
         ejecutarAccion(juego::tirarDado);
+        escenaJuego.actualizarVista();
+    }
+
+    @Override
+    public void onEstadoCambio(EstadoTurno nuevoEstado) {
+        if (nuevoEstado instanceof EstadoMoverLadron) {
+            iniciarSecuenciaLadron();
+        }
+    }
+
+    private void iniciarSecuenciaLadron() {
+        mostrarAlerta("¡LADRÓN ACTIVADO!", "Salió un 7. Selecciona un hexágono para mover al ladrón.");
+        escenaJuego.getTablero().activarSelectorHexagono(this::procesarMovimientoLadron);
+    }
+
+    private void procesarMovimientoLadron(Hexagono destino) {
+        try {
+            juego.turnoActual().moverLadronA(destino);
+
+            escenaJuego.getTablero().actualizarPosicionLadron();
+            escenaJuego.getTablero().desactivarSelectorHexagono();
+
+            gestionarRobo(destino);
+
+        } catch (Exception e) {
+            mostrarAlerta("Movimiento Inválido", "El ladrón debe moverse a un lugar distinto.");
+        }
+    }
+
+    private void gestionarRobo(Hexagono hexDondeEstaElLadron) {
+        List<Jugador> victimas = hexDondeEstaElLadron.obtenerVictimas();
+        Jugador yo = juego.getJugadorActivo();
+        victimas.remove(yo);
+
+        if (victimas.isEmpty()) {
+            mostrarAlerta("Información", "No hay nadie a quien robar en este lugar.");
+            return;
+        }
+
+        Jugador victimaElegida = null;
+
+        if (victimas.size() == 1) {
+            victimaElegida = victimas.get(0);
+        } else {
+            victimaElegida = mostrarDialogoEleccionVictima(victimas);
+        }
+
+        if (victimaElegida != null) {
+            juego.turnoActual().robar(victimaElegida);
+
+            escenaJuego.actualizarVista();
+
+            mostrarAlerta("Robo Exitoso", "Le has robado un recurso a " + victimaElegida.getNombre());
+        }
+
+    }
+
+
+    private Jugador mostrarDialogoEleccionVictima(List<Jugador> victimas) {
+        List<String> nombres = victimas.stream().map(Jugador::getNombre).collect(Collectors.toList());
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(nombres.get(0), nombres);
+        dialog.setTitle("Robar Recurso");
+        dialog.setHeaderText("Elige a tu víctima");
+        dialog.setContentText("Jugador:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            String nombre = result.get();
+            return victimas.stream().filter(j -> j.getNombre().equals(nombre)).findFirst().orElse(null);
+        }
+        return null;
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
     public void construirCarretera() {
@@ -65,9 +152,19 @@ public class ControladorJuego {
     }
 
     public void pasarTurno() {
-        ejecutarAccion(juego::pasarTurno);
-    }
+        try {
+            juego.pasarTurno();
 
+            this.juego.turnoActual().agregarObservador(this);
+
+            escenaJuego.actualizarVista();
+
+            mostrarAlerta("Cambio de Turno", "Ahora es el turno de: " + juego.getJugadorActivo().getNombre());
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", e.getMessage());
+        }
+    }
     public void actualizar() {
         escenaJuego.actualizarVista();
     }

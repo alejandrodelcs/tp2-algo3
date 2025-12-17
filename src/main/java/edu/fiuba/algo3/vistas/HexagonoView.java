@@ -21,8 +21,24 @@ import java.net.URL;
 public class HexagonoView extends StackPane {
 
     private static final double ANCHO_RADIO = Math.sqrt(3);
+    private final Hexagono hexagonoModelo;
+    private ImageView vistaLadron;
 
     public HexagonoView(double radio, Hexagono hexagonoModelo) {
+
+        this.hexagonoModelo = hexagonoModelo;
+
+        vistaLadron = new ImageView();
+        try {
+            vistaLadron.setImage(new Image(getClass().getResourceAsStream("/images/ladron.png")));
+        } catch (Exception e) {
+            System.err.println("No se encontró ladron.png");
+        }
+
+        vistaLadron.setFitHeight(radio * 1.2);
+        vistaLadron.setPreserveRatio(true);
+        vistaLadron.setMouseTransparent(true);
+        vistaLadron.setVisible(false);
 
         double anchoHex = ANCHO_RADIO * radio;
         double altoHex = 2 * radio;
@@ -100,10 +116,23 @@ public class HexagonoView extends StackPane {
 
         this.getChildren().addAll(containerImagen, bordeHexagono, tokenView);
 
+        this.getChildren().add(vistaLadron);
+
         this.setMaxSize(anchoHex, altoHex);
         this.setOnMouseEntered(e -> this.setEffect(new DropShadow(10, Color.GOLD)));
         this.setOnMouseExited(e -> this.setEffect(null));
         this.setPickOnBounds(false);
+
+        actualizarVisualizacion();
+
+    }
+
+    public void actualizarVisualizacion() {
+        if (hexagonoModelo.tieneLadron()) {
+            vistaLadron.setVisible(true);
+        } else {
+            vistaLadron.setVisible(false);
+        }
     }
 
     private String obtenerRutaImagen(String terreno) {
