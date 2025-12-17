@@ -15,8 +15,12 @@ public class EstadoInicial implements EstadoTurno {
     @Override
     public void tirarDado(Turno turno, Juego juego, Dado dado) {
         int resultado = dado.lanzar();
-        juego.resolverTirada(resultado);
-        turno.cambiarEstado(new EstadoAcciones());
+        if (resultado == 7) {
+            turno.cambiarEstado(new EstadoMoverLadron());
+        } else {
+            juego.resolverTirada(resultado);
+            turno.cambiarEstado(new EstadoAcciones());
+        }
     }
 
     @Override

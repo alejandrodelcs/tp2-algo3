@@ -119,21 +119,24 @@ public class TestEntrega2 {
 
 
     @Test
-    void test07cuandoSaleNumeroJugadorRecibeUnRecursoPorPoblado() {
+    public void test07cuandoSaleNumeroJugadorRecibeUnRecursoPorPoblado() {
         Tablero tablero = new Tablero();
-        Jugador jugador = new Jugador("Juan", new Inventario());
+        Jugador jugador = new Jugador("Juan", new Inventario(
+            new Madera(), 
+            new Ladrillo(), 
+            new Lana(), 
+            new Grano()
+    ));
 
         Poblado p = new Poblado();
-        p.asignarJugador(jugador);
 
         Hexagono hexagono = new Hexagono(new Madera(), 6);
         tablero.agregarHexagono(hexagono);
-        Vertice vertice = new Vertice();
 
+        Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexagono);
 
-        vertice.construir(p);
-
+        jugador.construir(p, vertice);
         tablero.producirRecursosSegun(6);
 
         assertEquals(1, jugador.cantidadCartas());

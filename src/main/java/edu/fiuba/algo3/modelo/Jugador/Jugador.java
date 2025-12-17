@@ -84,6 +84,8 @@ public class Jugador {
     }
 
     public void construir(Construccion construccion, Object... ubicaciones) {
+
+
         construccion.asignarJugador(this);
         construccion.construir(ubicaciones);
         this.construcciones.add(construccion);

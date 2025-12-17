@@ -74,7 +74,7 @@ public class Vertice {
 
     public void mejorar(Jugador jugador) {
         if (!this.tieneConstruccion()) {
-            throw new NoHayConstruccionParaMejorar();
+            throw new NoHayConstruccionParaMejorar("No hay construccion para mejorar.");
         }
 
         Construccion nueva = construccion.mejorar();

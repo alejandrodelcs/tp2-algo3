@@ -73,7 +73,7 @@ public class Hexagono {
     public List<Recurso> generarRecursos(int numeroDado, int cantidad) {
         List<Recurso> recursos = new ArrayList<>();
 
-        if (!this.tieneLadron() || !this.coincideCon(numeroDado)) {
+        if (this.tieneLadron() || !this.coincideCon(numeroDado)) {
             return recursos;
         }
 
@@ -85,7 +85,7 @@ public class Hexagono {
     }
 
     public boolean tieneLadron() {
-        return this.ladron == null;
+        return this.ladron != null;
     }
 
     public Recurso getTerreno() {
@@ -114,7 +114,7 @@ public class Hexagono {
     public void producirSegunCorresponde(int numDado) {
         if (!coincideCon(numDado))
             return;
-        if (!tieneLadron())
+        if (tieneLadron())
             return;
 
         for (Vertice v : vertices) {

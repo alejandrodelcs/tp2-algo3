@@ -7,7 +7,9 @@ import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
+import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import edu.fiuba.algo3.vistas.escenas.*;
 
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class TableroView extends Pane {
     private final double RADIO = 70;
@@ -26,6 +29,9 @@ public class TableroView extends Pane {
     private final Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
     private VerticeView verticeSeleccionadoVisual = null;
     private AristaView aristaSeleccionadoVisual = null;
+
+    private boolean modoSeleccionHexagono = false;
+    private Consumer<Hexagono> hexagonoSeleccionado;
 
     private Map<Arista, AristaView> aristasMap;
     private final Group grupoHexagonos = new Group();
@@ -100,7 +106,35 @@ public class TableroView extends Pane {
         HexagonoView hexView = new HexagonoView(RADIO, hex);
         hexView.setLayoutX(x);
         hexView.setLayoutY(y);
+
+        hexView.setOnMouseClicked(e -> {
+            if (modoSeleccionHexagono && hexagonoSeleccionado != null) {
+                hexagonoSeleccionado.accept(hex);
+                e.consume();
+            }
+        });
+
         grupoHexagonos.getChildren().add(hexView);
+    }
+
+    public void activarSelectorHexagono(Consumer<Hexagono> handler) {
+        this.modoSeleccionHexagono = true;
+        this.hexagonoSeleccionado = handler;
+        this.setCursor(Cursor.HAND);
+    }
+
+    public void desactivarSelectorHexagono() {
+        this.modoSeleccionHexagono = false;
+        this.hexagonoSeleccionado = null;
+        this.setCursor(Cursor.DEFAULT);
+    }
+
+    public void actualizarPosicionLadron() {
+        for (Node nodo : grupoHexagonos.getChildren()) {
+            if (nodo instanceof HexagonoView) {
+                ((HexagonoView) nodo).actualizarVisualizacion();
+            }
+        }
     }
 
     public void actualizarVisualizacionDelSeleccionado() {

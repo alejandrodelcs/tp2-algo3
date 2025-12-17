@@ -139,6 +139,10 @@ public class EscenaJuego extends EscenaGeneral {
         barraSeleccionComercio.setManaged(false);
     }
 
+    public TableroView getTablero() {
+        return tableroView;
+    }
+
     public void ocultarBarraComercio() {
         barraComercio.setVisible(false);
         barraComercio.setManaged(false);
