@@ -19,7 +19,7 @@ public class LadronTest {
 
         Ladron ladron = new Ladron(desierto);
 
-        assertFalse(desierto.tieneLadron());
+        assertTrue(desierto.tieneLadron());
     }
 
     @Test
@@ -30,8 +30,8 @@ public class LadronTest {
 
         ladron.moverA(destino);
 
-        assertTrue(origen.tieneLadron());
-        assertFalse(destino.tieneLadron());
+        assertFalse(origen.tieneLadron());
+        assertTrue(destino.tieneLadron());
     }
 
 }
