@@ -12,6 +12,7 @@ public class Ciudad extends Construccion {
     public Ciudad() {
         super(new ConstruirAsentamiento(new ReglaDistancia()), new ReglaCostoConstruccion());
         this.costo = new Costo(Grano.class, Grano.class, Mineral.class, Mineral.class, Mineral.class);
+        System.out.println("cuidad cerada");
     }
 
     @Override
@@ -20,18 +21,15 @@ public class Ciudad extends Construccion {
     }
 
     @Override
-    public String getNombre(){
+    public String getNombre() {
         return "ciudad";
     }
 
     @Override
     public void producirSegun(Recurso recurso) {
-        for (int i = 0 ; i<2; i++){
+        for (int i = 0; i < 2; i++) {
             propietario.recibirRecurso(recurso);
         }
     }
-
-
-
 
 }

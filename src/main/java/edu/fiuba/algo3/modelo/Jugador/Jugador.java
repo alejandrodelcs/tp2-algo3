@@ -156,7 +156,13 @@ public class Jugador {
     }
 
     public int getPuntosVictoria() {
-        return puntosVictoria;
+        int cantidad = 0;
+
+        for (Construccion construccion : this.construcciones) {
+            cantidad = construccion.getPuntosDeVictoria();
+
+        }
+        return cantidad;
     }
 
     public void restarPuntosVictoria(int puntos) {
