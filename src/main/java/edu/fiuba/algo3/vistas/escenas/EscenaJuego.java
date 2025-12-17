@@ -13,10 +13,11 @@ public class EscenaJuego extends EscenaGeneral {
 
     private TableroView tableroView;
     private JugadoresBar jugadoresBar;
-    private CartasBar cartasBar;
+    private CartasBar cartasBarRecursos;
+    private DesarrolloBar cartasBarDesarrollo;
     private Tablero tablero;
     private DadoBar dadoBar;
-    private StackPane panelDerecho;
+    private StackPane panelDerecho, panelInferior;
     private ComercioBar barraComercio;
     private SeleccionComercioBar barraSeleccionComercio;
     private AccionesBar panelAcciones;
@@ -58,14 +59,18 @@ public class EscenaJuego extends EscenaGeneral {
         this.panelDerecho = new StackPane(panelAcciones, barraComercio, barraSeleccionComercio);
         this.panelDerecho.setAlignment(Pos.TOP_CENTER);
 
-        this.cartasBar = new CartasBar(juego, controlador);
+        this.cartasBarRecursos = new CartasBar(controlador);
+        this.cartasBarDesarrollo = new DesarrolloBar(controlador);
+
+        this.panelInferior = new StackPane(cartasBarRecursos);
+        this.panelInferior.setAlignment(Pos.BOTTOM_CENTER);
 
         this.dadoBar = new DadoBar(juego);
 
         gridLayout.add(jugadoresBar, 0, 0);
         gridLayout.add(tableroContainer, 1, 0);
         gridLayout.add(panelDerecho, 2, 0);
-        gridLayout.add(cartasBar, 0, 1, 3, 1);
+        gridLayout.add(panelInferior, 0, 1, 3, 1);
         gridLayout.add(dadoBar, 2, 1);
 
         ColumnConstraints colIzq = new ColumnConstraints();
@@ -104,7 +109,7 @@ public class EscenaJuego extends EscenaGeneral {
     }
 
     public void actualizarVista() {
-        cartasBar.actualizar(juego);
+        cartasBarRecursos.actualizar();
         jugadoresBar.actualizar(juego);
         tableroView.actualizar(juego.getTablero());
         barraComercio.actualizar();

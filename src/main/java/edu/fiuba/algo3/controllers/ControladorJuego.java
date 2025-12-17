@@ -135,4 +135,8 @@ public class ControladorJuego {
     public void setModoComercio(ModoDeComercio modo) {
         this.sesionComercio = new SesionDeComercio(modo);
     }
+
+    public Juego getJuego() {
+        return this.juego;
+    }
 }

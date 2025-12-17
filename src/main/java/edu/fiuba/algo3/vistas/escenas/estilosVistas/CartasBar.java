@@ -30,19 +30,22 @@ public class CartasBar extends HBox {
     private final Map<Class<? extends Recurso>, Label> labelsCantidad = new HashMap<>();
     private final Map<Class<? extends Recurso>, Integer> valoresMostrados = new HashMap<>();
 
-    public CartasBar(Juego juego, ControladorJuego controlador) {
+    private Juego juego;
+
+    public CartasBar(ControladorJuego controlador) {
         this.controlador = controlador;
+        this.juego = controlador.getJuego();
 
         this.getStylesheets().add(
                 getClass().getResource("/styles/estilos.css").toExternalForm());
         configurarEstiloBase();
-        crearCartas(juego);
-        actualizar(juego);
+        crearCartas();
+        actualizar();
     }
 
-    public void actualizar(Juego juego) {
+    public void actualizar() {
 
-        Jugador jugadorActivo = juego.getJugadorActivo();
+        Jugador jugadorActivo = this.juego.getJugadorActivo();
 
         for (var entry : labelsCantidad.entrySet()) {
 
@@ -66,13 +69,13 @@ public class CartasBar extends HBox {
         }
     }
 
-    private void crearCartas(Juego juego) {
+    private void crearCartas() {
 
-        Jugador jugadorActivo = juego.getJugadorActivo();
+        Jugador jugadorActivo = this.juego.getJugadorActivo();
 
         this.getChildren().add(crearIconoJugador(jugadorActivo));
 
-        for (Recurso terreno : juego.getTerrenos()) {
+        for (Recurso terreno : this.juego.getTerrenos()) {
 
             if (terreno == null)
                 continue;
