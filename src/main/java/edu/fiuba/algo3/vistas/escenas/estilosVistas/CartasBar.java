@@ -22,10 +22,6 @@ import javafx.util.Duration;
 public class CartasBar extends HBox {
 
     private final ControladorJuego controlador;
-    private final String CARTA_STYLE = "-fx-background-color: #6d524c;" +
-            "-fx-background-radius: 12;" +
-            "-fx-border-radius: 12;" +
-            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);";
 
     private final Map<Class<? extends Recurso>, Label> labelsCantidad = new HashMap<>();
     private final Map<Class<? extends Recurso>, Integer> valoresMostrados = new HashMap<>();
@@ -45,6 +41,31 @@ public class CartasBar extends HBox {
         configurarEstiloBase();
         crearCartas();
         actualizar();
+    }
+
+    private void crearCartas() {
+
+        Jugador jugadorActivo = this.juego.getJugadorActivo();
+
+        this.getChildren().add(crearIconoJugador(jugadorActivo));
+
+        for (Recurso terreno : this.juego.getTerrenos()) {
+
+            if (terreno == null)
+                continue;
+
+            Class<? extends Recurso> tipo = terreno.getClass();
+
+            if (labelsCantidad.containsKey(tipo))
+                continue;
+
+            int cantidad = jugadorActivo.cantidadDe(tipo);
+
+            VBox carta = crearCartaVisual(tipo, cantidad);
+
+            this.getChildren().add(carta);
+            valoresMostrados.put(tipo, cantidad);
+        }
     }
 
     public void actualizar() {
@@ -87,31 +108,6 @@ public class CartasBar extends HBox {
         }
     }
 
-    private void crearCartas() {
-
-        Jugador jugadorActivo = this.juego.getJugadorActivo();
-
-        this.getChildren().add(crearIconoJugador(jugadorActivo));
-
-        for (Recurso terreno : this.juego.getTerrenos()) {
-
-            if (terreno == null)
-                continue;
-
-            Class<? extends Recurso> tipo = terreno.getClass();
-
-            if (labelsCantidad.containsKey(tipo))
-                continue;
-
-            int cantidad = jugadorActivo.cantidadDe(tipo);
-
-            VBox carta = crearCartaVisual(tipo, cantidad);
-
-            this.getChildren().add(carta);
-            valoresMostrados.put(tipo, cantidad);
-        }
-    }
-
     private VBox crearIconoJugador(Jugador jugador) {
         VBox box = crearContenedorVertical();
 
@@ -150,7 +146,7 @@ public class CartasBar extends HBox {
         VBox box = new VBox(10);
         box.setAlignment(Pos.CENTER);
         box.setPadding(new Insets(10));
-        box.setStyle(CARTA_STYLE);
+        box.getStyleClass().add("carta");
         return box;
     }
 

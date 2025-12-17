@@ -14,4 +14,8 @@ public class CartaPuntoVictoria extends Carta {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Victoria";
+    }
 }

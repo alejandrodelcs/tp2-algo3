@@ -7,8 +7,6 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
-
-
 public class CartaConstruccionCarreteras extends Carta {
     @Override
     public void jugar(Jugador jugador, Tablero tablero, Object... args) {
@@ -23,5 +21,10 @@ public class CartaConstruccionCarreteras extends Carta {
         c2.asignarJugador(jugador);
         jugador.construir(c2, a2);
 
+    }
+
+    @Override
+    public String toString() {
+        return "Carretera";
     }
 }

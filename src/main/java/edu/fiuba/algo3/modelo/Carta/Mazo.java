@@ -14,15 +14,16 @@ import java.util.Stack;
 public class Mazo {
 
     private final Stack<Carta> cartas;
-    private final Costo costo ;
+    private final Costo costo;
 
     public Mazo() {
         this.cartas = new Stack<>();
         this.costo = new Costo(Lana.class, Grano.class, Mineral.class);
         this.inicializarMazo();
     }
+
     /*
-         14 Caballeros, 5 PV, 2 Descubrimiento, 2 Const Carretera, 2 Monopolio
+     * 14 Caballeros, 5 PV, 2 Descubrimiento, 2 Const Carretera, 2 Monopolio
      */
     private void inicializarMazo() {
 
@@ -32,10 +33,8 @@ public class Mazo {
         for (int i = 0; i < 5; i++)
             cartas.push(new CartaPuntoVictoria());
 
-
         for (int i = 0; i < 2; i++)
             cartas.push(new CartaDescubrimiento());
-
 
         for (int i = 0; i < 2; i++)
             cartas.push(new CartaConstruccionCarreteras());
@@ -47,20 +46,20 @@ public class Mazo {
     }
 
     public CartaDesarrollo entregarCarta() {
-        if (this.cartas.isEmpty()) throw new MazoVacioException("El mazo esta vacio");
+        if (this.cartas.isEmpty())
+            throw new MazoVacioException("El mazo esta vacio");
         return this.cartas.pop();
     }
 
-    public CartaDesarrollo comprarCarta(Jugador jugador){
-        if(!jugador.puedePagar(costo)){
+    public CartaDesarrollo comprarCarta(Jugador jugador) {
+        if (!jugador.puedePagar(costo)) {
             throw new NoHayRecursoDisponibleError();
         }
         jugador.pagar(costo);
         CartaDesarrollo carta = this.entregarCarta();
         jugador.compraCartaDesarrollo(carta);
 
-
-        if(carta instanceof CartaPuntoVictoria){
+        if (carta instanceof CartaPuntoVictoria) {
             jugador.sumarPuntoVictoria();
         }
 
@@ -68,4 +67,3 @@ public class Mazo {
     }
 
 }
-

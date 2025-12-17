@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
-public class CartaMonopolio extends Carta{
+public class CartaMonopolio extends Carta {
 
     @Override
     public void jugar(Jugador jugador, Tablero tablero, Object... args) {
@@ -14,5 +14,10 @@ public class CartaMonopolio extends Carta{
 
         int total = juego.recolectarRecursosDeTodosMenos(jugador, tipo);
         jugador.agregarRecursos(tipo, total);
+    }
+
+    @Override
+    public String toString() {
+        return "Monopolio";
     }
 }

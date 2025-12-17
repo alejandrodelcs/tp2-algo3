@@ -23,13 +23,6 @@ public class EscenaConfigJugadores extends EscenaGeneral {
     private final ControladorRegistro controlador;
     private VBox nombresContainer;
     private Button botonComenzar;
-    private String[][] avataresDisponibles = { // quitar
-            { "/images/larry.jpeg", "amarillo" },
-            { "/images/pj1.jpg", "celeste" },
-            { "/images/pj2.jpg", "negro" },
-            { "/images/pj3.jpg", "rojo" },
-            { "/images/pj4.jpg", "rojo" }
-    };
 
     public EscenaConfigJugadores(Stage stage, ControladorRegistro controlador) {
         super(stage);

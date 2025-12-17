@@ -1,6 +1,12 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Carta.Carta;
+import edu.fiuba.algo3.modelo.Carta.CartaCaballero;
+import edu.fiuba.algo3.modelo.Carta.CartaConstruccionCarreteras;
+import edu.fiuba.algo3.modelo.Carta.CartaDescubrimiento;
+import edu.fiuba.algo3.modelo.Carta.CartaMonopolio;
+import edu.fiuba.algo3.modelo.Carta.CartaPuntoVictoria;
 import edu.fiuba.algo3.modelo.Comercio.*;
 
 import java.util.*;
@@ -23,6 +29,9 @@ public class ControladorJuego implements ObservadorTurno {
     private final Juego juego;
     private final EscenaJuego escenaJuego;
     private Map<Jugador, String> avatarDeJugador = new HashMap<>();
+    private List<? extends Carta> cartasDisponibles = List.of(new CartaConstruccionCarreteras(),
+            new CartaPuntoVictoria(), new CartaCaballero(), new CartaMonopolio(), new CartaDescubrimiento());
+
     private Map<Jugador, String> coloresConstrucciones = new HashMap<>();
     private String[][] avataresDisponibles = {
             { "/images/larry.jpeg", "negro" },
@@ -117,7 +126,6 @@ public class ControladorJuego implements ObservadorTurno {
 
     }
 
-
     private Jugador mostrarDialogoEleccionVictima(List<Jugador> victimas) {
         List<String> nombres = victimas.stream().map(Jugador::getNombre).collect(Collectors.toList());
 
@@ -165,6 +173,7 @@ public class ControladorJuego implements ObservadorTurno {
             mostrarAlerta("Error", e.getMessage());
         }
     }
+
     public void actualizar() {
         escenaJuego.actualizarVista();
     }
@@ -175,6 +184,15 @@ public class ControladorJuego implements ObservadorTurno {
 
     public void setSleccion() {
         this.seleccionJuador = true;
+    }
+
+    public void mostrarManoCartas() {
+        ejecutarAccion(escenaJuego::mostrarBarraCartasMano);
+
+    }
+
+    public void cerrarManoCartas() {
+        ejecutarAccion(escenaJuego::ocultarManoCartas);
     }
 
     public void abrirComercio() {
@@ -236,4 +254,10 @@ public class ControladorJuego implements ObservadorTurno {
     public Juego getJuego() {
         return this.juego;
     }
+
+    public List<? extends Carta> getTipoDeCartasDisponibles() {
+        return this.cartasDisponibles;
+
+    }
+
 }

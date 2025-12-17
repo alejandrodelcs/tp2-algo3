@@ -8,7 +8,6 @@ import java.util.List;
 
 public class CartaCaballero extends Carta {
 
-
     @Override
     public void jugar(Jugador jugador, Tablero tablero, Object... args) {
         Hexagono destino = (Hexagono) args[0];
@@ -21,5 +20,10 @@ public class CartaCaballero extends Carta {
         if (!victimas.isEmpty()) {
             tablero.robarConLadronA(jugador, victimas.get(0));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Caballero";
     }
 }

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import edu.fiuba.algo3.modelo.Carta.Carta;
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.Carta.MazoPersonal;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Costo.Costo;
@@ -20,7 +21,7 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice;
  */
 public class Jugador {
 
-    private final List<CartaDesarrollo> cartasDesarrollo;
+    private final MazoPersonal cartasDesarrollo;
     private final ArrayList<Construccion> construcciones;
     private final String nombre;
     private int puntosVictoria;
@@ -32,8 +33,9 @@ public class Jugador {
         this.nombre = nombre;
         this.construcciones = new ArrayList<>();
         this.inventario = inventario;
-        this.cartasDesarrollo = new ArrayList<>();
+        this.cartasDesarrollo = new MazoPersonal();
         this.caballerosJugados = 0;
+        this.puntosVictoria = 0;
 
     }
 
@@ -51,7 +53,7 @@ public class Jugador {
     }
 
     public void compraCartaDesarrollo(CartaDesarrollo carta) {
-        cartasDesarrollo.add(carta);
+        cartasDesarrollo.agregar(carta);
     }
 
     public void sumarPuntoVictoria() {
@@ -63,7 +65,7 @@ public class Jugador {
     }
 
     public int cantidadCartasDesarrollo() {
-        return this.cartasDesarrollo.size();
+        return this.cartasDesarrollo.total();
     }
 
     public void recibirRecurso(Recurso recurso) {
@@ -84,7 +86,6 @@ public class Jugador {
     }
 
     public void construir(Construccion construccion, Object... ubicaciones) {
-
 
         construccion.asignarJugador(this);
         construccion.construir(ubicaciones);
@@ -158,10 +159,10 @@ public class Jugador {
     }
 
     public int getPuntosVictoria() {
-        int cantidad = 0;
+        int cantidad = puntosVictoria;
 
         for (Construccion construccion : this.construcciones) {
-            cantidad = construccion.getPuntosDeVictoria();
+            cantidad += construccion.getPuntosDeVictoria();
 
         }
         return cantidad;
@@ -186,16 +187,12 @@ public class Jugador {
         carta.jugar(this, tablero, args);
 
         if (c.esDeUnSoloUso()) {
-            this.cartasDesarrollo.remove(carta);
+            this.cartasDesarrollo.consumir(c);
         }
     }
 
     public void habilitarCartasDesarrollo() {
-        for (CartaDesarrollo c : cartasDesarrollo) {
-            if (c instanceof Carta) {
-                ((Carta) c).habilitar();
-            }
-        }
+        this.cartasDesarrollo.habilitar();
     }
 
     public boolean puedeEntregar(List<Class<? extends Recurso>> solicitud) {
@@ -211,5 +208,10 @@ public class Jugador {
             }
         }
         return true;
+    }
+
+    public int cantidadCartasTipo(Carta tipo) {
+        return this.cartasDesarrollo.cantidadDeTipo(tipo);
+
     }
 }

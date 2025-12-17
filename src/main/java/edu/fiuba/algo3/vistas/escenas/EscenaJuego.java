@@ -29,6 +29,7 @@ public class EscenaJuego extends EscenaGeneral {
 
     @Override
     protected Pane crearLayout(Stage stage) {
+
         ControladorJuego controlador = new ControladorJuego(juego, this);
         StackPane root = new StackPane();
 
@@ -62,7 +63,12 @@ public class EscenaJuego extends EscenaGeneral {
         this.cartasBarRecursos = new CartasBar(controlador);
         this.cartasBarDesarrollo = new DesarrolloBar(controlador);
 
-        this.panelInferior = new StackPane(cartasBarRecursos);
+        HBox seleccionMazo = new SeleccionMazoBar(controlador);
+
+        cartasBarDesarrollo.setVisible(false);
+        cartasBarDesarrollo.setManaged(false);
+
+        this.panelInferior = new StackPane(cartasBarRecursos, cartasBarDesarrollo);
         this.panelInferior.setAlignment(Pos.BOTTOM_CENTER);
 
         this.dadoBar = new DadoBar(juego);
@@ -70,7 +76,8 @@ public class EscenaJuego extends EscenaGeneral {
         gridLayout.add(jugadoresBar, 0, 0);
         gridLayout.add(tableroContainer, 1, 0);
         gridLayout.add(panelDerecho, 2, 0);
-        gridLayout.add(panelInferior, 0, 1, 3, 1);
+        gridLayout.add(seleccionMazo, 0, 1);
+        gridLayout.add(panelInferior, 1, 1, 1, 1);
         gridLayout.add(dadoBar, 2, 1);
 
         ColumnConstraints colIzq = new ColumnConstraints();
@@ -121,6 +128,12 @@ public class EscenaJuego extends EscenaGeneral {
 
     }
 
+    public void mostrarBarraCartasMano() {
+        this.cartasBarDesarrollo.setVisible(true);
+        this.cartasBarDesarrollo.setManaged(true);
+        this.cartasBarDesarrollo.toFront();
+    }
+
     public void mostrarBarraSeleccionComercio() {
 
         barraSeleccionComercio.setVisible(true);
@@ -146,6 +159,11 @@ public class EscenaJuego extends EscenaGeneral {
     public void ocultarBarraComercio() {
         barraComercio.setVisible(false);
         barraComercio.setManaged(false);
+    }
+
+    public void ocultarManoCartas() {
+        cartasBarDesarrollo.setVisible(false);
+        cartasBarDesarrollo.setManaged(false);
     }
 
 }
