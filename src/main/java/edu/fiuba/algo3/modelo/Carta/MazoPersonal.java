@@ -21,7 +21,7 @@ public class MazoPersonal {
         this.cartas.add((Carta) carta);
     }
 
-    public int cantidadDeTipo(Carta tipo) {
+    public int cantidadDeTipo(CartaDesarrollo tipo) {
         int cantidad = 0;
 
         for (Carta carta : this.cartas) {

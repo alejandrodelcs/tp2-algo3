@@ -120,6 +120,8 @@ public class EscenaJuego extends EscenaGeneral {
         jugadoresBar.actualizar(juego);
         tableroView.actualizar(juego.getTablero());
         barraComercio.actualizar();
+
+        cartasBarDesarrollo.actualizar();
         this.dadoBar.actualizar(juego);
 
     }

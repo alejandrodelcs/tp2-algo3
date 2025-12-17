@@ -166,3 +166,26 @@
 
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 2, 4);
 }
+.carta {
+    -fx-pref-width: 110;
+    -fx-min-width: 110;
+    -fx-max-width: 110;
+
+    -fx-background-color: #6d524c;
+    -fx-background-radius: 12;
+    -fx-padding: 10;
+
+    -fx-alignment: center;
+    -fx-spacing: 8;
+}
+
+.carta:hover {
+    -fx-background-color: #7f615a;
+    -fx-cursor: hand;
+}
+
+.carta-seleccionada {
+    -fx-background-color: -fx-amarillo;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+}

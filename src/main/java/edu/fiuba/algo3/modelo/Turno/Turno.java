@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Turno;
 
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Carta.CartaDescubrimiento;
+import edu.fiuba.algo3.modelo.Carta.CartaPuntoVictoria;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
@@ -50,7 +51,7 @@ public class Turno {
         jugadorActivo.agregarRecursos(new Ladrillo(), 10);
         jugadorActivo.agregarRecursos(new Mineral(), 10);
         jugadorActivo.agregarRecursos(new Lana(), 10);
-        jugadorActivo.compraCartaDesarrollo(new CartaDescubrimiento());
+        jugadorActivo.compraCartaDesarrollo(new CartaPuntoVictoria());
     }
 
     public void agregarObservador(ObservadorTurno observador) {

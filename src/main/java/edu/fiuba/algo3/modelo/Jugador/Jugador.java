@@ -180,15 +180,13 @@ public class Jugador {
 
         Carta c = (Carta) carta;
 
-        if (!c.estaDisponible()) {
+        if (0 == cartasDesarrollo.cantidadDeTipo(carta)) {
             throw new CartaNoDisponibleException("");
         }
 
         carta.jugar(this, tablero, args);
 
-        if (c.esDeUnSoloUso()) {
-            this.cartasDesarrollo.consumir(c);
-        }
+        this.cartasDesarrollo.consumir(c);
     }
 
     public void habilitarCartasDesarrollo() {

@@ -23,6 +23,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 
 public class ControladorJuego implements ObservadorTurno {
+    private Carta cartaDesSeleccionada;
     private SesionDeComercio sesionComercio;
     private boolean seleccionJuador;
     private Jugador jugadorSeleccionado;
@@ -258,6 +259,17 @@ public class ControladorJuego implements ObservadorTurno {
     public List<? extends Carta> getTipoDeCartasDisponibles() {
         return this.cartasDisponibles;
 
+    }
+
+    public void seleccionarCartaDesarrollo(Carta carta) {
+        this.cartaDesSeleccionada = carta;
+
+    }
+
+    public void usarCartaSeleccionada() {
+        this.juego.getJugadorActivo().habilitarCartasDesarrollo();
+        this.juego.getJugadorActivo().jugarCartaDesarrollo(cartaDesSeleccionada, juego.getTablero());
+        this.escenaJuego.actualizarVista();
     }
 
 }

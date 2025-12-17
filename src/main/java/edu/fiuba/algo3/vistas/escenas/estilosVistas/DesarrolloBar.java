@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.escenas.estilosVistas;
 
+import java.security.KeyStore.Entry;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +21,9 @@ import javafx.scene.layout.VBox;
 public class DesarrolloBar extends HBox {
 
     private ControladorJuego controlador;
+    private VBox cartaSeleccionadaVisual = null;
+    private Carta cartaSeleccionada = null;
+    private BotonesVista botonUsar;
 
     private final Map<Carta, Label> labelsCantidad = new HashMap<>();
     private final Map<Carta, Integer> valoresMostrados = new HashMap<>();
@@ -36,9 +40,29 @@ public class DesarrolloBar extends HBox {
 
     }
 
+    public void actualizar() {
+
+        Jugador jugador = controlador.getJuego().getJugadorActivo();
+
+        for (Map.Entry<Carta, Label> entry : labelsCantidad.entrySet()) {
+            Carta carta = entry.getKey();
+            Label label = entry.getValue();
+
+            int nuevaCantidad = jugador.cantidadCartasTipo(carta);
+            label.setText("cant: " + nuevaCantidad);
+        }
+
+        limpiarSeleccion();
+    }
+
     public void crearCartas() {
 
         Jugador jugador = this.controlador.getJuego().getJugadorActivo();
+
+        this.botonUsar = new BotonesVista("usar");
+        botonUsar.setDisable(true);
+        botonUsar.setOnAction(e -> controlador.usarCartaSeleccionada());
+        this.getChildren().add(botonUsar);
 
         for (Carta carta : controlador.getTipoDeCartasDisponibles()) {
 
@@ -70,7 +94,33 @@ public class DesarrolloBar extends HBox {
 
         box.getChildren().addAll(lblTipo, lblCantidad);
 
+        box.setOnMouseClicked(e -> seleccionarCarta(box, carta));
         return box;
+    }
+
+    private void seleccionarCarta(VBox box, Carta carta) {
+
+        if (cartaSeleccionadaVisual != null) {
+            cartaSeleccionadaVisual.getStyleClass().remove("carta-seleccionada");
+        }
+
+        cartaSeleccionadaVisual = box;
+        cartaSeleccionada = carta;
+
+        box.getStyleClass().add("carta-seleccionada");
+
+        botonUsar.setDisable(false);
+
+        controlador.seleccionarCartaDesarrollo(carta);
+    }
+
+    public void limpiarSeleccion() {
+        if (cartaSeleccionadaVisual != null) {
+            cartaSeleccionadaVisual.getStyleClass().remove("carta-seleccionada");
+        }
+        cartaSeleccionadaVisual = null;
+        cartaSeleccionada = null;
+        botonUsar.setDisable(true);
     }
 
     public VBox crearConteindoVertical() {
