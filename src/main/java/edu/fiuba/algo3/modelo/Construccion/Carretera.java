@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Construccion;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Costo.ReglaCosto;
+import edu.fiuba.algo3.modelo.Costo.ReglaCostoGratis;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
@@ -17,7 +18,11 @@ public class Carretera extends Construccion{
 
     public Carretera(ReglaCosto reglaCosto) {
         super(new ConstruirCarretera(new ReglaAdyacencia()), reglaCosto);
-        this.costo = new Costo(Madera.class, Ladrillo.class);
+        if (reglaCosto instanceof ReglaCostoGratis) {
+            this.costo = new Costo();
+        } else {
+            this.costo = new Costo(Madera.class, Ladrillo.class);
+        }
     }
 
 

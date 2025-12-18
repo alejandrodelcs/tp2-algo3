@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Ladrillo;
 import edu.fiuba.algo3.modelo.Recurso.Lana;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,7 +44,7 @@ public class ComerciarBancaTest {
 
 
     @Test
-    public void regla4a1RechazaCantidadIncorrecta() {
+    public void test02regla4a1RechazaCantidadIncorrecta() {
         ReglaComercio regla = new ReglaComercio4a1();
 
         assertThrows(
@@ -52,6 +54,16 @@ public class ComerciarBancaTest {
                         List.of(Lana.class)
                 )
         );
+    }
+
+    @Test
+    public void test03LaBancaFallaAlIntentarInstanciarUnaClaseAbstracta() {
+        Banca banca = new Banca();
+        Jugador jugador = new Jugador("Tester", new Inventario());
+
+        assertThrows(RuntimeException.class, () -> {
+            banca.entregarTipos(jugador, List.of(Recurso.class));
+        });
     }
 
 }

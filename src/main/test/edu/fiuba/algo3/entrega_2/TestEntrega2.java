@@ -126,7 +126,7 @@ public class TestEntrega2 {
             new Ladrillo(), 
             new Lana(), 
             new Grano()
-    ));
+        ));
 
         Poblado p = new Poblado();
 
