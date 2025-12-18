@@ -56,7 +56,7 @@ public class DesarrolloBar extends HBox {
 
     public void actualizar() {
 
-        Jugador jugador = controlador.getJuego().getJugadorActivo();
+        Jugador jugador = controlador.getJugadorActivo();
 
         for (Map.Entry<Carta, Label> entry : labelsCantidad.entrySet()) {
             Carta carta = entry.getKey();
@@ -71,7 +71,7 @@ public class DesarrolloBar extends HBox {
 
     public void crearCartas() {
 
-        Jugador jugador = this.controlador.getJuego().getJugadorActivo();
+        Jugador jugador = this.controlador.getJugadorActivo();
 
         this.botonUsar = new BotonesVista("elegir");
         botonUsar.setDisable(true);
@@ -245,7 +245,7 @@ public class DesarrolloBar extends HBox {
     }
 
     private void configurarEstiloBase() {
-        this.setPrefWidth(600);
+        this.setPrefWidth(800);
         this.setSpacing(25);
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(20));

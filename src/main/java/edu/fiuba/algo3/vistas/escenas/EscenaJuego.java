@@ -170,6 +170,7 @@ public class EscenaJuego extends EscenaGeneral {
     public void ocultarManoCartas() {
         cartasBarDesarrollo.setVisible(false);
         cartasBarDesarrollo.setManaged(false);
+
     }
 
     public List<Arista> obtenerAristasDesdeEscenaJuego() {
@@ -187,4 +188,5 @@ public class EscenaJuego extends EscenaGeneral {
     public void desactivarSeleccionMultipleAristas() {
         this.tableroView.desactivarSeleccionMultipleAristas();
     }
+
 }

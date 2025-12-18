@@ -297,7 +297,13 @@ public class ControladorJuego implements ObservadorTurno {
     public void construir(Construccion construccion, Object... ubicaciones) {
 
         this.juego.construir(construccion, ubicaciones);
-
     }
 
+    public Jugador getJugadorActivo() {
+        return this.juego.getJugadorActivo();
+    }
+
+    public void comprarCartaAMazo() {
+        this.juego.comprarCarta();
+    }
 }

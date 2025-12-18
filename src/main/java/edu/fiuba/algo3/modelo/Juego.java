@@ -257,4 +257,8 @@ public class Juego {
         this.turnoActual.cambiarEstado(new EstadoPrimeraVuelta());
     }
 
+    public void comprarCarta() {
+        this.mazo.comprarCarta(jugadorActivo());
+    }
+
 }

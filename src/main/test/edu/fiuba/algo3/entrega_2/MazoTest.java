@@ -20,10 +20,9 @@ public class MazoTest {
 
         Mazo mazo = new Mazo();
 
-
         mazo.comprarCarta(jugador);
 
-        assertEquals(0, jugador.cantidadCartas());
+        assertEquals(1, jugador.cantidadCartasDesarrollo());
     }
 
     @Test
@@ -35,6 +34,5 @@ public class MazoTest {
 
         assertThrows(NoHayRecursoDisponibleError.class, () -> mazo.comprarCarta(jugador));
     }
-
 
 }
