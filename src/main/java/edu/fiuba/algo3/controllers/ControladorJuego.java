@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.Carta.CartaDescubrimiento;
 import edu.fiuba.algo3.modelo.Carta.CartaMonopolio;
 import edu.fiuba.algo3.modelo.Carta.CartaPuntoVictoria;
 import edu.fiuba.algo3.modelo.Comercio.*;
+import edu.fiuba.algo3.modelo.Construccion.Construccion;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -291,6 +292,12 @@ public class ControladorJuego implements ObservadorTurno {
 
     public void desactivarSeleccionMultipleAristas() {
         this.escenaJuego.desactivarSeleccionMultipleAristas();
+    }
+
+    public void construir(Construccion construccion, Object... ubicaciones) {
+
+        this.juego.construir(construccion, ubicaciones);
+
     }
 
 }

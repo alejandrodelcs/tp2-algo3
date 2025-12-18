@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Carta.Carta;
 import edu.fiuba.algo3.modelo.Carta.Mazo;
+import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.JugadoresMinimosRegistradosError;
@@ -10,6 +11,8 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.*;
 import edu.fiuba.algo3.modelo.Turno.EstadoMoverLadron;
+import edu.fiuba.algo3.modelo.Turno.EstadoPrimeraVuelta;
+import edu.fiuba.algo3.modelo.Turno.EstadoSegundaVuelta;
 import edu.fiuba.algo3.modelo.Turno.Turno;
 
 import java.util.ArrayList;
@@ -20,7 +23,9 @@ import java.util.Objects;
  * Juego
  */
 public class Juego {
-
+    private int indiceJugadorActual = 0;
+    private int direccion = 1;
+    private boolean colocacionInicialActiva = true;
     private final ArrayList<Jugador> jugadores;
     private final Tablero tablero;
     private Jugador granCaballeria;
@@ -30,11 +35,9 @@ public class Juego {
     private final Dado dado;
     private int numeroActualDado;
     private boolean debeMoverLadron;
-    private int indiceJugadorActual;
 
     public Juego() {
-        this.indiceJugadorActual = 0;
-        this.jugadores = new ArrayList<>();// armar bien el inicializador;
+        this.jugadores = new ArrayList<>();
         this.tablero = new Tablero();
         this.tablero.construir();
         this.mazo = new Mazo();
@@ -147,10 +150,46 @@ public class Juego {
     }
 
     public void finalizarTurnoActual() {
-        System.out.println(indiceJugadorActual);
         this.indiceJugadorActual = (this.indiceJugadorActual + 1) % jugadores.size();
 
         turnoActual = new Turno(jugadorActivo(), tablero, dado);
+    }
+
+    public void avanzarJugador(Turno turno) {
+
+        // ---- PRIMERA VUELTA (1 → 2 → 3) ----
+        if (direccion == 1) {
+            if (indiceJugadorActual < (jugadores.size() - 1)) {
+                indiceJugadorActual++;
+            } else {
+                // último jugador → cambio de dirección
+                direccion = -1;
+
+                turnoActual = new Turno(jugadorActivo(), tablero, dado);
+                turnoActual.cambiarEstado(new EstadoSegundaVuelta());
+                return;
+                // mismo jugador juega la segunda vuelta
+            }
+
+            turnoActual = new Turno(jugadorActivo(), tablero, dado);
+            turnoActual.cambiarEstado(new EstadoPrimeraVuelta());
+            return;
+        }
+
+        // ---- SEGUNDA VUELTA (3 → 2 → 1) ----
+        if (indiceJugadorActual > 0) {
+            indiceJugadorActual--;
+
+            turnoActual = new Turno(jugadorActivo(), tablero, dado);
+            turnoActual.cambiarEstado(new EstadoSegundaVuelta());
+            return;
+        }
+
+        // ---- TERMINA COLOCACIÓN INICIAL ----
+        colocacionInicialActiva = false;
+        direccion = 1;
+
+        finalizarTurnoActual(); // entra al ciclo normal (EstadoInicial)
     }
 
     public int cantidadJugadores() {
@@ -208,6 +247,14 @@ public class Juego {
     public void jugarCarta(Carta carta, Object... args) {
         this.turnoActual.jugarCarta(carta, args);
 
+    }
+
+    public void construir(Construccion construccion, Object... ubicaciones) {
+        this.turnoActual.construir(construccion, ubicaciones);
+    }
+
+    public void setEstadoPrimeraVuleta() {
+        this.turnoActual.cambiarEstado(new EstadoPrimeraVuelta());
     }
 
 }

@@ -25,7 +25,7 @@ public class Jugador {
     private final ArrayList<Construccion> construcciones;
     private final String nombre;
     private int puntosVictoria;
-    private final Inventario inventario;
+    private Inventario inventario;
     private int caballerosJugados;
     private boolean puedeJugarCartaDesarrollo;
 
@@ -211,6 +211,11 @@ public class Jugador {
 
     public int cantidadCartasTipo(Carta tipo) {
         return this.cartasDesarrollo.cantidadDeTipo(tipo);
+
+    }
+
+    public void entregaInicial(Vertice vertice) {
+        this.inventario = vertice.entregarRecursosIniciales();
 
     }
 }

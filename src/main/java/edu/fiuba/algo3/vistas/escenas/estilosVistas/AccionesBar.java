@@ -112,7 +112,7 @@ public class AccionesBar extends VBox {
                     Carretera carretera = new Carretera(new ReglaCostoConstruccion());
                     Arista aristaModelo = aristaVisual.getAristaModelo();
 
-                    jugador.construir(carretera, aristaModelo);
+                    controlador.construir(carretera, aristaModelo);
 
                     aristaVisual.actualizarVisualizacion();
                     aristaVisual.deseleccionar();
@@ -133,8 +133,7 @@ public class AccionesBar extends VBox {
                         throw new RuntimeException("Ya hay una construccion en este vertice");
                     }
 
-                    jugador.construir(nuevaObra, verticeModelo);
-                    verticeModelo.construir(nuevaObra);
+                    controlador.construir(nuevaObra, verticeModelo);
 
                     verticeVisual.actualizarVisualizacion();
                     verticeVisual.deseleccionar();

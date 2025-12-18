@@ -60,6 +60,7 @@ public class Turno {
     }
 
     public void cambiarEstado(EstadoTurno nuevo) {
+        System.out.println("cambio de :" + estadoActual + " a: " + nuevo.toString());
         this.estadoActual = nuevo;
 
         notificarCambioDeEstado();
@@ -86,7 +87,6 @@ public class Turno {
 
     public void comerciar(Comercio comercio) {
         this.estadoActual.comerciar(this, jugadorActivo, comercio);
-        System.out.println(estadoActual.toString() + "comercio\n");
     }
 
     public void jugarCarta(CartaDesarrollo carta, Object... args) {
@@ -94,7 +94,6 @@ public class Turno {
     }
 
     public void pasarTurno(Juego juego) {
-        System.out.println(estadoActual.toString());
         this.estadoActual.pasarTurno(this, jugadorActivo, juego);
 
     }

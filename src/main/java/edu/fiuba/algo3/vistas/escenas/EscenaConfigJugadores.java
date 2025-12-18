@@ -111,8 +111,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
                 TextField campo = (TextField) nodo;
                 if (!campo.getText().trim().isEmpty()) {
                     Jugador jugadorAgregado = new Jugador(campo.getText(),
-                            new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo(), new Lana(),
-                                    new Lana(), new Grano(), new Grano()));
+                            new Inventario());
 
                     jugadores.add(jugadorAgregado);
                 }
@@ -127,6 +126,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
                 return;
             }
             Juego juego = new Juego(jugadores);
+            juego.setEstadoPrimeraVuleta();
 
             EscenaJuego escenaJuego = new EscenaJuego(stage, juego);
 

@@ -18,11 +18,12 @@ public interface EstadoTurno {
     void robar(Turno turno, Tablero tablero, Jugador jugadorVictima, Jugador jugadorActivo);
 
     void construir(Turno turno, Jugador jugador, Construccion construccion,
-                   Object... ubicaciones);
+            Object... ubicaciones);
 
     void comerciar(Turno turno, Jugador receptor, Comercio comercio);
 
     void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo, Object... args);
 
     void pasarTurno(Turno turno, Jugador jugador, Juego juego);
+
 }

@@ -129,6 +129,7 @@ public class DesarrolloBar extends HBox {
         controlador.usarCartaSeleccionada(argumentos.toArray());
         argumentos.clear();
         controlador.actualizar();
+        controlador.cerrarManoCartas();
 
     }
 
