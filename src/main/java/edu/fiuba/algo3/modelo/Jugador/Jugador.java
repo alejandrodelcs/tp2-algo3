@@ -187,6 +187,7 @@ public class Jugador {
         carta.jugar(this, tablero, args);
 
         this.cartasDesarrollo.consumir(c);
+        this.cartasDesarrollo.deshabilitar();
     }
 
     public void habilitarCartasDesarrollo() {

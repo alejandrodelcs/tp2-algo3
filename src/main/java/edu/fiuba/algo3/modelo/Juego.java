@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Carta.Carta;
 import edu.fiuba.algo3.modelo.Carta.Mazo;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
@@ -13,6 +14,7 @@ import edu.fiuba.algo3.modelo.Turno.Turno;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Juego
@@ -145,6 +147,7 @@ public class Juego {
     }
 
     public void finalizarTurnoActual() {
+        System.out.println(indiceJugadorActual);
         this.indiceJugadorActual = (this.indiceJugadorActual + 1) % jugadores.size();
 
         turnoActual = new Turno(jugadorActivo(), tablero, dado);
@@ -196,6 +199,11 @@ public class Juego {
 
     public Jugador getJugadorActivo() {
         return jugadores.get(indiceJugadorActual);
+    }
+
+    public void jugarCarta(Carta carta, Object... args) {
+        this.turnoActual.jugarCarta(carta, args);
+
     }
 
 }

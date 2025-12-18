@@ -11,6 +11,10 @@ public abstract class Carta implements CartaDesarrollo {
         this.disponible = true;
     }
 
+    public void deshabilitar() {
+        this.disponible = false;
+    }
+
     public boolean esDeUnSoloUso() {
         return true;
     }

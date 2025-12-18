@@ -47,13 +47,22 @@ public class MazoPersonal {
 
         while (it.hasNext()) {
             Carta carta = it.next();
-            if (carta.esDelMismoTipoQue(tipo)) {
+            System.out.println(carta.toString() + " " + carta.estaDisponible());
+            if (carta.esDelMismoTipoQue(tipo) && carta.estaDisponible()) {
                 it.remove();
                 return;
 
             }
         }
         throw new NoTieneCartaError();
+
+    }
+
+    public void deshabilitar() {
+        for (Carta carta : cartas) {
+            carta.deshabilitar();
+
+        }
 
     }
 

@@ -27,12 +27,13 @@ public class EstadoPuedeRobar implements EstadoTurno {
     @Override
     public void robar(Turno turno, Tablero tablero, Jugador jugadorVictima, Jugador jugadorActivo) {
         tablero.robarConLadronA(jugadorActivo, jugadorVictima);
+        System.out.println("hola");
         turno.cambiarEstado(new EstadoAcciones());
     }
 
     @Override
     public void construir(Turno turno, Jugador jugador, Construccion construccion,
-                          Object... ubicaciones) {
+            Object... ubicaciones) {
 
     }
 
@@ -48,8 +49,12 @@ public class EstadoPuedeRobar implements EstadoTurno {
     }
 
     @Override
-    public void pasarTurno(Turno turno, Jugador jugador, Juego juego) {
+    public void pasarTurno(Turno turno, Jugador jugadorActivo, Juego juego) {
+        System.out.println(jugadorActivo.getNombre());
+        jugadorActivo.habilitarCartasDesarrollo();
 
+        juego.finalizarTurnoActual();
+        // turno.cambiarEstado(new EstadoInicial());
     }
 
 }

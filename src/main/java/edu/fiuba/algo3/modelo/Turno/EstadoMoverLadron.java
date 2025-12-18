@@ -30,7 +30,7 @@ public class EstadoMoverLadron implements EstadoTurno {
 
     @Override
     public void construir(Turno turno, Jugador jugador, Construccion construccion,
-                          Object... ubicaciones) {
+            Object... ubicaciones) {
         throw new AccionNoPermitidaException("");
     }
 
@@ -46,9 +46,12 @@ public class EstadoMoverLadron implements EstadoTurno {
     }
 
     @Override
-    public void pasarTurno(Turno turno, Jugador jugador, Juego juego) {
-        throw new AccionNoPermitidaException("");
-    }
+    public void pasarTurno(Turno turno, Jugador jugadorActivo, Juego juego) {
+        System.out.println(jugadorActivo.getNombre());
+        jugadorActivo.habilitarCartasDesarrollo();
 
+        juego.finalizarTurnoActual();
+        // turno.cambiarEstado(new EstadoInicial());
+    }
 
 }

@@ -14,16 +14,18 @@ import java.util.stream.Collectors;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
+import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
 import edu.fiuba.algo3.modelo.Turno.EstadoMoverLadron;
 import edu.fiuba.algo3.modelo.Turno.EstadoTurno;
 import edu.fiuba.algo3.modelo.Turno.ObservadorTurno;
+import edu.fiuba.algo3.vistas.AristaView;
 import edu.fiuba.algo3.vistas.escenas.EscenaJuego;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 
 public class ControladorJuego implements ObservadorTurno {
-    private Carta cartaDesSeleccionada;
+    private Carta cartaDesarrolloSeleccionada;
     private SesionDeComercio sesionComercio;
     private boolean seleccionJuador;
     private Jugador jugadorSeleccionado;
@@ -80,12 +82,12 @@ public class ControladorJuego implements ObservadorTurno {
         }
     }
 
-    private void iniciarSecuenciaLadron() {
-        mostrarAlerta("¡LADRÓN ACTIVADO!", "Salió un 7. Selecciona un hexágono para mover al ladrón.");
+    public void iniciarSecuenciaLadron() {// tratar pasar a otra clase
+        mostrarAlerta("¡LADRÓN ACTIVADO!", "Selecciona un hexágono para mover al ladrón.");
         escenaJuego.getTablero().activarSelectorHexagono(this::procesarMovimientoLadron);
     }
 
-    private void procesarMovimientoLadron(Hexagono destino) {
+    private void procesarMovimientoLadron(Hexagono destino) {// tratar pasar a otra clase
         try {
             juego.turnoActual().moverLadronA(destino);
 
@@ -99,7 +101,7 @@ public class ControladorJuego implements ObservadorTurno {
         }
     }
 
-    private void gestionarRobo(Hexagono hexDondeEstaElLadron) {
+    private void gestionarRobo(Hexagono hexDondeEstaElLadron) {// tratar pasar a otra clase
         List<Jugador> victimas = hexDondeEstaElLadron.obtenerVictimas();
         Jugador yo = juego.getJugadorActivo();
         victimas.remove(yo);
@@ -127,7 +129,7 @@ public class ControladorJuego implements ObservadorTurno {
 
     }
 
-    private Jugador mostrarDialogoEleccionVictima(List<Jugador> victimas) {
+    private Jugador mostrarDialogoEleccionVictima(List<Jugador> victimas) {// tratar de pasar esto a la vista
         List<String> nombres = victimas.stream().map(Jugador::getNombre).collect(Collectors.toList());
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>(nombres.get(0), nombres);
@@ -262,14 +264,33 @@ public class ControladorJuego implements ObservadorTurno {
     }
 
     public void seleccionarCartaDesarrollo(Carta carta) {
-        this.cartaDesSeleccionada = carta;
+        this.cartaDesarrolloSeleccionada = carta;
 
     }
 
-    public void usarCartaSeleccionada() {
-        this.juego.getJugadorActivo().habilitarCartasDesarrollo();
-        this.juego.getJugadorActivo().jugarCartaDesarrollo(cartaDesSeleccionada, juego.getTablero());
+    public boolean esCartaDesarrollo(Carta carta) {
+        return this.cartaDesarrolloSeleccionada.getClass().equals(carta.getClass());
+    }
+
+    public void usarCartaSeleccionada(Object... args) {
+
+        this.juego.jugarCarta(cartaDesarrolloSeleccionada, args);
         this.escenaJuego.actualizarVista();
+    }
+
+    public List<Arista> seleccionarAristas() {
+        List<Arista> aristas = this.escenaJuego.obtenerAristasDesdeEscenaJuego();
+
+        return aristas;
+
+    }
+
+    public void activarSeleccionMultipleAristas() {
+        this.escenaJuego.activarSeleccionMultipleAristas();
+    }
+
+    public void desactivarSeleccionMultipleAristas() {
+        this.escenaJuego.desactivarSeleccionMultipleAristas();
     }
 
 }

@@ -13,11 +13,13 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import edu.fiuba.algo3.vistas.escenas.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class TableroView extends Pane {
     private final double RADIO = 70;
@@ -25,6 +27,9 @@ public class TableroView extends Pane {
     private final double ANCHO_HEX = Math.sqrt(3) * RADIO;
     private final double ALTO_HEX = 2 * RADIO;
     private ControladorJuego controlador;
+
+    private boolean modoSeleccionMultipleAristas = false;
+    private final List<AristaView> aristasSeleccionadas = new ArrayList<>();
 
     private final Map<Vertice, VerticeView> verticesVisuales = new HashMap<>();
     private VerticeView verticeSeleccionadoVisual = null;
@@ -45,9 +50,7 @@ public class TableroView extends Pane {
         this.grupoAristas = new Group();
         this.aristasMap = new HashMap<>();
 
-        this.getChildren().addAll(grupoHexagonos, grupoAristas ,grupoVertices);
-
-
+        this.getChildren().addAll(grupoHexagonos, grupoAristas, grupoVertices);
 
         inicializarTablero(tableroModelo);
     }
@@ -69,7 +72,7 @@ public class TableroView extends Pane {
     }
 
     private void crearFila(int fila, int cantidad, boolean usarModelo,
-                           Iterator<Hexagono> iterador, double centroX, double centroY) {
+            Iterator<Hexagono> iterador, double centroX, double centroY) {
 
         double offsetFila = Math.abs(RADIO_TABLERO - fila) * (ANCHO_HEX / 2);
         double y = centroY + (fila * (ALTO_HEX * 0.75));
@@ -183,7 +186,6 @@ public class TableroView extends Pane {
             vView.setLayoutX(vx);
             vView.setLayoutY(vy);
 
-
             verticesVisuales.put(verticeReal, vView);
             grupoVertices.getChildren().add(vView);
         }
@@ -197,7 +199,8 @@ public class TableroView extends Pane {
         double[] angulos = { 60, 120, 180, 240, 300, 0 };
 
         for (int i = 0; i < 6; i++) {
-            if (i >= aristas.size()) break;
+            if (i >= aristas.size())
+                break;
 
             Arista aristaModelo = aristas.get(i);
 
@@ -228,6 +231,10 @@ public class TableroView extends Pane {
     private void manejarClickArista(AristaView vista) {
         System.out.println("Arista clickeada");
 
+        if (modoSeleccionMultipleAristas) {
+            manejarSeleccionMultipleArista(vista);
+            return;
+        }
         if (aristaSeleccionadoVisual != null) {
             aristaSeleccionadoVisual.deseleccionar();
         }
@@ -239,6 +246,26 @@ public class TableroView extends Pane {
             verticeSeleccionadoVisual.deseleccionar();
             verticeSeleccionadoVisual = null;
         }
+    }
+
+    private void manejarSeleccionMultipleArista(AristaView vista) {
+        if (aristasSeleccionadas.contains(vista)) {
+            return;
+        }
+        if (aristasSeleccionadas.size() == 2) {
+            AristaView primera = aristasSeleccionadas.remove(0);
+            primera.deseleccionar();
+        }
+        vista.seleccionar();
+        aristasSeleccionadas.add(vista);
+
+    }
+
+    public List<Arista> obtenerAristasSeleccionadas() {
+        return aristasSeleccionadas
+                .stream()
+                .map(AristaView::getAristaModelo)
+                .collect(Collectors.toList());
     }
 
     private void manejarClickVertice(VerticeView nuevoVerticeClickeado) {
@@ -276,5 +303,22 @@ public class TableroView extends Pane {
 
     public void actualizar(Tablero tablero) {
 
+    }
+
+    public void activarSeleccionMultipleAristas() {
+        modoSeleccionMultipleAristas = true;
+        aristasSeleccionadas.clear();
+    }
+
+    public void desactivarSeleccionMultipleAristas() {
+        modoSeleccionMultipleAristas = false;
+        limpiarSeleccionAristas();
+    }
+
+    private void limpiarSeleccionAristas() {
+        for (AristaView arista : aristasSeleccionadas) {
+            arista.deseleccionar();
+        }
+        aristasSeleccionadas.clear();
     }
 }

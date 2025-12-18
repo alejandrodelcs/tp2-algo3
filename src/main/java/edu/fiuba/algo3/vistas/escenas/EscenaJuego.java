@@ -1,9 +1,12 @@
 package edu.fiuba.algo3.vistas.escenas;
 
+import java.util.List;
+
 import edu.fiuba.algo3.controllers.ControladorJuego;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Tablero.*;
 import javafx.geometry.Pos;
+import edu.fiuba.algo3.vistas.AristaView;
 import edu.fiuba.algo3.vistas.TableroView;
 import edu.fiuba.algo3.vistas.escenas.estilosVistas.*;
 import javafx.scene.layout.*;
@@ -168,4 +171,19 @@ public class EscenaJuego extends EscenaGeneral {
         cartasBarDesarrollo.setManaged(false);
     }
 
+    public List<Arista> obtenerAristasDesdeEscenaJuego() {
+        List<Arista> aristas = this.tableroView.obtenerAristasSeleccionadas();
+        this.tableroView.desactivarSeleccionMultipleAristas();
+
+        return aristas;
+    }
+
+    public void activarSeleccionMultipleAristas() {
+        this.tableroView.activarSeleccionMultipleAristas();
+
+    }
+
+    public void desactivarSeleccionMultipleAristas() {
+        this.tableroView.desactivarSeleccionMultipleAristas();
+    }
 }

@@ -29,30 +29,31 @@ public class EstadoAcciones implements EstadoTurno {
 
     @Override
     public void construir(Turno turno, Jugador jugador, Construccion construccion,
-                          Object... ubicaciones) {
+            Object... ubicaciones) {
         jugador.construir(construccion, ubicaciones);
-//        turno.cambiarEstado(new EstadoInicial());
+        // turno.cambiarEstado(new EstadoInicial());
 
     }
 
     @Override
     public void comerciar(Turno turno, Jugador receptor, Comercio comercio) {
         receptor.aceptarComercio(comercio);
-//        turno.cambiarEstado(new EstadoInicial());
+        // turno.cambiarEstado(new EstadoInicial());
 
     }
 
     @Override
     public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo carta, Object... args) {
         jugador.jugarCartaDesarrollo(carta, tablero, args);
-//        turno.cambiarEstado(new EstadoInicial());
+        // turno.cambiarEstado(new EstadoInicial());
 
     }
 
     @Override
     public void pasarTurno(Turno turno, Jugador jugadorActivo, Juego juego) {
         jugadorActivo.habilitarCartasDesarrollo();
+
         juego.finalizarTurnoActual();
-//        turno.cambiarEstado(new EstadoInicial());
+        // turno.cambiarEstado(new EstadoInicial());
     }
 }
