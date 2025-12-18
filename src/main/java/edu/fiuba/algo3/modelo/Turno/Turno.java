@@ -48,17 +48,6 @@ public class Turno {
         this.numeroTurno = 0;
         this.dado = dado;
 
-        // PARA PROBAR CONSTRUCCIONES, ELIMINAR
-        jugadorActivo.agregarRecursos(new Madera(), 10);
-        jugadorActivo.agregarRecursos(new Grano(), 10);
-        jugadorActivo.agregarRecursos(new Ladrillo(), 10);
-        jugadorActivo.agregarRecursos(new Mineral(), 10);
-        jugadorActivo.agregarRecursos(new Lana(), 10);
-        jugadorActivo.compraCartaDesarrollo(new CartaPuntoVictoria());
-        jugadorActivo.compraCartaDesarrollo(new CartaConstruccionCarreteras());
-        jugadorActivo.compraCartaDesarrollo(new CartaMonopolio());
-        jugadorActivo.compraCartaDesarrollo(new CartaCaballero());
-        jugadorActivo.compraCartaDesarrollo(new CartaDescubrimiento());
     }
 
     public void agregarObservador(ObservadorTurno observador) {

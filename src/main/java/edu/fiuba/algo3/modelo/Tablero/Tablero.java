@@ -21,7 +21,7 @@ public class Tablero {
         this.hexagonos = new ArrayList<>();
     }
 
-    public void construir(){
+    public void construir() {
         List<Integer> numerosMezclados = new ArrayList<>(DISTRIBUCION);
         Collections.shuffle(numerosMezclados);
         List<Recurso> terrenosParaMezclar = new ArrayList<>();
@@ -36,7 +36,7 @@ public class Tablero {
         for (int i = 0; i < numerosMezclados.size(); i++) {
             Recurso terreno = terrenosParaMezclar.get(i);
             Integer numero = numerosMezclados.get(i);
-            
+
             Hexagono hexagono = new Hexagono(terreno, numero);
             hexagonos.add(hexagono);
         }
@@ -201,11 +201,10 @@ public class Tablero {
         return new ArrayList<>(todas).size();
     }
 
-   public void producirRecursosSegun(int numDado){
-        for(Hexagono h : hexagonos){
+    public void producirRecursosSegun(int numDado) {
+        for (Hexagono h : hexagonos) {
             h.producirSegunCorresponde(numDado);
         }
-   }
-
+    }
 
 }

@@ -12,6 +12,8 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,11 +36,11 @@ public class CartaCaballeroTest {
 
         jugadorVictima = new Jugador("B",
                 new Inventario(new Ladrillo(), new Ladrillo(), new Madera()));
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        jugadores.add(jugadorActivo);
+        jugadores.add(jugadorVictima);
 
-        juego = new Juego();
-        List<String> nombres = Arrays.asList("ale", "mary");
-        List<String> avates = Arrays.asList(".../ruta1", ".../ruta2");
-        juego.crearJugadores(nombres, avates);
+        juego = new Juego(jugadores);
 
         tablero = new Tablero();
 
@@ -59,7 +61,11 @@ public class CartaCaballeroTest {
         poblado.asignarJugador(jugadorVictima);
         v.construir(poblado);
 
-        carta.jugar(jugadorActivo, tablero, destino);
+        carta.habilitar();
+        carta.jugar(jugadorActivo, tablero, juego);
+
+        juego.turnoActual().moverLadronA(destino);
+        juego.turnoActual().robar(jugadorVictima);
 
         assertEquals(3, jugadorActivo.cantidadCartas());
         assertEquals(2, jugadorVictima.cantidadCartas());
