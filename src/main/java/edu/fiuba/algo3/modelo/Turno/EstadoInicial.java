@@ -17,6 +17,7 @@ public class EstadoInicial implements EstadoTurno {
         int resultado = dado.lanzar();
         if (resultado == 7) {
             turno.cambiarEstado(new EstadoMoverLadron());
+            juego.numeroDado(resultado);
         } else {
             juego.resolverTirada(resultado);
             turno.cambiarEstado(new EstadoAcciones());

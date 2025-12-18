@@ -129,6 +129,9 @@ public class AccionesBar extends VBox {
                         nuevaObra = new Ciudad();
 
                     Vertice verticeModelo = verticeVisual.getVerticeModelo();
+                    if (verticeModelo.tieneConstruccion()) {
+                        throw new RuntimeException("Ya hay una construccion en este vertice");
+                    }
 
                     jugador.construir(nuevaObra, verticeModelo);
                     verticeModelo.construir(nuevaObra);

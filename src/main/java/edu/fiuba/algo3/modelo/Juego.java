@@ -157,6 +157,10 @@ public class Juego {
         return this.jugadores.size();
     }
 
+    public void numeroDado(int num) {
+        this.numeroActualDado = num;
+    }
+
     public int getDadoActual() {
         return this.numeroActualDado;
     }
