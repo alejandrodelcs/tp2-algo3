@@ -10,10 +10,10 @@ public class Dado {
     private ReglaDado reglaDado;
     private Random random;
 
-    public Dado(int dado) {
+    /*public Dado(int dado) {
         this.dado = dado;
         this.random = new Random();
-    }
+    }*/
 
     public Dado() {
         this.dado = 0;
