@@ -43,19 +43,19 @@ public class EstadoPrimeraVuelta implements EstadoTurno {
             Object... ubicaciones) {
 
         if ((construccion instanceof Carretera) && !usoCarretera) {
-            this.usoCarretera = true;
 
             construccion.cambiarReglaCosto(new ReglaCostoGratis());
             System.out.println(construccion.toString());
             jugador.construir(construccion, ubicaciones);
 
+            this.usoCarretera = true;
         }
         if ((construccion instanceof Poblado) && !usoPoblado) {
-            this.usoPoblado = true;
 
             construccion.cambiarReglaCosto(new ReglaCostoGratis());
             System.out.println(construccion.toString());
             jugador.construir(construccion, ubicaciones);
+            this.usoPoblado = true;
         }
 
     }
