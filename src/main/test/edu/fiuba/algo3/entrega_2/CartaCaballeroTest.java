@@ -35,14 +35,13 @@ public class CartaCaballeroTest {
                 new Inventario(new Madera(), new Grano()));
 
         jugadorVictima = new Jugador("B",
-                new Inventario(new Ladrillo(), new Ladrillo(), new Madera()));
+                new Inventario(new Ladrillo(), new Lana(), new Madera(), new Grano(), new Madera(), new Grano(), new Ladrillo()));
         ArrayList<Jugador> jugadores = new ArrayList<>();
         jugadores.add(jugadorActivo);
         jugadores.add(jugadorVictima);
 
-        juego = new Juego(jugadores);
-
         tablero = new Tablero();
+        juego = new Juego(jugadores);
 
     }
 
@@ -58,8 +57,7 @@ public class CartaCaballeroTest {
 
         Vertice v = new Vertice();
         destino.agregarVertice(v);
-        poblado.asignarJugador(jugadorVictima);
-        v.construir(poblado);
+        jugadorVictima.construir(poblado, v);
 
         carta.habilitar();
         carta.jugar(jugadorActivo, tablero, juego);
