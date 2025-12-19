@@ -47,6 +47,13 @@ public class Turno {
         this.primeraVuelta = true;
         this.numeroTurno = 0;
         this.dado = dado;
+
+        jugadorActivo.agregarRecursos(new Grano(), 0);
+        jugadorActivo.agregarRecursos(new Madera(), 0);
+        jugadorActivo.agregarRecursos(new Lana(), 0);
+        jugadorActivo.agregarRecursos(new Mineral(), 0);
+        jugadorActivo.agregarRecursos(new Ladrillo(), 0);
+
     }
 
     public void agregarObservador(ObservadorTurno observador) {

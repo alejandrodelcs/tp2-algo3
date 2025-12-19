@@ -126,7 +126,7 @@ public class EscenaConfigJugadores extends EscenaGeneral {
                 return;
             }
             Juego juego = new Juego(jugadores);
-            // juego.setEstadoPrimeraVuleta();
+            juego.setEstadoPrimeraVuleta();
 
             EscenaJuego escenaJuego = new EscenaJuego(stage, juego);
 
