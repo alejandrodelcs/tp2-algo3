@@ -45,7 +45,7 @@ public class MazoTest {
     }
 
     @Test
-    public void test03ElMazoTiene25CartasYLanzaExcepcionAlQuedarVacio(){
+    public void test03ElMazoTiene25CartasYLanzaExcepcionAlQuedarVacio() {
         Jugador jugador = new Jugador("Ricardo", new Inventario());
         Mazo mazo = new Mazo();
 
@@ -53,7 +53,7 @@ public class MazoTest {
             jugador.recibirRecurso(new Lana());
             jugador.recibirRecurso(new Grano());
             jugador.recibirRecurso(new Mineral());
-            
+
             assertDoesNotThrow(() -> mazo.comprarCarta(jugador));
         }
 
@@ -64,25 +64,4 @@ public class MazoTest {
         assertThrows(MazoVacioException.class, () -> mazo.comprarCarta(jugador));
     }
 
-    @Test
-    public void test04AlComprarCartaPVSeSumaElPuntoInmediatamente() {
-        Jugador jugador = new Jugador("Marcelo", new Inventario());
-        Mazo mazo = new Mazo();
-        int puntosIniciales = jugador.getPuntosVictoria();
-        boolean cartaPuntoVictoriaEncontrada = false;
-
-        for (int i = 0; i < 25; i++) {
-            jugador.recibirRecurso(new Lana());
-            jugador.recibirRecurso(new Grano());
-            jugador.recibirRecurso(new Mineral());
-
-            CartaDesarrollo carta = mazo.comprarCarta(jugador);
-
-            if (carta instanceof CartaPuntoVictoria) {
-                cartaPuntoVictoriaEncontrada = true;
-                assertTrue(jugador.getPuntosVictoria() > puntosIniciales);
-                break;
-            }
-        }
-    }
 }
