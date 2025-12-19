@@ -35,8 +35,10 @@ public class CostoTest {
     @Test
     public void test02DeberiaDescontarmeElCostoDeUnaCiudad(){
         Jugador jugador = new Jugador("Ale", new Inventario(new Grano(), new Grano(),
-                                                    new Mineral(), new Mineral(), new Mineral()));
-        jugador.construir(new Ciudad(), new Vertice());
+                                                    new Mineral(), new Mineral(), new Mineral(), new Madera(), new Lana(), new Ladrillo(), new Grano()));
+        Vertice v = new Vertice();
+        jugador.construir(new Poblado(), v);
+        jugador.mejorarConstruccionUbicadoEn(v);
 
         assertEquals(0, jugador.cantidadCartas());
     }
