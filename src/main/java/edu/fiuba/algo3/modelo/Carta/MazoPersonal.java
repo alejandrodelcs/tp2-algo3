@@ -47,7 +47,6 @@ public class MazoPersonal {
 
         while (it.hasNext()) {
             Carta carta = it.next();
-            System.out.println(carta.toString() + " " + carta.estaDisponible());
             if (carta.esDelMismoTipoQue(tipo) && carta.estaDisponible()) {
                 it.remove();
                 return;

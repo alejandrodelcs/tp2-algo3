@@ -234,7 +234,6 @@ public class Juego {
         this.numeroActualDado = resultado;
         if (resultado == 7) {
             aplicarPenalidadPorSiete();
-            turnoActual.cambiarEstado(new EstadoMoverLadron());
         } else {
             tablero.producirRecursosSegun(resultado);
         }

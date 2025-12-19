@@ -131,7 +131,7 @@ public class DesarrolloBar extends HBox {
         try {
             controlador.usarCartaSeleccionada(argumentos.toArray());
         } catch (Exception e) {
-            mostrarAlerta("No se puede usar la carta", "No se puede usar carta este turno");
+            mostrarAlerta("No se puede usar la carta", e.getMessage());
 
         }
         argumentos.clear();

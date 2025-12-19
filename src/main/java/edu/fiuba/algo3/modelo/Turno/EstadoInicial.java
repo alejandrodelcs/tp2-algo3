@@ -19,9 +19,10 @@ public class EstadoInicial implements EstadoTurno {
             turno.cambiarEstado(new EstadoMoverLadron());
             juego.numeroDado(resultado);
         } else {
-            juego.resolverTirada(resultado);
             turno.cambiarEstado(new EstadoAcciones());
         }
+
+        juego.resolverTirada(resultado);
     }
 
     @Override

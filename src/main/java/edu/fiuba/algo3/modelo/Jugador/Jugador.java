@@ -181,12 +181,12 @@ public class Jugador {
         Carta c = (Carta) carta;
 
         if (0 == cartasDesarrollo.cantidadDeTipo(carta)) {
-            throw new CartaNoDisponibleException("");
+            throw new CartaNoDisponibleException("No tiene esta carta");
         }
 
+        this.cartasDesarrollo.consumir(c);
         carta.jugar(this, tablero, args);
 
-        this.cartasDesarrollo.consumir(c);
         this.cartasDesarrollo.deshabilitar();
     }
 
