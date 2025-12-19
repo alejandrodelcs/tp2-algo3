@@ -19,6 +19,7 @@ import edu.fiuba.algo3.modelo.Tablero.Vertice;
  */
 public class EstadoSegundaVuelta implements EstadoTurno {
 
+    private boolean usoCarretera = false;
     private boolean usoPoblado = false;
 
     @Override
@@ -43,8 +44,12 @@ public class EstadoSegundaVuelta implements EstadoTurno {
     public void construir(Turno turno, Jugador jugador, Construccion construccion,
             Object... ubicaciones) {
 
-        if ((construccion instanceof Carretera)) {
-            throw new AccionNoPermitidaException("");
+        if ((construccion instanceof Carretera) && !usoCarretera) {
+            this.usoCarretera = true;
+
+            construccion.cambiarReglaCosto(new ReglaCostoGratis());
+            System.out.println(construccion.toString());
+            jugador.construir(construccion, ubicaciones);
 
         }
         if ((construccion instanceof Poblado) && !usoPoblado) {
