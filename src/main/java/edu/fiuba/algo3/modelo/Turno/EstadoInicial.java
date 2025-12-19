@@ -26,39 +26,39 @@ public class EstadoInicial implements EstadoTurno {
 
     @Override
     public void moverLadron(Turno turno, Tablero tablero, Hexagono destino) {
-        throw new AccionNoPermitidaException("");
+        throw new AccionNoPermitidaException("Hay que tirar el dado primero");
 
     }
 
     @Override
     public void robar(Turno turno, Tablero tablero, Jugador jugadorVictima, Jugador jugadorActivo) {
-        throw new AccionNoPermitidaException("");
+        throw new AccionNoPermitidaException("Hay que tirar el dado primero");
     }
 
     @Override
     public void construir(Turno turno, Jugador jugador, Construccion construccion,
             Object... ubicaciones) {
-        throw new AccionNoPermitidaException("");
+        throw new AccionNoPermitidaException("Hay que tirar el dado primero");
     }
 
     @Override
     public void comerciar(Turno turno, Jugador receptor, Comercio comercio) {
-        throw new AccionNoPermitidaException("");
+        throw new AccionNoPermitidaException("Hay que tirar el dado primero");
     }
 
     @Override
     public void jugarCarta(Turno turno, Jugador jugador, Tablero tablero, CartaDesarrollo cartaDesarrollo,
             Object... args) {
-        throw new AccionNoPermitidaException("");
+        throw new AccionNoPermitidaException("Hay que tirar el dado primero");
     }
 
     @Override
     public void pasarTurno(Turno turno, Jugador jugador, Juego juego) {
-        throw new AccionNoPermitidaException("");
+        throw new AccionNoPermitidaException("Hay que tirar el dado primero");
     }
 
     public void avanzarJugador(Juego juego) {
 
-        throw new AccionNoPermitidaException("");
+        throw new AccionNoPermitidaException("no se puede avanzar");
     }
 }

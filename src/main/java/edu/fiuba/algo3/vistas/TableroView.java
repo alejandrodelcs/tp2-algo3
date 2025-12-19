@@ -302,7 +302,40 @@ public class TableroView extends Pane {
     }
 
     public void actualizar(Tablero tablero) {
+        limpiarSelecciones();
+        actualizarVertices();
+        actualizarAristas();
+    }
 
+    private void limpiarSelecciones() {
+
+        if (verticeSeleccionadoVisual != null) {
+            verticeSeleccionadoVisual.deseleccionar();
+            verticeSeleccionadoVisual = null;
+        }
+
+        if (aristaSeleccionadoVisual != null) {
+            aristaSeleccionadoVisual.deseleccionar();
+            aristaSeleccionadoVisual = null;
+        }
+
+        limpiarSeleccionAristas();
+        modoSeleccionMultipleAristas = false;
+
+    }
+
+    private void actualizarVertices() {
+        for (VerticeView vertice : verticesVisuales.values()) {
+            vertice.actualizarVisualizacion();
+            vertice.deseleccionar();
+        }
+    }
+
+    private void actualizarAristas() {
+        for (AristaView arista : aristasMap.values()) {
+            arista.actualizarVisualizacion();
+            arista.deseleccionar();
+        }
     }
 
     public void activarSeleccionMultipleAristas() {

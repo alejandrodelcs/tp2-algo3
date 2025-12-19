@@ -116,6 +116,8 @@ public class DesarrolloBar extends HBox {
             this.argumentos.add(aristas.get(1));
 
         } else if (controlador.esCartaDesarrollo(new CartaDescubrimiento())) {
+
+            controlador.actualizar();
             Recurso rec1 = elegirRecurso();
             Recurso rec2 = elegirRecurso();
 
@@ -126,7 +128,12 @@ public class DesarrolloBar extends HBox {
 
             this.argumentos.add(controlador.getJuego());
         }
-        controlador.usarCartaSeleccionada(argumentos.toArray());
+        try {
+            controlador.usarCartaSeleccionada(argumentos.toArray());
+        } catch (Exception e) {
+            mostrarAlerta("No se puede usar la carta", "No se puede usar carta este turno");
+
+        }
         argumentos.clear();
         controlador.actualizar();
         controlador.cerrarManoCartas();
@@ -255,4 +262,5 @@ public class DesarrolloBar extends HBox {
                         "-fx-border-radius: 0;" +
                         "-fx-padding: 20;");
     }
+
 }

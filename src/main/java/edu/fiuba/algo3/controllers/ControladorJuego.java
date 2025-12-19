@@ -171,10 +171,11 @@ public class ControladorJuego implements ObservadorTurno {
 
             escenaJuego.actualizarVista();
 
-            mostrarAlerta("Cambio de Turno", "Ahora es el turno de: " + juego.getJugadorActivo().getNombre());
+            // mostrarAlerta("Cambio de Turno", "Ahora es el turno de: " +
+            // juego.getJugadorActivo().getNombre());
 
         } catch (Exception e) {
-            mostrarAlerta("Error", e.getMessage());
+            mostrarAlerta("Error", "hay que tirar el dado ");
         }
     }
 
@@ -304,6 +305,7 @@ public class ControladorJuego implements ObservadorTurno {
     }
 
     public void comprarCartaAMazo() {
-        this.juego.comprarCarta();
+        ejecutarAccion(juego::comprarCarta);
+
     }
 }
