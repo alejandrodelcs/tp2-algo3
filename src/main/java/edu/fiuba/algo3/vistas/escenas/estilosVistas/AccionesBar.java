@@ -86,14 +86,12 @@ public class AccionesBar extends VBox {
         Jugador jugador = juego.getJugadorActivo();
         List<String> opciones = new ArrayList<>();
 
-
         if (verticeVisual != null) {
             Vertice verticeModelo = verticeVisual.getVerticeModelo();
 
             if (!verticeModelo.tieneConstruccion()) {
                 opciones.add("Poblado");
-            }
-            else if (verticeModelo.tienePoblado() && verticeModelo.esDuenio(jugador)) {
+            } else if (verticeModelo.tienePoblado() && verticeModelo.esDuenio(jugador)) {
                 opciones.add("Ciudad");
             }
         }
@@ -106,7 +104,8 @@ public class AccionesBar extends VBox {
         }
 
         if (opciones.isEmpty()) {
-            mostrarAlerta("Construcción", "No puedes construir nada en la selección actual (lugar ocupado o inválido).");
+            mostrarAlerta("Construcción",
+                    "No puedes construir nada en la selección actual (lugar ocupado o inválido).");
             return;
         }
 
@@ -122,7 +121,8 @@ public class AccionesBar extends VBox {
 
             try {
                 if (nombreElegido.equals("Carretera")) {
-                    if (aristaVisual == null) throw new RuntimeException("Error visual: Arista perdida");
+                    if (aristaVisual == null)
+                        throw new RuntimeException("Error visual: Arista perdida");
 
                     Carretera carretera = new Carretera(new ReglaCostoConstruccion());
                     Arista aristaModelo = aristaVisual.getAristaModelo();
@@ -134,18 +134,18 @@ public class AccionesBar extends VBox {
                 }
 
                 else {
-                    if (verticeVisual == null) throw new RuntimeException("Error visual: Vértice perdido");
+                    if (verticeVisual == null)
+                        throw new RuntimeException("Error visual: Vértice perdido");
 
                     Construccion nuevaObra;
-                    if (nombreElegido.equals("Poblado")) {
-                        nuevaObra = new Poblado();
-                    } else {
-                        nuevaObra = new Ciudad();
-                    }
-
                     Vertice verticeModelo = verticeVisual.getVerticeModelo();
 
-                    controlador.construir(nuevaObra, verticeModelo);
+                    if (nombreElegido.equals("Poblado")) {
+                        nuevaObra = new Poblado();
+                        controlador.construir(nuevaObra, verticeModelo);
+                    } else {
+                        verticeModelo.mejorar(jugador);
+                    }
 
                     verticeVisual.actualizarVisualizacion();
                     verticeVisual.deseleccionar();
