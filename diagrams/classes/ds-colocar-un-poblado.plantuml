@@ -1,0 +1,29 @@
+@startuml
+
+actor actor
+
+
+actor->Juego:getJugadorActivo()
+actor->Poblado:p=new Poblado()
+actor->VerticeVisual:getVerticeModelo()
+VerticeVisual-->actor:v=new Vertice()
+actor->Vertice:tieneConstruccion()
+Vertice-->actor:bool
+actor->Controlador:construir(p,v)
+
+Controlador->Juego:construir(p,v)
+Juego->Turno:construir(p,v)
+Turno->EstadoActual:construir(Turno,JugadorActivo,p,v)
+EstadoActual->Jugador:construir(p,v)
+Jugador->Poblado:asignarJugador(Jugador)
+Jugador->Poblado:construir(v)
+Poblado->Jugador:puedePagar(Costo)
+Jugador->Costo:puedoPagar(Inventario)
+Costo-->Jugador:true
+Jugador-->Poblado:true
+Poblado->Construible:construir(p,Jugador,v)
+Poblado->ReglaCosto:aplicarSobre(Jugador,p)
+
+Jugador->Jugador:add(p)
+
+@enduml

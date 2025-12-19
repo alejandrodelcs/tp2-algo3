@@ -33,7 +33,7 @@ class EstadoAcciones <<state>>
 class EstadoMoverLadron <<state>>
 class EstadoPuedeRobar <<state>>
 class EstadoPrimeraVuelta <<state>>
-
+class EstadoSegundaVuelta <<state>>
 
 EstadoTurno --o Turno
 
@@ -42,5 +42,6 @@ EstadoAcciones ..|> EstadoTurno
 EstadoMoverLadron ..|> EstadoTurno
 EstadoPuedeRobar ..|> EstadoTurno
 EstadoPrimeraVuelta ..|> EstadoTurno
+EstadoSegundaVuelta ..|> EstadoTurno
 
 @enduml
