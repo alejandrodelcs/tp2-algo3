@@ -28,6 +28,10 @@ public class Arista {
 
     }
 
+    public boolean tieneConstruccion() {
+        return this.carretera != null;
+    }
+
     public void colocarCarretera(Carretera carretera) {
         if (this.carretera != null) {
             throw new AristaOcupadaError("Esta arista ya esta ocupada.");

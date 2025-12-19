@@ -79,19 +79,35 @@ public class AccionesBar extends VBox {
         AristaView aristaVisual = tableroView.obtenerAristaSeleccionadaVisual();
 
         if (verticeVisual == null && aristaVisual == null) {
-            mostrarAlerta("Atencion", "¡Debes seleccionar un lugar en el tablero primero!");
+            mostrarAlerta("Atención", "¡Debes seleccionar un lugar en el tablero primero!");
             return;
         }
 
         Jugador jugador = juego.getJugadorActivo();
-
         List<String> opciones = new ArrayList<>();
+
+
         if (verticeVisual != null) {
-            opciones.add("Poblado");
-            opciones.add("Ciudad");
+            Vertice verticeModelo = verticeVisual.getVerticeModelo();
+
+            if (!verticeModelo.tieneConstruccion()) {
+                opciones.add("Poblado");
+            }
+            else if (verticeModelo.tienePoblado() && verticeModelo.esDuenio(jugador)) {
+                opciones.add("Ciudad");
+            }
         }
+
         if (aristaVisual != null) {
-            opciones.add("Carretera");
+            Arista aristaModelo = aristaVisual.getAristaModelo();
+            if (!aristaModelo.tieneConstruccion()) {
+                opciones.add("Carretera");
+            }
+        }
+
+        if (opciones.isEmpty()) {
+            mostrarAlerta("Construcción", "No puedes construir nada en la selección actual (lugar ocupado o inválido).");
+            return;
         }
 
         ChoiceDialog<String> dialogo = new ChoiceDialog<>(opciones.get(0), opciones);
@@ -106,8 +122,7 @@ public class AccionesBar extends VBox {
 
             try {
                 if (nombreElegido.equals("Carretera")) {
-                    if (aristaVisual == null)
-                        throw new RuntimeException("No hay arista seleccionada");
+                    if (aristaVisual == null) throw new RuntimeException("Error visual: Arista perdida");
 
                     Carretera carretera = new Carretera(new ReglaCostoConstruccion());
                     Arista aristaModelo = aristaVisual.getAristaModelo();
@@ -119,19 +134,16 @@ public class AccionesBar extends VBox {
                 }
 
                 else {
-                    if (verticeVisual == null)
-                        throw new RuntimeException("No hay vértice seleccionado");
+                    if (verticeVisual == null) throw new RuntimeException("Error visual: Vértice perdido");
 
                     Construccion nuevaObra;
-                    if (nombreElegido.equals("Poblado"))
+                    if (nombreElegido.equals("Poblado")) {
                         nuevaObra = new Poblado();
-                    else
+                    } else {
                         nuevaObra = new Ciudad();
+                    }
 
                     Vertice verticeModelo = verticeVisual.getVerticeModelo();
-                    if (verticeModelo.tieneConstruccion()) {
-                        throw new RuntimeException("Ya hay una construccion en este vertice");
-                    }
 
                     controlador.construir(nuevaObra, verticeModelo);
 
@@ -142,7 +154,7 @@ public class AccionesBar extends VBox {
                 System.out.println("Construcción de " + nombreElegido + " exitosa.");
 
             } catch (Exception e) {
-                mostrarAlerta("Error de Construcción", e.getMessage());
+                mostrarAlerta("Error de Construcción", e.getMessage()); // Maneja falta de recursos o reglas
             }
         }
         controlador.actualizar();

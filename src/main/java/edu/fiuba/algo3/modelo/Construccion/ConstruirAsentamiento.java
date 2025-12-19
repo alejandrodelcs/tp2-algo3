@@ -13,8 +13,14 @@ public class ConstruirAsentamiento implements Construible{
 
     @Override
     public void construir(Construccion construccion, Jugador jugador, Object... ubicaciones) {
-        reglaConstruccion.validar(jugador,ubicaciones);
         Vertice vertice = (Vertice) ubicaciones[0];
-        vertice.construir(construccion);
+        if((construccion instanceof Poblado)){
+            reglaConstruccion.validar(jugador,ubicaciones);
+            vertice.construir(construccion);
+        }else{
+            jugador.mejorarConstruccionUbicadoEn(vertice);
+        }
+
+
     }
 }

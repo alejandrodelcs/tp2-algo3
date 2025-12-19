@@ -21,6 +21,14 @@ public class Vertice {
         this.hexagonos = new ArrayList<>();
     }
 
+    public boolean tienePoblado(){
+        return this.construccion instanceof Poblado;
+    }
+
+    public boolean esDuenio(Jugador jugador){
+        return  construccion.esPropietarioElJugador(jugador);
+    }
+
     public void construir(Construccion construccion) {
         this.construccion = construccion;
         construccion.asignarVertice(this);

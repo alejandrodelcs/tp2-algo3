@@ -48,11 +48,11 @@ public class Turno {
         this.numeroTurno = 0;
         this.dado = dado;
 
-        jugadorActivo.agregarRecursos(new Grano(), 0);
-        jugadorActivo.agregarRecursos(new Madera(), 0);
-        jugadorActivo.agregarRecursos(new Lana(), 0);
-        jugadorActivo.agregarRecursos(new Mineral(), 0);
-        jugadorActivo.agregarRecursos(new Ladrillo(), 0);
+        jugadorActivo.agregarRecursos(new Grano(), 10);
+        jugadorActivo.agregarRecursos(new Madera(), 10);
+        jugadorActivo.agregarRecursos(new Lana(), 10);
+        jugadorActivo.agregarRecursos(new Mineral(), 10);
+        jugadorActivo.agregarRecursos(new Ladrillo(), 10);
 
     }
 
@@ -63,6 +63,12 @@ public class Turno {
     public void tirarDado(Juego juego) {
 
         estadoActual.tirarDado(this, juego, dado);
+    }
+
+    private void verificarVictoria() {
+        if (jugadorActivo.getPuntosVictoria() >= 10) {
+            cambiarEstado(new EstadoFinDeJuego(jugadorActivo));
+        }
     }
 
     public void cambiarEstado(EstadoTurno nuevo) {
@@ -89,6 +95,7 @@ public class Turno {
     public void construir(Construccion construccion, Object... ubicaciones) {
         this.estadoActual.construir(this, jugadorActivo, construccion, ubicaciones);
 
+        verificarVictoria();
     }
 
     public void comerciar(Comercio comercio) {
@@ -97,6 +104,8 @@ public class Turno {
 
     public void jugarCarta(CartaDesarrollo carta, Object... args) {
         this.estadoActual.jugarCarta(this, jugadorActivo, tablero, carta, args);
+
+        verificarVictoria();
     }
 
     public void pasarTurno(Juego juego) {

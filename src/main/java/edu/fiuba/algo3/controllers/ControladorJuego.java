@@ -17,6 +17,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Turno.EstadoFinDeJuego;
 import edu.fiuba.algo3.modelo.Turno.EstadoMoverLadron;
 import edu.fiuba.algo3.modelo.Turno.EstadoTurno;
 import edu.fiuba.algo3.modelo.Turno.ObservadorTurno;
@@ -81,6 +82,18 @@ public class ControladorJuego implements ObservadorTurno {
         if (nuevoEstado instanceof EstadoMoverLadron) {
             iniciarSecuenciaLadron();
         }
+        else if (nuevoEstado instanceof EstadoFinDeJuego) {
+            EstadoFinDeJuego estadoFin = (EstadoFinDeJuego) nuevoEstado;
+            manejarFinDeJuego(estadoFin.getGanador());
+        }
+    }
+
+    private void manejarFinDeJuego(Jugador ganador) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("¡Juego Terminado!");
+        alert.setHeaderText("¡Tenemos un Ganador!");
+        alert.setContentText("Felicitaciones " + ganador.getNombre() + ", has ganado Catan con " + ganador.getPuntosVictoria() + " puntos.");
+        alert.showAndWait();
     }
 
     public void iniciarSecuenciaLadron() {// tratar pasar a otra clase
