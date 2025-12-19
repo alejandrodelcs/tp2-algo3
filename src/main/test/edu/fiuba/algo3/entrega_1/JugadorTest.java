@@ -26,7 +26,9 @@ public class JugadorTest {
     public void setUp() {
         Inventario inventario = new Inventario(new Madera(), new Ladrillo(),
                 new Lana(), new Grano(), new Grano(), new Madera(), new Ladrillo());
-        minimoCiudad = new Inventario(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral());
+        minimoCiudad = new Inventario(new Madera(),
+                new Ladrillo(), new Lana(), new Grano(), new Grano(), new Grano(), new Mineral(), new Mineral(),
+                new Mineral());
         minimoPoblado = new Inventario(new Madera(),
                 new Ladrillo(), new Lana(), new Grano());
         jugador = new Jugador("Ale", inventario);
@@ -84,14 +86,14 @@ public class JugadorTest {
         tablero.agregarHexagono(hexaPiedra);
         tablero.agregarHexagono(hexaLana);
 
-
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexaPiedra);
         vertice.agregarHexagono(hexaLana);
 
         Jugador jugador = new Jugador("Alberto", minimoCiudad);
 
-        jugador.construir(new Ciudad(), vertice);
+        jugador.construir(new Poblado(), vertice);
+        jugador.mejorarConstruccionUbicadoEn(vertice);
 
         tablero.producirRecursosSegun(dado);
 

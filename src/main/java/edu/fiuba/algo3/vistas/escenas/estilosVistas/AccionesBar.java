@@ -144,7 +144,7 @@ public class AccionesBar extends VBox {
                         nuevaObra = new Poblado();
                         controlador.construir(nuevaObra, verticeModelo);
                     } else {
-                        verticeModelo.mejorar(jugador);
+                        jugador.mejorarConstruccionUbicadoEn(verticeModelo);
                     }
 
                     verticeVisual.actualizarVisualizacion();
