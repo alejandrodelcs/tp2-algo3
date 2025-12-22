@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.TestTablero;
 
 import edu.fiuba.algo3.modelo.Excepciones.NoExisteFichaError;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;

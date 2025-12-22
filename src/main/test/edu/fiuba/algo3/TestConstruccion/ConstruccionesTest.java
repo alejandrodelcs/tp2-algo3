@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.TestConstruccion;
 
 import java.util.ArrayList;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;

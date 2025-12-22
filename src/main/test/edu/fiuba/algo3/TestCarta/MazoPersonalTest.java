@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.entrega_2;
+package edu.fiuba.algo3.TestCarta;
 
 import org.junit.Test;
 import edu.fiuba.algo3.modelo.Carta.*;

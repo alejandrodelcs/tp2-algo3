@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.entrega_2;
+package edu.fiuba.algo3.TestComercio;
 
 import edu.fiuba.algo3.modelo.Comercio.*;
 import edu.fiuba.algo3.modelo.Excepciones.ComercioInvalido4a1;
