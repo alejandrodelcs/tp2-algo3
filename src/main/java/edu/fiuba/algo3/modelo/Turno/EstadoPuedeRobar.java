@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Dado.Dado;
+import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Hexagono;
@@ -34,7 +35,7 @@ public class EstadoPuedeRobar implements EstadoTurno {
     @Override
     public void construir(Turno turno, Jugador jugador, Construccion construccion,
             Object... ubicaciones) {
-
+        throw new AccionNoPermitidaException("Debes robar una carta antes de construir.");
     }
 
     @Override

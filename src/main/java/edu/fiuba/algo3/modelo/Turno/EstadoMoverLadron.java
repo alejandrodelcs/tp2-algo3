@@ -47,11 +47,7 @@ public class EstadoMoverLadron implements EstadoTurno {
 
     @Override
     public void pasarTurno(Turno turno, Jugador jugadorActivo, Juego juego) {
-        System.out.println(jugadorActivo.getNombre());
-        jugadorActivo.habilitarCartasDesarrollo();
-
-        juego.finalizarTurnoActual();
-        // turno.cambiarEstado(new EstadoInicial());
+        throw new AccionNoPermitidaException("No puedes pasar el turno, debes mover el ladrón.");
     }
 
 }
