@@ -12,6 +12,7 @@ import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Construccion.*;
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Excepciones.CartaNoDisponibleException;
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Recurso.*;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
@@ -93,7 +94,11 @@ public class Jugador {
     }
 
     public void descontarCon(Costo costo) {
-        costo.aplicar(this.inventario);
+        if (costo.puedePagar(this.inventario)) {
+            costo.aplicar(this.inventario);
+        } else {
+            throw new RecursosInsuficientesException("no hay recursos");
+        }
     }
 
     public void entregarTipos(Jugador otroJugador, List<Class<? extends Recurso>> solicitud) {
