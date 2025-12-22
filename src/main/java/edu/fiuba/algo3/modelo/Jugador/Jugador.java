@@ -169,7 +169,7 @@ public class Jugador {
     }
 
     public void restarPuntosVictoria(int puntos) {
-        this.caballerosJugados -= puntos;
+        this.puntosVictoria -= puntos;
     }
 
     public void finalizarTurno() {
