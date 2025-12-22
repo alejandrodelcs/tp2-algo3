@@ -9,11 +9,11 @@ import edu.fiuba.algo3.modelo.Carta.Carta;
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Carta.MazoPersonal;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
-import edu.fiuba.algo3.modelo.Construccion.*;
+import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Excepciones.CartaNoDisponibleException;
 import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
-import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Recurso.Recurso;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 

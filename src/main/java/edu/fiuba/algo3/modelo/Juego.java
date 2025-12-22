@@ -1,23 +1,22 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.fiuba.algo3.modelo.Carta.Carta;
 import edu.fiuba.algo3.modelo.Carta.Mazo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Excepciones.JugadoresMinimosRegistradosError;
-import edu.fiuba.algo3.modelo.Jugador.*;
-import edu.fiuba.algo3.modelo.Recurso.*;
+import edu.fiuba.algo3.modelo.Jugador.Inventario;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Recurso;
-import edu.fiuba.algo3.modelo.Tablero.*;
-import edu.fiuba.algo3.modelo.Turno.EstadoMoverLadron;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.Turno.EstadoPrimeraVuelta;
 import edu.fiuba.algo3.modelo.Turno.EstadoSegundaVuelta;
 import edu.fiuba.algo3.modelo.Turno.Turno;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Juego
@@ -168,7 +167,6 @@ public class Juego {
                 turnoActual = new Turno(jugadorActivo(), tablero, dado);
                 turnoActual.cambiarEstado(new EstadoSegundaVuelta());
                 return;
-                // mismo jugador juega la segunda vuelta
             }
 
             turnoActual = new Turno(jugadorActivo(), tablero, dado);
@@ -189,7 +187,7 @@ public class Juego {
         colocacionInicialActiva = false;
         direccion = 1;
 
-        finalizarTurnoActual(); // entra al ciclo normal (EstadoInicial)
+        finalizarTurnoActual();
     }
 
     public int cantidadJugadores() {

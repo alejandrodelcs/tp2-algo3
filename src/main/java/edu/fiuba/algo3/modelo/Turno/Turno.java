@@ -1,22 +1,17 @@
 package edu.fiuba.algo3.modelo.Turno;
 
-import edu.fiuba.algo3.modelo.Carta.CartaCaballero;
-import edu.fiuba.algo3.modelo.Carta.CartaConstruccionCarreteras;
-import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
-import edu.fiuba.algo3.modelo.Carta.CartaDescubrimiento;
-import edu.fiuba.algo3.modelo.Carta.CartaMonopolio;
-import edu.fiuba.algo3.modelo.Carta.CartaPuntoVictoria;
-import edu.fiuba.algo3.modelo.Construccion.Construccion;
-import edu.fiuba.algo3.modelo.Dado.Dado;
-import edu.fiuba.algo3.modelo.Comercio.Comercio;
-import edu.fiuba.algo3.modelo.Juego;
-import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Recurso.*;
-import edu.fiuba.algo3.modelo.Tablero.Hexagono;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.Comercio.Comercio;
+import edu.fiuba.algo3.modelo.Construccion.Construccion;
+import edu.fiuba.algo3.modelo.Dado.Dado;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Tablero.Hexagono;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 /**
  * 1.- Inicio Turno

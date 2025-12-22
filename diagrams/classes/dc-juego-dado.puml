@@ -29,11 +29,15 @@ class Juego{
   -tablero:Tablero
   -granCaballero:Jugador
   -granRutaComercial:Jugador
-  -turno:Turno
-  -indiceTurno
+  -turnoActual:Turno
+
+  -indiceJugadorActual:int
   -mazo:Mazo
   -numeroActualDado:int
+  -direccion:int
 
+  +Juego()
+  +Juego(jugadores:List<Jugador>)
   +crearJugadores(nombre:List<String>, avatares: List<String>)
   +validarJugadores()
   +recolectarRecursosDeTodosMenos(excluido:Jugador,tipo:Recurso):int

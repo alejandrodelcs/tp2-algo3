@@ -46,9 +46,9 @@ Class CartaPuntoVictoria {
 Class Mazo {
     -cartas:List<Carta>
     -costo:Costo
-    +inicializarMazo()
-    +entregarCarta:Carta
-    +comprarCarta(jugador:Jugador):Carta
+    + inicializarMazo()
+    + entregarCarta():Carta
+    + comprarCarta(jugador:Jugador):Carta
 
 }
 

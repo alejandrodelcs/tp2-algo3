@@ -1,0 +1,35 @@
+@startuml
+
+package Catan.controllers {
+}
+
+package Catan.modelo {
+}
+
+package Catan.vistas {
+}
+
+package JavaFX {
+}
+
+package Catan.test {
+}
+
+
+package Mockito {
+}
+
+package SimpleJson {
+}
+
+Catan.vistas .> JavaFX
+Catan.vistas <..> Catan.controllers
+Catan.vistas ..> Catan.modelo
+Catan.controllers .> Catan.modelo
+
+Catan.modelo .> SimpleJson
+Catan.modelo <.. Catan.test
+
+Mockito <. Catan.test
+
+@enduml

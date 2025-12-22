@@ -1,0 +1,47 @@
+@startuml
+top to bottom direction
+
+
+
+package "Modelo" {
+
+    package Turno
+    package Dado
+
+    package Jugador
+    package Carta
+    package Comercio
+
+    package Tablero
+    package Ladron
+
+    package Construccion
+    package Costo
+    package Recurso
+    package Excepciones
+
+    ' --- Turno ---
+    Turno .> Jugador
+    Turno ..> Tablero
+    Turno ..> Comercio
+    Turno <...> Dado
+
+    ' --- Jugador ---
+    Jugador ..> Carta
+    Jugador ..> Construccion
+    Jugador ..> Recurso
+    Jugador ..> Comercio
+
+    ' --- Tablero ---
+    Tablero ..> Construccion
+    Tablero ..> Recurso
+    Tablero <..> Ladron
+
+    ' --- Construcciones ---
+    Construccion ..> Costo
+    Costo ..> Recurso
+}
+
+
+
+@enduml
