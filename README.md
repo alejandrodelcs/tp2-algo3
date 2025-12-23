@@ -11,7 +11,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 * **Brizuela Natanael Daniel** - [nbrizuela](https://github.com/nbrizuela-fi)
 * **Alejandro Del Carpio Sanchez** - [alejandrodelcs](https://github.com/alejandrodelcs)
 * **Olmedo Ghio Jerónimo** - [jeroolmedo](https://github.com/jeroolmedo)
-* **Integrante 4** - [integrante4](https://github.com/integrante4)
+* **Domine Matias** - [MatiasDFFIUBA](https://github.com/MatiasDFFIUBA)
 
 Corrector: **Pablo Suárez**
 
