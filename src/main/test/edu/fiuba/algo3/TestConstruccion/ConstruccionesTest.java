@@ -21,7 +21,7 @@ public class ConstruccionesTest {
         Recurso terreno = new Ladrillo();
 
         Hexagono hexagono = new Hexagono(terreno, 1);
-        Construccion poblado = new Poblado();
+        Construccion poblado = new Poblado(new ReglaDistancia());
 
         Vertice vertice = new Vertice();
 
@@ -44,7 +44,7 @@ public class ConstruccionesTest {
         vertice.agregarHexagono(hexMadera);
         vertice.agregarHexagono(hexPiedra);
 
-        vertice.construir(new Poblado());
+        vertice.construir(new Poblado(new ReglaDistancia()));
 
         Inventario p = vertice.entregarRecursosIniciales();
 

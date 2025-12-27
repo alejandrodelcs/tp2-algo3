@@ -4,6 +4,9 @@ import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Construccion.Carretera;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
+import edu.fiuba.algo3.modelo.Construccion.ReglaAdyacencia;
+import edu.fiuba.algo3.modelo.Construccion.ReglaDistancia;
+import edu.fiuba.algo3.modelo.Construccion.ReglaDistanciaYAdyacencia;
 import edu.fiuba.algo3.modelo.Costo.ReglaCostoGratis;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Dado.Dado;
@@ -53,7 +56,8 @@ public class EstadoPrimeraVuelta implements EstadoTurno {
         if ((construccion instanceof Poblado) && !usoPoblado) {
 
             construccion.cambiarReglaCosto(new ReglaCostoGratis());
-            System.out.println(construccion.toString());
+            construccion.cambiarReglaConstruccion(new ReglaDistancia());
+
             jugador.construir(construccion, ubicaciones);
             this.usoPoblado = true;
         }

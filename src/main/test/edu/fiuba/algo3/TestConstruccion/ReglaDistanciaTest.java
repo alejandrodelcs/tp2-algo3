@@ -29,7 +29,7 @@ public class ReglaDistanciaTest {
     @BeforeEach
     public void setUp() {
         inventario = new Inventario(new Madera(),
-                new Ladrillo(), new Lana(), new Grano(),new Madera(),
+                new Ladrillo(), new Lana(), new Grano(), new Madera(),
                 new Ladrillo(), new Lana(), new Grano());
     }
 
@@ -51,8 +51,8 @@ public class ReglaDistanciaTest {
         Vertice primerVertice = new Vertice();
         Vertice segundoVertice = new Vertice();
         ConstruirAsentamiento c = new ConstruirAsentamiento(new ReglaDistancia());
-        Construccion pueblo = new Poblado();
-        Construccion pueblo2 = new Poblado();
+        Construccion pueblo = new Poblado(new ReglaDistancia());
+        Construccion pueblo2 = new Poblado(new ReglaDistancia());
         Arista arista = new Arista(primerVertice, segundoVertice);
 
         Jugador j = new Jugador("Ale", inventario);

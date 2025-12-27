@@ -3,6 +3,8 @@ package edu.fiuba.algo3.TestCarta;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import edu.fiuba.algo3.modelo.Carta.CartaConstruccionCarreteras;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
+import edu.fiuba.algo3.modelo.Construccion.ReglaAdyacencia;
+import edu.fiuba.algo3.modelo.Construccion.ReglaDistancia;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
@@ -16,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 public class CartaConstruccionDosCarreterasFreeTest {
     @Test
-    public void test01test01ElJugadorUsaCartaConstruccionCarreterasYColocaDosCarreterasGratis(){
+    public void test01test01ElJugadorUsaCartaConstruccionCarreterasYColocaDosCarreterasGratis() {
         Jugador jugador = new Jugador("Axel", new Inventario(new Madera(), new Ladrillo(), new Lana(), new Grano()));
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
@@ -26,7 +28,7 @@ public class CartaConstruccionDosCarreterasFreeTest {
         Arista a2 = new Arista(v2, v3);
 
         Tablero tablero = new Tablero();
-        Poblado p = new Poblado();
+        Poblado p = new Poblado(new ReglaDistancia());
 
         jugador.construir(p, v1);
 

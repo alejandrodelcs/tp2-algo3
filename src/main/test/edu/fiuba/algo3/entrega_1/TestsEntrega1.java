@@ -48,15 +48,15 @@ public class TestsEntrega1 {
         Vertice primerVertice = new Vertice();
         Vertice segundoVertice = new Vertice();
         ConstruirAsentamiento c = new ConstruirAsentamiento(new ReglaDistancia());
-        Construccion pueblo = new Poblado();
-        Construccion pueblo2 = new Poblado();
+        Construccion pueblo = new Poblado(new ReglaDistancia());
+        Construccion pueblo2 = new Poblado(new ReglaDistancia());
         Arista arista = new Arista(primerVertice, segundoVertice);
 
         Jugador j = new Jugador("Ale", inventario3);
-        c.construir(pueblo,j , primerVertice);
+        c.construir(pueblo, j, primerVertice);
 
         assertThrows(ReglaDistanciaException.class, () -> {
-            c.construir(pueblo2,j , segundoVertice);
+            c.construir(pueblo2, j, segundoVertice);
         });
     }
 
@@ -70,7 +70,7 @@ public class TestsEntrega1 {
         vertice.agregarHexagono(hexMadera);
         vertice.agregarHexagono(hexPiedra);
 
-        vertice.construir(new Poblado());
+        vertice.construir(new Poblado(new ReglaDistancia()));
 
         Inventario i = vertice.entregarRecursosIniciales();
 
@@ -94,7 +94,7 @@ public class TestsEntrega1 {
 
         Vertice verticePoblado = new Vertice();
         verticePoblado.agregarHexagono(hexBosque);
-        verticePoblado.construir(new Poblado());
+        verticePoblado.construir(new Poblado(new ReglaDistancia()));
 
         Vertice verticeCiudad = new Vertice();
         verticeCiudad.agregarHexagono(hexBosque);
@@ -117,7 +117,7 @@ public class TestsEntrega1 {
 
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexTrigo);
-        vertice.construir(new Poblado());
+        vertice.construir(new Poblado(new ReglaDistancia()));
 
         hexTrigo.colocarLadron(new Ladron(new Hexagono(new Desierto(), -1)));
 

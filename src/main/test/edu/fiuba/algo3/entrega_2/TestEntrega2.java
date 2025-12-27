@@ -17,21 +17,20 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
 public class TestEntrega2 {
 
     @Test
-    public void test01VerificarElConsumoDeRecursosYLaCorrectaColocacionDeUnaCarretera(){
+    public void test01VerificarElConsumoDeRecursosYLaCorrectaColocacionDeUnaCarretera() {
 
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Ladrillo(), new Lana(), new Grano(),
-                        new Madera(), new Ladrillo()));
+                new Madera(), new Ladrillo()));
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
 
-        Arista a = new Arista(v1,v2);
+        Arista a = new Arista(v1, v2);
 
-        jugador.construir(new Poblado(), v1);
+        jugador.construir(new Poblado(new ReglaDistancia()), v1);
 
         jugador.construir(new Carretera(new ReglaCostoConstruccion()), a);
 
@@ -42,28 +41,27 @@ public class TestEntrega2 {
     @Test
     public void test02ConstruirPobladoConsumeRecursosYValidaDistancia() {
         Jugador jugador = new Jugador("Builder", new Inventario(new Madera(), new Ladrillo(),
-                            new Grano(), new Lana(), new Madera(), new Ladrillo(),new Grano(), new Lana()));
+                new Grano(), new Lana(), new Madera(), new Ladrillo(), new Grano(), new Lana()));
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
-        Arista a = new Arista(v1,v2);
+        Arista a = new Arista(v1, v2);
 
-        jugador.construir(new Poblado(), v1);
+        jugador.construir(new Poblado(new ReglaDistancia()), v1);
 
         assertThrows(ReglaDistanciaException.class, () -> {
-            jugador.construir(new Poblado(), v2);
+            jugador.construir(new Poblado(new ReglaDistancia()), v2);
         });
     }
 
     @Test
     public void test03MejorarPobladoACiudadConsumeRecursosYAumentaPV() {
         Jugador jugador = new Jugador("Alcalde", new Inventario(new Mineral(), new Mineral(), new Mineral(),
-                                                                        new Grano(), new Grano(), new Grano(),
-                                                                        new Ladrillo(),new Madera(), new Lana()));
+                new Grano(), new Grano(), new Grano(),
+                new Ladrillo(), new Madera(), new Lana()));
         Vertice vertice = new Vertice();
 
-
-        jugador.construir(new Poblado(), vertice);
+        jugador.construir(new Poblado(new ReglaDistancia()), vertice);
 
         assertEquals(1, vertice.puntoVictoria());
 
@@ -74,7 +72,7 @@ public class TestEntrega2 {
         assertEquals(2, vertice.puntoVictoria());
     }
 
-   @Test
+    @Test
     public void test04ComprarCartaDesarrolloConsumeRecursosYVaAManoOculta() {
         Jugador jugador = new Jugador("Estratega", new Inventario(new Lana(), new Grano(), new Mineral()));
         Mazo mazo = new Mazo();
@@ -98,7 +96,7 @@ public class TestEntrega2 {
     @Test
     public void noSePuedeConstruirCarreteraQueNoSeaAdyacenteALaRed() {
         Jugador jugador = new Jugador("Ale", new Inventario(new Madera(), new Madera(), new Ladrillo(), new Ladrillo(),
-                                        new Madera(), new Ladrillo(),new Lana(), new Grano()));
+                new Madera(), new Ladrillo(), new Lana(), new Grano()));
 
         Vertice v1 = new Vertice();
         Vertice v2 = new Vertice();
@@ -108,27 +106,25 @@ public class TestEntrega2 {
         Arista aristaDondeSePuede = new Arista(v1, v2);
         Arista aristaLejana = new Arista(v3, v4);
 
-        jugador.construir( new Poblado(), v1);
+        jugador.construir(new Poblado(new ReglaDistancia()), v1);
 
-        jugador.construir(new Carretera(new ReglaCostoConstruccion()),aristaDondeSePuede, v1,v2);
+        jugador.construir(new Carretera(new ReglaCostoConstruccion()), aristaDondeSePuede, v1, v2);
 
         assertThrows(NoSePuedeConstruirCarreteraError.class,
                 () -> jugador.construir(new Carretera(new ReglaCostoConstruccion()),
-                        aristaLejana,v3,v4));
+                        aristaLejana, v3, v4));
     }
-
 
     @Test
     public void test07cuandoSaleNumeroJugadorRecibeUnRecursoPorPoblado() {
         Tablero tablero = new Tablero();
         Jugador jugador = new Jugador("Juan", new Inventario(
-            new Madera(), 
-            new Ladrillo(), 
-            new Lana(), 
-            new Grano()
-        ));
+                new Madera(),
+                new Ladrillo(),
+                new Lana(),
+                new Grano()));
 
-        Poblado p = new Poblado();
+        Poblado p = new Poblado(new ReglaDistancia());
 
         Hexagono hexagono = new Hexagono(new Madera(), 6);
         tablero.agregarHexagono(hexagono);

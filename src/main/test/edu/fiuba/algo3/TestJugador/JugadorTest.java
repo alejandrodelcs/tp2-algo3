@@ -51,7 +51,7 @@ public class JugadorTest {
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexMadera);
 
-        jugador.construir(new Poblado(), vertice);
+        jugador.construir(new Poblado(new ReglaDistancia()), vertice);
 
         assertEquals(1, jugador.cantidadConstrucciones());
 
@@ -67,7 +67,7 @@ public class JugadorTest {
         Vertice vertice = new Vertice();
         vertice.agregarHexagono(hexMadera);
 
-        jugador.construir(new Poblado(), vertice);
+        jugador.construir(new Poblado(new ReglaDistancia()), vertice);
 
         for (int i = 0; i < 10; i++) {
             tablero.producirRecursosSegun(6);
@@ -92,7 +92,7 @@ public class JugadorTest {
 
         Jugador jugador = new Jugador("Alberto", minimoCiudad);
 
-        jugador.construir(new Poblado(), vertice);
+        jugador.construir(new Poblado(new ReglaDistancia()), vertice);
         jugador.mejorarConstruccionUbicadoEn(vertice);
 
         tablero.producirRecursosSegun(dado);
@@ -122,7 +122,7 @@ public class JugadorTest {
         vertice.agregarHexagono(hexaPiedra);
         vertice.agregarHexagono(hexaLana);
 
-        jugador.construir(new Poblado(), vertice);
+        jugador.construir(new Poblado(new ReglaDistancia()), vertice);
 
         for (int i = 0; i < 3; i++) {
             tablero.producirRecursosSegun(dado1);

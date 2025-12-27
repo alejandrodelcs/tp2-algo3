@@ -17,4 +17,9 @@ public class ConstruirCarretera implements Construible {
         reglaConstruccion.validar(jugador, arista);
         arista.colocarCarretera((Carretera) construccion);
     }
+
+    @Override
+    public void setRegla(ReglaConstruccion regla) {
+        this.reglaConstruccion = regla;
+    }
 }

@@ -2,6 +2,8 @@ package edu.fiuba.algo3.TestCarta;
 
 import edu.fiuba.algo3.modelo.Carta.CartaCaballero;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
+import edu.fiuba.algo3.modelo.Construccion.ReglaAdyacencia;
+import edu.fiuba.algo3.modelo.Construccion.ReglaDistancia;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -35,7 +37,8 @@ public class CartaCaballeroTest {
                 new Inventario(new Madera(), new Grano()));
 
         jugadorVictima = new Jugador("B",
-                new Inventario(new Ladrillo(), new Lana(), new Madera(), new Grano(), new Madera(), new Grano(), new Ladrillo()));
+                new Inventario(new Ladrillo(), new Lana(), new Madera(), new Grano(), new Madera(), new Grano(),
+                        new Ladrillo()));
         ArrayList<Jugador> jugadores = new ArrayList<>();
         jugadores.add(jugadorActivo);
         jugadores.add(jugadorVictima);
@@ -49,7 +52,7 @@ public class CartaCaballeroTest {
     public void test01ElJugadorUsarCartaCaballeroDeberiaPoderMoverLadronYRobarRecurso() {
         Hexagono origen = new Hexagono(new Desierto(), -1);
         Hexagono destino = new Hexagono(new Desierto(), 6);
-        Poblado poblado = new Poblado();
+        Poblado poblado = new Poblado(new ReglaDistancia());
 
         tablero.agregarHexagono(destino);
         tablero.agregarHexagono(origen);

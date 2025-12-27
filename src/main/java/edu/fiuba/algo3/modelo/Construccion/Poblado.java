@@ -13,19 +13,18 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 public class Poblado extends Construccion {
 
     @Override
-    public String getNombre(){
+    public String getNombre() {
         return "poblado";
     }
 
-    public Poblado(){
-        super(new ConstruirAsentamiento(new ReglaDistancia()), new ReglaCostoConstruccion());
-        this.costo = new Costo(Madera.class, Ladrillo.class,Lana.class, Grano.class);
+    public Poblado(ReglaConstruccion regla) {
+        super(new ConstruirAsentamiento(regla), new ReglaCostoConstruccion());
+        this.costo = new Costo(Madera.class, Ladrillo.class, Lana.class, Grano.class);
     }
 
     public int getPuntosDeVictoria() {
         return 1;
     }
-
 
     @Override
     public void producirSegun(Recurso recurso) {
@@ -36,6 +35,5 @@ public class Poblado extends Construccion {
     public Construccion mejorar() {
         return new Ciudad();
     }
-
 
 }

@@ -33,6 +33,11 @@ public abstract class Construccion {
         this.reglaCosto = nuevaRegla;
     }
 
+    public void cambiarReglaConstruccion(ReglaConstruccion regla) {
+
+        this.construible.setRegla(regla);
+    }
+
     public void pagarCon(Inventario inventario) {
         costo.aplicar(inventario);
     }
@@ -87,6 +92,7 @@ public abstract class Construccion {
         }
 
         construible.construir(this, propietario, ubicaciones);
+
         reglaCosto.aplicarSobre(propietario, this);
     }
 

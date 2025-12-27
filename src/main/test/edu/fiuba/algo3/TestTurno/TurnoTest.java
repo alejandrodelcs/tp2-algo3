@@ -52,17 +52,11 @@ public class TurnoTest {
 
     @Test
     public void test01EstadoInicialNoPermiteConstruirNiPasarSinTirarDados() {
-        assertThrows(AccionNoPermitidaException.class, () -> 
-            turno.construir(mock(Poblado.class), mock(Vertice.class))
-        );
+        assertThrows(AccionNoPermitidaException.class, () -> turno.construir(mock(Poblado.class), mock(Vertice.class)));
 
-        assertThrows(AccionNoPermitidaException.class, () -> 
-            turno.pasarTurno(juegoMock)
-        );
+        assertThrows(AccionNoPermitidaException.class, () -> turno.pasarTurno(juegoMock));
 
-        assertThrows(AccionNoPermitidaException.class, () -> 
-            turno.moverLadronA(mock(Hexagono.class))
-        );
+        assertThrows(AccionNoPermitidaException.class, () -> turno.moverLadronA(mock(Hexagono.class)));
     }
 
     @Test
@@ -72,7 +66,7 @@ public class TurnoTest {
         turno.tirarDado(juegoMock);
 
         assertDoesNotThrow(() -> turno.pasarTurno(juegoMock));
-        
+
         verify(juegoMock).resolverTirada(5);
     }
 
@@ -84,7 +78,7 @@ public class TurnoTest {
         verify(juegoMock).numeroDado(7);
 
         assertThrows(AccionNoPermitidaException.class, () -> turno.pasarTurno(juegoMock));
-        
+
         Hexagono destino = mock(Hexagono.class);
         turno.moverLadronA(destino);
         verify(tableroMock).moverLadronA(destino);
@@ -104,9 +98,7 @@ public class TurnoTest {
         when(dadoMock.lanzar()).thenReturn(4);
         turno.tirarDado(juegoMock);
 
-        assertThrows(AccionNoPermitidaException.class, () -> 
-            turno.tirarDado(juegoMock)
-        );
+        assertThrows(AccionNoPermitidaException.class, () -> turno.tirarDado(juegoMock));
     }
 
     @Test
@@ -132,7 +124,7 @@ public class TurnoTest {
         assertThrows(AccionNoPermitidaException.class, () -> turno.tirarDado(juegoMock));
         assertThrows(AccionNoPermitidaException.class, () -> turno.pasarTurno(juegoMock));
         assertThrows(AccionNoPermitidaException.class, () -> turno.construir(mock(Poblado.class)));
-        
+
         try {
             turno.pasarTurno(juegoMock);
         } catch (AccionNoPermitidaException e) {
@@ -144,7 +136,7 @@ public class TurnoTest {
     public void test07SegundaVueltaEntregaRecursosDelPoblado() {
         turno.cambiarEstado(new EstadoSegundaVuelta());
 
-        Poblado poblado = new Poblado();
+        Poblado poblado = new Poblado(new ReglaDistancia());
         Vertice verticeMock = mock(Vertice.class);
 
         turno.construir(poblado, verticeMock);
@@ -156,20 +148,19 @@ public class TurnoTest {
     @Test
     public void test08PrimeraVueltaConstruyeGratisPeroNoDaRecursos() {
         turno.cambiarEstado(new EstadoPrimeraVuelta());
-        
-        Poblado poblado = new Poblado();
+
+        Poblado poblado = new Poblado(new ReglaDistancia());
         Vertice verticeMock = mock(Vertice.class);
-        
+
         turno.construir(poblado, verticeMock);
-        
+
         verify(jugadorMock).construir(eq(poblado), eq(verticeMock));
         verify(jugadorMock, never()).entregaInicial(any());
     }
 
-
     @Test
     public void test09PrimeraVueltaPermiteConstruirAUnJugadorGratisUnPobladoYUnaCarretera() {
-        Construccion poblado = new Poblado();
+        Construccion poblado = new Poblado(new ReglaDistancia());
         Vertice vertice = new Vertice();
         Construccion carretera = new Carretera(new ReglaCostoConstruccion());
         Arista arista = new Arista(vertice, vertice);
@@ -178,7 +169,7 @@ public class TurnoTest {
 
         turno.construir(poblado, vertice);
         turno.construir(carretera, arista);
-        
+
         verify(jugadorMock, times(1)).construir(eq(poblado), eq(vertice));
         verify(jugadorMock, times(1)).construir(eq(carretera), eq(arista));
     }
@@ -200,6 +191,6 @@ public class TurnoTest {
         Turno turno = new Turno(jugadorMock, tableroMock, mock(Dado.class));
         Vertice v = new Vertice();
 
-        assertThrows(AccionNoPermitidaException.class, () -> turno.construir(new Poblado(), v));
+        assertThrows(AccionNoPermitidaException.class, () -> turno.construir(new Poblado(new ReglaDistancia()), v));
     }
 }
