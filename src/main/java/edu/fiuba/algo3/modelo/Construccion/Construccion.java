@@ -33,9 +33,9 @@ public abstract class Construccion {
         this.reglaCosto = nuevaRegla;
     }
 
-    public void cambiarReglaConstruccion(ReglaConstruccion regla) {
+    public void cambiarReglaConstruccion(ReglaConstruccion... regla) {
 
-        this.construible.setRegla(regla);
+        this.construible.setRegla(List.of(regla));
     }
 
     public void pagarCon(Inventario inventario) {

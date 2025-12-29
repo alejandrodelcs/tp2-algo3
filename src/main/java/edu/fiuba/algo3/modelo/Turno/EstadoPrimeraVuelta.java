@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Construccion.Poblado;
 import edu.fiuba.algo3.modelo.Construccion.ReglaAdyacencia;
 import edu.fiuba.algo3.modelo.Construccion.ReglaDistancia;
-import edu.fiuba.algo3.modelo.Construccion.ReglaDistanciaYAdyacencia;
 import edu.fiuba.algo3.modelo.Costo.ReglaCostoGratis;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
 import edu.fiuba.algo3.modelo.Dado.Dado;

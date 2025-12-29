@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
+import java.util.List;
+
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Arista;
 
@@ -19,7 +21,6 @@ public class ConstruirCarretera implements Construible {
     }
 
     @Override
-    public void setRegla(ReglaConstruccion regla) {
-        this.reglaConstruccion = regla;
+    public void setRegla(List<ReglaConstruccion> regla) {
     }
 }

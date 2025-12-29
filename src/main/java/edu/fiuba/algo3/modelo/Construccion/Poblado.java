@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Costo.ReglaCosto;
@@ -17,8 +18,8 @@ public class Poblado extends Construccion {
         return "poblado";
     }
 
-    public Poblado(ReglaConstruccion regla) {
-        super(new ConstruirAsentamiento(regla), new ReglaCostoConstruccion());
+    public Poblado(ReglaConstruccion... regla) {
+        super(new ConstruirAsentamiento(List.of(regla)), new ReglaCostoConstruccion());
         this.costo = new Costo(Madera.class, Ladrillo.class, Lana.class, Grano.class);
     }
 

@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Arista
  */
-public class Arista {
+public class Arista implements Ubicacion {
     private final Vertice primerVertice;
     private final Vertice segundoVertice;
     private Carretera carretera;
@@ -101,5 +101,10 @@ public class Arista {
             return Optional.empty();
         }
         return Optional.ofNullable(this.carretera.getPropietario());
+    }
+
+    public boolean consultarConexion(Jugador jugador) {
+
+        return this.consultarConexionCon(jugador);
     }
 }

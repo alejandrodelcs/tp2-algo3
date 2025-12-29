@@ -1,14 +1,18 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Tablero.Vertice;
 
 public class ConstruirAsentamiento implements Construible {
 
-    ReglaConstruccion reglaConstruccion;
+    private List<ReglaConstruccion> reglasConstruccion;
 
-    public ConstruirAsentamiento(ReglaConstruccion reglaConstruccion) {
-        this.reglaConstruccion = reglaConstruccion;
+    public ConstruirAsentamiento(List<ReglaConstruccion> reglaConstruccion) {
+        this.reglasConstruccion = new ArrayList<>();
+        this.reglasConstruccion.addAll(reglaConstruccion);
     }
 
     @Override
@@ -17,8 +21,7 @@ public class ConstruirAsentamiento implements Construible {
         Vertice vertice = (Vertice) ubicaciones[0];
         if ((construccion instanceof Poblado)) {
 
-            System.out.println("\n-----> hola");
-            reglaConstruccion.validar(jugador, ubicaciones);
+            this.validar(jugador, ubicaciones);
 
             vertice.construir(construccion);
         } else {
@@ -27,8 +30,14 @@ public class ConstruirAsentamiento implements Construible {
 
     }
 
+    private void validar(Jugador jug, Object... ubicaciones) {
+        for (ReglaConstruccion regla : this.reglasConstruccion) {
+            regla.validar(jug, ubicaciones);
+        }
+    }
+
     @Override
-    public void setRegla(ReglaConstruccion regla) {
-        this.reglaConstruccion = regla;
+    public void setRegla(List<ReglaConstruccion> regla) {
+        this.reglasConstruccion = regla;
     }
 }

@@ -11,7 +11,7 @@ import edu.fiuba.algo3.modelo.Recurso.*;
 /**
  * Vertice
  */
-public class Vertice {
+public class Vertice implements Ubicacion {
     private Construccion construccion;
     private final ArrayList<Arista> aristas;
     private final ArrayList<Hexagono> hexagonos;
@@ -130,5 +130,10 @@ public class Vertice {
         if (!tieneConstruccion())
             return;
         construccion.producirSegun(recurso);
+    }
+
+    public boolean consultarConexion(Jugador jugador) {
+
+        return this.tieneCarreteraDel(jugador);
     }
 }

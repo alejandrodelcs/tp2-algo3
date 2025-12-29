@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Construccion;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Costo.ReglaCostoConstruccion;
 import edu.fiuba.algo3.modelo.Recurso.Grano;
@@ -10,7 +11,7 @@ import edu.fiuba.algo3.modelo.Recurso.Recurso;
 public class Ciudad extends Construccion {
 
     public Ciudad() {
-        super(new ConstruirAsentamiento(new ReglaDistancia()), new ReglaCostoConstruccion());
+        super(new ConstruirAsentamiento(List.of(new ReglaDistancia())), new ReglaCostoConstruccion());
         this.costo = new Costo(Grano.class, Grano.class, Mineral.class, Mineral.class, Mineral.class);
         System.out.println("cuidad cerada");
     }

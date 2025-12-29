@@ -141,7 +141,7 @@ public class AccionesBar extends VBox {
                     Vertice verticeModelo = verticeVisual.getVerticeModelo();
 
                     if (nombreElegido.equals("Poblado")) {
-                        nuevaObra = new Poblado(new ReglaDistanciaYAdyacencia());
+                        nuevaObra = new Poblado(new ReglaAdyacencia(), new ReglaDistancia());
                         controlador.construir(nuevaObra, verticeModelo);
                     } else {
                         jugador.mejorarConstruccionUbicadoEn(verticeModelo);
