@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import edu.fiuba.algo3.modelo.Costo.ReglaCostoConstruccion;
 import edu.fiuba.algo3.modelo.Jugador.Inventario;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -50,7 +52,7 @@ public class ReglaDistanciaTest {
 
         Vertice primerVertice = new Vertice();
         Vertice segundoVertice = new Vertice();
-        ConstruirAsentamiento c = new ConstruirAsentamiento(new ReglaDistancia());
+        ConstruirAsentamiento c = new ConstruirAsentamiento(List.of(new ReglaDistancia()));
         Construccion pueblo = new Poblado(new ReglaDistancia());
         Construccion pueblo2 = new Poblado(new ReglaDistancia());
         Arista arista = new Arista(primerVertice, segundoVertice);

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.Dado.Dado;
 import edu.fiuba.algo3.modelo.Excepciones.ReglaDistanciaException;
@@ -47,7 +48,7 @@ public class TestsEntrega1 {
     public void test02NoSePuedeConstruirEnUnVerticeConVecinosConstruidos() {
         Vertice primerVertice = new Vertice();
         Vertice segundoVertice = new Vertice();
-        ConstruirAsentamiento c = new ConstruirAsentamiento(new ReglaDistancia());
+        ConstruirAsentamiento c = new ConstruirAsentamiento(List.of(new ReglaDistancia()));
         Construccion pueblo = new Poblado(new ReglaDistancia());
         Construccion pueblo2 = new Poblado(new ReglaDistancia());
         Arista arista = new Arista(primerVertice, segundoVertice);
