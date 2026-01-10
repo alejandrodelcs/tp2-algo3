@@ -81,8 +81,7 @@ public class ControladorJuego implements ObservadorTurno {
     public void onEstadoCambio(EstadoTurno nuevoEstado) {
         if (nuevoEstado instanceof EstadoMoverLadron) {
             iniciarSecuenciaLadron();
-        }
-        else if (nuevoEstado instanceof EstadoFinDeJuego) {
+        } else if (nuevoEstado instanceof EstadoFinDeJuego) {
             EstadoFinDeJuego estadoFin = (EstadoFinDeJuego) nuevoEstado;
             manejarFinDeJuego(estadoFin.getGanador());
         }
@@ -92,7 +91,8 @@ public class ControladorJuego implements ObservadorTurno {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("¡Juego Terminado!");
         alert.setHeaderText("¡Tenemos un Ganador!");
-        alert.setContentText("Felicitaciones " + ganador.getNombre() + ", has ganado Catan con " + ganador.getPuntosVictoria() + " puntos.");
+        alert.setContentText("Felicitaciones " + ganador.getNombre() + ", has ganado Catan con "
+                + ganador.getPuntosVictoria() + " puntos.");
         alert.showAndWait();
     }
 
@@ -183,12 +183,13 @@ public class ControladorJuego implements ObservadorTurno {
             this.juego.turnoActual().agregarObservador(this);
 
             escenaJuego.actualizarVista();
+            juego.actualizarGranRutaComercial();
 
             // mostrarAlerta("Cambio de Turno", "Ahora es el turno de: " +
             // juego.getJugadorActivo().getNombre());
 
         } catch (Exception e) {
-            mostrarAlerta("Error", "hay que tirar el dado ");
+            mostrarAlerta("Error", "hay que tirar el dado :D");
         }
     }
 

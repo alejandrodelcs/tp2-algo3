@@ -72,4 +72,14 @@ public class MazoPersonal {
         }
     }
 
+    public int granCartas(int cant) {
+        for (Carta carta : this.cartas) {
+            if ((carta instanceof CartaGranComercio) || (carta instanceof CartaGranCaballero)) {
+                cant += 1;
+
+            }
+        }
+        return cant;
+    }
+
 }

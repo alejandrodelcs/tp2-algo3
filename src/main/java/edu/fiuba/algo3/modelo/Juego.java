@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.Carta.Carta;
+import edu.fiuba.algo3.modelo.Carta.CartaGranComercio;
 import edu.fiuba.algo3.modelo.Carta.Mazo;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Dado.Dado;
@@ -28,7 +29,7 @@ public class Juego {
     private final ArrayList<Jugador> jugadores;
     private final Tablero tablero;
     private Jugador granCaballeria;
-    private Jugador granRutaComercial;
+    private Jugador jugConGranRutaComercial;
     private Turno turnoActual;
     private final Mazo mazo;
     private final Dado dado;
@@ -113,22 +114,35 @@ public class Juego {
         }
     }
 
-    public void actualizarGranRutaComercial(Jugador jugador) {
+    public void actualizarGranRutaComercial() {
 
-        int longitud = tablero.calcularLaRutaMasLarga(jugador);
+        int cantCarreteras;
 
-        if (longitud < 5)
-            return;
+        if (jugConGranRutaComercial != null) {
 
-        if (granRutaComercial == null ||
-                longitud > tablero.calcularLaRutaMasLarga(granRutaComercial)) {
+            cantCarreteras = jugConGranRutaComercial.cantidadDeCarreteras();
+        } else {
+            cantCarreteras = 5;
+        }
 
-            if (granRutaComercial != null) {
-                granRutaComercial.restarPuntosVictoria(2);
+        for (Jugador jugador : jugadores) {
+
+            if (cantCarreteras < jugador.cantidadDeCarreteras() && jugConGranRutaComercial != null) {
+
+                System.out.println("holi->" + jugador.cantidadDeCarreteras() + "---- " + cantCarreteras);
+                this.jugConGranRutaComercial.entregarGranCarta(jugador, new CartaGranComercio());
+
+                this.jugConGranRutaComercial = jugador;
+                cantCarreteras = jugConGranRutaComercial.cantidadDeCarreteras();
+
+            } else if (cantCarreteras < jugador.cantidadDeCarreteras() && jugConGranRutaComercial == null) {
+                jugador.compraCartaDesarrollo(new CartaGranComercio());
+
+                this.jugConGranRutaComercial = jugador;
+
+                cantCarreteras = jugConGranRutaComercial.cantidadDeCarreteras();
             }
 
-            granRutaComercial = jugador;
-            jugador.sumarPuntoVictoria(2);
         }
     }
 

@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.Carta.Carta;
 import edu.fiuba.algo3.modelo.Carta.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.Carta.MazoPersonal;
 import edu.fiuba.algo3.modelo.Comercio.Comercio;
+import edu.fiuba.algo3.modelo.Construccion.Carretera;
 import edu.fiuba.algo3.modelo.Construccion.Construccion;
 import edu.fiuba.algo3.modelo.Costo.Costo;
 import edu.fiuba.algo3.modelo.Excepciones.CartaNoDisponibleException;
@@ -170,6 +171,8 @@ public class Jugador {
             cantidad += construccion.getPuntosDeVictoria();
 
         }
+        cantidad = this.cartasDesarrollo.granCartas(cantidad);
+
         return cantidad;
     }
 
@@ -222,5 +225,28 @@ public class Jugador {
     public void entregaInicial(Vertice vertice) {
         this.inventario = vertice.entregarRecursosIniciales();
 
+    }
+
+    public int cantidadDeCarreteras() {
+        int cantidad = 0;
+
+        for (Construccion construccion : this.construcciones) {
+
+            if (construccion instanceof Carretera) {
+
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
+    public void entregarGranCarta(Jugador jug, Carta carta) {
+
+        if (this.cartasDesarrollo.cantidadDeTipo(carta) != 0) {
+            System.out.println("holi->");
+
+            this.cartasDesarrollo.consumir(carta);
+        }
+        jug.compraCartaDesarrollo(carta);
     }
 }

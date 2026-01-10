@@ -189,18 +189,6 @@ public class Tablero {
         return TERRENOS;
     }
 
-    public int calcularLaRutaMasLarga(Jugador jugador) {
-        Set<Arista> todas = new HashSet<>();
-
-        for (Hexagono h : hexagonos) {
-            for (Vertice v : h.getVertices()) {
-                todas.addAll(v.getAristas());
-            }
-        }
-
-        return new ArrayList<>(todas).size();
-    }
-
     public void producirRecursosSegun(int numDado) {
         for (Hexagono h : hexagonos) {
             h.producirSegunCorresponde(numDado);
